@@ -39,10 +39,19 @@
       txt.forEach(function(t,k){t.classList.toggle("on",k===i);t.setAttribute("aria-hidden",k!==i);});
       btns.forEach(function(b,k){b.classList.remove("on");b.classList.toggle("done",k<i);b.setAttribute("aria-current",k===i?"true":"false");void b.offsetWidth;if(k===i)b.classList.add("on");});
     }
-    function play(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){show(i+1);},DUR); }
+    var pauseBtn=h.querySelector(".pause"), paused=reduce, hold=false;
+    var L=d.documentElement.lang.indexOf("nl")===0;
+    function stop(){clearInterval(timer);timer=null;h.classList.add("is-paused");}
+    function play(){ clearInterval(timer); timer=null; if(paused||hold||d.hidden){h.classList.add("is-paused");return;} h.classList.remove("is-paused"); timer=setInterval(function(){show(i+1);},DUR); }
+    function setPaused(v){paused=v; if(pauseBtn){pauseBtn.setAttribute("aria-pressed",v);pauseBtn.innerHTML=v?ICON_PLAY:ICON_PAUSE;pauseBtn.setAttribute("aria-label",v?(L?"Diavoorstelling afspelen":"Relancer le diaporama"):(L?"Diavoorstelling pauzeren":"Mettre le diaporama en pause"));} if(v)stop(); else {show(i);play();}}
+    var ICON_PAUSE=pauseBtn?pauseBtn.innerHTML:"", ICON_PLAY='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 4 13 8-13 8z"/></svg>';
+    if(pauseBtn)pauseBtn.addEventListener("click",function(){setPaused(!paused);});
     btns.forEach(function(b,k){b.addEventListener("click",function(){show(k);play();});});
-    d.addEventListener("visibilitychange",function(){ if(d.hidden) clearInterval(timer); else play(); });
-    show(0); play();
+    /* arrêt au survol et quand le focus clavier est dans le héros */
+    h.addEventListener("mouseenter",function(){hold=true;stop();}); h.addEventListener("mouseleave",function(){hold=false;play();});
+    h.addEventListener("focusin",function(){hold=true;stop();}); h.addEventListener("focusout",function(e){if(!h.contains(e.relatedTarget)){hold=false;play();}});
+    d.addEventListener("visibilitychange",function(){ if(d.hidden) stop(); else play(); });
+    show(0); if(reduce)setPaused(true); else play();
   });
 
   /* ---------- Apparition discrète ---------- */
