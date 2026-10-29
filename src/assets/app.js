@@ -207,6 +207,7 @@
       var p=vert?(vh*.72-r.top)/r.height:(vh*.82-r.top)/(vh*.42);
       p=Math.max(0,Math.min(1,p)); if(reduce) p=r.top<vh?1:0;
       st.style.setProperty("--f",p.toFixed(3));
+      var pw=st.parentNode; if(pw.classList.contains("steps-wrap")){pw.style.setProperty("--f",p.toFixed(3));pw.classList.toggle("flow",p>=.985);}
       for(var i=0;i<n;i++) lis[i].classList.toggle("lit",p>=(n>1?i/(n-1):0)-.02&&p>0);
     });
     if(spipe){var m=d.documentElement.scrollHeight-vh; spipe.style.setProperty("--p",m>0?(w.scrollY/m).toFixed(3):0);}

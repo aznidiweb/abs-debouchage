@@ -717,6 +717,78 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 @media(min-width:521px) and (max-width:900px){.steps::after{display:none}}
 @media(max-width:520px){.steps::before{display:block}}
 
+/* ===== Tuyau réaliste des étapes (remplace la ligne) ===== */
+.steps-wrap{position:relative;padding-right:56px;padding-bottom:70px}
+.steps-wrap .steps{position:relative;z-index:1}
+.steps-wrap .steps::before,.steps-wrap .steps::after{display:none!important}
+.spw{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* tube transparent */
+.spw-run,.spw-down{position:absolute;border-radius:12px;overflow:hidden;
+ background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(226,232,240,.75) 30%,rgba(203,213,225,.6) 70%,rgba(148,163,184,.75) 100%);
+ box-shadow:inset 0 0 0 2px #8796aa,inset 0 3px 0 2px rgba(255,255,255,.8),0 4px 10px rgba(11,27,46,.14)}
+.spw-run{left:calc((100% - 56px) * .125);right:36px;top:17px;height:22px}
+/* eau qui coule, avec bulles et reflet */
+.spw-water{position:absolute;left:4px;right:4px;top:4px;bottom:4px;border-radius:8px;transform-origin:left;transform:scaleX(var(--f,0));transition:transform .35s linear;
+ background:linear-gradient(180deg,#a5e3fd 0%,#38bdf8 30%,#0ea5e9 65%,#0369a1 100%);overflow:hidden}
+.spw-water::before{content:"";position:absolute;inset:0;
+ background-image:radial-gradient(circle at 8px 5px,rgba(255,255,255,.9) 0 1.6px,transparent 2.2px),radial-gradient(circle at 27px 9px,rgba(255,255,255,.7) 0 1.2px,transparent 1.8px),radial-gradient(circle at 40px 4px,rgba(255,255,255,.55) 0 2px,transparent 2.6px);
+ background-size:52px 100%;animation:spwBub 1.1s linear infinite}
+.spw-water::after{content:"";position:absolute;left:0;right:0;top:1px;height:3px;border-radius:3px;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.85) 0 10px,rgba(255,255,255,.15) 10px 26px);background-size:26px 100%;animation:spwBub .6s linear infinite}
+@keyframes spwBub{to{background-position:52px 0}}
+/* manchons de raccord */
+.spw-m{position:absolute;top:12px;width:18px;height:32px;margin-left:-9px;border-radius:5px;
+ background:linear-gradient(90deg,#8796aa,#dbe3ec 35%,#a7b3c2 70%,#7b8a9e),repeating-linear-gradient(180deg,transparent 0 6px,rgba(11,27,46,.12) 6px 7px);background-blend-mode:multiply;
+ box-shadow:0 3px 6px rgba(11,27,46,.18)}
+.spw-m.m1{left:calc((100% - 56px) * .25)}.spw-m.m2{left:calc((100% - 56px) * .5)}.spw-m.m3{left:calc((100% - 56px) * .75)}
+/* coude + descente */
+.spw-elbow{position:absolute;right:2px;top:17px;width:44px;height:44px;overflow:visible}
+.spw-ew{opacity:0;transition:opacity .25s}
+.spw-down{right:6px;top:58px;width:22px;height:62px}
+.spw-down .spw-water{transform-origin:top;transform:scaleY(0);background:linear-gradient(90deg,#a5e3fd 0%,#38bdf8 30%,#0ea5e9 65%,#0369a1 100%);transition:transform .3s .2s linear}
+.spw-down .spw-water::before{background-size:100% 52px;background-image:radial-gradient(circle at 5px 8px,rgba(255,255,255,.9) 0 1.6px,transparent 2.2px),radial-gradient(circle at 9px 30px,rgba(255,255,255,.7) 0 1.4px,transparent 2px);animation-name:spwBubV}
+.spw-down .spw-water::after{display:none}
+@keyframes spwBubV{to{background-position:0 52px}}
+.spw-flange{position:absolute;right:2px;top:116px;width:30px;height:10px;border-radius:4px;background:linear-gradient(90deg,#7b8a9e,#dbe3ec 40%,#8796aa);box-shadow:0 2px 4px rgba(11,27,46,.2)}
+/* chute d'eau et grille d'égout */
+.spw-fall{position:absolute;right:13px;top:126px;width:8px;height:0;border-radius:0 0 6px 6px;
+ background:repeating-linear-gradient(180deg,#7dd3fc 0 7px,#38bdf8 7px 14px);background-size:100% 14px;animation:spwFall .35s linear infinite;
+ transition:height .35s .45s ease-in}
+@keyframes spwFall{to{background-position:0 14px}}
+.spw-drop{position:absolute;right:15px;top:128px;width:5px;height:7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#38bdf8;opacity:0}
+.spw-drain{position:absolute;right:-3px;bottom:4px;width:40px;height:10px;border-radius:5px;background:repeating-linear-gradient(90deg,#475569 0 4px,#94a3b8 4px 8px);box-shadow:0 0 0 2px #64748b}
+.spw-drain i{position:absolute;left:50%;top:50%;width:46px;height:12px;margin:-6px 0 0 -23px;border-radius:50%;border:2px solid #38bdf8;opacity:0}
+/* l'eau arrive au bout : elle s'écoule */
+.steps-wrap.flow .spw-ew{opacity:1}
+.steps-wrap.flow .spw-down .spw-water{transform:scaleY(1)}
+.steps-wrap.flow .spw-fall{height:calc(100% - 140px)}
+.steps-wrap.flow .spw-drop{animation:spwDrop .9s ease-in .8s infinite}
+.steps-wrap.flow .spw-drop.d2{animation-delay:1.25s}
+.steps-wrap.flow .spw-drain i{animation:spwRip 1.4s ease-out .8s infinite}
+.steps-wrap.flow .spw-drain i.r2{animation-delay:1.5s}
+@keyframes spwDrop{0%{opacity:0;transform:none}15%{opacity:1}100%{opacity:.2;transform:translate(6px,46px)}}
+@keyframes spwRip{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.steps-wrap .steps li.lit .num{box-shadow:0 0 0 8px var(--soft),0 0 0 11px rgba(56,189,248,.4)}
+.section:not(.soft) .steps-wrap .steps li.lit .num{box-shadow:0 0 0 8px var(--bg),0 0 0 11px rgba(56,189,248,.4)}
+/* tablette : grille 2 × 2, pas de tuyau */
+@media(max-width:900px){.steps-wrap{padding-right:0;padding-bottom:0}.spw{display:none}}
+/* mobile : tuyau vertical qui descend le long des étapes puis se vide dans la grille */
+@media(max-width:520px){
+ .steps-wrap{padding-bottom:84px}
+ .spw{display:block}
+ .spw-run{left:17px;right:auto;top:28px;bottom:60px;width:22px;height:auto;
+  background:linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(226,232,240,.75) 30%,rgba(203,213,225,.6) 70%,rgba(148,163,184,.75) 100%)}
+ .spw-run .spw-water{transform-origin:top;transform:scaleY(var(--f,0));background:linear-gradient(90deg,#a5e3fd 0%,#38bdf8 30%,#0ea5e9 65%,#0369a1 100%)}
+ .spw-run .spw-water::before{background-size:100% 52px;background-image:radial-gradient(circle at 5px 8px,rgba(255,255,255,.9) 0 1.6px,transparent 2.2px),radial-gradient(circle at 9px 30px,rgba(255,255,255,.7) 0 1.4px,transparent 2px);animation-name:spwBubV}
+ .spw-run .spw-water::after{display:none}
+ .spw-m,.spw-elbow,.spw-down{display:none}
+ .spw-flange{right:auto;left:13px;top:auto;bottom:54px}
+ .spw-fall{right:auto;left:24px;top:calc(100% - 54px);height:0}
+ .steps-wrap.flow .spw-fall{height:36px}
+ .spw-drop{right:auto;left:26px;top:auto;bottom:40px}
+ .spw-drain{right:auto;left:8px;bottom:6px}
+ @keyframes spwDrop{0%{opacity:0;transform:none}15%{opacity:1}100%{opacity:.2;transform:translate(3px,28px)}}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

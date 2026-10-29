@@ -475,10 +475,25 @@ def cards(L, exclude=None):
 </a></li>''' for i, s in enumerate(lst))
     return f'<ul class="svc-grid {"g4" if len(lst) == 8 else "g5"}">{items}</ul>'
 
+PIPE_FX = ('<div class="spw" aria-hidden="true">'
+           '<div class="spw-run"><i class="spw-water"></i></div>'
+           '<b class="spw-m m1"></b><b class="spw-m m2"></b><b class="spw-m m3"></b>'
+           '<svg class="spw-elbow" viewBox="0 0 44 44"><path d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#8796aa" stroke-width="24"/>'
+           '<path d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#e6ecf2" stroke-width="20"/>'
+           '<path class="spw-ew" d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#38bdf8" stroke-width="13"/>'
+           '<path d="M0 6H11Q38 6 38 33V44" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/></svg>'
+           '<div class="spw-down"><i class="spw-water"></i></div><b class="spw-flange"></b>'
+           '<i class="spw-fall"></i><i class="spw-drop d1"></i><i class="spw-drop d2"></i>'
+           '<span class="spw-drain"><i class="r1"></i><i class="r2"></i></span></div>')
+
+def steps_html(items):
+    """Liste d'étapes reliées par un tuyau ; l'eau finit dans une grille d'égout."""
+    return f'<div class="steps-wrap">{PIPE_FX}<ol class="steps">{items}</ol></div>'
+
 def steps_section(L, cls="soft"):
     t = TX[L]
     st = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (ic, a, b) in enumerate(t["steps"]))
-    return f'<section class="section {cls}"><div class="wrap">{sh(t["steps_chip"], t["steps_title"], center=True)}<ol class="steps">{st}</ol></div></section>'
+    return f'<section class="section {cls}"><div class="wrap">{sh(t["steps_chip"], t["steps_title"], center=True)}{steps_html(st)}</div></section>'
 
 def diagnostic(L, pre=None, photo="pipecam"):
     U = DIAG_UI[L]; u = UI[L]; t = TX[L]
@@ -664,7 +679,7 @@ def page_service(L, s):
 </div></section>
 <section class="section soft"><div class="wrap">
  {sh("Méthode" if L=="fr" else "Werkwijze", u["sv_method"], center=True)}
- <ol class="steps">{method}</ol>
+ {steps_html(method)}
  <div class="tip reveal"><span class="ic">{ico("alert")}</span><div><h3>{u["sv_tip"]}</h3><p>{e(tip)}</p></div></div>
 </div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + f'''
 <section class="section soft"><div class="wrap">
