@@ -668,7 +668,7 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 /* 5. Tuyau de lecture sur le côté (ordinateur) */
 .spipe{position:fixed;right:14px;top:50%;z-index:80;width:10px;height:34vh;margin-top:-17vh;border-radius:10px;background:rgba(148,163,184,.22);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55),0 2px 8px rgba(11,27,46,.12);overflow:hidden;pointer-events:none}
 .spipe-legacy i{position:absolute;left:0;right:0;top:0;height:100%;background:linear-gradient(180deg,#7dd3fc,#0284c7);transform-origin:top;transform:scaleY(var(--p,0));border-radius:0 0 10px 10px}
-@media(max-width:959px){.spipe{display:none}}
+
 
 /* 7. Bandeau : vagues et bulles */
 .band-fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -1020,3 +1020,12 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .sv-land:hover .sv-go{transform:translate(2px,50%)}
 @media(max-width:560px){.sv-land{grid-template-columns:minmax(0,32%) 1fr;min-height:84px}.sv-land .sv-body{padding:10px 42px 10px 12px}.sv-land .sv-t{font-size:14.5px}.sv-d{display:none}.sv-land .sv-ic{display:none}}
 @media(max-width:560px){.svc-grid.land{gap:8px}.sv-land{min-height:70px;grid-template-columns:minmax(0,28%) 1fr}.sv-land .sv-body{padding:8px 42px 8px 12px;gap:1px}}
+
+/* Tube de lecture sur mobile : version fine collée au bord droit */
+@media(max-width:959px){
+ .spipe{display:block;right:2px;width:22px;height:calc(28vh + 22px);margin-top:calc(-14vh - 11px);opacity:.92}
+ .spipe-fau{width:22px;height:22px}
+ .spipe-tube{left:2px;top:23px;width:10px;border-radius:2px 2px 7px 7px}
+ .spipe-drop{left:4px;top:18px;width:5px;height:7px}
+ .spipe-water::after{background-size:10px 46px}
+ .spipe-rip{width:9px;margin-left:-4.5px}}

@@ -199,7 +199,7 @@
   /* étapes reliées par un tuyau + tuyau de lecture sur le côté */
   var stepsEls=[].slice.call(d.querySelectorAll(".steps"));
   var spipe=null;
-  if(w.innerWidth>=960&&d.body.scrollHeight>w.innerHeight*2){
+  if(d.body.scrollHeight>w.innerHeight*2){
     spipe=d.createElement("div");spipe.className="spipe";spipe.setAttribute("aria-hidden","true");
     spipe.innerHTML='<svg class="spipe-fau" viewBox="0 0 34 34"><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/><rect x="5" y="22" width="8" height="5" rx="1.5" fill="#64748b"/><rect x="20" y="1" width="4" height="7" fill="#64748b"/><rect x="14" y="0" width="16" height="4" rx="2" fill="#c2410c"/></svg>'+
       '<i class="spipe-drop"></i><i class="spipe-drop d2"></i><span class="spipe-tube"><i class="spipe-water"></i><i class="spipe-rip"></i></span>';
