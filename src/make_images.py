@@ -23,8 +23,8 @@ def shot(htmlstr, path, w, h, transparent=False):
     pg = b.new_page(viewport={"width": w, "height": h})
     pg.set_content(htmlstr); pg.screenshot(path=os.path.join(OUT, path), omit_background=transparent); pg.close()
 os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
-shot(og('Débouchage à Bruxelles<br><span style="color:#fb923c;border:0;padding:0;font-size:76px">sur place en 30 min</span>', "URGENCE 24H/24 – 7J/7", ["Devis gratuit", "Agréé assurances"]), "assets/og.png", 1200, 630)
-shot(og('Ontstopping in Brussel<br><span style="color:#fb923c;border:0;padding:0;font-size:76px">binnen 30 min ter plaatse</span>', "SPOED 24/7", ["Gratis offerte", "Erkend door verzekeraars"]), "assets/og-nl.png", 1200, 630)
+shot(og('Débouchage à Bruxelles<br><span style="color:#fb923c;border:0;padding:0;font-size:76px">jour et nuit</span>', "URGENCE 24H/24 – 7J/7", ["Devis gratuit", "Agréé assurances"]), "assets/og.png", 1200, 630)
+shot(og('Ontstopping in Brussel<br><span style="color:#fb923c;border:0;padding:0;font-size:76px">dag en nacht</span>', "SPOED 24/7", ["Gratis offerte", "Erkend door verzekeraars"]), "assets/og-nl.png", 1200, 630)
 icon = lambda s: f'<html><body style="margin:0;width:{s}px;height:{s}px">{LOGO.replace("<svg ", f"<svg width={s} height={s} ")}</body></html>'
 for name, s in (("apple-touch-icon.png", 180), ("icon-192.png", 192), ("icon-512.png", 512), ("assets/logo.png", 512), ("favicon-32.png", 32)):
     shot(icon(s), name, s, s, transparent=True)

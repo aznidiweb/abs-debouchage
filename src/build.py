@@ -257,9 +257,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
 {ld}
 </head>
@@ -307,10 +305,10 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 TX = {
  "fr": {
   "h1": "Débouchage à Bruxelles · 24h/24",
-  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive en 30&nbsp;min.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
+  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
-  "avail": ("Technicien disponible", "Arrivée moyenne : 30 min"),
+  "avail": ("Technicien disponible", "Jour et nuit"),
   "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
   "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
   "feat": [("shield", "Techniciens expérimentés", "Des déboucheurs équipés de furets électriques, de pompes haute pression et d'une caméra HD."),
@@ -320,20 +318,20 @@ TX = {
   "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("19", "Communes")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
-  "card_eta": "Sur place en ~30 min", "all": "Voir tous les services",
+  "card_eta": "Intervention rapide", "all": "Voir tous les services",
   "steps_chip": "Comment ça se passe", "steps_title": "Quatre étapes, <em>zéro surprise.</em>",
   "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
-            ("truck", "Intervention", "Le technicien arrive en 30 minutes en moyenne, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
+            ("truck", "Intervention", "Le technicien arrive rapidement, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
   "diag_chip": "Diagnostic express", "diag_title": "Un doute&nbsp;? <em>On vous dit quoi faire.</em>",
   "band_title": "Un bouchon&nbsp;? On arrive.", "band_lead": "Un seul appel : on écoute votre problème, on vous donne le prix et un technicien part chez vous, de jour comme de nuit.",
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
   "h1": "Ontstopping in Brussel · 24/7",
-  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Binnen 30&nbsp;min bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
+  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
-  "avail": ("Technieker beschikbaar", "Gemiddelde aankomst: 30 min"),
+  "avail": ("Technieker beschikbaar", "Dag en nacht"),
   "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
   "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
   "feat": [("shield", "Ervaren techniekers", "Ontstoppers met elektrische veren, hogedrukpompen en een HD-camera."),
@@ -343,10 +341,10 @@ TX = {
   "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("19", "Gemeenten")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
-  "card_eta": "Ter plaatse in ~30 min", "all": "Alle diensten",
+  "card_eta": "Snelle interventie", "all": "Alle diensten",
   "steps_chip": "Hoe het werkt", "steps_title": "Vier stappen, <em>geen verrassingen.</em>",
   "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
-            ("truck", "Interventie", "De technieker is er gemiddeld binnen 30 minuten, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
+            ("truck", "Interventie", "De technieker is er snel, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
   "diag_chip": "Snelle diagnose", "diag_title": "Twijfel? <em>Wij zeggen wat je moet doen.</em>",
   "band_title": "Verstopping? We komen eraan.", "band_lead": "Eén telefoontje: we luisteren naar je probleem, geven je de prijs en een technieker vertrekt naar je toe, dag en nacht.",
   "photo_credit": "Foto's: Unsplash", "menu_home": "Home",
@@ -444,13 +442,13 @@ def hero_home(L):
     u = UI[L]; t = TX[L]
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
-        lead = "Un technicien équipé chez vous en 30 minutes, jour et nuit. Prix annoncé avant de commencer, sans casse."
+        lead = "Un technicien équipé chez vous rapidement, jour et nuit. Prix annoncé avant de commencer, sans casse."
         pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
-        lead = "Een uitgeruste technieker binnen 30 minuten bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
+        lead = "Een uitgeruste technieker snel bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
         pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
@@ -787,11 +785,11 @@ def page_about(L):
 def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
-    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Technicien sur place en 30 min partout à Bruxelles." if L == "fr"
-            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. Technieker binnen 30 min ter plaatse in heel Brussel.")
+    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Partout à Bruxelles." if L == "fr"
+            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel Brussel.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
-    lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien peut être chez vous dans 30 minutes." if L == "fr"
-            else "Het snelst: bel ons of doe de snelle diagnose. Een technieker kan binnen 30 minuten bij je zijn.")
+    lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part chez vous, de jour comme de nuit." if L == "fr"
+            else "Het snelst: bel ons of doe de snelle diagnose. Een technieker vertrekt naar je toe, dag en nacht.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
               ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", u["foot_hours"], "24/7 · 365", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
@@ -872,6 +870,10 @@ def build():
     with open(os.path.join(OUT, "assets", "styles.css"), "w") as f:   # styles + animations des scènes services
         f.write(open(os.path.join(ROOT, "assets", "styles.css")).read() + "\n/* ---------- Scènes animées des services (généré par scenes.py) ---------- */\n" + scene_css() + "\n")
     shutil.copy(os.path.join(ROOT, "assets", "app.js"), os.path.join(OUT, "assets", "app.js"))
+    # police hébergée sur le site (pas de Google Fonts : rien n'est envoyé à Google, conforme RGPD)
+    os.makedirs(os.path.join(OUT, "assets", "fonts"), exist_ok=True)
+    for f in ("plus-jakarta-sans.woff2", "OFL.txt"):
+        shutil.copy(os.path.join(ROOT, "assets", "fonts", f), os.path.join(OUT, "assets", "fonts", f))
     shutil.copy(os.path.join(ROOT, "assets", "hero-pipe.js"), os.path.join(OUT, "assets", "hero-pipe.js"))
 
     urls = []  # (fr_page, nl_page, priority)
@@ -899,7 +901,7 @@ def build():
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm))
     llms = ["# ABS Débouchage", "",
-            "> Entreprise de débouchage d'urgence à Bruxelles (Belgique), 24h/24 et 7j/7. Technicien sur place en 30 minutes en moyenne. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
+            "> Entreprise de débouchage d'urgence à Bruxelles (Belgique), 24h/24 et 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
             f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)", f"- E-mail : {EMAIL}",
             "- Zone : les 19 communes de la Région de Bruxelles-Capitale et la périphérie proche (" + ", ".join(c[0] for c in PERIPHERIE) + ")",
             "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
