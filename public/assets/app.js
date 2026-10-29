@@ -2,7 +2,7 @@
   var d=document, root=d.documentElement, w=window;
   root.classList.add("js");
   var reduce=w.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var header=d.querySelector(".header");
+  var header=d.querySelector(".navbar")||d.querySelector(".header");
   function headerBottom(){return Math.max(0,Math.round(header.getBoundingClientRect().bottom));}
 
   /* ---------- Menu mobile ---------- */
@@ -21,6 +21,29 @@
   });
   d.addEventListener("click",function(e){d.querySelectorAll(".dd.open").forEach(function(x){if(!x.contains(e.target)&&w.innerWidth>959)x.classList.remove("open");});});
   d.addEventListener("keydown",function(e){if(e.key==="Escape"){d.querySelectorAll(".dd.open").forEach(function(x){x.classList.remove("open");});if(nav&&nav.classList.contains("open"))closeNav();}});
+
+
+  /* ---------- Barre de navigation flottante ---------- */
+  var navWrap=d.querySelector(".nav-wrap");
+  function onScroll(){ if(navWrap) navWrap.classList.toggle("scrolled", w.scrollY>40); }
+  w.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+  /* ---------- Diaporama du héros ---------- */
+  d.querySelectorAll("[data-slider]").forEach(function(h){
+    var slides=h.querySelectorAll(".slide"), txt=h.querySelectorAll(".slide-txt>div"), btns=h.querySelectorAll(".prog button");
+    if(slides.length<2) return;
+    var i=0, timer=null, DUR=7000;
+    function show(n){
+      i=(n+slides.length)%slides.length;
+      slides.forEach(function(s,k){s.classList.toggle("on",k===i);});
+      txt.forEach(function(t,k){t.classList.toggle("on",k===i);t.setAttribute("aria-hidden",k!==i);});
+      btns.forEach(function(b,k){b.classList.remove("on");b.classList.toggle("done",k<i);b.setAttribute("aria-current",k===i?"true":"false");void b.offsetWidth;if(k===i)b.classList.add("on");});
+    }
+    function play(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){show(i+1);},DUR); }
+    btns.forEach(function(b,k){b.addEventListener("click",function(){show(k);play();});});
+    d.addEventListener("visibilitychange",function(){ if(d.hidden) clearInterval(timer); else play(); });
+    show(0); play();
+  });
 
   /* ---------- Apparition discrète ---------- */
   var els=d.querySelectorAll(".reveal");
