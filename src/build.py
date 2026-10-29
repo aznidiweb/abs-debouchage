@@ -40,6 +40,7 @@ P = {
  "zap": '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
  "menu": '<path d="M4 6h16M4 12h16M4 18h16"/>',
  "help": '<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/>',
+ "chevlr": '<path d="m9 6-6 6 6 6M15 6l6 6-6 6"/>',
  "truck": '<path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
 }
 WA_PATH = '<path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.43 9.88-9.89 9.88zm8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.48-8.41z"/>'
@@ -49,7 +50,7 @@ def ico(name, cls=""):
         return f'<svg class="ico ico-fill {cls}" viewBox="0 0 24 24" aria-hidden="true">{WA_PATH}</svg>'
     return f'<svg class="ico {cls}" viewBox="0 0 24 24" aria-hidden="true">{P[name]}</svg>'
 
-LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#c2410c"/><path d="M24 9c5.6 6.6 9.5 11.9 9.5 17.2a9.5 9.5 0 0 1-19 0C14.5 20.9 18.4 15.6 24 9z" fill="#fff"/><path d="M19.5 27.5a4.6 4.6 0 0 0 4.6 4.3" stroke="#c2410c" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M8 38h7M33 38h7" stroke="#fff" stroke-opacity=".5" stroke-width="2.4" stroke-linecap="round"/></svg>'''
+LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="3" fill="#c8470a"/><rect x="3" y="3" width="42" height="42" rx="1" fill="none" stroke="#121518" stroke-width="2"/><path d="M24 8.5c5.8 6.8 9.8 12.2 9.8 17.6a9.8 9.8 0 0 1-19.6 0c0-5.4 4-10.8 9.8-17.6z" fill="#fff"/><path d="M19.2 27.6a4.9 4.9 0 0 0 4.9 4.6" stroke="#c8470a" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M9 39.5h30" stroke="#121518" stroke-width="3"/></svg>'''
 
 # ---------------------------------------------------------------- URLs
 def url(lang, page=""):
@@ -103,7 +104,7 @@ def footer(L):
     return f'''<footer class="footer"><div class="wrap">
  <div class="footer-grid">
   <div>
-   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name" style="color:#fff">ABS DÉBOUCHAGE</span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
+   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS DÉBOUCHAGE</span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
    <p>{e(u["foot_about"])}</p>
    <a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>
   </div>
@@ -116,7 +117,7 @@ def footer(L):
    <li>{u["insured"]}</li>
   </ul></div>
  </div>
- <div class="legal"><span>© {datetime.date.today().year} {BRAND} · {u["rights"]}</span><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></div>
+ <div class="legal"><span>© {datetime.date.today().year} {BRAND} · {u["rights"]} · {TX[L]["photo_credit"]}</span><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></div>
 </div></footer>
 <div class="mbar">{btn_call(L, "", u["call"])}{btn_wa(L, "", "#devis", "WhatsApp")}</div>'''
 
@@ -146,20 +147,6 @@ def quote_form(L, preselect=None, compact=False):
  <button class="btn btn-wa btn-lg btn-block" type="submit">{ico("wa")}<span>{u["send"]}</span></button>
  <p class="note">{u["note"]}</p>
 </form>'''
-
-def quote_section(L, preselect=None, soft=False):
-    u = UI[L]
-    steps = "".join(f'<li><b>{i+1}</b><span>{e(t)}</span></li>' for i, t in enumerate(u["q_steps"]))
-    return f'''<section class="section{' soft' if soft else ''}" id="devis"><div class="wrap quote">
- <div class="reveal">
-  <span class="kicker">{u["q_kick"]}</span>
-  <h2 class="h2">{u["q_title"]}</h2>
-  <p style="font-size:18px;color:var(--muted)">{u["q_lead"]}</p>
-  <ol class="quote-steps">{steps}</ol>
-  <div class="quote-alt"><span class="tile">{ico("phone")}</span><span>{"Vous préférez parler à quelqu'un ?" if L=="fr" else "Liever iemand spreken?"} <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></span></div>
- </div>
- {quote_form(L, preselect)}
-</div></section>'''
 
 def faq_html(items):
     return '<div class="faq">' + "".join(
@@ -216,7 +203,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0c1d38">
+<meta name="theme-color" content="#f2efe8">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -224,12 +211,14 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
 {ld}
 </head>
 <body>
 {header(L, url(other, alt_page), current)}
+<div class="pipe-progress" aria-hidden="true"><span class="cap t"></span><span class="tube"><span class="water"></span></span><span class="cap b"></span></div>
+<div class="mpipe" aria-hidden="true"><i></i></div>
 <main id="main">
 {body}
 </main>
@@ -238,163 +227,339 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 </body>
 </html>'''
 
-def final_cta(L):
+
+# ---------------------------------------------------------------- photos (Unsplash, licence libre)
+PHOTOS = {
+ "toilet": ("photo-1676210134050-6f12c6898395", {"fr": "Technicien en gants rouges intervenant sur un WC", "nl": "Technieker met rode handschoenen aan een toilet"}),
+ "cabinet": ("photo-1676210133055-eab6ef033ce3", {"fr": "Intervention sur une canalisation sous un évier", "nl": "Werk aan een afvoer onder een gootsteen"}),
+ "wall": ("photo-1676210134188-4c05dd172f89", {"fr": "Technicien travaillant sur une canalisation", "nl": "Technieker aan het werk aan een leiding"}),
+ "sinkdrain": ("photo-1654440122140-f1fc995ddb34", {"fr": "Bonde d'évier en métal en gros plan", "nl": "Metalen afvoerplug van dichtbij"}),
+ "floordrain": ("photo-1745265796934-c34e78554872", {"fr": "Siphon de sol métallique sur béton mouillé", "nl": "Metalen vloerputje op nat beton"}),
+ "manhole": ("photo-1779518083245-bb0397ac17f9", {"fr": "Intervention sur une plaque d'égout", "nl": "Werk aan een rioolputdeksel"}),
+ "tunnel": ("photo-1608094920051-d3a31d5db8db", {"fr": "Intérieur d'une conduite, comme vu par la caméra", "nl": "Binnenkant van een leiding, zoals de camera ze ziet"}),
+ "tools": ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
+}
+SVC_PHOTO = {"wc": "toilet", "sanibroyeur": "toilet", "evier": "cabinet", "lavabo": "sinkdrain", "douche": "floordrain",
+             "baignoire": "sinkdrain", "cuisine": "cabinet", "egout": "manhole", "siphon": "floordrain", "camera": "tunnel"}
+
+def photo_url(key, w=1200):
+    return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}&q=70"
+
+def img(key, L, cls="", eager=False, sizes="(max-width: 960px) 100vw, 50vw"):
+    src = ", ".join(f"{photo_url(key, w)} {w}w" for w in (600, 900, 1300, 1800))
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return f'<img class="{cls}" src="{photo_url(key, 1300)}" srcset="{src}" sizes="{sizes}" alt="{e(PHOTOS[key][1][L])}" {load} decoding="async">'
+
+# ---------------------------------------------------------------- textes de mise en page
+TX = {
+ "fr": {
+  "eyebrow": "Débouchage d'urgence · Bruxelles",
+  "h1": "Bouché&nbsp;?<br><em>On arrive en 30&nbsp;min.</em>",
+  "stamp": ("24/7", "30 min"),
+  "ticker": ["Débouchage WC", "Évier", "Douche", "Égout", "Caméra HD", "24h/24 – 7j/7", "Devis gratuit", "Sur place en 30 min"],
+  "story_tag": "Comment on débouche", "story_title": "Du bouchon à l'écoulement, en 4 étapes",
+  "story_lead": "Descendez : voici ce qui se passe dans votre canalisation pendant notre intervention.",
+  "story": [["On localise le bouchon", "La caméra descend dans le tuyau et nous montre exactement où ça bloque, et pourquoi. Pas besoin de casser pour chercher."],
+            ["Le furet casse le bouchon", "Un furet électrique rotatif avance jusqu'au bouchon et le découpe, sans abîmer le tuyau ni la faïence."],
+            ["La haute pression nettoie", "Un jet d'eau jusqu'à 400 bars décolle la graisse, le calcaire et les racines sur toute la paroi."],
+            ["Ça coule. On vérifie.", "Test d'écoulement à plein débit, nettoyage de la zone, facture remise sur place."]],
+  "story_states": ["Diagnostic caméra", "Furet en action", "Hydrocurage 400 bars", "Écoulement OK"],
+  "story_hud": ("Vue en coupe", "Distance"),
+  "ba_tag": "Vue caméra", "ba_title": "Avant / après un hydrocurage",
+  "ba_lead": "Faites glisser pour comparer l'intérieur d'une canalisation encrassée et la même après notre passage.",
+  "ba_before": "Avant", "ba_after": "Après",
+  "ba_points": ["Graisse, calcaire, racines : un bouchon se forme pendant des années.", "Le furet ouvre le passage, la haute pression nettoie toute la paroi.", "Résultat : un tuyau propre, qui ne se rebouche pas la semaine suivante."],
+  "ba_note": "Illustration — vue caméra simulée.", "ba_aria": "Comparer avant et après",
+  "why_tag": "Nos engagements", "why_title": "Pourquoi on nous appelle", "why_big": ["30'", "0 €", "400", "TVA"],
+  "photo_credit": "Photos : Unsplash",
+  "zones_more": "Votre commune n'est pas dans la liste ? Appelez, on vous dit tout de suite si on peut venir.",
+ },
+ "nl": {
+  "eyebrow": "Spoedontstopping · Brussel",
+  "h1": "Verstopt?<br><em>Binnen 30&nbsp;min bij je.</em>",
+  "stamp": ("24/7", "30 min"),
+  "ticker": ["Ontstopping wc", "Gootsteen", "Douche", "Riool", "HD-camera", "24/7", "Gratis offerte", "Binnen 30 min ter plaatse"],
+  "story_tag": "Hoe we ontstoppen", "story_title": "Van verstopping tot vrije afvoer, in 4 stappen",
+  "story_lead": "Scroll naar beneden: zo gaat het eraan toe in je leiding tijdens onze interventie.",
+  "story": [["We lokaliseren de verstopping", "De camera gaat in de leiding en toont ons precies waar het vastzit, en waarom. Geen breekwerk om te zoeken."],
+            ["De veer breekt de prop", "Een elektrische draaiende veer gaat tot aan de verstopping en snijdt ze door, zonder de leiding te beschadigen."],
+            ["Hogedruk reinigt", "Een waterstraal tot 400 bar verwijdert vet, kalk en wortels over de hele wand."],
+            ["Het loopt. We controleren.", "Doorlooptest op vol debiet, opkuis van de werkzone, factuur ter plaatse."]],
+  "story_states": ["Camera-diagnose", "Veer aan het werk", "Hogedruk 400 bar", "Afvoer OK"],
+  "story_hud": ("Doorsnede", "Afstand"),
+  "ba_tag": "Camerabeeld", "ba_title": "Voor / na een hogedrukreiniging",
+  "ba_lead": "Schuif om de binnenkant van een vervuilde leiding te vergelijken met dezelfde leiding na onze interventie.",
+  "ba_before": "Voor", "ba_after": "Na",
+  "ba_points": ["Vet, kalk, wortels: een verstopping groeit jarenlang.", "De veer maakt de doorgang vrij, hogedruk reinigt de hele wand.", "Resultaat: een propere leiding die de week erna niet opnieuw verstopt."],
+  "ba_note": "Illustratie — gesimuleerd camerabeeld.", "ba_aria": "Voor en na vergelijken",
+  "why_tag": "Onze engagementen", "why_title": "Waarom men ons belt", "why_big": ["30'", "0 €", "400", "Btw"],
+  "photo_credit": "Foto's: Unsplash",
+  "zones_more": "Je gemeente staat er niet bij? Bel ons, we zeggen je meteen of we kunnen komen.",
+ }
+}
+
+def shead(no, tag, title, lead=None):
+    return f'''<div class="shead reveal"><span class="no" aria-hidden="true">{no}</span><div><span class="tag">{tag}</span><h2>{title}</h2></div>{f"<p>{lead}</p>" if lead else ""}</div>'''
+
+def quote_section(L, preselect=None, cls="", no="05"):
     u = UI[L]
-    return f'''<section class="section final"><div class="wrap reveal">
- <h2>{u["fin_title"]}</h2><p>{u["fin_lead"]}</p>
- <div class="cta-row">{btn_call(L, "btn-lg", PHONE_DISPLAY)}{btn_wa(L, "btn-lg")}</div>
+    steps = "".join(f'<li><b>{i+1}</b><span>{e(t)}</span></li>' for i, t in enumerate(u["q_steps"]))
+    return f'''<section class="section {cls}" id="devis"><div class="wrap">
+ {shead(no, u["q_kick"], u["q_title"])}
+ <div class="quote">
+ <div class="reveal">
+  <p style="font-size:19px">{u["q_lead"]}</p>
+  <ol class="quote-steps">{steps}</ol>
+  <p class="quote-alt">{ico("phone")}<span>{"Vous préférez parler à quelqu'un ?" if L=="fr" else "Liever iemand spreken?"}</span> <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+ </div>
+ {quote_form(L, preselect)}
+ </div>
 </div></section>'''
 
-def trust_band(L):
-    items = "".join(f'<div class="trust-item"><span class="tile">{ico(i)}</span><div><b>{e(b)}</b><span>{e(t)}</span></div></div>' for i, b, t in UI[L]["trust"])
-    return f'<div class="trust"><div class="wrap"><div class="trust-grid reveal">{items}</div></div></div>'
+def ticker(L):
+    items = "".join(f"<span>{e(t)}</span>" for t in TX[L]["ticker"]) * 3
+    return f'<div class="ticker" aria-hidden="true"><div class="ticker-track">{items}</div></div>'
 
-def services_grid(L, exclude=None):
+def stamp(L):
+    a, b = TX[L]["stamp"]
+    return f'<div class="stamp" aria-hidden="true"><span class="ring"></span><div><b>{a}</b><span>{b}</span></div></div>'
+
+def final_cta(L):
     u = UI[L]
-    cards = []
-    for i, s in enumerate(SERVICES):
+    return f'''<section class="section final"><div class="wrap">
+ <div class="reveal"><h2>{u["fin_title"]}</h2><p>{u["fin_lead"]}</p><a class="big" href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></div>
+ <div class="cta-col reveal" data-d="1">{btn_wa(L, "btn-lg")}<a class="btn btn-dark btn-lg" href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></div>
+</div></section>'''
+
+def services_list(L, exclude=None):
+    u = UI[L]; rows = []; n = 0
+    for s in SERVICES:
         if s["id"] == exclude: continue
+        n += 1
         price = f'{u["from"]} {s["price"]} €' if s["price"] else u["on_quote"]
-        cards.append(f'''<article class="svc reveal" data-d="{i%4}">
- <span class="tile">{ico(s["icon"])}</span>
- <div class="txt"><h3><a class="cover" href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></h3><p>{e(s[L]["card"])}</p></div>
- <div class="svc-foot"><span class="price-chip">{price}</span><span class="more">{u["learn"]}{ico("arrow")}</span></div>
-</article>''')
-    return '<div class="svc-grid">' + "".join(cards) + '</div>'
+        ph = photo_url(SVC_PHOTO[s["id"]], 500)
+        rows.append(f'''<li class="svc-row reveal">
+ <span class="n">{n:02d}</span>
+ <h3><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></h3>
+ <p>{e(s[L]["card"])}</p>
+ <span class="pr">{price}</span>
+ <span class="go">{ico("arrow")}</span>
+ <span class="thumb" style="background-image:url('{ph}')" aria-hidden="true"></span>
+</li>''')
+    return '<ul class="svc-list">' + "".join(rows) + '</ul>'
 
-def dispatch_card(L):
-    u = UI[L]
-    steps = "".join(f'<li class="{"done" if i<2 else ("now" if i==2 else "")}">{e(t)}</li>' for i, t in enumerate(u["eta_steps"]))
-    return f'''<div class="dispatch reveal" data-d="2" aria-label="{e(u["eta_title"])}">
- <div class="dispatch-map">
-  <svg viewBox="0 0 480 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-   <rect width="480" height="210" fill="#eef3fa"/>
-   <path d="M-10 150 C 80 120, 140 190, 230 150 S 380 90, 500 120" stroke="#cfe0f5" stroke-width="22" fill="none"/>
-   <g stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round">
-    <path d="M0 60H480M0 120H480M0 185H480M70 0V210M180 0V210M300 0V210M410 0V210"/>
-    <path d="M0 0L480 210" stroke-width="7"/>
-   </g>
-   <g fill="#dde7f4"><rect x="82" y="72" width="86" height="36" rx="6"/><rect x="192" y="12" width="96" height="36" rx="6"/><rect x="312" y="132" width="86" height="42" rx="6"/><rect x="12" y="132" width="46" height="42" rx="6"/><rect x="422" y="12" width="60" height="36" rx="6"/></g>
-   <path class="route" d="M120 150 L180 150 L180 120 L300 120 L300 104" stroke="#2554d6" stroke-width="4" fill="none" stroke-linecap="round"/>
-   <g class="van"><circle cx="120" cy="150" r="13" fill="#2554d6"/><path d="M114 147h7v6h-7zM121 149h3l2 2v2h-5z" fill="#fff"/></g>
-   <circle class="pin-pulse" cx="300" cy="92" r="10" fill="#f97316"/>
-   <path d="M300 104s-11-9-11-17a11 11 0 0 1 22 0c0 8-11 17-11 17z" fill="#c2410c"/><circle cx="300" cy="87" r="4" fill="#fff"/>
-  </svg>
-  <span class="dispatch-tag">{e(u["eta_title"])}</span>
- </div>
- <div class="dispatch-body">
-  <div class="dispatch-top"><span class="status"><span class="pulse"></span>{e(u["eta_status"])}</span><span class="eta"><small>{e(u["eta_time"])}</small><b><i data-eta style="font-style:normal">24</i><span>{u["eta_min"]}</span></b></span></div>
-  <div class="bar"><i></i></div>
-  <ol class="timeline">{steps}</ol>
-  <div class="dispatch-call"><span><small>24h/24 · 7j/7</small><b>{PHONE_DISPLAY}</b></span>{btn_call(L, "", u["call"])}</div>
- </div>
-</div>'''
+def story_svg():
+    return '''<svg class="story-svg" viewBox="0 0 600 400" role="img" aria-hidden="true">
+ <rect width="600" height="400" fill="#0b1a2a"/>
+ <g stroke="#1f3a57" stroke-width="1">''' + "".join(f'<path d="M{x} 0V400"/>' for x in range(0, 601, 40)) + "".join(f'<path d="M0 {y}H600"/>' for y in range(0, 401, 40)) + '''</g>
+ <g font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#6f87a3">''' + "".join(f'<text x="{x+4}" y="118">{x/600*3.4:.1f} m</text><path d="M{x} 122v10" stroke="#6f87a3"/>' for x in range(0, 600, 120)) + '''</g>
+ <rect x="0" y="140" width="600" height="120" fill="#24425f"/>
+ <rect x="0" y="152" width="600" height="96" fill="#0f2338"/>
+ <rect x="130" y="132" width="26" height="136" fill="#2f5274"/><rect x="450" y="132" width="26" height="136" fill="#2f5274"/>
+ <rect id="back" x="0" y="176" width="345" height="70" fill="#2f7fd1" opacity=".8"/>
+ <g id="flow" opacity="0"><rect x="0" y="228" width="600" height="18" fill="#2f7fd1"/><path class="flow" d="M0 236H600" stroke="#bfe0ff" stroke-width="3" opacity=".7"/></g>
+ <g id="clog">
+  <path d="M352 158c18-10 44-6 58 6 14 12 20 30 16 50s-12 32-30 36-40 0-50-14-14-30-10-46 0-24 16-32z" fill="#6b4a2b"/>
+  <circle cx="370" cy="190" r="9" fill="#4d331d"/><circle cx="395" cy="215" r="12" fill="#4d331d"/><circle cx="360" cy="228" r="6" fill="#8a6a3e"/><circle cx="405" cy="180" r="5" fill="#8a6a3e"/>
+  <path d="M340 170c10 8 20 4 30 14M400 240c-6-10-18-8-24-18M410 170c-8 12-2 22-12 30" stroke="#a88a5c" stroke-width="2" fill="none"/>
+ </g>
+ <g id="jet" opacity="0" stroke="#bfe0ff" stroke-width="3" stroke-linecap="round"><path d="M300 200h34M300 186l32-10M300 214l32 10M300 176l26-20M300 224l26 20"/></g>
+ <line id="cable" x1="0" y1="200" x2="0" y2="200" stroke="#d9d3c4" stroke-width="5" stroke-dasharray="3 5" opacity="0"/>
+ <g id="tool" opacity="0"><g class="spin"><circle cx="0" cy="200" r="15" fill="#c8470a"/><path d="M-15 200h30M0 185v30" stroke="#121518" stroke-width="4"/></g></g>
+ <g id="cam">
+  <line x1="-600" y1="200" x2="-30" y2="200" stroke="#f2c230" stroke-width="3"/>
+  <path id="cone" d="M0 200 L90 168 L90 232 Z" fill="#f6dc6a" opacity="0"/>
+  <rect x="-34" y="188" width="34" height="24" rx="3" fill="#f2c230"/><circle cx="0" cy="200" r="8" fill="#fff6c7" stroke="#121518" stroke-width="2"/>
+ </g>
+ <g id="ok" opacity="0"><circle cx="530" cy="70" r="34" fill="#25d366"/><path d="M514 70l11 11 21-22" stroke="#06301a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>'''
 
-# ---------------------------------------------------------------- pages
-def page_home(L):
+def pipe_view(kind):
+    """Vue caméra simulée : 'before' (encrassé) ou 'after' (propre)."""
+    if kind == "after":
+        return '''<svg viewBox="0 0 400 400" aria-hidden="true" class="after">
+ <defs><radialGradient id="pga" cx="50%" cy="48%" r="62%"><stop offset="0" stop-color="#040506"/><stop offset=".22" stop-color="#16191b"/><stop offset=".55" stop-color="#5b6062"/><stop offset=".85" stop-color="#9ea2a1"/><stop offset="1" stop-color="#c4c6c3"/></radialGradient></defs>
+ <rect width="400" height="400" fill="url(#pga)"/>
+ <g fill="none" stroke="#e6e8e4" stroke-opacity=".22"><circle cx="200" cy="194" r="168"/><circle cx="200" cy="194" r="112"/><circle cx="200" cy="194" r="70" stroke-opacity=".16"/><circle cx="200" cy="194" r="40" stroke-opacity=".1"/></g>
+ <ellipse cx="200" cy="350" rx="170" ry="34" fill="#8fb9d6" opacity=".35"/>
+ <ellipse cx="200" cy="300" rx="96" ry="18" fill="#8fb9d6" opacity=".22"/>
+ <ellipse cx="200" cy="262" rx="52" ry="9" fill="#8fb9d6" opacity=".15"/>
+ <ellipse cx="120" cy="90" rx="90" ry="34" fill="#fff" opacity=".10" transform="rotate(-28 120 90)"/>
+ <g stroke="#fff" stroke-opacity=".55" stroke-width="1.5"><path d="M200 170v-14M200 218v14M176 194h-14M224 194h14"/></g>
+</svg>'''
+    return '''<svg viewBox="0 0 400 400" aria-hidden="true" class="before">
+ <defs><radialGradient id="pgb" cx="50%" cy="48%" r="62%"><stop offset="0" stop-color="#050403"/><stop offset=".22" stop-color="#1d1610"/><stop offset=".55" stop-color="#4f3e29"/><stop offset=".85" stop-color="#76603f"/><stop offset="1" stop-color="#8e7a58"/></radialGradient></defs>
+ <rect width="400" height="400" fill="url(#pgb)"/>
+ <g fill="#2e2113" opacity=".95">
+  <path d="M30 120c30-20 60 10 80-6s40-30 60-10-10 50-40 54-60 20-80 0-40-20-20-38z"/>
+  <path d="M260 60c30 0 60 20 90 50s20 60-10 70-50-20-70-40-40-80-10-80z"/>
+  <path d="M20 260c30-10 50 20 80 30s40 50 10 70-70 0-90-30 0-70 0-70z"/>
+  <path d="M300 250c40-10 80 20 80 60s-40 60-80 50-50-40-40-70 40-40 40-40z"/>
+ </g>
+ <g fill="#5d4527"><circle cx="90" cy="130" r="10"/><circle cx="320" cy="110" r="14"/><circle cx="60" cy="300" r="12"/><circle cx="340" cy="300" r="9"/><circle cx="150" cy="70" r="7"/></g>
+ <g stroke="#a1814f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9">
+  <path d="M200 20c-4 40 10 60 0 100s-20 50-6 80"/><path d="M196 70c-20 10-30 30-50 34"/><path d="M204 100c18 8 26 26 44 30"/><path d="M198 150c-14 12-16 26-30 34"/>
+  <path d="M240 26c-10 30 6 50-6 76"/><path d="M160 30c10 26-6 40 2 66"/>
+ </g>
+ <path d="M140 160c20-30 90-34 120-6s30 80 0 100-90 24-118-6-22-58-2-88z" fill="#3a2a17"/>
+ <g fill="#6b5232"><circle cx="175" cy="190" r="12"/><circle cx="225" cy="220" r="16"/><circle cx="210" cy="175" r="7"/><circle cx="170" cy="235" r="9"/></g>
+ <ellipse cx="200" cy="352" rx="168" ry="32" fill="#4f4325" opacity=".75"/>
+ <g stroke="#fff" stroke-opacity=".45" stroke-width="1.5"><path d="M200 170v-14M200 218v14M176 194h-14M224 194h14"/></g>
+</svg>'''
+
+def before_after(L, no="03", cls="white"):
+    t = TX[L]
+    pts = "".join(f"<li><b>{i+1:02d}</b><span>{e(p)}</span></li>" for i, p in enumerate(t["ba_points"]))
+    return f'''<section class="section {cls}" id="avant-apres"><div class="wrap">
+ {shead(no, t["ba_tag"], t["ba_title"], t["ba_lead"])}
+ <div class="ba">
+  <div class="reveal">
+   <div class="ba-view">
+    {pipe_view("after")}{pipe_view("before")}
+    <span class="ba-tag l">{t["ba_before"]}</span><span class="ba-tag r">{t["ba_after"]}</span>
+    <div class="ba-hud mono"><span class="rec">REC · CAM 01</span><span>Ø 110 mm · 3,40 m</span></div>
+    <span class="ba-line"></span>
+    <input type="range" min="0" max="100" value="55" aria-label="{t["ba_aria"]}">
+    <span class="ba-knob">{ico("chevlr")}</span>
+   </div>
+   <p class="ba-note">{t["ba_note"]}</p>
+  </div>
+  <div class="reveal" data-d="1">
+   <ul class="ba-points">{pts}</ul>
+   <div class="cta-row" style="margin-top:30px">{btn_call(L, "btn-lg")}</div>
+  </div>
+ </div>
+</div></section>'''
+
+def story_section(L, no="02"):
+    t = TX[L]
+    steps = "".join(f'<li><span class="k">0{i+1}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (a, b) in enumerate(t["story"]))
+    return f'''<section class="section dark story on-dark" data-states='{e(json.dumps(t["story_states"], ensure_ascii=False), quote=True)}'><div class="wrap">
+ {shead(no, t["story_tag"], t["story_title"], t["story_lead"])}
+ <div class="story-grid">
+  <div class="story-stage">
+   {story_svg()}
+   <div class="story-hud mono"><span>{t["story_hud"][0]} · <b data-state>{t["story_states"][0]}</b></span><span>{t["story_hud"][1]} <b data-dist>0,00 m</b></span></div>
+  </div>
+  <ol class="story-steps">{steps}</ol>
+ </div>
+</div></section>'''
+
+def why_section(L, no="04"):
+    u = UI[L]; t = TX[L]
+    items = "".join(f'<li class="reveal" data-d="{i}"><b>{t["why_big"][i]}</b><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>' for i, (_, a, b) in enumerate(u["why"]))
+    return f'''<section class="section"><div class="wrap">
+ {shead(no, t["why_tag"], t["why_title"])}
+ <div class="why reveal">
+  <div class="why-photo" data-par>{img("wall", L)}</div>
+  <ul class="why-list">{items}</ul>
+ </div>
+</div></section>'''
+
+def prices_section(L, no="06", cls=""):
+    u = UI[L]; plans = ""
+    for i, (name, price, feats) in enumerate(u["plans"]):
+        hot = i == 0
+        amount = f'<small>{u["from_long"]}</small><div class="amount">{price}&nbsp;€</div>' if price else f'<small>{u["price_lbl"]}</small><div class="amount q">{u["on_quote"]}</div>'
+        fl = "".join(f'<li>{ico("check")}{e(f)}</li>' for f in feats)
+        btn = btn_call(L, "btn-block", u["ask_price"]) if hot else f'<a class="btn btn-line btn-block" href="tel:{PHONE_TEL}">{ico("phone")}<span>{u["ask_price"]}</span></a>'
+        badge = f'<span class="badge">{u["badge"]}</span>' if hot else ""
+        plans += f'<div class="plan{" hot" if hot else ""}">{badge}<h3>{e(name)}</h3>{amount}<ul>{fl}</ul>{btn}</div>'
+    return f'''<section class="section {cls}" id="tarifs"><div class="wrap">
+ {shead(no, u["p_kick"], u["p_title"], u["p_lead"])}
+ <div class="plans reveal">{plans}</div><p class="p-note">{u["p_note"]}</p>
+</div></section>'''
+
+def zones_section(L, no="07"):
     u = UI[L]
-    checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
-    why = "".join(f'<div class="why-item reveal" data-d="{i}"><span class="tile">{ico(ic)}</span><h3>{e(t)}</h3><p>{e(p)}</p></div>' for i, (ic, t, p) in enumerate(u["why"]))
-    how_icons = ["phone", "truck", "check"]
-    how = "".join(f'<li class="reveal" data-d="{i}"><span class="tile">{ico(how_icons[i])}</span><h3>{e(t)}</h3><p>{e(p)}</p></li>' for i, (t, p) in enumerate(u["how"]))
     communes = "".join(f'<li>{e(c[0] if L=="fr" else c[1])} <small>{c[2]}</small></li>' for c in COMMUNES)
     peri = "".join(f'<li>{e(c[0] if L=="fr" else c[1])}</li>' for c in PERIPHERIE)
-    body = f'''
-<section class="hero"><div class="wrap">
+    return f'''<section class="section white" id="zones"><div class="wrap">
+ {shead(no, u["z_kick"], u["z_title"], u["z_lead"])}
+ <div class="zones">
+  <ul class="zlist reveal">{communes}</ul>
+  <div class="zone-card reveal" data-d="1"><h3>{u["z_peri"]}</h3><ul>{peri}</ul><p style="margin-bottom:20px">{TX[L]["zones_more"]}</p>{btn_call(L, "btn-block", PHONE_DISPLAY)}</div>
+ </div>
+</div></section>'''
+
+def faq_section(L, items, no="08", title=None):
+    u = UI[L]
+    return f'''<section class="section" id="faq"><div class="wrap">
+ {shead(no, u["f_kick"], title or u["f_title"])}
+ {faq_html(items)}
+</div></section>'''
+
+def hero(L, h1_html, lead, photo, crumbs=None, extra="", eager=True, cls=""):
+    u = UI[L]
+    checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
+    cr = ""
+    if crumbs:
+        cr = '<ol class="crumbs">' + "".join((f'<li><a href="{h}">{e(n)}</a></li>' if h else f'<li aria-current="page">{e(n)}</li>') for n, h in crumbs) + '</ol>'
+    eyebrow = "" if crumbs else f'<span class="eyebrow">{TX[L]["eyebrow"]}</span>'
+    return f'''<section class="hero {cls}"><div class="wrap">
  <div class="reveal">
-  <span class="pill">{ico("zap")}{e(u["hero_pill"])}</span>
-  <h1>{u["hero_h1"]}</h1>
-  <p class="lead">{e(u["hero_lead"])}</p>
+  {cr}{eyebrow}
+  <h1>{h1_html}</h1>
+  <p class="lead">{e(lead)}</p>
+  {extra}
   <div class="cta-row">{btn_call(L)}{btn_wa(L)}</div>
   <ul class="checks">{checks}</ul>
  </div>
- {dispatch_card(L)}
-</div></section>
-{trust_band(L)}
-{quote_section(L)}
-<section class="section soft" id="services"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["s_kick"]}</span><h2>{u["s_title"]}</h2><p>{u["s_lead"]}</p></div>
- {services_grid(L)}
-</div></section>
-<section class="section"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["w_kick"]}</span><h2>{u["w_title"]}</h2></div>
- <div class="why">{why}</div>
-</div></section>
-<section class="section soft"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["h_kick"]}</span><h2>{u["h_title"]}</h2></div>
- <ol class="steps">{how}</ol>
-</div></section>
-{page_home_prices(L, soft=False)}
-<section class="section soft" id="zones"><div class="wrap zones">
- <div class="reveal">
-  <div class="head left"><span class="kicker">{u["z_kick"]}</span><h2>{u["z_title"]}</h2><p>{u["z_lead"]}</p></div>
-  <ul class="chips">{communes}</ul>
+ <div class="hero-photo wipe">
+  <div class="ph">{img(photo, L, eager=eager)}</div>
+  {stamp(L)}
  </div>
- <div class="zone-card reveal" data-d="1"><span class="tile">{ico("pin")}</span><h3>{u["z_peri"]}</h3><ul class="chips">{peri}</ul>
-  <div style="margin-top:22px">{btn_call(L, "btn-block", PHONE_DISPLAY)}</div></div>
-</div></section>
-<section class="section" id="faq"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["f_kick"]}</span><h2>{u["f_title"]}</h2></div>
- {faq_html(u["faq"])}
-</div></section>
-{final_cta(L)}'''
+</div></section>'''
+
+# ---------------------------------------------------------------- pages
+def page_home(L):
+    u = UI[L]; t = TX[L]
+    body = hero(L, t["h1"], u["hero_lead"], "toilet") + ticker(L) + f'''
+<section class="section white" id="services"><div class="wrap">
+ {shead("01", u["s_kick"], u["s_title"], u["s_lead"])}
+ {services_list(L)}
+</div></section>''' + story_section(L, "02") + before_after(L, "03") + why_section(L, "04") + \
+        quote_section(L, cls="white", no="05") + prices_section(L, "06") + zones_section(L, "07") + \
+        faq_section(L, u["faq"], "08") + final_cta(L)
     schemas = [business_schema(L), faq_schema(u["faq"]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
 def page_service(L, s):
     u = UI[L]; c = s[L]; other = u["other"]
-    price_html = (f'<div class="sv-price"><b>{u["from"]} {s["price"]} €</b><small>{u["sv_price_free"]}</small></div>' if s["price"]
-                  else f'<div class="sv-price"><b>{u["on_quote"]}</b><small>{u["sv_price_free"]}</small></div>')
-    checks = "".join(f'<li>{ico("check")}{e(x)}</li>' for x in u["chk"] + [u["sv_zone"]])
+    price = (f'<div class="sv-price"><b>{u["from"]} {s["price"]}&nbsp;€</b><small>{u["sv_price_free"]}</small></div>' if s["price"]
+             else f'<div class="sv-price"><b>{u["on_quote"]}</b><small>{u["sv_price_free"]}</small></div>')
     signs = "".join(f'<li>{ico("alert")}{e(x)}</li>' for x in c["signs"])
     causes = "".join(f'<li>{ico("help")}{e(x)}</li>' for x in c["causes"])
-    method = "".join(f'<li class="reveal" data-d="{i}"><h3>{e(t)}</h3><p>{e(p)}</p></li>' for i, (t, p) in enumerate(c["method"]))
+    method = "".join(f'<li class="reveal" data-d="{i}"><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (a, b) in enumerate(c["method"]))
+    tip = c["tip"].split(" : ", 1)[-1] if c["tip"].startswith("En attendant") else (c["tip"].split(": ", 1)[-1] if c["tip"].startswith("In afwachting") else c["tip"])
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
-    body = f'''
-<section class="hero sv-hero"><div class="wrap">
- <div class="reveal">
-  <ol class="crumbs"><li><a href="{url(L)}">{u["home"]}</a></li><li aria-current="page">{e(c["name"])}</li></ol>
-  <h1>{e(c["h1"])}</h1>
-  <p class="lead">{e(c["intro"])}</p>
-  {price_html}
-  <div class="cta-row">{btn_call(L)}{btn_wa(L)}</div>
+    n = iter(range(1, 20))
+    nx = lambda: f"{next(n):02d}"
+    body = hero(L, e(c["h1"]), c["intro"], SVC_PHOTO[s["id"]], crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, cls="sv-hero") + ticker(L) + f'''
+<section class="section white"><div class="wrap">
+ {shead(nx(), c["name"], "Bouché ? Voici pourquoi." if L=="fr" else "Verstopt? Dit is waarom.")}
+ <div class="cols2">
+  <div class="box reveal"><h2>{u["sv_signs"]}</h2><ul class="list warn">{signs}</ul></div>
+  <div class="box reveal" data-d="1"><h2>{u["sv_causes"]}</h2><ul class="list info">{causes}</ul></div>
  </div>
- <aside class="sv-aside reveal" data-d="2">
-  <span class="tile" style="margin-bottom:16px">{ico(s["icon"])}</span>
-  <h2>{e(c["name"])} – 24h/24</h2>
-  <p>{u["fin_lead"]}</p>
-  {btn_call(L, "btn-lg", PHONE_DISPLAY)}
-  {btn_wa(L, "btn-lg")}
-  <ul>{checks}</ul>
- </aside>
 </div></section>
-{trust_band(L)}
-<section class="section"><div class="wrap cols2">
- <div class="box reveal"><h2><span class="tile">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list warn">{signs}</ul></div>
- <div class="box reveal" data-d="1"><h2><span class="tile tile-blue">{ico("help")}</span>{u["sv_causes"]}</h2><ul class="list info">{causes}</ul></div>
-</div></section>
-<section class="section-sm soft"><div class="wrap">
- <div class="head reveal"><span class="kicker">{"Méthode" if L=="fr" else "Werkwijze"}</span><h2>{u["sv_method"]}</h2></div>
+<section class="section dark on-dark"><div class="wrap">
+ {shead(nx(), "Méthode" if L=="fr" else "Werkwijze", u["sv_method"])}
  <ol class="method">{method}</ol>
 </div></section>
 <section class="section-sm"><div class="wrap">
- <div class="tip reveal"><span class="tile">{ico("alert")}</span><div><h2>{u["sv_tip"]}</h2><p>{e(c["tip"].split(" : ",1)[-1] if c["tip"].startswith("En attendant") else (c["tip"].split(": ",1)[-1] if c["tip"].startswith("In afwachting") else c["tip"]))}</p></div></div>
-</div></section>
-{quote_section(L, s["id"], soft=True)}
-<section class="section"><div class="wrap">
- <div class="head reveal"><span class="kicker">FAQ</span><h2>{u["sv_faq"]} – {e(c["name"].lower() if L=="fr" else c["name"])}</h2></div>
- {faq_html(c["faq"])}
- <p class="p-note" style="max-width:760px;margin:28px auto 0">{u["sv_zone"]} : {e(communes)}.</p>
-</div></section>
-<section class="section soft"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["s_kick"]}</span><h2>{u["sv_other"]}</h2></div>
- {services_grid(L, exclude=s["id"])}
-</div></section>
-{final_cta(L)}'''
+ <div class="tip reveal">{ico("alert")}<div><h2>{u["sv_tip"]}</h2><p>{e(tip)}</p></div></div>
+</div></section>''' + (before_after(L, nx()) if s["id"] in ("camera", "egout", "cuisine") else "") + \
+        quote_section(L, s["id"], cls="white", no=nx()) + \
+        faq_section(L, c["faq"], nx(), f'{u["sv_faq"]}') + f'''
+<section class="section white"><div class="wrap">
+ {shead(nx(), u["s_kick"], u["sv_other"], u["sv_zone"] + " : " + e(communes) + ".")}
+ {services_list(L, exclude=s["id"])}
+</div></section>''' + final_cta(L)
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
-                  "description": c["desc"], "url": abs_url(L, s["slug"][L]),
+                  "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
                   "provider": {"@id": SITE_URL + "/#business"},
                   "areaServed": {"@type": "City", "name": "Bruxelles" if L == "fr" else "Brussel"},
                   "availableChannel": {"@type": "ServiceChannel", "servicePhone": PHONE_TEL}}
@@ -404,71 +569,51 @@ def page_service(L, s):
     schemas = [business_schema(L), svc_schema, faq_schema(c["faq"]), crumbs_schema(crumbs)]
     return layout(L, s["slug"][L], c["title"], c["desc"], body, s["slug"][other], schemas)
 
-def simple_hero(L, title, lead, crumb):
-    u = UI[L]
-    return f'''<section class="hero page-hero"><div class="wrap"><div class="reveal">
- <ol class="crumbs"><li><a href="{url(L)}">{u["home"]}</a></li><li aria-current="page">{e(crumb)}</li></ol>
- <h1>{e(title)}</h1><p class="lead">{e(lead)}</p>
- <div class="cta-row">{btn_call(L)}{btn_wa(L)}</div>
-</div></div></section>'''
-
 def page_about(L):
     u = UI[L]; a = ABOUT[L]; other = u["other"]
     blocks = "".join(f'<div class="box reveal" data-d="{i}"><h2>{e(t)}</h2><ul class="list">{"".join(f"<li>{ico("check")}{e(x)}</li>" for x in items)}</ul></div>'
                      for i, (t, items) in enumerate(a["blocks"]))
-    body = simple_hero(L, a["h1"], a["lead"], u["nav_about"]) + trust_band(L) + f'''
-<section class="section"><div class="wrap"><div class="cols2" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">{blocks}</div></div></section>''' + \
-        page_home_prices(L) + final_cta(L)
+    body = hero(L, e(a["h1"]), a["lead"], "tools", crumbs=[(u["home"], url(L)), (u["nav_about"], None)]) + ticker(L) + f'''
+<section class="section white"><div class="wrap">{shead("01", "ABS", a["h1"])}<div class="blocks">{blocks}</div></div></section>''' + \
+        story_section(L, "02") + prices_section(L, "03") + final_cta(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_about"], abs_url(L, u["about_slug"]))]
     return layout(L, u["about_slug"], a["title"], a["desc"], body, UI[other]["about_slug"], [business_schema(L), crumbs_schema(crumbs)], current="about")
-
-def page_home_prices(L, soft=True):
-    u = UI[L]; plans = ""
-    for i, (name, price, feats) in enumerate(u["plans"]):
-        hot = i == 0
-        amount = f'<small>{u["from_long"]}</small><div class="amount">{price} €</div>' if price else f'<small>{u["price_lbl"]}</small><div class="amount q">{u["on_quote"]}</div>'
-        fl = "".join(f'<li>{ico("check")}{e(f)}</li>' for f in feats)
-        btn = btn_call(L, "btn-block", u["ask_price"]) if hot else f'<a class="btn btn-dark btn-block" href="tel:{PHONE_TEL}">{ico("phone")}<span>{u["ask_price"]}</span></a>'
-        plans += f'<div class="plan{" hot" if hot else ""} reveal" data-d="{i}">{f"<span class=badge>{u["badge"]}</span>" if hot else ""}<h3>{e(name)}</h3>{amount}<ul>{fl}</ul>{btn}</div>'
-    return f'''<section class="section{' soft' if soft else ''}" id="tarifs"><div class="wrap">
- <div class="head reveal"><span class="kicker">{u["p_kick"]}</span><h2>{u["p_title"]}</h2><p>{u["p_lead"]}</p></div>
- <div class="plans">{plans}</div><p class="p-note">{u["p_note"]}</p></div></section>'''
 
 def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
     desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Technicien sur place en 30 min partout à Bruxelles." if L == "fr"
             else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. Technieker binnen 30 min ter plaatse in heel Brussel.")
-    h1 = "Contactez-nous, 24h/24" if L == "fr" else "Contacteer ons, 24/7"
+    h1 = "Contactez-nous,<br><em>24h/24.</em>" if L == "fr" else "Contacteer ons,<br><em>24/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou envoyez votre demande sur WhatsApp. Un technicien peut être chez vous dans 30 minutes." if L == "fr"
             else "Het snelst: bel ons of stuur je aanvraag via WhatsApp. Een technieker kan binnen 30 minuten bij je zijn.")
-    cards = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"),
-             ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
-             ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"),
-             ("clock", u["foot_hours"], "24/7 · 365", None)]
-    ch = "".join((f'<a class="c-card reveal" data-d="{i}" href="{h}"' + (' target="_blank" rel="noopener"' if h and h.startswith("http") else "") + '>' if h else f'<div class="c-card reveal" data-d="{i}">') +
-                 f'<span class="tile">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if h else '</div>') for i, (ic, l, v, h) in enumerate(cards))
-    body = simple_hero(L, h1, lead, u["nav_contact"]) + f'''
-<div class="trust"><div class="wrap"><div class="contact-grid">{ch}</div></div></div>''' + quote_section(L) + final_cta(L)
+    cards = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
+             ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", u["foot_hours"], "24/7 · 365", None)]
+    ch = "".join((f'<a class="c-card" href="{h}"' + (' target="_blank" rel="noopener"' if h.startswith("http") else "") + '>' if h else '<div class="c-card">') +
+                 f'{ico(ic)}<small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if h else '</div>') for ic, l, v, h in cards)
+    body = hero(L, h1, lead, "cabinet", crumbs=[(u["home"], url(L)), (u["nav_contact"], None)]) + f'''
+<section class="section-sm white"><div class="wrap"><div class="contact-grid reveal">{ch}</div></div></section>''' + \
+        quote_section(L, no="01") + zones_section(L, "02") + final_cta(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_contact"], abs_url(L, u["contact_slug"]))]
     return layout(L, u["contact_slug"], title, desc, body, UI[other]["contact_slug"], [business_schema(L), crumbs_schema(crumbs)], current="contact")
 
 def page_privacy(L):
     u = UI[L]; other = u["other"]; t, paras = PRIVACY[L]
-    body = f'''<section class="hero page-hero"><div class="wrap"><div><ol class="crumbs"><li><a href="{url(L)}">{u["home"]}</a></li><li aria-current="page">{e(t)}</li></ol><h1>{e(t)}</h1></div></div></section>
-<section class="section"><div class="wrap prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}<p><small>{"Mise à jour" if L=="fr" else "Bijgewerkt"} : {TODAY}</small></p></div></section>'''
-    return layout(L, u["privacy_slug"], f"{t} | {BRAND}", t + " – " + BRAND, body, UI[other]["privacy_slug"], noindex=False)
+    body = f'''<section class="section"><div class="wrap"><ol class="crumbs"><li><a href="{url(L)}">{u["home"]}</a></li><li aria-current="page">{e(t)}</li></ol>
+ <h1 style="font-size:clamp(46px,6vw,80px);margin-bottom:36px">{e(t)}</h1>
+ <div class="prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}<p><small>{"Mise à jour" if L=="fr" else "Bijgewerkt"} : {TODAY}</small></p></div></div></section>'''
+    return layout(L, u["privacy_slug"], f"{t} | {BRAND}", t + " – " + BRAND, body, UI[other]["privacy_slug"])
 
 def page_404():
     L = "fr"; u = UI[L]
-    body = f'''<section class="hero page-hero"><div class="wrap"><div>
- <h1>{u["notfound"]}</h1><p class="lead">{u["notfound_lead"]}</p>
- <div class="cta-row">{btn_call(L)}<a class="btn btn-ghost btn-lg" href="/">{u["home"]}</a></div>
- <p style="margin-top:22px"><a href="/nl/" style="text-decoration:underline">Nederlands → {UI["nl"]["notfound"]}</a></p>
-</div></div></section>'''
+    body = f'''<section class="section"><div class="wrap">
+ <h1 style="font-size:clamp(60px,10vw,140px);margin-bottom:20px">404<br><em style="font-style:normal;color:var(--orange)">{u["notfound"]}</em></h1>
+ <p style="font-size:20px;max-width:620px;margin-bottom:30px">{u["notfound_lead"]}</p>
+ <div class="cta-row">{btn_call(L)}<a class="btn btn-line btn-lg" href="/">{u["home"]}</a></div>
+ <p style="margin-top:24px"><a href="/nl/" style="text-decoration:underline">Nederlands → {UI["nl"]["notfound"]}</a></p>
+</div></section>'''
     return layout(L, "404", f'{u["notfound"]} | {BRAND}', u["notfound_lead"], body, "", noindex=True)
 
-# ---------------------------------------------------------------- écriture
 def write(rel, content):
     p = os.path.join(OUT, rel)
     os.makedirs(os.path.dirname(p), exist_ok=True)
