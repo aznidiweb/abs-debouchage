@@ -632,26 +632,47 @@ PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos
            "Wezembeek-Oppem": "1970", "Machelen": "1830", "Grimbergen": "1850"}
 
 def zone_map(L):
-    """Carte SVG des communes, dessinée dans la page (aucun service externe, rien à charger)."""
+    """Carte SVG des communes en relief, avec le réseau d'eau ; dessinée dans la page (rien à charger)."""
     from map_data import MAP
     names = {c[0]: (c[0] if L == "fr" else c[1], c[2]) for c in COMMUNES}
     names.update({c[0]: (c[0] if L == "fr" else c[1], PERI_CP.get(c[0], "")) for c in PERIPHERIE})
     ctx = "".join(f'<path d="{d}"/>' for d in MAP["ctx"])
-    def shapes(lst, kind):
+    allz = [("peri", z) for z in MAP["peri"]] + [("bxl", z) for z in MAP["bxl"]]
+    def shapes():
         out = []
-        for i, (n, d, (x, y)) in enumerate(lst):
+        for i, (kind, (n, d, (x, y))) in enumerate(allz):
             nm, cp = names[n]
             out.append(f'<path class="zm-{kind}" d="{d}" data-z="{e(n)}" data-n="{e(nm)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>')
         return "".join(out)
+    # socle : les mêmes contours, décalés vers le bas, pour l'effet de relief
+    depth = "".join(f'<path class="zd-{k}" d="{d}"/>' for k, (n, d, c) in allz)
+    # réseau d'eau : du centre de Bruxelles vers chaque commune
+    hx, hy = next(c for n, d, c in MAP["bxl"] if n == "Bruxelles-Ville")
+    net = []
+    for i, (k, (n, d, (x, y))) in enumerate(allz):
+        if n == "Bruxelles-Ville": continue
+        mx, my = (hx + x) / 2 + (y - hy) * .18, (hy + y) / 2 - (x - hx) * .18
+        path = f"M{hx} {hy}Q{mx:.1f} {my:.1f} {x} {y}"
+        net.append(f'<path class="zn-b" d="{path}"/><path class="zn-p" pathLength="100" style="animation-delay:-{(i * 0.37) % 3:.2f}s" d="{path}"/><circle class="zn-n" cx="{x}" cy="{y}" r="2.6"/>')
     lbl = "Carte de la zone d'intervention : les 19 communes de Bruxelles et la périphérie" if L == "fr" else \
           "Kaart van het werkgebied: de 19 Brusselse gemeenten en de rand"
-    hatch = '<pattern id="zm-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="zm-hb"/><line x1="0" y1="0" x2="0" y2="6" class="zm-hl"/></pattern>'
-    return f'''<svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
-<defs>{hatch}</defs><g class="zm-ctx" aria-hidden="true">{ctx}</g>
-<g class="zm-shapes" aria-hidden="true">{shapes(MAP["peri"], "peri")}{shapes(MAP["bxl"], "bxl")}</g>
+    defs = ('<pattern id="zm-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="zm-hb"/><line x1="0" y1="0" x2="0" y2="6" class="zm-hl"/></pattern>'
+            '<pattern id="zm-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#24486e"/></pattern>'
+            '<radialGradient id="zm-glow"><stop offset="0" stop-color="#fb7a35" stop-opacity=".45"/><stop offset=".55" stop-color="#c2410c" stop-opacity=".12"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></radialGradient>'
+            '<linearGradient id="zm-sheen" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>'
+            '<filter id="zm-neon" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
+    return f'''<div class="zm-stage"><svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
+<defs>{defs}</defs>
+<rect width="100%" height="100%" fill="url(#zm-dots)" aria-hidden="true"/>
+<g class="zm-ctx" aria-hidden="true">{ctx}</g>
+<ellipse cx="{hx}" cy="{hy + 40}" rx="260" ry="230" fill="url(#zm-glow)" aria-hidden="true"/>
+<g class="zm-depth" aria-hidden="true"><g transform="translate(0 10)">{depth}</g><g transform="translate(0 6)">{depth}</g><g transform="translate(0 3)">{depth}</g></g>
+<g class="zm-shapes" aria-hidden="true">{shapes()}</g>
+<g class="zm-sheen" aria-hidden="true"><path d="{"".join(d for k, (n, d, c) in allz)}" fill="url(#zm-sheen)"/></g>
+<g class="zm-net" aria-hidden="true" filter="url(#zm-neon)">{"".join(net)}<circle class="zn-hub" cx="{hx}" cy="{hy}" r="6"/><circle class="zn-hubr" cx="{hx}" cy="{hy}" r="6"/></g>
 <g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
-<g class="zm-pin" aria-hidden="true" transform="translate(336 301)"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
-</svg>'''
+<g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
+</svg></div>'''
 
 def zones_section(L, cls="soft"):
     u = UI[L]
