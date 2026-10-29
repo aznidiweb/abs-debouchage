@@ -625,7 +625,7 @@ def faq_section(L, items, title=None, cls=""):
 
 def band(L):
     t = TX[L]; u = UI[L]
-    return f'''<section class="band"><div class="wrap">
+    return f'''<section class="band"><div class="band-fx" aria-hidden="true"><svg class="w1" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(255,255,255,.08)"/></svg><svg class="w2" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(124,45,18,.35)"/></svg><i style="left:8%;--s:10px;--d:7s;--l:0s"></i><i style="left:19%;--s:6px;--d:6s;--l:2.4s"></i><i style="left:33%;--s:12px;--d:8s;--l:1.1s"></i><i style="left:47%;--s:7px;--d:6.5s;--l:3.6s"></i><i style="left:61%;--s:9px;--d:7.5s;--l:0.6s"></i><i style="left:74%;--s:5px;--d:5.5s;--l:2.9s"></i><i style="left:86%;--s:11px;--d:8.5s;--l:1.8s"></i><i style="left:94%;--s:7px;--d:6s;--l:4.2s"></i></div><div class="wrap">
  <div class="reveal"><h2>{t["band_title"]}</h2><p>{t["band_lead"]}</p></div>
  <div class="cta-row reveal" data-d="1"><a class="btn btn-dark btn-lg" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a><a class="btn btn-white btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}</a></div>
 </div></section>'''
@@ -722,12 +722,27 @@ def page_privacy(L):
 
 def page_404():
     L = "fr"; u = UI[L]
-    body = f'''<section class="section page-top"><div class="wrap">
+    art = '''<svg viewBox="0 0 300 300" role="img" aria-label="Une ventouse débouche un tuyau">
+ <rect x="20" y="236" width="260" height="14" rx="7" fill="#e5e9ef"/>
+ <path d="M110 236V214Q110 200 124 200H176Q190 200 190 214V236" fill="#cfd6e0"/>
+ <ellipse cx="150" cy="202" rx="40" ry="7" fill="#9fb0c4"/>
+ <ellipse cx="150" cy="203" rx="30" ry="4" fill="#38bdf8"/>
+ <circle class="nf-bub" cx="140" cy="196" r="5" fill="none" stroke="#38bdf8" stroke-width="2"/>
+ <circle class="nf-bub" cx="162" cy="192" r="4" fill="none" stroke="#38bdf8" stroke-width="2"/>
+ <circle class="nf-bub" cx="150" cy="190" r="6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+ <g class="nf-plunger"><rect x="144" y="40" width="12" height="130" rx="6" fill="#c2410c"/><rect x="138" y="34" width="24" height="14" rx="7" fill="#9a3412"/>
+ <path class="nf-cup" d="M114 196Q114 164 150 164Q186 164 186 196Z" fill="#0b1b2e"/></g>
+ <text x="150" y="285" text-anchor="middle" font-size="40" font-weight="800" fill="#cfd6e0" font-family="Plus Jakarta Sans, sans-serif">404</text>
+</svg>'''
+    body = f'''<section class="section page-top"><div class="wrap nf">
+ <div>
  {chip("Erreur 404")}
- <h1 style="font-size:clamp(34px,4.4vw,52px);margin:18px 0 16px">{u["notfound"]}</h1>
+ <h1 style="font-size:clamp(34px,4.4vw,52px);margin:18px 0 16px">Oups, cette page est bouchée.</h1>
  <p style="font-size:18px;max-width:620px;margin-bottom:28px">{u["notfound_lead"]}</p>
- <div class="cta-row">{btn_call(L, "btn-lg")}<a class="btn btn-line btn-lg" href="/">{u["home"]}</a></div>
+ <div class="cta-row"><a class="btn btn-call btn-lg" href="/">{ico("zap")}<span>Déboucher : retour à l’accueil</span></a>{btn_call(L, "btn-lg btn-line")}</div>
  <p style="margin-top:24px"><a class="more" href="/nl/">Nederlands – {UI["nl"]["notfound"]}{ico("arrow")}</a></p>
+ </div>
+ <div class="nf-art">{art}</div>
 </div></section>'''
     return layout(L, "404", f'{u["notfound"]} | {BRAND}', u["notfound_lead"], body, "", noindex=True, current="solid")
 

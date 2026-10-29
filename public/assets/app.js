@@ -184,6 +184,48 @@
     d.querySelectorAll(".sv").forEach(function(c){dio.observe(c);});
   }
 
+  /* ---------- Effets « eau » ---------- */
+  /* onde au toucher sur les boutons */
+  d.addEventListener("pointerdown",function(ev){
+    var b=ev.target.closest&&ev.target.closest(".btn"); if(!b||reduce) return;
+    var r=b.getBoundingClientRect();
+    [0,1].forEach(function(k){var s=d.createElement("span");s.className="rip"+(k?" r2":"");s.setAttribute("aria-hidden","true");
+      s.style.left=(ev.clientX-r.left)+"px";s.style.top=(ev.clientY-r.top)+"px";b.appendChild(s);setTimeout(function(){s.remove();},1000);});
+  },{passive:true});
+
+  /* étapes reliées par un tuyau + tuyau de lecture sur le côté */
+  var stepsEls=[].slice.call(d.querySelectorAll(".steps"));
+  var spipe=null;
+  if(w.innerWidth>=960&&d.body.scrollHeight>w.innerHeight*2){
+    spipe=d.createElement("div");spipe.className="spipe";spipe.setAttribute("aria-hidden","true");spipe.innerHTML="<i></i>";d.body.appendChild(spipe);
+  }
+  var wTick=false;
+  function water(){
+    wTick=false; var vh=w.innerHeight;
+    stepsEls.forEach(function(st){
+      var r=st.getBoundingClientRect(), lis=st.children, n=lis.length, vert=w.innerWidth<=520;
+      var p=vert?(vh*.72-r.top)/r.height:(vh*.82-r.top)/(vh*.42);
+      p=Math.max(0,Math.min(1,p)); if(reduce) p=r.top<vh?1:0;
+      st.style.setProperty("--f",p.toFixed(3));
+      for(var i=0;i<n;i++) lis[i].classList.toggle("lit",p>=(n>1?i/(n-1):0)-.02&&p>0);
+    });
+    if(spipe){var m=d.documentElement.scrollHeight-vh; spipe.style.setProperty("--p",m>0?(w.scrollY/m).toFixed(3):0);}
+  }
+  function onWater(){if(!wTick){wTick=true;requestAnimationFrame(water);}}
+  w.addEventListener("scroll",onWater,{passive:true}); w.addEventListener("resize",onWater); water();
+
+  /* chiffres qui défilent */
+  if("IntersectionObserver" in w){
+    var cio=new IntersectionObserver(function(en){en.forEach(function(x){
+      if(!x.isIntersecting) return; cio.unobserve(x.target);
+      var el=x.target, m=el.textContent.match(/^(\d+)(.*)$/); if(!m||reduce) return;
+      var to=+m[1], rest=m[2], t0=null;
+      function f(t){if(!t0)t0=t; var k=Math.min(1,(t-t0)/1200), v=Math.round(to*(1-Math.pow(1-k,3))); el.textContent=v+rest; if(k<1)requestAnimationFrame(f);}
+      requestAnimationFrame(f);
+    });},{threshold:.6});
+    d.querySelectorAll(".stats b").forEach(function(b){cio.observe(b);});
+  }
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;
