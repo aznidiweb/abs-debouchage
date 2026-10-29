@@ -565,11 +565,19 @@ PRICE_TX = {
         "cta": "Mijn prijs ontvangen", "or": "of bel"},
 }
 
+# icônes animées de la partie Tarifs (SVG, animation CSS en continu)
+PF_ICONS = {
+ "pipes": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#7aa7c7" stroke-width="5" stroke-linecap="round"/><path d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path class="pfa-flow" d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#0ea5e9" stroke-width="2.4" stroke-linecap="round"/></svg>',
+ "pin": '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse class="pfa-shadow" cx="12" cy="21" rx="4" ry="1.3" fill="#0369a1" opacity=".3"/><g class="pfa-pin"><path d="M12 19s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" fill="#0369a1"/><circle cx="12" cy="9" r="2.3" fill="#fff"/></g></svg>',
+ "gauge": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0" fill="none" stroke="#7aa7c7" stroke-width="2.2" stroke-linecap="round"/><path d="M16.5 10.5 18 9" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round"/><g class="pfa-needle"><path d="M12 17 12 9.5" stroke="#0369a1" stroke-width="2.4" stroke-linecap="round"/></g><circle cx="12" cy="17" r="2" fill="#0369a1"/></svg>',
+ "clock": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="pfa-face" cx="12" cy="12.5" r="8.5" fill="none" stroke-width="2.2"/><g class="pfa-h"><path d="M12 12.5V8.5" stroke-width="2.4" stroke-linecap="round"/></g><g class="pfa-m"><path d="M12 12.5V6" stroke-width="1.8" stroke-linecap="round"/></g><circle class="pfa-sun" cx="19.5" cy="4.5" r="2.6" fill="#f59e0b"/><path class="pfa-moon" d="M20.8 2.4a3 3 0 1 0 1.6 4.6 2.4 2.4 0 0 1-1.6-4.6z" fill="#e2e8f0"/></svg>',
+}
+
 def prices_section(L, cls=""):
     T = PRICE_TX[L]
-    facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic">{ico(ic)}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
+    facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic pf-{ic}">{PF_ICONS[ic]}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
                     for i, (ic, a, b) in enumerate(T["factors"]))
-    eng = "".join(f'<li>{ico("check")}<span>{e(x)}</span></li>' for x in T["eng"])
+    eng = "".join(f'<li style="--i:{i}"><span class="ck"><i class="ck-drop"></i>{ico("check")}</span><span>{e(x)}</span></li>' for i, x in enumerate(T["eng"]))
     return f'''<section class="section {cls}" id="tarifs"><div class="wrap pricing">
  <div class="pr-left">
   {sh(T["kick"], T["title"], T["lead"])}
@@ -577,7 +585,7 @@ def prices_section(L, cls=""):
   <ul class="pfac">{facts}</ul>
  </div>
  <div class="peng reveal" data-d="1">
-  <span class="peng-ic">{ico("shield")}</span>
+  <span class="peng-ic">{ico("shield")}</span><span class="peng-stamp" aria-hidden="true">{"Garanti" if L=="fr" else "Gegarandeerd"}</span>
   <h3>{T["e_title"]}</h3><p>{T["e_lead"]}</p>
   <ul>{eng}</ul>
   <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{T["cta"]}</span></a>

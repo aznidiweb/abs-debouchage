@@ -813,3 +813,44 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .peng-or a{color:#fff;font-weight:800;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:960px){.pricing{grid-template-columns:1fr;gap:28px}.peng{position:relative;top:auto}}
 @media(max-width:560px){.pfac{grid-template-columns:1fr}.pfac li{padding:14px}.peng{padding:24px}}
+
+/* ---------- Tarifs : icônes animées en continu ---------- */
+.pf-ic svg{width:26px;height:26px;overflow:visible}
+.pfa-flow{stroke-dasharray:2.5 3.5;animation:pfaFlow .8s linear infinite}
+@keyframes pfaFlow{to{stroke-dashoffset:-6}}
+.pfa-pin{animation:pfaBounce 1.6s cubic-bezier(.3,0,.4,1) infinite}
+.pfa-shadow{transform-box:fill-box;transform-origin:center;animation:pfaShadow 1.6s cubic-bezier(.3,0,.4,1) infinite}
+@keyframes pfaBounce{0%,100%{transform:translateY(0)}45%{transform:translateY(-4px)}55%{transform:translateY(-4px)}}
+@keyframes pfaShadow{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(.6);opacity:.15}}
+.pfa-needle{transform-origin:12px 17px;animation:pfaNeedle 2.6s ease-in-out infinite}
+@keyframes pfaNeedle{0%,100%{transform:rotate(-62deg)}45%{transform:rotate(48deg)}55%{transform:rotate(40deg)}70%{transform:rotate(52deg)}}
+.pf-clock{animation:pfaDay 8s ease-in-out infinite}
+.pf-clock .pfa-face,.pf-clock path{stroke:#0369a1;animation:pfaStroke 8s ease-in-out infinite}
+.pfa-h{transform-origin:12px 12.5px;animation:pfaSpin 8s linear infinite}
+.pfa-m{transform-origin:12px 12.5px;animation:pfaSpin 1.33s linear infinite}
+@keyframes pfaSpin{to{transform:rotate(360deg)}}
+.pfa-sun{animation:pfaSun 8s ease-in-out infinite}.pfa-moon{animation:pfaMoon 8s ease-in-out infinite}
+@keyframes pfaDay{0%,40%,100%{background:#e0f2fe}50%,90%{background:#1e3a5f}}
+@keyframes pfaStroke{0%,40%,100%{stroke:#0369a1}50%,90%{stroke:#e2e8f0}}
+@keyframes pfaSun{0%,40%,100%{opacity:1}50%,90%{opacity:0}}
+@keyframes pfaMoon{0%,40%,100%{opacity:0}50%,90%{opacity:1}}
+
+/* ---------- Tarifs : engagements cochés + gouttes + tampon ---------- */
+.peng li .ck{position:relative;flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok);display:grid;place-items:center}
+.peng li .ck .ico{width:22px;height:22px;padding:4px;background:none;transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.peng li .ck{background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3);transition:background .3s,box-shadow .3s}
+.peng.in li .ck{background:var(--ok);box-shadow:none;transition-delay:calc(var(--i) * .45s + .35s)}
+.peng.in li .ck .ico{transform:none;transition-delay:calc(var(--i) * .45s + .4s)}
+.peng li .ck::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #7dd3fc;opacity:0}
+.ck-drop{position:absolute;left:50%;top:-16px;width:7px;height:9px;margin-left:-3.5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#38bdf8;opacity:0}
+.peng.in .ck-drop{animation:ckDrop 6s ease-in infinite;animation-delay:calc(var(--i) * .45s)}
+.peng.in li .ck::after{animation:ckRing 6s ease-out infinite;animation-delay:calc(var(--i) * .45s)}
+@keyframes ckDrop{0%{opacity:0;transform:translateY(-6px)}3%{opacity:1}9%{opacity:1;transform:translateY(14px)}11%{opacity:0;transform:translateY(16px) scale(.6)}100%{opacity:0}}
+@keyframes ckRing{0%,9%{opacity:0;transform:scale(.6)}11%{opacity:1}22%{opacity:0;transform:scale(1.7)}100%{opacity:0}}
+.peng li span:last-child{transition:color .3s}
+.peng-stamp{position:absolute;top:26px;right:22px;padding:6px 12px;border:2.5px solid #4ade80;border-radius:8px;color:#4ade80;font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;transform:rotate(-10deg);opacity:0;box-shadow:inset 0 0 0 2px rgba(11,27,46,1),inset 0 0 0 3.5px rgba(74,222,128,.6)}
+.peng.in .peng-stamp{animation:stampIn .5s cubic-bezier(.3,1.5,.5,1) 2.4s forwards,stampGlow 3s ease-in-out 3s infinite}
+@keyframes stampIn{0%{opacity:0;transform:rotate(-10deg) scale(1.8)}100%{opacity:1;transform:rotate(-10deg) scale(1)}}
+@keyframes stampGlow{0%,100%{filter:none}50%{filter:drop-shadow(0 0 6px rgba(74,222,128,.55))}}
+@media (prefers-reduced-motion:reduce){.peng li .ck{background:var(--ok)}.peng li .ck .ico{transform:none}.peng-stamp{opacity:1}}
+.pf-clock .pfa-moon{stroke:none!important}
