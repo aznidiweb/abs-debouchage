@@ -1007,6 +1007,20 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 @media(max-width:860px){.svc-grid.land{grid-template-columns:1fr}}
 @media(max-width:560px){.sv-land{grid-template-columns:minmax(0,40%) 1fr;min-height:132px}.sv-land .sv-body{padding:12px 40px 12px 14px;gap:4px}.sv-land .sv-t{font-size:15px}.sv-d{font-size:13px;-webkit-line-clamp:2}}
 
+/* ---------- Cartes services paysage : version compacte ---------- */
+.svc-grid.land{gap:12px}
+.sv-land{grid-template-columns:minmax(0,34%) 1fr;min-height:104px;border-radius:16px}
+.sv-land .sv-body{padding:12px 48px 12px 16px;gap:3px}
+.sv-land .sv-t{font-size:16px}
+.sv-d{-webkit-line-clamp:1;font-size:13.5px;color:var(--muted)}
+.sv-land .sv-m{font-size:12.5px}
+.sv-land .sv-ic{top:7px;left:7px;width:30px;height:30px;border-radius:9px}
+.sv-land .sv-ic .ico{width:16px;height:16px}
+.sv-land .sv-go{bottom:50%;transform:translateY(50%)}
+.sv-land:hover .sv-go{transform:translate(2px,50%)}
+@media(max-width:560px){.sv-land{grid-template-columns:minmax(0,32%) 1fr;min-height:84px}.sv-land .sv-body{padding:10px 42px 10px 12px}.sv-land .sv-t{font-size:14.5px}.sv-d{display:none}.sv-land .sv-ic{display:none}}
+@media(max-width:560px){.svc-grid.land{gap:8px}.sv-land{min-height:70px;grid-template-columns:minmax(0,28%) 1fr}.sv-land .sv-body{padding:8px 42px 8px 12px;gap:1px}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
