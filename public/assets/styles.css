@@ -507,3 +507,9 @@ a,button,summary,.btn{touch-action:manipulation}
 .pipe-replay{top:12px;bottom:auto}
 .pipe-lab{transition:opacity .3s}
 @media(max-width:560px){.pipe-replay{top:8px;right:8px;padding:0 12px;font-size:13px}}
+/* bouton pause de l'animation : toujours visible, discret */
+.pipe-replay{top:12px;right:12px;bottom:auto;width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;opacity:1;pointer-events:auto;transform:none}
+.pipe-replay .ico{width:17px;height:17px}
+.pipe-lab{right:68px}
+.pipe-box.is-done .pipe-lab{opacity:1}
+@media(max-width:560px){.pipe-replay{top:8px;right:8px;width:44px;padding:0}}

@@ -257,7 +257,7 @@
     box.classList.add("is-playing"); box.classList.remove("is-done");
     last = performance.now(); raf = requestAnimationFrame(frame);
   }
-  function stopRun() { running = false; repTxt.textContent = repLabel; box.classList.remove("is-playing"); box.classList.add("is-done"); drawStill(true); }
+  function stopRun() { running = false; scheduleLoop(); box.classList.remove("is-playing"); box.classList.add("is-done"); drawStill(true); }
 
   /* état final fixe (pour reduced-motion et avant lecture) */
   function drawStill(final) {
@@ -273,20 +273,46 @@
     render(state.t);
   }
 
-  var repTxt = replay.querySelector("span"), repLabel = repTxt.textContent;
-  replay.addEventListener("click", function () { play(); });
+  /* ---- lecture en boucle, pause manuelle, veille hors écran ---- */
+  var userPaused = false, inView = false, loopTimer = 0;
+  var ICON_PAUSE = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+  var ICON_PLAY = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 4 13 8-13 8z"/></svg>';
+  function setBtn() {
+    replay.innerHTML = userPaused ? ICON_PLAY : ICON_PAUSE;
+    replay.setAttribute("aria-label", userPaused ? L.play : L.pause);
+    replay.setAttribute("aria-pressed", userPaused ? "true" : "false");
+  }
+  function scheduleLoop() {
+    clearTimeout(loopTimer);
+    if (userPaused || !inView || document.hidden || mq.matches) return;
+    loopTimer = setTimeout(function () { if (!userPaused && inView && !document.hidden) play(); }, 2600);
+  }
+  function halt() { clearTimeout(loopTimer); if (running) { cancelAnimationFrame(raf); running = false; box.classList.remove("is-playing"); } }
+  function resume() {
+    if (userPaused || mq.matches) return;
+    if (running) return;
+    if (state.t > 0 && state.t < T.end) { running = true; box.classList.add("is-playing"); last = performance.now(); raf = requestAnimationFrame(frame); }
+    else play();
+  }
+  replay.addEventListener("click", function () {
+    userPaused = !userPaused; setBtn();
+    if (userPaused) { halt(); } else { resume(); }
+  });
   window.addEventListener("resize", function () { resize(); });
   resize();
 
   function init() {
-    if (mq.matches) { drawStill(true); repTxt.textContent = L.watch; box.classList.add("is-done"); return; }
+    setBtn();
+    if (mq.matches) { drawStill(true); box.classList.add("is-done"); return; }
     drawStill(false);
     if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting && !played) { setTimeout(play, 500); io.disconnect(); } }, { threshold: 0.35 });
-      io.observe(box);
-    } else play();
+      new IntersectionObserver(function (en) {
+        inView = en[0].isIntersecting;
+        if (inView) { if (!played) setTimeout(resume, 400); else resume(); } else halt();
+      }, { threshold: 0.3 }).observe(box);
+    } else { inView = true; play(); }
   }
   if (mq.addEventListener) mq.addEventListener("change", function () { if (mq.matches && running) { cancelAnimationFrame(raf); stopRun(); drawStill(true); } });
-  document.addEventListener("visibilitychange", function () { if (document.hidden && running) { cancelAnimationFrame(raf); } else if (!document.hidden && running) { last = performance.now(); raf = requestAnimationFrame(frame); } });
+  document.addEventListener("visibilitychange", function () { if (document.hidden) halt(); else if (inView) resume(); });
   init();
 })();

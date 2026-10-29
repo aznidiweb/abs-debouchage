@@ -401,13 +401,13 @@ def hero_home(L):
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
         lead = "Un technicien équipé chez vous en 30 minutes, jour et nuit. Prix annoncé avant de commencer, sans casse."
-        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage"}
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
         lead = "Een uitgeruste technieker binnen 30 minuten bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
-        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping"}
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
@@ -427,7 +427,7 @@ def hero_home(L):
     <canvas class="pc-back"></canvas><canvas class="pc-water"></canvas><canvas class="pc-front"></canvas>
     <span class="pipe-chip s0" aria-hidden="true"><span class="dot"></span><span>{pipe["states"][0]}</span></span>
     <span class="pipe-lab" aria-hidden="true">{lab}</span>
-    <button type="button" class="pipe-replay">{ico("play")}<span>{rep}</span></button>
+    <button type="button" class="pipe-replay" aria-label="{pipe["pause"]}">{ico("pause")}</button>
    </div>
    <div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div>
   </div>
