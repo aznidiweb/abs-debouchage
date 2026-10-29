@@ -269,6 +269,17 @@
     d.querySelectorAll("[data-mini]").forEach(function(m){m.classList.add("off");mio.observe(m);});
   }
 
+  /* ---------- Vidéo du héros : lecture en boucle garantie ---------- */
+  d.querySelectorAll(".hp-video").forEach(function(v){
+    v.muted=true; v.loop=true; v.setAttribute("muted",""); v.playsInline=true;
+    function go(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+    v.addEventListener("ended",function(){ v.currentTime=0; go(); });
+    v.addEventListener("pause",function(){ if(!d.hidden) setTimeout(go,200); });
+    d.addEventListener("visibilitychange",function(){ if(!d.hidden) go(); });
+    ["touchstart","click","scroll"].forEach(function(t){ w.addEventListener(t,go,{once:true,passive:true}); });
+    if(v.readyState>=2) go(); else v.addEventListener("canplay",go,{once:true});
+  });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

@@ -1066,3 +1066,6 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
  background:linear-gradient(90deg,rgba(11,27,46,.94) 0%,rgba(11,27,46,.82) 38%,rgba(11,27,46,.45) 70%,rgba(11,27,46,.35) 100%),linear-gradient(0deg,rgba(11,27,46,.85) 0%,rgba(11,27,46,0) 30%),linear-gradient(180deg,rgba(11,27,46,.7) 0%,rgba(11,27,46,0) 22%)}
 .hero-pipe::after{z-index:0}
 @media(max-width:960px){.hp-video{object-position:60% 50%}.hp-shade{background:linear-gradient(180deg,rgba(11,27,46,.88) 0%,rgba(11,27,46,.72) 45%,rgba(11,27,46,.88) 100%)}}
+/* vidéo du héros plus visible */
+.hp-shade{background:linear-gradient(90deg,rgba(11,27,46,.9) 0%,rgba(11,27,46,.7) 36%,rgba(11,27,46,.25) 68%,rgba(11,27,46,.12) 100%),linear-gradient(0deg,rgba(11,27,46,.8) 0%,rgba(11,27,46,0) 26%),linear-gradient(180deg,rgba(11,27,46,.6) 0%,rgba(11,27,46,0) 20%)}
+@media(max-width:960px){.hp-shade{background:linear-gradient(180deg,rgba(11,27,46,.85) 0%,rgba(11,27,46,.6) 45%,rgba(11,27,46,.85) 100%)}}
