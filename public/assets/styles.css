@@ -159,22 +159,22 @@ button{cursor:pointer}
 @media(max-width:560px){.hero{min-height:auto}.hero-inner{padding-top:120px;padding-bottom:36px}.slide-txt{min-height:0}.hero .cta-row .btn{flex:1 1 100%}.prog button{font-size:12.5px}.hero::after{background:linear-gradient(0deg,rgba(8,19,33,.9) 0%,rgba(8,19,33,.55) 60%,rgba(8,19,33,.5) 100%)}}
 
 /* ---------- Sections ---------- */
-.section{padding:110px 0}
-.section-sm{padding:72px 0}
+.section{padding:76px 0}
+.section-sm{padding:52px 0}
 .soft{background:var(--soft)}
 .dark{background:var(--dark);color:#b8c4d3}
 .dark h2,.dark h3{color:#fff}
-.sh{max-width:720px;margin-bottom:52px}
+.sh{max-width:720px;margin-bottom:36px}
 .sh.center{margin-left:auto;margin-right:auto;text-align:center}
-.sh .chip{margin-bottom:18px}
-.sh h2{font-size:clamp(30px,3.6vw,46px);margin-bottom:16px}
+.sh .chip{margin-bottom:14px}
+.sh h2{font-size:clamp(28px,3.3vw,42px);margin-bottom:12px}
 .sh h2 em{font-style:normal;color:var(--brand)}
 .dark .sh h2 em{color:var(--brand-hi)}
 .sh p{font-size:18px;color:var(--muted)}
 .dark .sh p{color:#9fb0c4}
 .sh-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px}
 .sh-row .sh{margin-bottom:0}
-@media(max-width:700px){.section{padding:76px 0}.section-sm{padding:52px 0}.sh{margin-bottom:34px}.sh-row{flex-direction:column;align-items:flex-start;margin-bottom:34px}}
+@media(max-width:700px){.section{padding:52px 0}.section-sm{padding:40px 0}.sh{margin-bottom:24px}.sh-row{flex-direction:column;align-items:flex-start;margin-bottom:24px}}
 
 /* ---------- Bloc « on ne fait pas que déboucher » ---------- */
 .intro{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center}
@@ -329,12 +329,13 @@ button{cursor:pointer}
 .plan.hot li .ico{background:rgba(74,222,128,.15);color:#4ade80}
 .plan .btn-call{box-shadow:none}
 .p-note{text-align:center;font-size:14.5px;color:var(--muted);margin-top:24px}
-@media(max-width:900px){.plans{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+@media(max-width:900px){.plans{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(82%,340px);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;margin:0 -28px;padding:6px 28px 18px;scroll-padding:0 28px;scrollbar-width:none}.plans::-webkit-scrollbar{display:none}.plans>*{scroll-snap-align:start}}
+@media(max-width:560px){.plans{margin:0 -18px;padding:6px 18px 18px;scroll-padding:0 18px}}
 
 /* ---------- Zones ---------- */
 /* ---------- Zone d'intervention : carte interactive ---------- */
 .zones{display:grid;grid-template-columns:minmax(0,430px) 1fr;gap:48px;align-items:start}
-.zmap{position:relative;border-radius:var(--r-xl);background:var(--dark);overflow:hidden;box-shadow:var(--sh-3);isolation:isolate}
+.zmap{position:sticky;top:96px;border-radius:var(--r-xl);background:var(--dark);overflow:hidden;box-shadow:var(--sh-3);isolation:isolate}
 .zm-svg{width:100%;height:auto;aspect-ratio:600/582}
 .zm-ctx path{fill:var(--dark-2);stroke:#21405f;stroke-width:1}
 .zm-bxl{fill:var(--brand);stroke:var(--dark);stroke-width:1.5;stroke-linejoin:round;cursor:pointer;transition:fill .2s var(--ease),opacity .5s var(--ease)}
@@ -404,11 +405,18 @@ button{cursor:pointer}
 .zl-peri .zc-ok{background:none;border:1.5px solid var(--ok)}
 .zmore{margin-top:20px;font-size:15px;color:var(--text)}
 @media(max-width:420px){.zlist{grid-template-columns:1fr}}
-@media(max-width:960px){.zones{grid-template-columns:1fr}.zmap{max-width:430px;width:100%;margin-inline:auto}}
+@media(max-width:960px){.zones{grid-template-columns:1fr}.zmap{position:relative;top:auto;max-width:430px;width:100%;margin-inline:auto}}
 @media(max-width:600px){.zm-legend{top:12px;left:12px}.zm-lbl{font-size:21px}}
 
 /* ---------- FAQ ---------- */
-.faq{max-width:860px;margin:0 auto;display:grid;gap:12px}
+.faq-grid{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:48px;align-items:start}
+.faq-side{position:sticky;top:96px}
+.faq-side .sh{margin-bottom:24px}
+.faq-ask{padding:24px;border-radius:var(--r-lg);background:var(--dark);color:#b8c4d3;display:grid;gap:10px}
+.faq-ask h3{color:#fff;font-size:20px}
+.faq-ask p{font-size:15px;margin-bottom:6px}
+@media(max-width:960px){.faq-grid{grid-template-columns:1fr;gap:8px}.faq-side{position:static}.faq-ask{display:none}}
+.faq{display:grid;gap:12px}
 .faq details{border-radius:var(--r-lg);background:#fff;box-shadow:var(--sh-1);border:1px solid var(--line);transition:box-shadow .25s}
 .faq details[open]{box-shadow:var(--sh-2)}
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;font-weight:700;font-size:16.5px;color:var(--ink);list-style:none;line-height:1.4}
@@ -463,7 +471,7 @@ a.c-card:hover{transform:translateY(-4px);box-shadow:var(--sh-3)}
 .page-top{padding-top:140px}
 
 /* ---------- Pied de page ---------- */
-.footer{background:#07121f;color:#93a3b8;font-size:15px;padding:80px 0 28px}
+.footer{background:#07121f;color:#93a3b8;font-size:15px;padding:56px 0 24px}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
 .footer h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:16px}
 .footer ul{list-style:none;display:grid;gap:10px}
@@ -475,7 +483,7 @@ a.c-card:hover{transform:translateY(-4px);box-shadow:var(--sh-3)}
 .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #16263b;margin-top:56px;padding-top:22px;font-size:13.5px}
 .legal a{text-decoration:underline}
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.footer-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr 1fr;gap:28px 20px}.footer-grid>:first-child,.footer-grid>:last-child{grid-column:1/-1}.footer{padding-top:44px}}
 
 /* ---------- Barre mobile ---------- */
 .mbar{position:fixed;left:10px;right:10px;bottom:10px;z-index:90;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom));border-radius:var(--pill);background:var(--dark);box-shadow:var(--sh-3)}

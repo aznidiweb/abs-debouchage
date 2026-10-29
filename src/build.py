@@ -610,7 +610,16 @@ def faq_html(items):
 
 def faq_section(L, items, title=None, cls=""):
     u = UI[L]
-    return f'<section class="section {cls}" id="faq"><div class="wrap">{sh(u["f_kick"], title or u["f_title"], center=True)}{faq_html(items)}</div></section>'
+    fr = L == "fr"
+    ask = {"t": "Une autre question ?" if fr else "Nog een vraag?",
+           "p": "Un technicien vous répond tout de suite, 24h/24." if fr else "Een technieker antwoordt meteen, 24/7.",
+           "wa": "Écrire sur WhatsApp" if fr else "Sturen via WhatsApp"}
+    return f'''<section class="section {cls}" id="faq"><div class="wrap faq-grid">
+ <div class="faq-side">{sh(u["f_kick"], title or u["f_title"])}
+  <div class="faq-ask reveal"><h3>{ask["t"]}</h3><p>{ask["p"]}</p>{btn_call(L, "btn-block", PHONE_DISPLAY)}{btn_wa(L, "btn-block", f"https://wa.me/{WHATSAPP}", ask["wa"])}</div>
+ </div>
+ {faq_html(items)}
+</div></section>'''
 
 def band(L):
     t = TX[L]; u = UI[L]
