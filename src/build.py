@@ -748,9 +748,18 @@ def page_404():
 
 
 # ---------------------------------------------------------------- écriture
+# Sous-dossier d'hébergement (ex. GitHub Pages sans domaine : BASE_PATH=/abs-debouchage).
+# Vide quand le site est servi à la racine d'un domaine (abs-debouchage.be).
+BASE = os.environ.get("BASE_PATH", "").rstrip("/")
+
 def write(rel, content):
     p = os.path.join(OUT, rel)
     os.makedirs(os.path.dirname(p), exist_ok=True)
+    if BASE and rel.endswith((".html", ".webmanifest")):
+        import re
+        content = re.sub(r'((?:href|src|action|content)=")/(?!/)', r"\1" + BASE + "/", content)
+        content = re.sub(r'(srcset="[^"]*)', lambda m: re.sub(r'(^|, )/(?!/)', r"\1" + BASE + "/", m.group(1)), content)
+        content = content.replace('"start_url": "/"', '"start_url": "' + BASE + '/"')
     with open(p, "w", encoding="utf-8") as f:
         f.write(content)
 
