@@ -227,6 +227,27 @@
     d.querySelectorAll(".stats b").forEach(function(b){cio.observe(b);});
   }
 
+  /* ---------- Badge « Ouvert maintenant » (heure de Bruxelles) ---------- */
+  d.querySelectorAll(".brand-sub[data-open]").forEach(function(el){
+    var lang=d.documentElement.lang||"fr";
+    function tick(){
+      try{var t=new Intl.DateTimeFormat(lang,{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Brussels"}).format(new Date());
+        el.innerHTML=el.getAttribute("data-open")+" · <b>"+t+"</b>"; el.classList.add("live");}catch(e){}
+    }
+    tick(); setInterval(tick,20000);
+  });
+
+  /* ---------- « Ça déborde ? » ---------- */
+  var urg=d.getElementById("urgence"), urgFrom=null;
+  if(urg&&urg.showModal){
+    d.addEventListener("click",function(e){
+      var t=e.target.closest("[data-urg]"); if(t){urgFrom=t; urg.showModal(); return;}
+      if(e.target.closest("[data-urg-close]")) {urg.close(); return;}
+      if(e.target===urg){var r=urg.getBoundingClientRect(); if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) urg.close();}
+    });
+    urg.addEventListener("close",function(){ if(urgFrom) urgFrom.focus(); });
+  } else d.querySelectorAll("[data-urg]").forEach(function(b){b.hidden=true;});
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

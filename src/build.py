@@ -92,7 +92,7 @@ def header(L, alt_url, current=""):
  <nav class="lang" aria-label="Langue / Taal">{lang_sw}</nav>
 </div></div>
 <header class="header"><div class="wrap">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a href="{url(L)}#tarifs">{u["nav_prices"]}</a>
@@ -186,6 +186,41 @@ def crumbs_schema(items):
     return {"@context": "https://schema.org", "@type": "BreadcrumbList",
             "itemListElement": [{"@type": "ListItem", "position": i+1, "name": n, "item": u} for i, (n, u) in enumerate(items)]}
 
+URG = {
+ "fr": {"btn": "Ça déborde ? Les 3 gestes à faire maintenant", "title": "Ça déborde ? Faites ces 3 gestes",
+        "lead": "En attendant le technicien, ces gestes limitent les dégâts.",
+        "steps": [("valve", "Coupez l'arrivée d'eau", "Fermez le robinet d'arrêt : sous l'évier, derrière le WC ou près du compteur."),
+                  ("nowater", "N'utilisez plus d'eau", "Plus de chasse, de lave-linge ni de lave-vaisselle tant que ça ne s'écoule pas."),
+                  ("nochem", "Pas de produit chimique", "Les déboucheurs chimiques abîment les tuyaux et sont dangereux en cas d'éclaboussure.")],
+        "call": "Appeler un technicien", "close": "Fermer"},
+ "nl": {"btn": "Loopt het over? De 3 dingen die je nu doet", "title": "Loopt het over? Doe deze 3 dingen",
+        "lead": "In afwachting van de technieker beperken deze stappen de schade.",
+        "steps": [("valve", "Sluit de watertoevoer af", "Draai de afsluitkraan dicht: onder de gootsteen, achter het toilet of bij de meter."),
+                  ("nowater", "Gebruik geen water meer", "Niet meer spoelen, geen wasmachine of vaatwasser tot het weer wegloopt."),
+                  ("nochem", "Geen chemische producten", "Chemische ontstoppers beschadigen de leidingen en zijn gevaarlijk bij spatten.")],
+        "call": "Een technieker bellen", "close": "Sluiten"},
+}
+URG_ART = {
+ "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#c2410c" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#9a3412"/></svg>',
+ "nowater": '<svg viewBox="0 0 48 48" aria-hidden="true"><path class="ua-drop" d="M24 8c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z" fill="#38bdf8"/><circle cx="24" cy="26" r="19" fill="none" stroke="#b91c1c" stroke-width="3.5"/><path d="M11 39 37 13" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/></svg>',
+ "nochem": '<svg viewBox="0 0 48 48" aria-hidden="true"><g class="ua-bottle"><rect x="17" y="6" width="14" height="6" rx="2" fill="#64748b"/><path d="M15 14h18v26a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4z" fill="#a3e635"/><rect x="18" y="24" width="12" height="9" rx="2" fill="#fff" opacity=".85"/></g><circle cx="35" cy="35" r="10" fill="#b91c1c"/><path d="M31 31l8 8M39 31l-8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+}
+
+def urg_btn(L):
+    return f'<button type="button" class="urg-btn" data-urg>{ico("alert")}<span>{URG[L]["btn"]}</span>{ico("chevr")}</button>'
+
+def urg_dialog(L):
+    T = URG[L]
+    steps = "".join(f'<li style="--i:{i}"><span class="urg-art">{URG_ART[k]}</span><span class="urg-n">{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>'
+                    for i, (k, a, b) in enumerate(T["steps"]))
+    return f'''<dialog class="urg" id="urgence" aria-labelledby="urg-t">
+ <button type="button" class="urg-x" data-urg-close aria-label="{T["close"]}">{ico("plus")}</button>
+ <span class="urg-k">{ico("alert")}{"Urgence" if L=="fr" else "Noodgeval"}</span>
+ <h2 id="urg-t">{T["title"]}</h2><p class="urg-lead">{T["lead"]}</p>
+ <ol class="urg-steps">{steps}</ol>
+ <div class="urg-cta">{btn_call(L, "btn-lg btn-block", T["call"] + " · " + PHONE_DISPLAY)}</div>
+</dialog>'''
+
 def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex=False):
     other = UI[L]["other"]
     canon = abs_url(L, page)
@@ -233,6 +268,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 {body}
 </main>
 {footer(L)}
+{urg_dialog(L)}
 <script src="/assets/app.js?v={VERSION}" defer></script>{'<script src="/assets/hero-pipe.js?v=' + VERSION + '" defer></script>' if page == "" else ""}
 </body>
 </html>'''
@@ -333,7 +369,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a href="{url(L)}#tarifs">{u["nav_prices"]}</a>
@@ -395,7 +431,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
   <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
   <div class="slide-txt">{txts}</div>
   {extra}
-  <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>
+  <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
   {('</div><div class="hero-side">' + side + '</div></div>') if side else ""}
   <div class="hero-foot">{('<div class="prog-wrap">' + prog + '<button type="button" class="pause" aria-pressed="false" aria-label="' + ("Mettre le diaporama en pause" if L=="fr" else "Diavoorstelling pauzeren") + '">' + ico("pause") + '</button></div>') if prog else "<span></span>"}<div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div></div>
  </div>
@@ -426,7 +462,7 @@ def hero_home(L):
    <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{e(lead)}</p>
-   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>
+   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
    <ul class="hp-checks">{checks}</ul>
   </div>
   <div class="hp-visual">
