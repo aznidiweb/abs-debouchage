@@ -422,7 +422,7 @@ def cards(L, exclude=None):
     if exclude: lst = lst[:8]          # 8 cartes = 4 x 2 ou 2 x 4, jamais de carte seule
     meta = "Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"
     items = "".join(f'''<li class="reveal" data-d="{i%5}"><a class="sv" href="{url(L, s["slug"][L])}">
- <span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(320, 480, 640))}</span>
+ <span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(400, 640, 800))}</span>
  <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-m">{meta}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''' for i, s in enumerate(lst))
