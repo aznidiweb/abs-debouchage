@@ -239,14 +239,16 @@
 
   /* ---- boucle ---- */
   function frame(now) {
-    var dt = Math.min(2, (now - last) / 16.67); last = now;
-    var prev = state.t; state.t += dt / 60;
+    var real = Math.min(0.25, Math.max(0, (now - last) / 1000)); last = now;
+    var prev = state.t; state.t += real;
     var t = state.t;
+    var steps = Math.max(1, Math.ceil(real * 60 / 2)), dt = real * 60 / steps;
     if (prev < T.drill[0] + 0.3 && t >= T.drill[0] + 0.3) emitChunks(6, 1.2);
     if (prev < T.drill[0] + 0.8 && t >= T.drill[0] + 0.8) emitChunks(6, 1.2);
     if (prev < T.burst && t >= T.burst) emitChunks(34, 2.4);
     setPhase(t < T.tool[0] ? 0 : t < T.drill[0] + 0.4 ? 1 : t < T.burst ? 2 : 3);
-    stepSim(dt); render(t);
+    for (var st = 0; st < steps; st++) stepSim(dt);
+    render(t);
     if (t < T.end || water.length || chunks.length) raf = requestAnimationFrame(frame);
     else stopRun();
   }
