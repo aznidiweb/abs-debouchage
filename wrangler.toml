@@ -1,0 +1,4 @@
+# Réglages Cloudflare Pages : le site publié est le dossier public/ (déjà généré par src/build.py)
+name = "abs-debouchage"
+compatibility_date = "2026-10-01"
+pages_build_output_dir = "public"
