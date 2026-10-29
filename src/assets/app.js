@@ -166,6 +166,24 @@
     d.addEventListener("visibilitychange",function(){if(d.hidden)stopTour();else startTour();});
   });
 
+  /* ---------- Scènes animées des pages services ---------- */
+  d.querySelectorAll("[data-scene]").forEach(function(box){
+    var b=box.querySelector(".sc-pause"), icoPause=b?b.innerHTML:"";
+    if(b) b.addEventListener("click",function(){
+      var p=box.classList.toggle("paused");
+      b.setAttribute("aria-pressed",p); b.innerHTML=p?b.getAttribute("data-ico-play"):icoPause;
+      b.setAttribute("aria-label",box.getAttribute(p?"data-play":"data-pause"));
+    });
+    if("IntersectionObserver" in w) new IntersectionObserver(function(en){box.classList.toggle("off",!en[0].isIntersecting);},{threshold:.1}).observe(box);
+    d.addEventListener("visibilitychange",function(){box.classList.toggle("off",d.hidden);});
+  });
+
+  /* ---------- Cartes services : une goutte tombe quand la carte apparaît (mobile) ---------- */
+  if(!reduce&&"IntersectionObserver" in w&&!(w.matchMedia&&matchMedia("(hover:hover)").matches)){
+    var dio=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("drip");dio.unobserve(x.target);}});},{threshold:.6});
+    d.querySelectorAll(".sv").forEach(function(c){dio.observe(c);});
+  }
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

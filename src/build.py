@@ -10,7 +10,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(ROOT), "public")
 TODAY = datetime.date.today().isoformat()
 import hashlib
-VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read())).hexdigest()[:10]
+from scenes import scene
+VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read())).hexdigest()[:10]
 e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
@@ -372,7 +373,7 @@ def footer(L):
 <div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if L=="fr" else "Diagnose"}</span></a></div>'''
 
 # ---------------------------------------------------------------- héros diaporama
-def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False):
+def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side=""):
     """slides : liste de (photo, kicker, titre_html, texte, libellé_barre)"""
     u = UI[L]; t = TX[L]
     imgs = "".join(f'<div class="slide{" on" if i==0 else ""}">{img(p, L, eager=(i==0), sizes="100vw", widths=(800, 1280, 1920, 2400))}</div>' for i, (p, *_ ) in enumerate(slides))
@@ -390,11 +391,12 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False):
     return f'''<section class="hero {cls}"{" data-slider" if len(slides)>1 else ""}>
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
-  {cr}
+  {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
   <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
   <div class="slide-txt">{txts}</div>
   {extra}
   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>
+  {('</div><div class="hero-side">' + side + '</div></div>') if side else ""}
   <div class="hero-foot">{('<div class="prog-wrap">' + prog + '<button type="button" class="pause" aria-pressed="false" aria-label="' + ("Mettre le diaporama en pause" if L=="fr" else "Diavoorstelling pauzeren") + '">' + ico("pause") + '</button></div>') if prog else "<span></span>"}<div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div></div>
  </div>
 </section>'''
@@ -467,7 +469,7 @@ def cards(L, exclude=None):
     if exclude: lst = lst[:8]          # 8 cartes = 4 x 2 ou 2 x 4, jamais de carte seule
     meta = "Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"
     items = "".join(f'''<li class="reveal" data-d="{i%5}"><a class="sv" href="{url(L, s["slug"][L])}">
- <span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(400, 640, 800))}</span>
+ <span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span><span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(400, 640, 800))}</span>
  <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-m">{meta}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''' for i, s in enumerate(lst))
@@ -653,7 +655,7 @@ def page_service(L, s):
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
     slide = [(SVC_PHOTO[s["id"]], ("Intervention 24h/24" if L == "fr" else "Interventie 24/7"), e(c["h1"]), c["intro"], c["name"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles" if L == "fr" else "Interventie 24/7 · Brussel"), cls="sv-hero", big_h1=True) + f'''
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles" if L == "fr" else "Interventie 24/7 · Brussel"), cls="sv-hero", big_h1=True, side=scene(L, s["id"], ico("pause"), ico("play"))) + f'''
 <section class="section"><div class="wrap">
  <div class="cols2">
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
@@ -750,7 +752,9 @@ def build():
         os.makedirs(os.path.dirname(os.path.join(OUT, k)), exist_ok=True)
         open(os.path.join(OUT, k), "wb").write(v)
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
-    shutil.copy(os.path.join(ROOT, "assets", "styles.css"), os.path.join(OUT, "assets", "styles.css"))
+    from scenes import scene_css
+    with open(os.path.join(OUT, "assets", "styles.css"), "w") as f:   # styles + animations des scènes services
+        f.write(open(os.path.join(ROOT, "assets", "styles.css")).read() + "\n/* ---------- Scènes animées des services (généré par scenes.py) ---------- */\n" + scene_css() + "\n")
     shutil.copy(os.path.join(ROOT, "assets", "app.js"), os.path.join(OUT, "assets", "app.js"))
     shutil.copy(os.path.join(ROOT, "assets", "hero-pipe.js"), os.path.join(OUT, "assets", "hero-pipe.js"))
 
