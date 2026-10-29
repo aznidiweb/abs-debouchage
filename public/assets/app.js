@@ -256,6 +256,12 @@
     urg.addEventListener("close",function(){ if(urgFrom) urgFrom.focus(); });
   } else d.querySelectorAll("[data-urg]").forEach(function(b){b.hidden=true;});
 
+  /* ---------- Animations des cartes services : en pause hors écran ---------- */
+  if("IntersectionObserver" in w){
+    var mio=new IntersectionObserver(function(en){en.forEach(function(x){x.target.classList.toggle("off",!x.isIntersecting);});},{rootMargin:"80px"});
+    d.querySelectorAll("[data-mini]").forEach(function(m){m.classList.add("off");mio.observe(m);});
+  }
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

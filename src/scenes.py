@@ -240,3 +240,10 @@ def scene_css():
     c.append(f".sc-bar i{{animation:scBar {T}s linear infinite}}")
     c.append(".sc-box.off *,.sc-box.off *::before,.sc-box.paused *,.sc-box.paused *::before{animation-play-state:paused!important}")
     return "\n".join(c)
+
+def scene_mini(L, sid, uid):
+    """Scène seule (sans légende ni bouton), pour les cartes services ; ids rendus uniques."""
+    k = KIND[sid]
+    body = {"A": svg_A, "B": svg_B, "C": svg_C, "D": svg_D}.get(k, lambda: svg_E(L))()
+    body = body.replace("scA-in", f"scA-in-{uid}").replace("scB-in", f"scB-in-{uid}")
+    return f'<svg class="sc-msvg" viewBox="0 0 480 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">{body}</svg>'

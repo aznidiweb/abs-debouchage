@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(ROOT), "public")
 TODAY = datetime.date.today().isoformat()
 import hashlib
-from scenes import scene
+from scenes import scene, scene_mini
 from house import house_svg
 VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read()+open(os.path.join(ROOT,"house.py"),"rb").read())).hexdigest()[:10]
 e = html.escape
@@ -497,17 +497,17 @@ def intro_section(L, photo="valves"):
 </div></section>'''
 
 def cards(L, exclude=None):
-    """Grille compacte et homogène : même taille de photo pour chaque service."""
+    """Cartes services en format paysage : animation du métier à gauche, texte à droite."""
     u = UI[L]
     lst = [x for x in SERVICES if x["id"] != exclude]
-    if exclude: lst = lst[:8]          # 8 cartes = 4 x 2 ou 2 x 4, jamais de carte seule
+    if exclude: lst = lst[:8]          # nombre pair : jamais de carte seule sur une ligne
     meta = "Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"
-    items = "".join(f'''<li class="reveal" data-d="{i%5}"><a class="sv" href="{url(L, s["slug"][L])}">
- <span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span><span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(400, 640, 800))}</span>
- <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-m">{meta}</span></span>
+    items = "".join(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
+ <span class="sv-anim sc-mini" data-mini>{scene_mini(L, s["id"], f"{s['id']}{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
+ <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-d">{e(s[L]["card"])}</span><span class="sv-m">{meta}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''' for i, s in enumerate(lst))
-    return f'<ul class="svc-grid {"g4" if len(lst) == 8 else "g5"}">{items}</ul>'
+    return f'<ul class="svc-grid land">{items}</ul>'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'
