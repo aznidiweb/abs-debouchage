@@ -48,8 +48,8 @@ SERVICES = [
   "fr": {
    "name": "Débouchage WC",
    "card": "Cuvette qui déborde ou se vide mal : on débouche sans abîmer la faïence.",
-   "title": "Débouchage WC Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
-   "desc": "WC bouché à Bruxelles ? Technicien sur place en 30 min, 24h/24. Débouchage propre au furet électrique, prix annoncé avant travaux, devis gratuit. ☎ 0484 72 47 24",
+   "title": "Débouchage WC Bruxelles 24h/24 | ABS Débouchage",
+   "desc": "WC bouché à Bruxelles ? Technicien sur place en 30 min, 24h/24. Débouchage propre au furet électrique, prix annoncé avant travaux, devis gratuit.",
    "h1": "Débouchage WC à Bruxelles, en urgence 24h/24",
    "intro": "Des toilettes bouchées, c'est l'urgence la plus fréquente… et la plus stressante. Nos techniciens interviennent dans toutes les communes de Bruxelles, en moyenne en 30 minutes, avec un furet électrique professionnel qui débouche la cuvette et le tuyau d'évacuation sans rayer la porcelaine.",
    "signs": ["L'eau monte jusqu'au bord de la cuvette après la chasse", "La cuvette se vide très lentement ou fait des bruits de glouglou", "Une odeur d'égout remonte dans la salle de bain", "La ventouse ne donne plus aucun résultat"],
@@ -61,8 +61,8 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping wc",
    "card": "Pot die overloopt of traag leegloopt: we ontstoppen zonder de porselein te beschadigen.",
-   "title": "Ontstopping wc Brussel 24/7 – gratis offerte | ABS Débouchage",
-   "desc": "Wc verstopt in Brussel? Technieker binnen 30 min ter plaatse, 24/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
+   "title": "Ontstopping wc Brussel 24/7 | ABS Débouchage",
+   "desc": "Wc verstopt in Brussel? Technieker binnen 30 min ter plaatse, 24/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, gratis offerte.",
    "h1": "Wc ontstoppen in Brussel, dringend en 24/7",
    "intro": "Een verstopt toilet is de meest voorkomende noodsituatie… en de meest stresserende. Onze techniekers komen in alle Brusselse gemeenten, gemiddeld binnen 30 minuten, met een professionele elektrische veer die de pot en de afvoer ontstopt zonder het porselein te krassen.",
    "signs": ["Het water komt na het doorspoelen tot aan de rand van de pot", "De pot loopt heel traag leeg of maakt borrelende geluiden", "Er komt een rioolgeur in de badkamer", "De ontstopper (zuignap) helpt niet meer"],
@@ -90,8 +90,8 @@ SERVICES = [
   "nl": {
    "name": "Sanibroyeur & hangtoilet",
    "card": "Geblokkeerde sanibroyeur of Geberit-hangtoilet: delicate interventie, zonder schade.",
-   "title": "Ontstopping sanibroyeur & hangtoilet Brussel 24/7 | ABS Débouchage",
-   "desc": "Sanibroyeur geblokkeerd of hangtoilet verstopt in Brussel? Interventie 24/7 binnen 30 min, zonder schade aan motor of inbouwreservoir. Gratis offerte: 0484 72 47 24",
+   "title": "Ontstopping sanibroyeur Brussel 24/7 | ABS Débouchage",
+   "desc": "Sanibroyeur geblokkeerd of hangtoilet verstopt in Brussel? Interventie 24/7 binnen 30 min, zonder schade aan motor of reservoir. Gratis offerte.",
    "h1": "Sanibroyeur en hangtoilet ontstoppen in Brussel",
    "intro": "Een sanibroyeur of hangtoilet ontstop je niet zoals een gewoon toilet. De motor, messen en membranen zijn kwetsbaar en het reservoir zit in de muur. Onze techniekers kennen deze installaties en zetten ze weer in werking zonder schade.",
    "signs": ["De motor van de broyeur draait leeg of stopt niet meer", "De broyeur maakt een abnormaal geluid of start niet", "Vuil water komt omhoog in de aangesloten douche of lavabo", "Het hangtoilet loopt slecht weg, ook met een zuignap"],
@@ -106,7 +106,7 @@ SERVICES = [
   "fr": {
    "name": "Débouchage évier",
    "card": "Graisse et restes de repas : dégraissage complet du siphon et du tuyau.",
-   "title": "Débouchage évier Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "title": "Débouchage évier Bruxelles 24h/24 | ABS Débouchage",
    "desc": "Évier de cuisine bouché à Bruxelles ? Débouchage et dégraissage haute pression en 30 min, 24h/24. Prix annoncé avant travaux, devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage d'évier de cuisine à Bruxelles",
    "intro": "L'évier de cuisine reçoit chaque jour de la graisse chaude, qui fige dans les tuyaux et retient les restes alimentaires. Résultat : l'eau stagne et les odeurs s'installent. Nous débouchons et dégraissons le siphon et la canalisation pour retrouver un écoulement comme neuf.",
@@ -119,7 +119,7 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping gootsteen",
    "card": "Vet en etensresten: volledige reiniging van sifon en afvoer.",
-   "title": "Ontstopping gootsteen Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "title": "Ontstopping gootsteen Brussel 24/7 | ABS Débouchage",
    "desc": "Gootsteen verstopt in Brussel? Ontstopping en hogedrukreiniging binnen 30 min, 24/7. Prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
    "h1": "Gootsteen ontstoppen in Brussel",
    "intro": "De keukengootsteen krijgt elke dag heet vet te verwerken. Dat stolt in de leidingen en houdt etensresten vast. Gevolg: het water blijft staan en het begint te stinken. Wij ontstoppen en ontvetten de sifon en de afvoer zodat alles weer vlot wegloopt.",
@@ -135,7 +135,7 @@ SERVICES = [
   "fr": {
    "name": "Débouchage lavabo",
    "card": "Cheveux, savon, dentifrice : siphon et vidage nettoyés proprement.",
-   "title": "Débouchage lavabo Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "title": "Débouchage lavabo Bruxelles 24h/24 | ABS Débouchage",
    "desc": "Lavabo ou vasque bouché à Bruxelles ? Intervention rapide 24h/24, siphon et évacuation nettoyés sans abîmer vos meubles. Devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de lavabo et vasque à Bruxelles",
    "intro": "Cheveux, savon et dentifrice forment petit à petit un bouchon dans le siphon du lavabo. Nos techniciens démontent et nettoient le siphon, la bonde et la canalisation, avec soin pour vos meubles de salle de bain.",
@@ -148,7 +148,7 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping lavabo",
    "card": "Haren, zeep, tandpasta: sifon en afvoer netjes gereinigd.",
-   "title": "Ontstopping lavabo Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "title": "Ontstopping lavabo Brussel 24/7 | ABS Débouchage",
    "desc": "Lavabo of wastafel verstopt in Brussel? Snelle interventie 24/7, sifon en afvoer gereinigd zonder schade aan je meubels. Gratis offerte. ☎ 0484 72 47 24",
    "h1": "Lavabo en wastafel ontstoppen in Brussel",
    "intro": "Haren, zeep en tandpasta vormen beetje bij beetje een prop in de sifon van de lavabo. Onze techniekers demonteren en reinigen sifon, afvoerplug en leiding, met respect voor je badkamermeubel.",
@@ -164,7 +164,7 @@ SERVICES = [
   "fr": {
    "name": "Débouchage douche",
    "card": "Bac ou douche à l'italienne qui déborde : débouché sans casser le carrelage.",
-   "title": "Débouchage douche Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "title": "Débouchage douche Bruxelles 24h/24 | ABS Débouchage",
    "desc": "Douche bouchée à Bruxelles ? Bac, douche à l'italienne ou caniveau : débouchage en 30 min sans casser le carrelage, 24h/24. Devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de douche et douche à l'italienne à Bruxelles",
    "intro": "Une douche qui ne s'évacue plus inonde vite la salle de bain. Bondes extra-plates, caniveaux de douche à l'italienne, siphons de sol : nous connaissons tous les systèmes et débouchons sans casser le carrelage ni les joints.",
@@ -177,7 +177,7 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping douche",
    "card": "Overlopende douchebak of inloopdouche: ontstopt zonder tegels te breken.",
-   "title": "Ontstopping douche Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "title": "Ontstopping douche Brussel 24/7 | ABS Débouchage",
    "desc": "Douche verstopt in Brussel? Douchebak, inloopdouche of douchegoot: ontstopping binnen 30 min zonder tegels te breken, 24/7. Gratis offerte. ☎ 0484 72 47 24",
    "h1": "Douche en inloopdouche ontstoppen in Brussel",
    "intro": "Een douche die niet meer afloopt, zet de badkamer snel onder water. Extra platte afvoerputjes, douchegoten, vloerputjes: we kennen alle systemen en ontstoppen zonder tegels of voegen te beschadigen.",
@@ -264,7 +264,7 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping riool",
    "card": "Terugslag in de kelder, volle inspectieput: hogedrukreiniging 400 bar.",
-   "title": "Ontstopping riool Brussel 24/7 – hogedruk 400 bar | ABS Débouchage",
+   "title": "Ontstopping riool Brussel 24/7 | ABS Débouchage",
    "desc": "Riool verstopt of terugslag in de kelder in Brussel? Hogedrukwagen 400 bar, interventie 24/7 binnen 30 min, verslag voor de verzekering. ☎ 0484 72 47 24",
    "h1": "Riool en inspectieput ontstoppen in Brussel",
    "intro": "Een verstopte hoofdriolering bedreigt het hele huis: afvalwater in de kelder, geuren, gezondheidsrisico's. Onze hogedrukwagens van 400 bar verwijderen wortels, kalk en zware verstoppingen, en we leveren een verslag voor je verzekering.",
@@ -280,7 +280,7 @@ SERVICES = [
   "fr": {
    "name": "Siphon de sol",
    "card": "Garage, buanderie, cour : curage et aspiration des boues.",
-   "title": "Débouchage siphon de sol Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "title": "Débouchage siphon de sol Bruxelles | ABS Débouchage",
    "desc": "Siphon de sol bouché à Bruxelles (garage, cave, buanderie, cour) ? Curage et aspiration des boues 24h/24, devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de siphon de sol à Bruxelles",
    "intro": "Les siphons de sol des garages, caves, buanderies et cours piègent sable, feuilles et résidus de lessive. Quand ils se bouchent, l'eau stagne ou remonte à chaque orage. Nous les curons, aspirons les boues et les désinfectons.",
@@ -293,7 +293,7 @@ SERVICES = [
   "nl": {
    "name": "Vloerputje",
    "card": "Garage, wasruimte, koer: reiniging en afzuigen van slib.",
-   "title": "Ontstopping afvoerputje Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "title": "Ontstopping afvoerputje Brussel 24/7 | ABS Débouchage",
    "desc": "Vloerputje verstopt in Brussel (garage, kelder, wasruimte, koer)? Reiniging en afzuigen van slib 24/7, gratis offerte. ☎ 0484 72 47 24",
    "h1": "Vloerputje en afvoerputje ontstoppen in Brussel",
    "intro": "Vloerputjes in garages, kelders, wasruimtes en koeren houden zand, bladeren en wasresten vast. Als ze verstopt raken, blijft het water staan of komt het bij elk onweer omhoog. Wij reinigen ze, zuigen het slib af en ontsmetten ze.",
@@ -322,7 +322,7 @@ SERVICES = [
   "nl": {
    "name": "Camera-inspectie",
    "card": "Steeds opnieuw verstopt? We vinden de oorzaak, met videorapport.",
-   "title": "Camera-inspectie riolering Brussel – videorapport | ABS Débouchage",
+   "title": "Camera-inspectie riolering Brussel | ABS Débouchage",
    "desc": "HD-camera-inspectie van je leidingen in Brussel: wortels, scheuren en tegenhellingen op de centimeter gelokaliseerd, videorapport voor verzekering of syndicus.",
    "h1": "Camera-inspectie van leidingen in Brussel",
    "intro": "Steeds terugkerende verstoppingen, onverklaarbare geuren, vocht in een muur? Onze draaibare HD-camera gaat in je leidingen, lokaliseert het probleem tot op de centimeter en neemt alles op video op. Je krijgt een verslag dat geldig is voor verzekering, syndicus of notaris.",
@@ -360,7 +360,7 @@ UI = {
   "wa": {"hello": "Bonjour ABS Débouchage, je souhaite un devis.", "prob": "Problème", "urg": "Urgence", "where": "Commune", "name": "Nom", "det": "Détails",
          "urgv": {"now": "URGENT – maintenant", "today": "Aujourd'hui", "plan": "À planifier"}},
   # Accueil
-  "home_title": "Débouchage Bruxelles 24h/24 – technicien en 30 min | ABS Débouchage",
+  "home_title": "Débouchage Bruxelles 24h/24 · en 30 min | ABS Débouchage",
   "home_desc": "Débouchage WC, évier, douche, égout et inspection caméra à Bruxelles. Urgence 24h/24, technicien sur place en 30 min, prix annoncé avant. ☎ 0484 72 47 24",
   "hero_pill": "Urgence débouchage à Bruxelles",
   "hero_h1": "Débouchage à Bruxelles, <em>sur place en 30&nbsp;min</em>, jour et nuit.",
@@ -418,7 +418,7 @@ UI = {
   "send": "Mijn aanvraag via WhatsApp versturen", "note": "Gratis en vrijblijvend · Meteen antwoord",
   "wa": {"hello": "Hallo ABS Débouchage, ik wil graag een offerte.", "prob": "Probleem", "urg": "Dringend", "where": "Gemeente", "name": "Naam", "det": "Details",
          "urgv": {"now": "DRINGEND – nu", "today": "Vandaag", "plan": "In te plannen"}},
-  "home_title": "Ontstopping Brussel 24/7 – technieker binnen 30 min | ABS Débouchage",
+  "home_title": "Ontstopping Brussel 24/7 · binnen 30 min | ABS Débouchage",
   "home_desc": "Ontstopping wc, gootsteen, douche, riool en camera-inspectie in Brussel. Spoed 24/7, technieker binnen 30 min ter plaatse, prijs vooraf gekend. ☎ 0484 72 47 24",
   "hero_pill": "Spoedontstopping in Brussel",
   "hero_h1": "Ontstopping in Brussel, <em>binnen 30&nbsp;min</em> ter plaatse, dag en nacht.",

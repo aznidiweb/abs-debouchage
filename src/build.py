@@ -164,7 +164,7 @@ def faq_schema(items):
 
 def business_schema(L):
     return {
-        "@context": "https://schema.org", "@type": "Plumber", "@id": SITE_URL + "/#business",
+        "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
         "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
@@ -174,6 +174,10 @@ def business_schema(L):
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
         "areaServed": [{"@type": "City", "name": c[0] if L=="fr" else c[1]} for c in COMMUNES],
         "knowsLanguage": ["fr", "nl"],
+        "slogan": "Débouchage d'urgence à Bruxelles, 24h/24" if L == "fr" else "Spoedontstopping in Brussel, 24/7",
+        "knowsAbout": [s[L]["name"] for s in SERVICES],
+        "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
+            "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
     }
 
 def crumbs_schema(items):
@@ -645,7 +649,9 @@ def page_privacy(L):
     body = f'''<section class="section page-top"><div class="wrap">
  <h1 style="font-size:clamp(32px,4vw,46px);margin-bottom:28px">{e(t)}</h1>
  <div class="prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}<p><small>{"Mise à jour" if L=="fr" else "Bijgewerkt"} : {TODAY}</small></p></div></div></section>'''
-    return layout(L, u["privacy_slug"], f"{t} | {BRAND}", t + " – " + BRAND, body, UI[other]["privacy_slug"], current="solid")
+    pdesc = ("Politique de confidentialité d'ABS Débouchage : données collectées via téléphone et WhatsApp, durée de conservation, cookies et vos droits (RGPD)." if L == "fr"
+             else "Privacybeleid van ABS Débouchage: gegevens via telefoon en WhatsApp, bewaartermijn, cookies en je rechten volgens de AVG (GDPR).")
+    return layout(L, u["privacy_slug"], f"{t} | {BRAND}", pdesc, body, UI[other]["privacy_slug"], current="solid")
 
 def page_404():
     L = "fr"; u = UI[L]
@@ -707,6 +713,15 @@ def build():
                       f'<xhtml:link rel="alternate" hreflang="x-default" href="{abs_url("fr", fr)}"/></url>')
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm))
+    llms = ["# ABS Débouchage", "",
+            "> Entreprise de débouchage d'urgence à Bruxelles (Belgique), 24h/24 et 7j/7. Technicien sur place en 30 minutes en moyenne. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
+            f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)", f"- E-mail : {EMAIL}",
+            "- Zone : les 19 communes de la Région de Bruxelles-Capitale et la périphérie proche (" + ", ".join(c[0] for c in PERIPHERIE) + ")",
+            "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
+            "## Services (FR)"] + [f"- [{s['fr']['name']}]({abs_url('fr', s['slug']['fr'])}): {s['fr']['card']}" for s in SERVICES] + ["",
+            "## Diensten (NL)"] + [f"- [{s['nl']['name']}]({abs_url('nl', s['slug']['nl'])}): {s['nl']['card']}" for s in SERVICES] + ["",
+            "## Pages", f"- [Accueil]({abs_url('fr')})", f"- [Contact]({abs_url('fr', UI['fr']['contact_slug'])})", f"- [À propos]({abs_url('fr', UI['fr']['about_slug'])})", f"- [Nederlands]({abs_url('nl')})"]
+    write("llms.txt", "\n".join(llms) + "\n")
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
     write("favicon.svg", LOGO.replace('aria-hidden="true"', 'xmlns="http://www.w3.org/2000/svg"'))
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",
