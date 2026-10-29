@@ -302,6 +302,8 @@
       else if(node.nodeType===1){ var txt=node.textContent; node.textContent=""; wrap({textContent:txt},node); }
     });
     t.classList.add("tw-on");
+    /* une fois écrit, on retire l'animation : le texte redevient du texte normal (évite le scintillement sur iPhone) */
+    setTimeout(function(){ t.classList.add("tw-done"); }, 250+n*STEP+900);
   });
 
   /* ---------- Diagnostic express ---------- */

@@ -259,6 +259,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
+<script>document.documentElement.classList.add("js")</script>
 {ld}
 </head>
 <body>
