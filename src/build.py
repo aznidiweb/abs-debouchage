@@ -79,7 +79,7 @@ def btn_wa(L, cls="btn-lg", href="#devis", label=None):
 def header(L, alt_url, current=""):
     u = UI[L]
     items = "".join(
-        f'<a href="{url(L, s["slug"][L])}"><span class="tile tile-blue">{ico(s["icon"])}</span><span>{e(s[L]["name"])}<small>{(u["from"]+" "+str(s["price"])+" €") if s["price"] else u["on_quote"]}</small></span></a>'
+        f'<a href="{url(L, s["slug"][L])}"><span class="tile tile-blue">{ico(s["icon"])}</span><span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
         for s in SERVICES)
     lang_sw = (f'<span>FR</span><a href="{alt_url}" hreflang="nl" lang="nl">NL</a>' if L == "fr"
                else f'<a href="{alt_url}" hreflang="fr" lang="fr">FR</a><span>NL</span>')
@@ -319,7 +319,7 @@ def sh(c, title, lead=None, center=False):
 def header(L, alt_url, current=""):
     u = UI[L]
     items = "".join(
-        f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{(u["from"]+" "+str(s["price"])+" €") if s["price"] else u["on_quote"]}</small></span></a>'
+        f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
         for s in SERVICES)
     lang_sw = (f'<span>FR</span><a href="{alt_url}" hreflang="nl" lang="nl">NL</a>' if L == "fr"
                else f'<a href="{alt_url}" hreflang="fr" lang="fr">FR</a><span>NL</span>')
@@ -416,22 +416,17 @@ def intro_section(L, photo="valves"):
 </div></section>'''
 
 def cards(L, exclude=None):
-    u = UI[L]; t = TX[L]; out = []
-    lst = [s for s in SERVICES if s["id"] != exclude]
-    for i, s in enumerate(lst):
-        price = f'{u["from"]} {s["price"]} €' if s["price"] else u["on_quote"]
-        wide = (s["id"] == "camera" and len(lst) % 3 == 1)
-        out.append(f'''<article class="card{" wide" if wide else ""} reveal" data-d="{i%3}">
- <div class="card-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px", widths=(400, 700, 1000))}
-  <div class="tags"><span class="tag b">{price}</span><span class="tag">24/7</span></div>
-  <span class="on-img"><span class="pulse"></span>{t["card_eta"]}</span></div>
- <div class="card-body">
-  <h3><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></h3>
-  <p>{e(s[L]["card"])}</p>
-  <div class="card-foot"><span>{u["chk"][0]}</span><span class="more">{u["learn"]}{ico("arrow")}</span></div>
- </div>
-</article>''')
-    return '<div class="cards">' + "".join(out) + '</div>'
+    """Grille compacte et homogène : même taille de photo pour chaque service."""
+    u = UI[L]
+    lst = [x for x in SERVICES if x["id"] != exclude]
+    if exclude: lst = lst[:8]          # 8 cartes = 4 x 2 ou 2 x 4, jamais de carte seule
+    meta = "Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"
+    items = "".join(f'''<li class="reveal" data-d="{i%5}"><a class="sv" href="{url(L, s["slug"][L])}">
+ <span class="sv-ph">{img(SVC_PHOTO[s["id"]], L, sizes="(max-width: 1100px) 50vw, 240px", widths=(320, 480, 640))}</span>
+ <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-m">{meta}</span></span>
+ <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
+</a></li>''' for i, s in enumerate(lst))
+    return f'<ul class="svc-grid {"g4" if len(lst) == 8 else "g5"}">{items}</ul>'
 
 def steps_section(L, cls="soft"):
     t = TX[L]
@@ -538,8 +533,7 @@ def page_home(L):
 
 def page_service(L, s):
     u = UI[L]; c = s[L]; other = u["other"]
-    price = (f'<div class="sv-price"><b>{u["from"]} {s["price"]}&nbsp;€</b><span>{u["sv_price_free"]}</span></div>' if s["price"]
-             else f'<div class="sv-price"><b>{u["on_quote"]}</b><span>{u["sv_price_free"]}</span></div>')
+    price = f'<div class="sv-price"><b>{u["on_quote"]}</b><span>{"Prix annoncé avant l’intervention" if L=="fr" else "Prijs vooraf meegedeeld"}</span></div>'
     signs = "".join(f'<li>{ico("alert")}<span>{e(x)}</span></li>' for x in c["signs"])
     causes = "".join(f'<li>{ico("help")}<span>{e(x)}</span></li>' for x in c["causes"])
     method = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, ((a, b), ic) in enumerate(zip(c["method"], ["help", "zap", "check", "shield"])))

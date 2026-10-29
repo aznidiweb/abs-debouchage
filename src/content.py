@@ -44,32 +44,32 @@ PERIPHERIE = [("Zaventem", "Zaventem"), ("Vilvorde", "Vilvoorde"), ("Dilbeek", "
 # --------------------------------------------------------------------------
 SERVICES = [
  {
-  "id": "wc", "icon": "toilet", "price": 85, "slug": {"fr": "debouchage-wc", "nl": "ontstopping-wc"},
+  "id": "wc", "icon": "toilet", "price": None, "slug": {"fr": "debouchage-wc", "nl": "ontstopping-wc"},
   "fr": {
    "name": "Débouchage WC",
    "card": "Cuvette qui déborde ou se vide mal : on débouche sans abîmer la faïence.",
-   "title": "Débouchage WC Bruxelles 24h/24 – dès 85 € | ABS Débouchage",
-   "desc": "WC bouché à Bruxelles ? Technicien sur place en 30 min, 24h/24. Débouchage propre au furet électrique, prix annoncé avant travaux, dès 85 €. ☎ 0484 72 47 24",
+   "title": "Débouchage WC Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "desc": "WC bouché à Bruxelles ? Technicien sur place en 30 min, 24h/24. Débouchage propre au furet électrique, prix annoncé avant travaux, devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage WC à Bruxelles, en urgence 24h/24",
    "intro": "Des toilettes bouchées, c'est l'urgence la plus fréquente… et la plus stressante. Nos techniciens interviennent dans toutes les communes de Bruxelles, en moyenne en 30 minutes, avec un furet électrique professionnel qui débouche la cuvette et le tuyau d'évacuation sans rayer la porcelaine.",
    "signs": ["L'eau monte jusqu'au bord de la cuvette après la chasse", "La cuvette se vide très lentement ou fait des bruits de glouglou", "Une odeur d'égout remonte dans la salle de bain", "La ventouse ne donne plus aucun résultat"],
    "causes": ["Trop de papier toilette en une fois", "Lingettes, cotons-tiges ou serviettes hygiéniques jetés dans le WC", "Objet tombé dans la cuvette (jouet, brosse, déodorant)", "Dépôts de calcaire qui réduisent le passage du tuyau"],
    "method": [["Diagnostic", "On identifie où se trouve le bouchon : cuvette, coude ou colonne d'évacuation."], ["Débouchage", "Furet électrique rotatif ou pompe haute pression selon le cas, sans démonter le WC."], ["Test", "Plusieurs chasses d'eau pour vérifier un écoulement parfait."], ["Nettoyage", "La zone est nettoyée et désinfectée avant notre départ."]],
    "tip": "En attendant le technicien : ne tirez plus la chasse, fermez le robinet d'arrivée d'eau derrière le WC et évitez les produits chimiques, qui abîment les joints et sont dangereux pour nos techniciens.",
-   "faq": [["Combien coûte un débouchage de WC à Bruxelles ?", "Un débouchage de WC standard démarre à 85 €. Le prix exact est annoncé par téléphone ou WhatsApp avant le départ du technicien, et c'est ce prix qui figure sur la facture."], ["Faut-il démonter les toilettes ?", "Dans la grande majorité des cas, non. Le furet électrique passe directement par la cuvette jusqu'au bouchon."], ["Vous intervenez la nuit pour des WC bouchés ?", "Oui, 24h/24 et 7j/7, week-ends et jours fériés compris, car un WC bouché ne peut pas attendre le lendemain."]]
+   "faq": [["Combien coûte un débouchage de WC à Bruxelles ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Faut-il démonter les toilettes ?", "Dans la grande majorité des cas, non. Le furet électrique passe directement par la cuvette jusqu'au bouchon."], ["Vous intervenez la nuit pour des WC bouchés ?", "Oui, 24h/24 et 7j/7, week-ends et jours fériés compris, car un WC bouché ne peut pas attendre le lendemain."]]
   },
   "nl": {
    "name": "Ontstopping wc",
    "card": "Pot die overloopt of traag leegloopt: we ontstoppen zonder de porselein te beschadigen.",
-   "title": "Ontstopping wc Brussel 24/7 – vanaf 85 € | ABS Débouchage",
-   "desc": "Wc verstopt in Brussel? Technieker binnen 30 min ter plaatse, 24/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, vanaf 85 €. ☎ 0484 72 47 24",
+   "title": "Ontstopping wc Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "desc": "Wc verstopt in Brussel? Technieker binnen 30 min ter plaatse, 24/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
    "h1": "Wc ontstoppen in Brussel, dringend en 24/7",
    "intro": "Een verstopt toilet is de meest voorkomende noodsituatie… en de meest stresserende. Onze techniekers komen in alle Brusselse gemeenten, gemiddeld binnen 30 minuten, met een professionele elektrische veer die de pot en de afvoer ontstopt zonder het porselein te krassen.",
    "signs": ["Het water komt na het doorspoelen tot aan de rand van de pot", "De pot loopt heel traag leeg of maakt borrelende geluiden", "Er komt een rioolgeur in de badkamer", "De ontstopper (zuignap) helpt niet meer"],
    "causes": ["Te veel toiletpapier in één keer", "Doekjes, wattenstaafjes of maandverband in het toilet", "Voorwerp in de pot gevallen (speelgoed, borstel, deodorant)", "Kalkaanslag die de afvoer vernauwt"],
    "method": [["Diagnose", "We zoeken waar de verstopping zit: pot, bocht of afvoerkolom."], ["Ontstopping", "Elektrische veer of hogedrukpomp, afhankelijk van de situatie, zonder de wc te demonteren."], ["Test", "Meermaals doorspoelen om een perfecte afvoer te controleren."], ["Opkuis", "De werkzone wordt gereinigd en ontsmet voor we vertrekken."]],
    "tip": "In afwachting van de technieker: spoel niet meer door, sluit de waterkraan achter de wc en gebruik geen chemische producten. Die beschadigen de dichtingen en zijn gevaarlijk voor onze techniekers.",
-   "faq": [["Hoeveel kost een wc-ontstopping in Brussel?", "Een standaard wc-ontstopping start vanaf 85 €. De exacte prijs krijg je telefonisch of via WhatsApp vóór de technieker vertrekt, en die prijs staat op de factuur."], ["Moet het toilet gedemonteerd worden?", "In de meeste gevallen niet. De elektrische veer gaat rechtstreeks via de pot tot aan de verstopping."], ["Komen jullie ook 's nachts voor een verstopte wc?", "Ja, 24/7, ook in het weekend en op feestdagen. Een verstopte wc kan niet wachten tot morgen."]]
+   "faq": [["Hoeveel kost een wc-ontstopping in Brussel?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Moet het toilet gedemonteerd worden?", "In de meeste gevallen niet. De elektrische veer gaat rechtstreeks via de pot tot aan de verstopping."], ["Komen jullie ook 's nachts voor een verstopte wc?", "Ja, 24/7, ook in het weekend en op feestdagen. Een verstopte wc kan niet wachten tot morgen."]]
   }
  },
  {
@@ -102,90 +102,90 @@ SERVICES = [
   }
  },
  {
-  "id": "evier", "icon": "sink", "price": 80, "slug": {"fr": "debouchage-evier", "nl": "ontstopping-gootsteen"},
+  "id": "evier", "icon": "sink", "price": None, "slug": {"fr": "debouchage-evier", "nl": "ontstopping-gootsteen"},
   "fr": {
    "name": "Débouchage évier",
    "card": "Graisse et restes de repas : dégraissage complet du siphon et du tuyau.",
-   "title": "Débouchage évier Bruxelles 24h/24 – dès 80 € | ABS Débouchage",
-   "desc": "Évier de cuisine bouché à Bruxelles ? Débouchage et dégraissage haute pression en 30 min, 24h/24. Prix annoncé avant travaux, dès 80 €. ☎ 0484 72 47 24",
+   "title": "Débouchage évier Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "desc": "Évier de cuisine bouché à Bruxelles ? Débouchage et dégraissage haute pression en 30 min, 24h/24. Prix annoncé avant travaux, devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage d'évier de cuisine à Bruxelles",
    "intro": "L'évier de cuisine reçoit chaque jour de la graisse chaude, qui fige dans les tuyaux et retient les restes alimentaires. Résultat : l'eau stagne et les odeurs s'installent. Nous débouchons et dégraissons le siphon et la canalisation pour retrouver un écoulement comme neuf.",
    "signs": ["L'eau stagne dans les bacs de l'évier", "Odeur de graisse rance ou d'égout", "Gargouillements quand le lave-vaisselle se vide", "L'eau remonte dans le second bac"],
    "causes": ["Graisse de cuisson versée dans l'évier", "Marc de café, riz, pâtes et restes alimentaires", "Siphon encrassé jamais nettoyé", "Lave-vaisselle raccordé sur une évacuation trop étroite"],
    "method": [["Démontage du siphon", "Nettoyage complet du siphon et de la bonde."], ["Furet électrique", "Passage du furet dans la canalisation pour casser le bouchon de graisse."], ["Dégraissage", "Rinçage haute pression pour nettoyer les parois du tuyau."], ["Contrôle", "Test à plein débit, évier et lave-vaisselle."]],
    "tip": "En attendant : n'utilisez plus le lave-vaisselle et ne versez pas d'eau bouillante si le tuyau est en PVC, elle peut le déformer.",
-   "faq": [["Combien coûte un débouchage d'évier ?", "À partir de 80 €. Le prix exact vous est confirmé avant l'intervention."], ["Mon évier se rebouche souvent, que faire ?", "C'est souvent un dépôt de graisse en profondeur. Un hydrocurage ou une inspection caméra permet de traiter la cause."], ["Intervenez-vous dans les restaurants ?", "Oui, nous intervenons aussi pour les cuisines professionnelles, 24h/24."]]
+   "faq": [["Combien coûte un débouchage d'évier ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon évier se rebouche souvent, que faire ?", "C'est souvent un dépôt de graisse en profondeur. Un hydrocurage ou une inspection caméra permet de traiter la cause."], ["Intervenez-vous dans les restaurants ?", "Oui, nous intervenons aussi pour les cuisines professionnelles, 24h/24."]]
   },
   "nl": {
    "name": "Ontstopping gootsteen",
    "card": "Vet en etensresten: volledige reiniging van sifon en afvoer.",
-   "title": "Ontstopping gootsteen Brussel 24/7 – vanaf 80 € | ABS Débouchage",
-   "desc": "Gootsteen verstopt in Brussel? Ontstopping en hogedrukreiniging binnen 30 min, 24/7. Prijs vooraf gekend, vanaf 80 €. ☎ 0484 72 47 24",
+   "title": "Ontstopping gootsteen Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "desc": "Gootsteen verstopt in Brussel? Ontstopping en hogedrukreiniging binnen 30 min, 24/7. Prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
    "h1": "Gootsteen ontstoppen in Brussel",
    "intro": "De keukengootsteen krijgt elke dag heet vet te verwerken. Dat stolt in de leidingen en houdt etensresten vast. Gevolg: het water blijft staan en het begint te stinken. Wij ontstoppen en ontvetten de sifon en de afvoer zodat alles weer vlot wegloopt.",
    "signs": ["Het water blijft in de gootsteen staan", "Geur van ranzig vet of riool", "Borrelende geluiden als de vaatwasser leegloopt", "Water komt omhoog in de tweede kuip"],
    "causes": ["Bakvet in de gootsteen gegoten", "Koffiedik, rijst, pasta en etensresten", "Vuile sifon die nooit gereinigd werd", "Vaatwasser aangesloten op een te smalle afvoer"],
    "method": [["Sifon demonteren", "Volledige reiniging van sifon en afvoerplug."], ["Elektrische veer", "De veer breekt de vetprop in de leiding."], ["Ontvetten", "Spoelen onder hoge druk om de wanden van de leiding te reinigen."], ["Controle", "Test op vol debiet, gootsteen en vaatwasser."]],
    "tip": "In afwachting: gebruik de vaatwasser niet meer en giet geen kokend water als de leiding uit pvc is, die kan vervormen.",
-   "faq": [["Hoeveel kost een gootsteenontstopping?", "Vanaf 80 €. De exacte prijs wordt vooraf bevestigd."], ["Mijn gootsteen raakt vaak verstopt, wat nu?", "Meestal zit er diep in de leiding vet. Hogedrukreiniging of een camera-inspectie pakt de oorzaak aan."], ["Komen jullie ook naar restaurants?", "Ja, ook voor professionele keukens, 24/7."]]
+   "faq": [["Hoeveel kost een gootsteenontstopping?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Mijn gootsteen raakt vaak verstopt, wat nu?", "Meestal zit er diep in de leiding vet. Hogedrukreiniging of een camera-inspectie pakt de oorzaak aan."], ["Komen jullie ook naar restaurants?", "Ja, ook voor professionele keukens, 24/7."]]
   }
  },
  {
-  "id": "lavabo", "icon": "basin", "price": 80, "slug": {"fr": "debouchage-lavabo", "nl": "ontstopping-lavabo"},
+  "id": "lavabo", "icon": "basin", "price": None, "slug": {"fr": "debouchage-lavabo", "nl": "ontstopping-lavabo"},
   "fr": {
    "name": "Débouchage lavabo",
    "card": "Cheveux, savon, dentifrice : siphon et vidage nettoyés proprement.",
-   "title": "Débouchage lavabo Bruxelles 24h/24 – dès 80 € | ABS Débouchage",
-   "desc": "Lavabo ou vasque bouché à Bruxelles ? Intervention rapide 24h/24, siphon et évacuation nettoyés sans abîmer vos meubles. Dès 80 €. ☎ 0484 72 47 24",
+   "title": "Débouchage lavabo Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "desc": "Lavabo ou vasque bouché à Bruxelles ? Intervention rapide 24h/24, siphon et évacuation nettoyés sans abîmer vos meubles. Devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de lavabo et vasque à Bruxelles",
    "intro": "Cheveux, savon et dentifrice forment petit à petit un bouchon dans le siphon du lavabo. Nos techniciens démontent et nettoient le siphon, la bonde et la canalisation, avec soin pour vos meubles de salle de bain.",
    "signs": ["L'eau stagne après le brossage de dents", "Bonde clic-clac bloquée", "Odeurs dans la salle de bain", "Écoulement lent qui s'aggrave"],
    "causes": ["Cheveux accumulés dans la bonde", "Savon et dentifrice qui collent aux parois", "Calcaire dans le siphon", "Petit objet tombé (bouchon, bijou)"],
    "method": [["Bonde", "Démontage et nettoyage de la bonde et du mécanisme clic-clac."], ["Siphon", "Démontage du siphon, nettoyage, remontage étanche."], ["Canalisation", "Passage du furet si le bouchon est plus loin."], ["Test", "Vérification de l'écoulement et de l'étanchéité."]],
    "tip": "En attendant : retirez la bonde clic-clac si vous pouvez et enlevez les cheveux visibles. Évitez la soude caustique.",
-   "faq": [["Combien coûte un débouchage de lavabo ?", "À partir de 80 €, prix confirmé avant l'intervention."], ["Pouvez-vous récupérer un bijou tombé dans le lavabo ?", "Souvent oui : il reste généralement coincé dans le siphon. Arrêtez d'utiliser le lavabo et appelez-nous."], ["Vous démontez le meuble ?", "Rarement. Le siphon est accessible sous la vasque dans la plupart des cas."]]
+   "faq": [["Combien coûte un débouchage de lavabo ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Pouvez-vous récupérer un bijou tombé dans le lavabo ?", "Souvent oui : il reste généralement coincé dans le siphon. Arrêtez d'utiliser le lavabo et appelez-nous."], ["Vous démontez le meuble ?", "Rarement. Le siphon est accessible sous la vasque dans la plupart des cas."]]
   },
   "nl": {
    "name": "Ontstopping lavabo",
    "card": "Haren, zeep, tandpasta: sifon en afvoer netjes gereinigd.",
-   "title": "Ontstopping lavabo Brussel 24/7 – vanaf 80 € | ABS Débouchage",
-   "desc": "Lavabo of wastafel verstopt in Brussel? Snelle interventie 24/7, sifon en afvoer gereinigd zonder schade aan je meubels. Vanaf 80 €. ☎ 0484 72 47 24",
+   "title": "Ontstopping lavabo Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "desc": "Lavabo of wastafel verstopt in Brussel? Snelle interventie 24/7, sifon en afvoer gereinigd zonder schade aan je meubels. Gratis offerte. ☎ 0484 72 47 24",
    "h1": "Lavabo en wastafel ontstoppen in Brussel",
    "intro": "Haren, zeep en tandpasta vormen beetje bij beetje een prop in de sifon van de lavabo. Onze techniekers demonteren en reinigen sifon, afvoerplug en leiding, met respect voor je badkamermeubel.",
    "signs": ["Het water blijft staan na het tandenpoetsen", "Klik-klakplug geblokkeerd", "Geur in de badkamer", "Trage afvoer die erger wordt"],
    "causes": ["Haren in de afvoerplug", "Zeep en tandpasta op de wanden", "Kalk in de sifon", "Klein voorwerp gevallen (dop, juweel)"],
    "method": [["Afvoerplug", "Demonteren en reinigen van de plug en het klik-klakmechanisme."], ["Sifon", "Sifon demonteren, reinigen en waterdicht terugplaatsen."], ["Leiding", "Elektrische veer als de verstopping verder zit."], ["Test", "Controle van afvoer en dichtheid."]],
    "tip": "In afwachting: verwijder de klik-klakplug als dat lukt en haal zichtbare haren weg. Vermijd bijtende soda.",
-   "faq": [["Hoeveel kost een lavabo-ontstopping?", "Vanaf 80 €, prijs bevestigd vóór de interventie."], ["Kunnen jullie een juweel uit de lavabo halen?", "Vaak wel: het blijft meestal in de sifon steken. Gebruik de lavabo niet meer en bel ons."], ["Wordt het meubel gedemonteerd?", "Zelden. De sifon is meestal bereikbaar onder de wastafel."]]
+   "faq": [["Hoeveel kost een lavabo-ontstopping?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Kunnen jullie een juweel uit de lavabo halen?", "Vaak wel: het blijft meestal in de sifon steken. Gebruik de lavabo niet meer en bel ons."], ["Wordt het meubel gedemonteerd?", "Zelden. De sifon is meestal bereikbaar onder de wastafel."]]
   }
  },
  {
-  "id": "douche", "icon": "shower", "price": 85, "slug": {"fr": "debouchage-douche", "nl": "ontstopping-douche"},
+  "id": "douche", "icon": "shower", "price": None, "slug": {"fr": "debouchage-douche", "nl": "ontstopping-douche"},
   "fr": {
    "name": "Débouchage douche",
    "card": "Bac ou douche à l'italienne qui déborde : débouché sans casser le carrelage.",
-   "title": "Débouchage douche Bruxelles 24h/24 – dès 85 € | ABS Débouchage",
-   "desc": "Douche bouchée à Bruxelles ? Bac, douche à l'italienne ou caniveau : débouchage en 30 min sans casser le carrelage, 24h/24. Dès 85 €. ☎ 0484 72 47 24",
+   "title": "Débouchage douche Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "desc": "Douche bouchée à Bruxelles ? Bac, douche à l'italienne ou caniveau : débouchage en 30 min sans casser le carrelage, 24h/24. Devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de douche et douche à l'italienne à Bruxelles",
    "intro": "Une douche qui ne s'évacue plus inonde vite la salle de bain. Bondes extra-plates, caniveaux de douche à l'italienne, siphons de sol : nous connaissons tous les systèmes et débouchons sans casser le carrelage ni les joints.",
    "signs": ["L'eau monte au-dessus du receveur pendant la douche", "Écoulement très lent", "Odeur d'égout qui remonte par la bonde", "L'eau d'un autre appareil ressort dans la douche"],
    "causes": ["Cheveux et poils mêlés au savon", "Bonde extra-plate trop étroite", "Calcaire dans le siphon", "Pente insuffisante d'une douche à l'italienne"],
    "method": [["Accès", "Ouverture de la bonde ou du caniveau, sans toucher au carrelage."], ["Extraction", "Retrait des cheveux et dépôts dans le siphon."], ["Furet", "Débouchage de la canalisation jusqu'à la colonne."], ["Test", "Douche à plein débit pendant plusieurs minutes."]],
    "tip": "En attendant : n'utilisez plus la douche, ni le lave-linge s'il est raccordé sur la même évacuation.",
-   "faq": [["Combien coûte un débouchage de douche ?", "À partir de 85 €, prix confirmé avant l'intervention."], ["Ma douche à l'italienne n'a pas de trappe, vous pouvez la déboucher ?", "Oui, nous passons par le caniveau ou la grille, sans casser le carrelage."], ["Pourquoi ma douche se rebouche-t-elle ?", "Souvent à cause de la pente ou d'un dépôt plus loin dans la canalisation. Une inspection caméra permet de le vérifier."]]
+   "faq": [["Combien coûte un débouchage de douche ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Ma douche à l'italienne n'a pas de trappe, vous pouvez la déboucher ?", "Oui, nous passons par le caniveau ou la grille, sans casser le carrelage."], ["Pourquoi ma douche se rebouche-t-elle ?", "Souvent à cause de la pente ou d'un dépôt plus loin dans la canalisation. Une inspection caméra permet de le vérifier."]]
   },
   "nl": {
    "name": "Ontstopping douche",
    "card": "Overlopende douchebak of inloopdouche: ontstopt zonder tegels te breken.",
-   "title": "Ontstopping douche Brussel 24/7 – vanaf 85 € | ABS Débouchage",
-   "desc": "Douche verstopt in Brussel? Douchebak, inloopdouche of douchegoot: ontstopping binnen 30 min zonder tegels te breken, 24/7. Vanaf 85 €. ☎ 0484 72 47 24",
+   "title": "Ontstopping douche Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "desc": "Douche verstopt in Brussel? Douchebak, inloopdouche of douchegoot: ontstopping binnen 30 min zonder tegels te breken, 24/7. Gratis offerte. ☎ 0484 72 47 24",
    "h1": "Douche en inloopdouche ontstoppen in Brussel",
    "intro": "Een douche die niet meer afloopt, zet de badkamer snel onder water. Extra platte afvoerputjes, douchegoten, vloerputjes: we kennen alle systemen en ontstoppen zonder tegels of voegen te beschadigen.",
    "signs": ["Het water komt boven de douchebak tijdens het douchen", "Zeer trage afvoer", "Rioolgeur uit het afvoerputje", "Water van een ander toestel komt omhoog in de douche"],
    "causes": ["Haren vermengd met zeep", "Te smal extra plat putje", "Kalk in de sifon", "Onvoldoende helling bij een inloopdouche"],
    "method": [["Toegang", "Openen van het putje of de douchegoot, zonder aan de tegels te komen."], ["Verwijderen", "Haren en afzettingen uit de sifon halen."], ["Veer", "Ontstoppen van de leiding tot aan de kolom."], ["Test", "Enkele minuten douchen op vol debiet."]],
    "tip": "In afwachting: gebruik de douche niet meer, en ook de wasmachine niet als die op dezelfde afvoer zit.",
-   "faq": [["Hoeveel kost een douche-ontstopping?", "Vanaf 85 €, prijs bevestigd vóór de interventie."], ["Mijn inloopdouche heeft geen luik, kunnen jullie ze ontstoppen?", "Ja, we werken via de douchegoot of het rooster, zonder tegels te breken."], ["Waarom raakt mijn douche steeds opnieuw verstopt?", "Vaak door de helling of een afzetting verder in de leiding. Een camera-inspectie kan dat nagaan."]]
+   "faq": [["Hoeveel kost een douche-ontstopping?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Mijn inloopdouche heeft geen luik, kunnen jullie ze ontstoppen?", "Ja, we werken via de douchegoot of het rooster, zonder tegels te breken."], ["Waarom raakt mijn douche steeds opnieuw verstopt?", "Vaak door de helling of een afzetting verder in de leiding. Een camera-inspectie kan dat nagaan."]]
   }
  },
  {
@@ -276,32 +276,32 @@ SERVICES = [
   }
  },
  {
-  "id": "siphon", "icon": "drain", "price": 80, "slug": {"fr": "debouchage-siphon", "nl": "ontstopping-afvoerputje"},
+  "id": "siphon", "icon": "drain", "price": None, "slug": {"fr": "debouchage-siphon", "nl": "ontstopping-afvoerputje"},
   "fr": {
    "name": "Siphon de sol",
    "card": "Garage, buanderie, cour : curage et aspiration des boues.",
-   "title": "Débouchage siphon de sol Bruxelles 24h/24 – dès 80 € | ABS Débouchage",
-   "desc": "Siphon de sol bouché à Bruxelles (garage, cave, buanderie, cour) ? Curage et aspiration des boues 24h/24, dès 80 €. ☎ 0484 72 47 24",
+   "title": "Débouchage siphon de sol Bruxelles 24h/24 – devis gratuit | ABS Débouchage",
+   "desc": "Siphon de sol bouché à Bruxelles (garage, cave, buanderie, cour) ? Curage et aspiration des boues 24h/24, devis gratuit. ☎ 0484 72 47 24",
    "h1": "Débouchage de siphon de sol à Bruxelles",
    "intro": "Les siphons de sol des garages, caves, buanderies et cours piègent sable, feuilles et résidus de lessive. Quand ils se bouchent, l'eau stagne ou remonte à chaque orage. Nous les curons, aspirons les boues et les désinfectons.",
    "signs": ["Flaque permanente autour du siphon", "Refoulement lors des fortes pluies", "Odeur d'égout dans le garage ou la cave", "L'eau du lave-linge déborde du siphon"],
    "causes": ["Sable, terre et feuilles", "Peluches et résidus de lessive", "Grille absente ou cassée", "Bouchon dans la conduite vers l'égout"],
    "method": [["Ouverture", "Retrait de la grille et du panier."], ["Aspiration", "Pompage des boues et sédiments."], ["Curage", "Débouchage de la conduite jusqu'à l'égout."], ["Désinfection", "Nettoyage et remise en place de la grille."]],
    "tip": "En attendant : n'utilisez plus le lave-linge s'il se vide dans ce siphon.",
-   "faq": [["Combien coûte un débouchage de siphon de sol ?", "À partir de 80 €, prix confirmé avant l'intervention."], ["Mon siphon déborde à chaque orage, pourquoi ?", "La conduite vers l'égout est souvent partiellement bouchée. Un curage, voire une inspection caméra, règle le problème."], ["Intervenez-vous pour les commerces ?", "Oui, garages, ateliers et commerces, 24h/24."]]
+   "faq": [["Combien coûte un débouchage de siphon de sol ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon siphon déborde à chaque orage, pourquoi ?", "La conduite vers l'égout est souvent partiellement bouchée. Un curage, voire une inspection caméra, règle le problème."], ["Intervenez-vous pour les commerces ?", "Oui, garages, ateliers et commerces, 24h/24."]]
   },
   "nl": {
    "name": "Vloerputje",
    "card": "Garage, wasruimte, koer: reiniging en afzuigen van slib.",
-   "title": "Ontstopping afvoerputje Brussel 24/7 – vanaf 80 € | ABS Débouchage",
-   "desc": "Vloerputje verstopt in Brussel (garage, kelder, wasruimte, koer)? Reiniging en afzuigen van slib 24/7, vanaf 80 €. ☎ 0484 72 47 24",
+   "title": "Ontstopping afvoerputje Brussel 24/7 – gratis offerte | ABS Débouchage",
+   "desc": "Vloerputje verstopt in Brussel (garage, kelder, wasruimte, koer)? Reiniging en afzuigen van slib 24/7, gratis offerte. ☎ 0484 72 47 24",
    "h1": "Vloerputje en afvoerputje ontstoppen in Brussel",
    "intro": "Vloerputjes in garages, kelders, wasruimtes en koeren houden zand, bladeren en wasresten vast. Als ze verstopt raken, blijft het water staan of komt het bij elk onweer omhoog. Wij reinigen ze, zuigen het slib af en ontsmetten ze.",
    "signs": ["Permanente plas rond het putje", "Terugslag bij hevige regen", "Rioolgeur in garage of kelder", "Water van de wasmachine loopt over"],
    "causes": ["Zand, aarde en bladeren", "Pluisjes en wasresten", "Ontbrekend of kapot rooster", "Verstopping in de leiding naar de riool"],
    "method": [["Openen", "Rooster en korf verwijderen."], ["Afzuigen", "Slib en sediment wegpompen."], ["Reinigen", "Leiding ontstoppen tot aan de riool."], ["Ontsmetten", "Reinigen en rooster terugplaatsen."]],
    "tip": "In afwachting: gebruik de wasmachine niet meer als die in dit putje loost.",
-   "faq": [["Hoeveel kost een vloerputje ontstoppen?", "Vanaf 80 €, prijs bevestigd vóór de interventie."], ["Mijn putje loopt over bij elk onweer, waarom?", "De leiding naar de riool is vaak deels verstopt. Een reiniging of camera-inspectie lost het op."], ["Komen jullie ook voor handelszaken?", "Ja, garages, werkplaatsen en winkels, 24/7."]]
+   "faq": [["Hoeveel kost een vloerputje ontstoppen?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Mijn putje loopt over bij elk onweer, waarom?", "De leiding naar de riool is vaak deels verstopt. Een reiniging of camera-inspectie lost het op."], ["Komen jullie ook voor handelszaken?", "Ja, garages, werkplaatsen en winkels, 24/7."]]
   }
  },
  {
@@ -346,7 +346,7 @@ UI = {
   "nav_services": "Services", "nav_prices": "Tarifs", "nav_zones": "Zones", "nav_about": "À propos", "nav_contact": "Contact", "nav_all": "Tous nos services",
   "call": "Appeler", "call_now": "Appeler maintenant", "wa_quote": "Devis gratuit WhatsApp", "menu": "Menu",
   "chk": ["Devis gratuit", "Agréé assurances", "Facture avec n° TVA"],
-  "from": "dès", "on_quote": "Sur devis", "learn": "En savoir plus",
+  "from": "dès", "on_quote": "Devis gratuit", "learn": "En savoir plus",
   "home": "Accueil",
   # Devis
   "q_kick": "Devis express", "q_title": "Votre devis sur WhatsApp en 1 minute",
@@ -377,13 +377,13 @@ UI = {
   "p_kick": "Tarifs transparents", "p_title": "Des prix clairs, sans surprise",
   "p_lead": "Le prix exact est confirmé avant l'intervention. Ce qui est annoncé est ce que vous payez.",
   "badge": "Le plus demandé", "from_long": "à partir de", "price_lbl": "prix",
-  "plans": [["Débouchage sanitaire", 80, ["WC, évier, lavabo, douche, siphon", "Furet électrique professionnel", "Test d'écoulement après travaux"]], ["Égout & haute pression", None, ["Égout, colonne, chambre de visite", "Camion hydrocureur 400 bars", "Racines, graisse et calcaire éliminés"]], ["Inspection caméra", None, ["Caméra HD rotative 360°", "Localisation au centimètre", "Rapport vidéo pour assurance ou syndic"]]],
-  "ask_price": "Demander le prix", "p_note": "Prix indicatifs TVA comprise, à confirmer selon l'intervention.",
+  "plans": [["Débouchage sanitaire", None, ["WC, évier, lavabo, douche, siphon", "Furet électrique professionnel", "Test d'écoulement après travaux"]], ["Égout & haute pression", None, ["Égout, colonne, chambre de visite", "Camion hydrocureur 400 bars", "Racines, graisse et calcaire éliminés"]], ["Inspection caméra", None, ["Caméra HD rotative 360°", "Localisation au centimètre", "Rapport vidéo pour assurance ou syndic"]]],
+  "ask_price": "Demander le prix", "p_note": "Devis gratuit et sans engagement : le prix exact vous est annoncé avant toute intervention.",
   "z_kick": "Zone d'intervention", "z_title": "Partout à Bruxelles et en périphérie",
   "z_lead": "Nous intervenons dans les 19 communes de la Région de Bruxelles-Capitale et dans la périphérie proche.",
   "z_peri": "Périphérie",
   "f_kick": "FAQ", "f_title": "Questions fréquentes",
-  "faq": [["En combien de temps arrivez-vous ?", "En moyenne en 30 minutes après votre appel, partout à Bruxelles, de jour comme de nuit."], ["Combien coûte un débouchage à Bruxelles ?", "Un débouchage simple (WC, évier, douche) démarre entre 80 et 85 €. Le prix exact vous est annoncé avant l'intervention, sans surprise."], ["Intervenez-vous la nuit, le week-end et les jours fériés ?", "Oui, 24h/24 et 7j/7, toute l'année."], ["Mon assurance peut-elle rembourser ?", "Souvent oui, surtout en cas de dégât des eaux. Nous fournissons une facture officielle avec n° TVA et un rapport technique."], ["Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les produits chimiques corrosifs."], ["Utilisez-vous des produits chimiques ?", "Non. Nous travaillons mécaniquement (furet, haute pression), sans produits corrosifs pour vos tuyaux ni pour l'environnement."]],
+  "faq": [["En combien de temps arrivez-vous ?", "En moyenne en 30 minutes après votre appel, partout à Bruxelles, de jour comme de nuit."], ["Combien coûte un débouchage à Bruxelles ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Intervenez-vous la nuit, le week-end et les jours fériés ?", "Oui, 24h/24 et 7j/7, toute l'année."], ["Mon assurance peut-elle rembourser ?", "Souvent oui, surtout en cas de dégât des eaux. Nous fournissons une facture officielle avec n° TVA et un rapport technique."], ["Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les produits chimiques corrosifs."], ["Utilisez-vous des produits chimiques ?", "Non. Nous travaillons mécaniquement (furet, haute pression), sans produits corrosifs pour vos tuyaux ni pour l'environnement."]],
   "fin_title": "Un bouchon ? N'attendez pas que ça déborde.",
   "fin_lead": "Appelez maintenant : un technicien peut être chez vous dans 30 minutes.",
   # Pages service
@@ -406,7 +406,7 @@ UI = {
   "nav_services": "Diensten", "nav_prices": "Prijzen", "nav_zones": "Regio", "nav_about": "Over ons", "nav_contact": "Contact", "nav_all": "Al onze diensten",
   "call": "Bellen", "call_now": "Nu bellen", "wa_quote": "Gratis offerte via WhatsApp", "menu": "Menu",
   "chk": ["Gratis offerte", "Erkend door verzekeraars", "Factuur met btw-nummer"],
-  "from": "vanaf", "on_quote": "Op offerte", "learn": "Meer info",
+  "from": "vanaf", "on_quote": "Gratis offerte", "learn": "Meer info",
   "home": "Home",
   "q_kick": "Snelle offerte", "q_title": "Je offerte via WhatsApp in 1 minuut",
   "q_lead": "Beantwoord 4 vragen: je aanvraag komt volledig ingevuld op onze WhatsApp. We antwoorden meteen met een prijs.",
@@ -435,13 +435,13 @@ UI = {
   "p_kick": "Transparante prijzen", "p_title": "Duidelijke prijzen, geen verrassingen",
   "p_lead": "De exacte prijs wordt vóór de interventie bevestigd. Wat we zeggen, is wat je betaalt.",
   "badge": "Meest gevraagd", "from_long": "vanaf", "price_lbl": "prijs",
-  "plans": [["Sanitaire ontstopping", 80, ["Wc, gootsteen, lavabo, douche, putje", "Professionele elektrische veer", "Doorlooptest na de werken"]], ["Riool & hogedruk", None, ["Riool, kolom, inspectieput", "Hogedrukwagen 400 bar", "Wortels, vet en kalk verwijderd"]], ["Camera-inspectie", None, ["Draaibare HD-camera 360°", "Lokalisatie tot op de centimeter", "Videorapport voor verzekering of syndicus"]]],
-  "ask_price": "Prijs vragen", "p_note": "Indicatieve prijzen incl. btw, te bevestigen afhankelijk van de interventie.",
+  "plans": [["Sanitaire ontstopping", None, ["Wc, gootsteen, lavabo, douche, putje", "Professionele elektrische veer", "Doorlooptest na de werken"]], ["Riool & hogedruk", None, ["Riool, kolom, inspectieput", "Hogedrukwagen 400 bar", "Wortels, vet en kalk verwijderd"]], ["Camera-inspectie", None, ["Draaibare HD-camera 360°", "Lokalisatie tot op de centimeter", "Videorapport voor verzekering of syndicus"]]],
+  "ask_price": "Prijs vragen", "p_note": "Gratis en vrijblijvende offerte: de exacte prijs krijg je vóór elke interventie.",
   "z_kick": "Werkgebied", "z_title": "Overal in Brussel en de rand",
   "z_lead": "We komen in de 19 gemeenten van het Brussels Hoofdstedelijk Gewest en de nabije rand.",
   "z_peri": "Rand",
   "f_kick": "FAQ", "f_title": "Veelgestelde vragen",
-  "faq": [["Hoe snel zijn jullie ter plaatse?", "Gemiddeld binnen 30 minuten na je oproep, overal in Brussel, dag en nacht."], ["Hoeveel kost een ontstopping in Brussel?", "Een eenvoudige ontstopping (wc, gootsteen, douche) start tussen 80 en 85 €. De exacte prijs krijg je vooraf, zonder verrassingen."], ["Komen jullie 's nachts, in het weekend en op feestdagen?", "Ja, 24/7, het hele jaar door."], ["Betaalt mijn verzekering terug?", "Vaak wel, zeker bij waterschade. Je krijgt een officiële factuur met btw-nummer en een technisch verslag."], ["Wat doe ik in afwachting van de technieker?", "Gebruik geen water meer (spoelen, wasmachine, vaatwasser), sluit de watertoevoer af als het overloopt en vermijd bijtende producten."], ["Gebruiken jullie chemische producten?", "Nee. We werken mechanisch (veer, hogedruk), zonder bijtende producten voor je leidingen of het milieu."]],
+  "faq": [["Hoe snel zijn jullie ter plaatse?", "Gemiddeld binnen 30 minuten na je oproep, overal in Brussel, dag en nacht."], ["Hoeveel kost een ontstopping in Brussel?", "De prijs hangt af van de situatie. Je krijgt hem gratis telefonisch of via WhatsApp vóór de interventie, en die prijs staat op de factuur."], ["Komen jullie 's nachts, in het weekend en op feestdagen?", "Ja, 24/7, het hele jaar door."], ["Betaalt mijn verzekering terug?", "Vaak wel, zeker bij waterschade. Je krijgt een officiële factuur met btw-nummer en een technisch verslag."], ["Wat doe ik in afwachting van de technieker?", "Gebruik geen water meer (spoelen, wasmachine, vaatwasser), sluit de watertoevoer af als het overloopt en vermijd bijtende producten."], ["Gebruiken jullie chemische producten?", "Nee. We werken mechanisch (veer, hogedruk), zonder bijtende producten voor je leidingen of het milieu."]],
   "fin_title": "Verstopping? Wacht niet tot het overloopt.",
   "fin_lead": "Bel nu: een technieker kan binnen 30 minuten bij je zijn.",
   "sv_signs": "Duidelijke signalen", "sv_causes": "De meest voorkomende oorzaken",
@@ -545,7 +545,7 @@ DIAG_UI = {
   "sev": {"urgent": ("Urgent : intervention immédiate recommandée", "Un technicien peut être chez vous en 30 minutes environ. N'attendez pas que la situation s'aggrave."),
           "today": ("À traiter aujourd'hui", "Ce n'est pas encore une inondation, mais ça peut vite s'aggraver. Mieux vaut intervenir dans la journée."),
           "plan": ("Pas d'urgence immédiate", "On peut fixer ensemble un rendez-vous qui vous arrange, sans frais supplémentaires.")},
-  "price": "Prix de départ", "price_q": "Annoncé gratuitement avant l'intervention", "wait": "En attendant le technicien",
+  "price": "Prix", "price_q": "Devis gratuit, annoncé avant l'intervention", "wait": "En attendant le technicien",
   "wait_generic": "Arrêtez d'utiliser l'eau, coupez l'arrivée d'eau si ça déborde et évitez les produits chimiques.",
   "where": "Votre commune ou code postal", "where_ph": "ex. 1050 Ixelles", "name": "Votre prénom", "opt": "(facultatif)",
   "err": "Indiquez votre commune pour que l'on puisse estimer le délai.",
@@ -567,7 +567,7 @@ DIAG_UI = {
   "sev": {"urgent": ("Dringend: onmiddellijke interventie aangeraden", "Een technieker kan binnen ongeveer 30 minuten bij je zijn. Wacht niet tot het erger wordt."),
           "today": ("Vandaag aanpakken", "Het is nog geen overstroming, maar het kan snel erger worden. Best vandaag nog laten bekijken."),
           "plan": ("Geen onmiddellijke nood", "We spreken samen een moment af dat jou past, zonder extra kosten.")},
-  "price": "Startprijs", "price_q": "Gratis vooraf meegedeeld", "wait": "In afwachting van de technieker",
+  "price": "Prijs", "price_q": "Gratis offerte, vooraf meegedeeld", "wait": "In afwachting van de technieker",
   "wait_generic": "Gebruik geen water meer, sluit de watertoevoer af als het overloopt en vermijd chemische producten.",
   "where": "Je gemeente of postcode", "where_ph": "bv. 1050 Elsene", "name": "Je voornaam", "opt": "(optioneel)",
   "err": "Vul je gemeente in zodat we de aankomsttijd kunnen inschatten.",
