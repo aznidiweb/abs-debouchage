@@ -540,17 +540,49 @@ def diagnostic(L, pre=None, photo="pipecam"):
  </div>
 </section>'''
 
+PRICE_TX = {
+ "fr": {"kick": "Tarifs transparents", "title": "Comment on fixe <em>votre prix</em>",
+        "lead": "Chaque bouchon est différent. On regarde votre situation, puis on vous annonce le prix avant de commencer.",
+        "f_title": "Ce qui fait varier le prix",
+        "factors": [("pipes", "Le type de bouchon", "Un siphon de lavabo ou une colonne d'égout, ce n'est pas le même travail."),
+                    ("pin", "L'accès", "Étage, regard extérieur, cave ou faux plafond."),
+                    ("gauge", "Le matériel nécessaire", "Furet, haute pression ou caméra d'inspection."),
+                    ("clock", "Le moment de l'intervention", "En journée, la nuit ou le week-end.")],
+        "e_title": "Nos engagements", "e_lead": "Ce qui ne change jamais, quelle que soit l'intervention :",
+        "eng": ["Le prix est annoncé avant de commencer", "Aucun travail sans votre accord", "Pas de frais cachés sur la facture",
+                "Facture officielle avec n° TVA pour votre assurance"],
+        "cta": "Recevoir mon prix", "or": "ou appelez le"},
+ "nl": {"kick": "Transparante prijzen", "title": "Hoe we <em>je prijs</em> bepalen",
+        "lead": "Elke verstopping is anders. We bekijken je situatie en geven je de prijs voordat we beginnen.",
+        "f_title": "Wat de prijs beïnvloedt",
+        "factors": [("pipes", "Het soort verstopping", "Een lavabosifon of een rioolkolom is niet hetzelfde werk."),
+                    ("pin", "De toegang", "Verdieping, buitenput, kelder of vals plafond."),
+                    ("gauge", "Het nodige materiaal", "Veer, hogedruk of inspectiecamera."),
+                    ("clock", "Het moment van de interventie", "Overdag, 's nachts of in het weekend.")],
+        "e_title": "Onze beloftes", "e_lead": "Wat nooit verandert, welke interventie ook:",
+        "eng": ["De prijs wordt vooraf meegedeeld", "Geen werk zonder je akkoord", "Geen verborgen kosten op de factuur",
+                "Officiële factuur met btw-nummer voor je verzekering"],
+        "cta": "Mijn prijs ontvangen", "or": "of bel"},
+}
+
 def prices_section(L, cls=""):
-    u = UI[L]; plans = ""
-    for i, (name, price, feats) in enumerate(u["plans"]):
-        hot = i == 0
-        amount = f'<small>{u["from_long"]}</small><div class="amount">{price}&nbsp;€</div>' if price else f'<small>{u["price_lbl"]}</small><div class="amount q">{u["on_quote"]}</div>'
-        fl = "".join(f'<li>{ico("check")}<span>{e(f)}</span></li>' for f in feats)
-        btn = btn_call(L, "btn-block btn-lg", u["ask_price"]) if hot else f'<a class="btn btn-line btn-block btn-lg" href="tel:{PHONE_TEL}">{ico("phone")}<span>{u["ask_price"]}</span></a>'
-        plans += f'<div class="plan{" hot on-dark" if hot else ""} reveal" data-d="{i}">{chip(u["badge"]) if hot else ""}<h3>{e(name)}</h3>{amount}<ul>{fl}</ul>{btn}</div>'
-    return f'''<section class="section {cls}" id="tarifs"><div class="wrap">
- {sh(u["p_kick"], u["p_title"], u["p_lead"], center=True)}
- <div class="plans">{plans}</div><p class="p-note">{u["p_note"]}</p>
+    T = PRICE_TX[L]
+    facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic">{ico(ic)}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
+                    for i, (ic, a, b) in enumerate(T["factors"]))
+    eng = "".join(f'<li>{ico("check")}<span>{e(x)}</span></li>' for x in T["eng"])
+    return f'''<section class="section {cls}" id="tarifs"><div class="wrap pricing">
+ <div class="pr-left">
+  {sh(T["kick"], T["title"], T["lead"])}
+  <h3 class="pr-h">{T["f_title"]}</h3>
+  <ul class="pfac">{facts}</ul>
+ </div>
+ <div class="peng reveal" data-d="1">
+  <span class="peng-ic">{ico("shield")}</span>
+  <h3>{T["e_title"]}</h3><p>{T["e_lead"]}</p>
+  <ul>{eng}</ul>
+  <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{T["cta"]}</span></a>
+  <p class="peng-or">{T["or"]} <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+ </div>
 </div></section>'''
 
 PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos": "1620", "Kraainem": "1950",

@@ -788,3 +788,28 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
  .spw-drop{right:auto;left:26px;top:auto;bottom:40px}
  .spw-drain{right:auto;left:8px;bottom:6px}
  @keyframes spwDrop{0%{opacity:0;transform:none}15%{opacity:1}100%{opacity:.2;transform:translate(3px,28px)}}}
+
+/* ---------- Tarifs : comment on fixe le prix + engagements ---------- */
+.pricing{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:48px;align-items:start}
+.pricing .sh{margin-bottom:28px}
+.pr-h{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px}
+.pfac{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pfac li{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--sh-1);transition:border-color .2s,box-shadow .2s,transform .2s var(--ease)}
+.pfac li:hover{border-color:#bae6fd;box-shadow:var(--sh-2);transform:translateY(-2px)}
+.pf-ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#e0f2fe;color:#0369a1}
+.pf-ic .ico{width:21px;height:21px}
+.pfac h4{font-size:16px;color:var(--ink);margin-bottom:3px;letter-spacing:-.01em}
+.pfac p{font-size:14.5px;color:var(--muted);line-height:1.5}
+.peng{position:sticky;top:96px;padding:30px;border-radius:var(--r-xl);background:var(--dark);color:#b8c4d3;box-shadow:var(--sh-3);overflow:hidden}
+.peng::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 70%);pointer-events:none}
+.peng-ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(251,122,53,.15);color:var(--brand-hi);margin-bottom:16px}
+.peng-ic .ico{width:24px;height:24px}
+.peng h3{color:#fff;font-size:24px;margin-bottom:6px}
+.peng>p{font-size:15px;margin-bottom:18px}
+.peng ul{list-style:none;display:grid;gap:12px;margin-bottom:24px}
+.peng li{display:flex;gap:12px;align-items:flex-start;color:#fff;font-weight:600;font-size:15.5px;line-height:1.4}
+.peng li .ico{flex:none;width:22px;height:22px;padding:4px;border-radius:50%;background:var(--ok);color:#fff;stroke-width:3}
+.peng-or{margin-top:14px;text-align:center;font-size:14.5px}
+.peng-or a{color:#fff;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:960px){.pricing{grid-template-columns:1fr;gap:28px}.peng{position:relative;top:auto}}
+@media(max-width:560px){.pfac{grid-template-columns:1fr}.pfac li{padding:14px}.peng{padding:24px}}
