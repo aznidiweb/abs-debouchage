@@ -1211,6 +1211,10 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .tw-done .tw-w,.tw-done .tw-c{display:inline}
 .tw-done .tw-w{white-space:nowrap}
 .js .hp-title:not(.tw-on){animation:twSafe 0s linear 2.5s forwards}@keyframes twSafe{to{opacity:1}}
+/* titre : interligne un peu plus large (la cédille du Ç ne touche plus la ligne du dessous), pas d'ombre (source du scintillement sur iPhone) */
+.hero-video .hp-title{line-height:1.08;text-shadow:none}
+.tw-on .tw-c{will-change:transform,opacity}
+.tw-done .tw-c{will-change:auto}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}

@@ -286,6 +286,7 @@
   /* ---------- Titre de l'accueil : s'écrit lettre par lettre, chaque lettre se forme comme une goutte ---------- */
   d.querySelectorAll(".hp-title").forEach(function(t){
     if(t.dataset.typed) return; t.dataset.typed="1";
+    var original=t.innerHTML;
     t.setAttribute("aria-label",t.textContent.replace(/\s+/g," ").trim());
     var n=0, STEP=55;
     function wrap(node,host){
@@ -303,7 +304,7 @@
     });
     t.classList.add("tw-on");
     /* une fois écrit, on retire l'animation : le texte redevient du texte normal (évite le scintillement sur iPhone) */
-    setTimeout(function(){ t.classList.add("tw-done"); }, 250+n*STEP+900);
+    setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, 250+n*STEP+900);
   });
 
   /* ---------- Diagnostic express ---------- */
