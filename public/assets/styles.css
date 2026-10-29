@@ -1242,6 +1242,37 @@ main>section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 900p
 /* défilement plus doux sur iPhone */
 html{-webkit-tap-highlight-color:transparent}
 
+/* ---------- Tarifs + engagements : version compacte ---------- */
+.pricing{gap:36px;align-items:center}
+.pricing .sh{margin-bottom:18px}
+.pricing .sh h2{margin-bottom:8px}
+.pr-h{margin-bottom:10px}
+.pfac{gap:10px}
+.pfac li{padding:12px 14px;gap:12px;align-items:center}
+.pf-ic{width:36px;height:36px;border-radius:10px}
+.pf-ic svg{width:22px;height:22px}
+.pfac h4{font-size:15px;margin-bottom:1px}
+.pfac p{font-size:13.5px;line-height:1.4}
+.peng2{padding:20px 22px}
+.pe-top{margin-bottom:2px}
+.pe-title{font-size:19px}
+.pe-list{margin-bottom:12px}
+.pe-list li{padding:9px 0;gap:11px}
+.pe-list li:first-child{padding-top:8px}
+.pe-list .pe-ic{width:32px;height:32px;border-radius:9px}
+.pe-list .pe-ic .ico{width:16px;height:16px}
+.pe-list b{font-size:14.5px}
+.pe-list small{font-size:12.5px;margin-top:1px}
+.peng2 .pe-receipt{margin:0 0 12px;padding:9px 12px;font-size:12.5px}
+.peng2 .btn-lg{--h:48px}
+.peng2 .peng-or{margin-top:10px;font-size:13.5px}
+@media(max-width:560px){
+ .pfac{grid-template-columns:1fr 1fr;gap:8px}
+ .pfac li{flex-direction:column;align-items:flex-start;gap:8px;padding:12px}
+ .pfac p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+ .peng2{padding:18px}}
+.pricing{grid-template-columns:minmax(0,1fr) minmax(0,470px)}@media(max-width:960px){.pricing{grid-template-columns:1fr}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
