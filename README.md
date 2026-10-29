@@ -1,5 +1,9 @@
 # Site ABS Débouchage
 
+## 👉 [Voir le site en ligne : aznidiweb.github.io/abs-debouchage](https://aznidiweb.github.io/abs-debouchage/)
+
+Version néerlandaise : [aznidiweb.github.io/abs-debouchage/nl/](https://aznidiweb.github.io/abs-debouchage/nl/)
+
 Site statique bilingue (FR/NL) pour ABS Débouchage, Bruxelles.
 
 - `src/content.py` : **tous les textes** (services, prix, FAQ, communes, coordonnées).
