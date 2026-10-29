@@ -625,7 +625,7 @@ def prices_section(L, cls=""):
     facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic pf-{ic}">{PF_ICONS[ic]}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
                     for i, (ic, a, b) in enumerate(T["factors"]))
     E = ENG_TX[L]
-    eng = "".join(f'''<li style="--i:{i}"><span class="pe-ic">{ico(ic)}</span><div><b>{e(t)}</b><small>{e(d)}</small></div><span class="ck" aria-hidden="true">{ico("check")}</span></li>'''
+    eng = "".join(f'''<li style="--i:{i}"><span class="ck" aria-hidden="true">{ico("check")}</span><span>{e(t)}</span></li>'''
                   for i, (ic, t, d) in enumerate(E["items"]))
     ring = E["ring"]
     seal = (f'''<svg class="pe-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pe-ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>'''
@@ -639,9 +639,8 @@ def prices_section(L, cls=""):
   <ul class="pfac">{facts}</ul>
  </div>
  <div class="peng peng2 reveal" data-d="1">
-  <div class="pe-head">{seal}<div><span class="pe-kick">{E["kick"]}</span><h3>{T["e_title"]}</h3><p>{T["e_lead"]}</p></div></div>
+  <h3 class="pe-title">{T["e_title"]}</h3>
   <ul class="pe-list">{eng}</ul>
-  <div class="pe-receipt" aria-label="{e(E["r_aria"])}"><span>{E["r1"]}</span><span class="pe-dots" aria-hidden="true"></span><b>{E["r2"]}</b></div>
   <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{T["cta"]}</span></a>
   <p class="peng-or">{T["or"]} <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
  </div>

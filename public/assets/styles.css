@@ -1158,6 +1158,19 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 @media(max-width:560px){.peng2{padding:20px}.pe-seal{width:76px;height:76px}.peng2 h3{font-size:21px}.pe-list li{grid-template-columns:36px 1fr 22px;gap:10px;padding:10px}.pe-ic{width:36px;height:36px}.pe-receipt{font-size:12.5px;gap:6px}}
 .pe-list .pe-ic .ico{background:none!important;padding:0!important;border-radius:0!important;color:#fb9a62;width:20px;height:20px;stroke-width:2.2}.pe-ringtxt text{letter-spacing:0;font-size:9px}
 
+/* « Nos engagements » : version courte et sobre */
+.peng2{padding:24px;border-radius:20px;background:var(--dark)}
+.peng2::before{display:none}
+.pe-title{color:#fff;font-size:21px;margin:0 0 12px}
+.pe-list{gap:0;margin:0 0 18px}
+.pe-list li{display:flex;gap:12px;align-items:center;padding:11px 0;border:0;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none;color:#e2e8f0;font-size:15px;font-weight:600}
+.pe-list li:last-child{border-bottom:0}
+.pe-list li:hover{background:none;border-color:rgba(255,255,255,.08)}
+.pe-list .ck{flex:none;width:22px;height:22px}
+.pe-list .ck .ico{width:22px;height:22px;padding:5px}
+@media(max-width:560px){.peng2{padding:20px}.pe-list li{grid-template-columns:none;padding:10px 0}}
+.peng2 .ck::after{display:none!important}.pe-list li:first-child{padding-top:4px}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
