@@ -659,7 +659,6 @@ def zone_map(L):
             '<filter id="zm-neon" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
     return f'''<div class="zm-stage"><svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
 <defs>{defs}</defs>
-<rect width="100%" height="100%" fill="url(#zm-dots)" aria-hidden="true"/>
 <g class="zm-ctx" aria-hidden="true">{ctx}</g>
 <ellipse cx="{hx}" cy="{hy + 40}" rx="260" ry="230" fill="url(#zm-glow)" aria-hidden="true"/>
 <g class="zm-depth" aria-hidden="true"><g transform="translate(0 10)">{depth}</g><g transform="translate(0 6)">{depth}</g><g transform="translate(0 3)">{depth}</g></g>

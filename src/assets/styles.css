@@ -1095,3 +1095,23 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
  .hero-video .hp-shade{bottom:auto;height:min(58vh,520px);background:linear-gradient(180deg,rgba(11,27,46,.55) 0%,rgba(11,27,46,0) 20%,rgba(11,27,46,0) 62%,rgba(11,27,46,1) 100%)}
  .hv-inner{padding-top:calc(min(58vh,520px) - 70px);padding-bottom:36px}}
 @media(max-width:560px){.hv-inner{padding-top:calc(min(58vh,520px) - 70px)}}
+
+/* Plus aucun quadrillage décoratif */
+.hero-pipe::after,.hero-video::after{display:none!important;background:none!important}
+/* Vidéo du héros : moins zoomée */
+.hv-media .hp-video,.hv-media .hp-anim{object-position:60% 50%}
+@media(min-width:961px){.hv-media .hp-video,.hv-media .hp-anim{transform:scale(.94);transform-origin:70% 50%}.hv-media{background:#0b1b2e}}
+@media(max-width:960px){
+ .hv-media,.hero-video .hp-shade{height:calc(100vw * .66);max-height:560px}
+ .hv-media .hp-video,.hv-media .hp-anim{object-position:55% 50%}
+ .hv-inner{padding-top:calc(min(100vw * .66, 560px) - 30px)}}
+@media(max-width:560px){.hv-inner{padding-top:calc(100vw * .66 - 30px)}}
+/* correctif : vidéo pleine largeur sans bordure sur ordinateur ; sur mobile, vidéo entière (16:9) sous le menu */
+@media(min-width:961px){.hv-media .hp-video,.hv-media .hp-anim{transform:none}}
+@media(max-width:960px){
+ .hv-media{top:84px;height:calc(100vw * .5625);max-height:none}
+ .hero-video .hp-shade{top:84px;height:calc(100vw * .5625);max-height:none;background:linear-gradient(180deg,rgba(11,27,46,0) 70%,rgba(11,27,46,1) 100%)}
+ .hv-media .hp-video,.hv-media .hp-anim{object-fit:cover;object-position:50% 50%}
+ .hv-inner{padding-top:calc(84px + 100vw * .5625 + 4px)}}
+@media(max-width:560px){.hv-inner{padding-top:calc(84px + 100vw * .5625 + 4px)}}
+@media(min-width:961px){.hero-video{min-height:max(620px,56.25vw);max-height:none}.hv-media .hp-video,.hv-media .hp-anim{object-position:50% 50%}}
