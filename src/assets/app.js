@@ -1,7 +1,10 @@
 (function(){
   var d=document, root=d.documentElement, w=window;
   root.classList.add("js");
-  var reduce=w.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* « Réduire les animations » (réglage Windows/Mac) : on coupe seulement les gros mouvements
+     (effet de pages empilées, défilement doux) ; les petites animations restent pour tout le monde. */
+  var reduceBig=w.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce=false;
   var header=d.querySelector(".navbar")||d.querySelector(".header");
   function headerBottom(){return Math.max(0,Math.round(header.getBoundingClientRect().bottom));}
 
@@ -56,7 +59,7 @@
 
   /* ---------- Pages empilées : la section qui part recule sous la suivante ---------- */
   (function(){
-    if(reduce) return;
+    if(reduceBig) return;
     var secs=[].slice.call(d.querySelectorAll("main>section"));
     if(secs.length<2) return;
     var items=secs.slice(0,-1).map(function(s,i){
@@ -187,7 +190,7 @@
   /* ---------- Effets « eau » ---------- */
   /* onde au toucher sur les boutons */
   d.addEventListener("pointerdown",function(ev){
-    var b=ev.target.closest&&ev.target.closest(".btn"); if(!b||reduce) return;
+    var b=ev.target.closest&&ev.target.closest(".btn,.d-opt"); if(!b||reduce) return;
     var r=b.getBoundingClientRect();
     [0,1].forEach(function(k){var s=d.createElement("span");s.className="rip"+(k?" r2":"");s.setAttribute("aria-hidden","true");
       s.style.left=(ev.clientX-r.left)+"px";s.style.top=(ev.clientY-r.top)+"px";b.appendChild(s);setTimeout(function(){s.remove();},1000);});
@@ -197,7 +200,10 @@
   var stepsEls=[].slice.call(d.querySelectorAll(".steps"));
   var spipe=null;
   if(w.innerWidth>=960&&d.body.scrollHeight>w.innerHeight*2){
-    spipe=d.createElement("div");spipe.className="spipe";spipe.setAttribute("aria-hidden","true");spipe.innerHTML="<i></i>";d.body.appendChild(spipe);
+    spipe=d.createElement("div");spipe.className="spipe";spipe.setAttribute("aria-hidden","true");
+    spipe.innerHTML='<svg class="spipe-fau" viewBox="0 0 34 34"><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/><rect x="5" y="22" width="8" height="5" rx="1.5" fill="#64748b"/><rect x="20" y="1" width="4" height="7" fill="#64748b"/><rect x="14" y="0" width="16" height="4" rx="2" fill="#c2410c"/></svg>'+
+      '<i class="spipe-drop"></i><i class="spipe-drop d2"></i><span class="spipe-tube"><i class="spipe-water"></i><i class="spipe-rip"></i></span>';
+    d.body.appendChild(spipe);
   }
   var wTick=false;
   function water(){
@@ -210,7 +216,9 @@
       var pw=st.parentNode; if(pw.classList.contains("steps-wrap")){pw.style.setProperty("--f",p.toFixed(3));pw.classList.toggle("flow",p>=.985);}
       for(var i=0;i<n;i++) lis[i].classList.toggle("lit",p>=(n>1?i/(n-1):0)-.02&&p>0);
     });
-    if(spipe){var m=d.documentElement.scrollHeight-vh; spipe.style.setProperty("--p",m>0?(w.scrollY/m).toFixed(3):0);}
+    if(spipe){var m=d.documentElement.scrollHeight-vh, pp=m>0?Math.max(.03,Math.min(1,w.scrollY/m)):0;
+      spipe.style.setProperty("--p",pp.toFixed(3));
+      var th=spipe.querySelector(".spipe-tube").offsetHeight; spipe.style.setProperty("--fall",Math.round(th*(1-pp)+6)+"px");}
   }
   function onWater(){if(!wTick){wTick=true;requestAnimationFrame(water);}}
   w.addEventListener("scroll",onWater,{passive:true}); w.addEventListener("resize",onWater); water();
@@ -258,10 +266,11 @@
 
     function go(n,focus){
       panels.forEach(function(p){p.hidden=Number(p.getAttribute("data-p"))!==n;});
+      box.setAttribute("data-step",n);
       bars.forEach(function(b,i){b.classList.toggle("on",i<n);});
       stepLbl.textContent=U.step.replace("{n}",n);
       if(focus){var h=panels[n-1].querySelector("[tabindex='-1']");if(h)h.focus({preventScroll:true});
-        if(box.getBoundingClientRect().top<headerBottom())box.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});}
+        if(box.getBoundingClientRect().top<headerBottom())box.scrollIntoView({behavior:reduceBig?"auto":"smooth",block:"start"});}
     }
     function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
 

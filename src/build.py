@@ -11,7 +11,8 @@ OUT = os.path.join(os.path.dirname(ROOT), "public")
 TODAY = datetime.date.today().isoformat()
 import hashlib
 from scenes import scene
-VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read())).hexdigest()[:10]
+from house import house_svg
+VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read()+open(os.path.join(ROOT,"house.py"),"rb").read())).hexdigest()[:10]
 e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
@@ -316,7 +317,7 @@ TX = {
            ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
            ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
   "hq": ("Zone d'intervention", "Bruxelles & périphérie", "Disponible 24/7"),
-  "stats": [("24/7", "365 jours"), ("30 min", "Délai moyen"), ("19", "Communes")],
+  "stats": [("24/7", "365 jours"), ("0 €", "Devis"), ("19", "Communes")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
   "card_eta": "Sur place en ~30 min", "all": "Voir tous les services",
@@ -324,7 +325,7 @@ TX = {
   "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
             ("truck", "Intervention", "Le technicien arrive en 30 minutes en moyenne, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
   "diag_chip": "Diagnostic express", "diag_title": "Un doute&nbsp;? <em>On vous dit quoi faire.</em>",
-  "band_title": "Un bouchon&nbsp;? On arrive.", "band_lead": "Appelez maintenant : un technicien peut être chez vous dans 30 minutes.",
+  "band_title": "Un bouchon&nbsp;? On arrive.", "band_lead": "Un seul appel : on écoute votre problème, on vous donne le prix et un technicien part chez vous, de jour comme de nuit.",
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
@@ -339,7 +340,7 @@ TX = {
            ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
            ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
   "hq": ("Werkgebied", "Brussel & rand", "24/7 beschikbaar"),
-  "stats": [("24/7", "365 dagen"), ("30 min", "Gemiddeld"), ("19", "Gemeenten")],
+  "stats": [("24/7", "365 dagen"), ("0 €", "Offerte"), ("19", "Gemeenten")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
   "card_eta": "Ter plaatse in ~30 min", "all": "Alle diensten",
@@ -347,7 +348,7 @@ TX = {
   "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
             ("truck", "Interventie", "De technieker is er gemiddeld binnen 30 minuten, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
   "diag_chip": "Snelle diagnose", "diag_title": "Twijfel? <em>Wij zeggen wat je moet doen.</em>",
-  "band_title": "Verstopping? We komen eraan.", "band_lead": "Bel nu: een technieker kan binnen 30 minuten bij je zijn.",
+  "band_title": "Verstopping? We komen eraan.", "band_lead": "Eén telefoontje: we luisteren naar je probleem, geven je de prijs en een technieker vertrekt naar je toe, dag en nacht.",
   "photo_credit": "Foto's: Unsplash", "menu_home": "Home",
  },
 }
@@ -433,7 +434,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
   {extra}
   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
   {('</div><div class="hero-side">' + side + '</div></div>') if side else ""}
-  <div class="hero-foot">{('<div class="prog-wrap">' + prog + '<button type="button" class="pause" aria-pressed="false" aria-label="' + ("Mettre le diaporama en pause" if L=="fr" else "Diavoorstelling pauzeren") + '">' + ico("pause") + '</button></div>') if prog else "<span></span>"}<div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div></div>
+  <div class="hero-foot">{('<div class="prog-wrap">' + prog + '<button type="button" class="pause" aria-pressed="false" aria-label="' + ("Mettre le diaporama en pause" if L=="fr" else "Diavoorstelling pauzeren") + '">' + ico("pause") + '</button></div>') if prog else "<span></span>"}</div>
  </div>
 </section>'''
 
@@ -472,7 +473,6 @@ def hero_home(L):
     <span class="pipe-lab" aria-hidden="true">{lab}</span>
     <button type="button" class="pipe-replay" aria-label="{pipe["pause"]}">{ico("pause")}</button>
    </div>
-   <div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div>
   </div>
  </div>
 </section>'''
@@ -490,7 +490,7 @@ def intro_section(L, photo="valves"):
   {btn_call(L, "btn-lg", UI[L]["call_now"])}
  </div>
  <div class="hq reveal" data-d="2">
-  <div class="hq-ph">{img(photo, L)}</div>
+  <div class="hq-ph">{house_svg(L)}</div>
   <div class="hq-body">
    <div class="hq-top"><div><small>{h1}</small><b>{h2}</b></div><span class="badge-ok"><span class="pulse"></span>{h3}</span></div>
    <div class="stats">{stats}</div>
@@ -550,6 +550,7 @@ def diagnostic(L, pre=None, photo="pipecam"):
     pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
     return f'''<section class="section dark diag-sec on-dark" id="diagnostic">
  <div class="bgimg" aria-hidden="true">{img(photo, L, sizes="100vw", widths=(800, 1600))}</div>
+ <div class="diag-rain" aria-hidden="true"><i style="left:4%;--h:18px;--d:2.6s;--l:0s"></i><i style="left:11%;--h:26px;--d:3.4s;--l:1.2s"></i><i style="left:19%;--h:14px;--d:2.2s;--l:0.4s"></i><i style="left:27%;--h:22px;--d:3.0s;--l:2.0s"></i><i style="left:36%;--h:16px;--d:2.5s;--l:0.9s"></i><i style="left:44%;--h:28px;--d:3.6s;--l:2.6s"></i><i style="left:52%;--h:18px;--d:2.8s;--l:0.2s"></i><i style="left:61%;--h:24px;--d:3.2s;--l:1.6s"></i><i style="left:69%;--h:14px;--d:2.3s;--l:2.9s"></i><i style="left:77%;--h:20px;--d:2.9s;--l:0.7s"></i><i style="left:85%;--h:26px;--d:3.5s;--l:2.2s"></i><i style="left:93%;--h:16px;--d:2.4s;--l:1.1s"></i><i style="left:48%;--h:12px;--d:2.0s;--l:3.1s"></i><i style="left:15%;--h:12px;--d:2.1s;--l:3.4s"></i></div>
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
    {sh(t["diag_chip"], t["diag_title"], U["lead"])}
@@ -666,7 +667,7 @@ def zones_section(L, cls="soft"):
     more = ("Votre commune n'est pas dans la liste ? Appelez-nous, on vous dit tout de suite si on peut venir." if fr
             else "Je gemeente staat er niet bij? Bel ons, we zeggen je meteen of we kunnen komen.")
     T = {"avail": "Technicien disponible 24h/24" if fr else "Technieker beschikbaar 24/7",
-         "eta": "Sur place en 30 min en moyenne" if fr else "Gemiddeld binnen 30 min ter plaatse",
+         "eta": "Prix annoncé avant l'intervention" if fr else "Prijs vooraf meegedeeld",
          "hint": "Touchez votre commune sur la carte ou dans la liste." if fr else "Tik op je gemeente op de kaart of in de lijst.",
          "bxl": "19 communes de Bruxelles" if fr else "19 Brusselse gemeenten",
          "peri": u["z_peri"], "call": "Appeler" if fr else "Bellen",
