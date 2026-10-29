@@ -1215,6 +1215,9 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .hero-video .hp-title{line-height:1.08;text-shadow:none}
 .tw-on .tw-c{will-change:transform,opacity}
 .tw-done .tw-c{will-change:auto}
+/* titre : un peu plus aéré, et la boîte de chaque lettre inclut la cédille et les jambages (ç, q) pendant l'animation */
+.hero-video .hp-title{letter-spacing:-.018em;line-height:1.12;word-spacing:.04em}
+.tw-on .tw-c{padding:.08em 0 .2em;margin:-.08em 0 -.2em}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
