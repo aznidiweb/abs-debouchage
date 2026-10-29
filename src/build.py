@@ -688,7 +688,7 @@ def zone_map(L):
 <g class="zm-depth" aria-hidden="true"><g transform="translate(0 10)">{depth}</g><g transform="translate(0 6)">{depth}</g><g transform="translate(0 3)">{depth}</g></g>
 <g class="zm-shapes" aria-hidden="true">{shapes()}</g>
 <g class="zm-sheen" aria-hidden="true"><path d="{"".join(d for k, (n, d, c) in allz)}" fill="url(#zm-sheen)"/></g>
-<g class="zm-net" aria-hidden="true" filter="url(#zm-neon)">{"".join(net)}<circle class="zn-hub" cx="{hx}" cy="{hy}" r="6"/><circle class="zn-hubr" cx="{hx}" cy="{hy}" r="6"/></g>
+<g class="zm-net" aria-hidden="true">{"".join(net)}<circle class="zn-hub" cx="{hx}" cy="{hy}" r="6"/><circle class="zn-hubr" cx="{hx}" cy="{hy}" r="6"/></g>
 <g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
 <g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
 </svg></div>'''

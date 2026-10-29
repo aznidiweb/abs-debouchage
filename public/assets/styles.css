@@ -1227,6 +1227,21 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .tw-on .tw-c{animation-name:twDrop2;filter:none!important;overflow:visible}
 .tw-w{overflow:visible}
 
+/* ======================= Fluidité ======================= */
+/* animations en pause hors écran */
+.is-off *,.is-off *::before,.is-off *::after{animation-play-state:paused!important}
+/* le navigateur ne dessine pas les sections loin de l'écran (chargement et défilement plus légers) */
+main>section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 900px}
+/* réseau d'eau de la carte : lueur sans filtre de flou (coûteux) */
+.zn-p{stroke-width:2.6;stroke:#9ee3ff}
+.zn-b{stroke-opacity:.22}
+/* animations simples sur le GPU */
+.tw-c,.pfa-pin,.zm-drop,.spipe-drop,.band-fx svg,.band-fx i,.diag-rain i,.ck-drop{will-change:transform}
+/* mobile : pas de flou d'arrière-plan sur les boutons au-dessus de la vidéo */
+@media(max-width:960px){.btn-glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(11,27,46,.6)}.zm-legend li{backdrop-filter:none;-webkit-backdrop-filter:none}}
+/* défilement plus doux sur iPhone */
+html{-webkit-tap-highlight-color:transparent}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

@@ -59,7 +59,7 @@
 
   /* ---------- Pages empilées : la section qui part recule sous la suivante ---------- */
   (function(){
-    if(reduceBig) return;
+    if(reduceBig||w.innerWidth<960) return;     /* effet réservé à l'ordinateur : sur mobile, défilement 100 % fluide */
     var secs=[].slice.call(d.querySelectorAll("main>section"));
     if(secs.length<2) return;
     var items=secs.slice(0,-1).map(function(s,i){
@@ -306,6 +306,12 @@
     /* une fois écrit, on retire l'animation : le texte redevient du texte normal (évite le scintillement sur iPhone) */
     setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, 250+n*STEP+900);
   });
+
+  /* ---------- Fluidité : toutes les animations d'une section s'arrêtent quand elle n'est pas à l'écran ---------- */
+  if("IntersectionObserver" in w){
+    var offIO=new IntersectionObserver(function(en){en.forEach(function(x){x.target.classList.toggle("is-off",!x.isIntersecting);});},{rootMargin:"150px 0px"});
+    d.querySelectorAll("main>section,footer").forEach(function(sec){offIO.observe(sec);});
+  }
 
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
