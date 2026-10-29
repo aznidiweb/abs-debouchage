@@ -586,3 +586,14 @@ a,button,summary,.btn{touch-action:manipulation}
 .pipe-lab{right:68px}
 .pipe-box.is-done .pipe-lab{opacity:1}
 @media(max-width:560px){.pipe-replay{top:8px;right:8px;width:44px;padding:0}}
+
+/* ---------- Défilement « pages empilées » : chaque section monte sur la précédente ---------- */
+main>section:not(.hero){position:relative;background-color:var(--bg);border-radius:34px 34px 0 0;margin-top:-34px;box-shadow:0 -14px 34px rgba(11,27,46,.10);overflow:clip}
+main>section.soft{background-color:var(--soft)}
+main>section.dark{background-color:var(--dark);box-shadow:0 -14px 40px rgba(0,0,0,.28)}
+main>section.band{background-color:var(--brand)}
+main>section:not(.hero)::before{content:"";position:absolute;top:12px;left:50%;width:44px;height:5px;margin-left:-22px;border-radius:5px;background:currentColor;opacity:.12;pointer-events:none}
+main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
+.stk-dim{position:absolute;inset:0;background:#0b1b2e;opacity:0;pointer-events:none;z-index:5}
+@media(max-width:700px){main>section:not(.hero){border-radius:26px 26px 0 0;margin-top:-26px}}
+.footer{position:relative}
