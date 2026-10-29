@@ -473,3 +473,37 @@ a,button,summary,.btn{touch-action:manipulation}
 @media(max-width:1100px){.svc-grid.g5,.svc-grid.g4{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:700px) and (max-width:1100px){.svc-grid.g4{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:560px){.svc-grid{gap:12px}.sv-body{padding:12px 40px 14px 12px}.sv-t{font-size:14.5px}.sv-m{font-size:12.5px}.sv-go{right:10px;bottom:12px;width:28px;height:28px}}
+
+/* ===== Héros accueil : canalisation animée ===== */
+.hero-pipe{min-height:auto;align-items:center;background:radial-gradient(900px 520px at 78% 40%,rgba(37,99,235,.22),transparent 60%),radial-gradient(700px 400px at 10% 100%,rgba(194,65,12,.18),transparent 60%),var(--dark)}
+.hero-pipe::after{background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/48px 48px;mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 70%)}
+.hp-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;padding-top:150px;padding-bottom:90px}
+.hp-title{font-size:clamp(40px,5.2vw,70px);font-weight:800;line-height:1.02;letter-spacing:-.035em;color:#fff;text-wrap:balance}
+.hp-title em{font-style:normal;color:var(--brand-hi);display:block}
+.hp-lead{margin-top:20px;font-size:clamp(17px,1.5vw,19px);color:rgba(255,255,255,.82);max-width:520px}
+.hp-copy .cta-row{margin-top:32px}
+.hp-checks{list-style:none;display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:15px;font-weight:600;color:rgba(255,255,255,.9)}
+.hp-checks li{display:flex;align-items:center;gap:8px}
+.hp-checks .ico{width:20px;height:20px;padding:3px;border-radius:50%;background:rgba(74,222,128,.16);color:#4ade80;stroke-width:3}
+.hp-visual{position:relative}
+.pipe-box{position:relative;aspect-ratio:640/420;border-radius:var(--r-xl);background:radial-gradient(120% 90% at 60% 45%,#122c4a 0%,#0a1a2d 70%);border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden}
+.pipe-box canvas{position:absolute;inset:0;width:100%;height:100%}
+.pc-water{filter:url(#goo)}
+.pipe-chip{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:var(--pill);background:rgba(8,19,33,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:14px;font-weight:700;transition:border-color .3s}
+.pipe-chip .dot{width:9px;height:9px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.2);transition:background .3s,box-shadow .3s}
+.pipe-chip.s1 .dot{background:var(--brand-hi);box-shadow:0 0 0 4px rgba(251,122,53,.22)}
+.pipe-chip.s2 .dot{background:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.22)}
+.pipe-chip.s3 .dot{background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.22)}
+.pipe-chip.s3{border-color:rgba(74,222,128,.45)}
+.pipe-lab{position:absolute;right:18px;top:20px;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.pipe-replay{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--pill);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .3s,transform .3s var(--ease),background .2s}
+.pipe-replay .ico{width:15px;height:15px}
+.pipe-replay:hover{background:rgba(255,255,255,.22)}
+.pipe-box.is-done .pipe-replay{opacity:1;pointer-events:auto;transform:none}
+.hp-visual .avail{position:absolute;left:-22px;bottom:-22px}
+@media(max-width:1000px){.hp-grid{grid-template-columns:1fr;gap:44px;padding-top:120px;padding-bottom:64px}.hp-visual .avail{position:static;margin-top:16px;display:inline-flex}}
+@media(max-width:560px){.hp-grid{padding-top:104px}.pipe-chip{font-size:12.5px;padding:6px 11px;left:10px;top:10px}.pipe-lab{display:none}.pipe-box{border-radius:var(--r-lg)}.hero-pipe .cta-row .btn{flex:1 1 100%}}
+.pipe-box.is-done .pipe-lab{opacity:0}
+.pipe-replay{top:12px;bottom:auto}
+.pipe-lab{transition:opacity .3s}
+@media(max-width:560px){.pipe-replay{top:8px;right:8px;padding:0 12px;font-size:13px}}

@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(ROOT), "public")
 TODAY = datetime.date.today().isoformat()
 import hashlib
-VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read())).hexdigest()[:10]
+VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read())).hexdigest()[:10]
 e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
@@ -227,7 +227,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 {body}
 </main>
 {footer(L)}
-<script src="/assets/app.js?v={VERSION}" defer></script>
+<script src="/assets/app.js?v={VERSION}" defer></script>{'<script src="/assets/hero-pipe.js?v=' + VERSION + '" defer></script>' if page == "" else ""}
 </body>
 </html>'''
 
@@ -394,6 +394,46 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False):
  </div>
 </section>'''
 
+
+def hero_home(L):
+    """Héros de l'accueil : accroche + canalisation animée qui se débouche."""
+    u = UI[L]; t = TX[L]
+    if L == "fr":
+        title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
+        lead = "Un technicien équipé chez vous en 30 minutes, jour et nuit. Prix annoncé avant de commencer, sans casse."
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage"}
+        aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule."
+        lab, rep = "Vue en coupe", "Rejouer"
+    else:
+        title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
+        lead = "Een uitgeruste technieker binnen 30 minuten bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping"}
+        aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
+        lab, rep = "Doorsnede", "Opnieuw"
+    checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
+    a1, a2 = t["avail"]
+    return f'''<section class="hero hero-pipe">
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"/></filter></svg>
+ <div class="wrap hero-inner hp-grid">
+  <div class="hp-copy">
+   <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
+   <p class="hp-title">{title}</p>
+   <p class="hp-lead">{e(lead)}</p>
+   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>
+   <ul class="hp-checks">{checks}</ul>
+  </div>
+  <div class="hp-visual">
+   <div class="pipe-box" data-pipe='{e(json.dumps(pipe, ensure_ascii=False), quote=True)}' role="img" aria-label="{e(aria)}">
+    <canvas class="pc-back"></canvas><canvas class="pc-water"></canvas><canvas class="pc-front"></canvas>
+    <span class="pipe-chip s0" aria-hidden="true"><span class="dot"></span><span>{pipe["states"][0]}</span></span>
+    <span class="pipe-lab" aria-hidden="true">{lab}</span>
+    <button type="button" class="pipe-replay">{ico("play")}<span>{rep}</span></button>
+   </div>
+   <div class="avail"><span class="pulse"></span><div><strong>{a1}</strong><span>{a2}</span></div></div>
+  </div>
+ </div>
+</section>'''
+
 # ---------------------------------------------------------------- blocs
 def intro_section(L, photo="valves"):
     t = TX[L]
@@ -522,7 +562,7 @@ def band(L):
 # ---------------------------------------------------------------- pages
 def page_home(L):
     u = UI[L]; t = TX[L]
-    body = hero(L, t["slides"]) + intro_section(L) + f'''
+    body = hero_home(L) + intro_section(L) + f'''
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
@@ -641,6 +681,7 @@ def build():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     shutil.copy(os.path.join(ROOT, "assets", "styles.css"), os.path.join(OUT, "assets", "styles.css"))
     shutil.copy(os.path.join(ROOT, "assets", "app.js"), os.path.join(OUT, "assets", "app.js"))
+    shutil.copy(os.path.join(ROOT, "assets", "hero-pipe.js"), os.path.join(OUT, "assets", "hero-pipe.js"))
 
     urls = []  # (fr_page, nl_page, priority)
     for L in ("fr", "nl"):
