@@ -120,8 +120,8 @@ button{cursor:pointer}
 @keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14)}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,19,33,.82) 0%,rgba(8,19,33,.55) 42%,rgba(8,19,33,.12) 75%),linear-gradient(0deg,rgba(8,19,33,.75) 0%,rgba(8,19,33,0) 45%),linear-gradient(180deg,rgba(8,19,33,.55) 0%,rgba(8,19,33,0) 22%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;width:100%;padding-top:150px;padding-bottom:56px}
-.hero h1{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;padding:7px 14px 7px 10px;border-radius:var(--pill);background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.hero h1 .pulse{margin-right:2px}
+.hero .hlabel{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;padding:7px 14px 7px 10px;border-radius:var(--pill);background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero .hlabel .pulse{margin-right:2px}
 .slide-txt{position:relative;min-height:200px;max-width:760px}
 .slide-txt>div{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
 .slide-txt>div.on{position:relative;opacity:1;transform:none;pointer-events:auto;transition-delay:.25s}
@@ -424,7 +424,7 @@ a.c-card:hover{transform:translateY(-4px);box-shadow:var(--sh-3)}
 .hero-inner>*,.intro>*,.diag-wrap>*,.zones>*,.cols2>*{min-width:0}
 .lang-m{display:none!important}
 @media(max-width:959px){.navbar>.lang{display:none}.nav>a.lang-m{display:flex!important;color:var(--brand)!important}}
-@media(max-width:560px){.hero h1{font-size:11.5px;letter-spacing:.06em;padding:6px 12px 6px 9px}}
+@media(max-width:560px){.hero .hlabel{font-size:11.5px;letter-spacing:.06em;padding:6px 12px 6px 9px}}
 
 /* ===== Corrections de l'audit ui-ux-pro-max ===== */
 a,button,summary,.btn{touch-action:manipulation}
@@ -445,9 +445,11 @@ a,button,summary,.btn{touch-action:manipulation}
 .is-paused .prog button.on .bar i{animation-play-state:paused}
 .is-paused .slide.on img{animation-play-state:paused}
 @media(max-width:860px){.prog-wrap{max-width:none;width:100%}}
-@media(max-width:560px){.hero h1{font-size:12.5px;letter-spacing:.04em}.prog button{font-size:13px}}
+@media(max-width:560px){.hero .hlabel{font-size:12.5px;letter-spacing:.04em}.prog button{font-size:13px}}
 .c-card b{overflow-wrap:anywhere}
 .brand{min-height:44px}
 .lang a,.lang span{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .crumbs a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .lang a,.lang span{min-width:44px}
+.sv-hero .slide-txt .t{font-size:clamp(32px,4.6vw,60px);margin:0}
+.slide-txt h1.t{color:#fff}

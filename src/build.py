@@ -367,11 +367,14 @@ def footer(L):
 <div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if L=="fr" else "Diagnose"}</span></a></div>'''
 
 # ---------------------------------------------------------------- héros diaporama
-def hero(L, slides, crumbs=None, extra="", h1=None, cls=""):
+def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False):
     """slides : liste de (photo, kicker, titre_html, texte, libellé_barre)"""
     u = UI[L]; t = TX[L]
     imgs = "".join(f'<div class="slide{" on" if i==0 else ""}">{img(p, L, eager=(i==0), sizes="100vw", widths=(800, 1280, 1920, 2400))}</div>' for i, (p, *_ ) in enumerate(slides))
-    txts = "".join(f'<div class="{"on" if i==0 else ""}"><span class="k">{k}</span><span class="t">{ti}</span><p>{e(tx)}</p></div>' for i, (_, k, ti, tx, _l) in enumerate(slides))
+    if big_h1:
+        txts = "".join(f'<div class="on"><h1 class="t">{ti}</h1><p>{e(tx)}</p></div>' for (_, k, ti, tx, _l) in slides)
+    else:
+        txts = "".join(f'<div class="{"on" if i==0 else ""}"><span class="k">{k}</span><span class="t">{ti}</span><p>{e(tx)}</p></div>' for i, (_, k, ti, tx, _l) in enumerate(slides))
     prog = ""
     if len(slides) > 1:
         prog = '<ol class="prog">' + "".join(f'<li><button type="button"{" class=on" if i==0 else ""} aria-label="{e(lb)}"><span class="bar"><i></i></span>{e(lb)}</button></li>' for i, (*_, lb) in enumerate(slides)) + '</ol>'
@@ -383,7 +386,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls=""):
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
   {cr}
-  <h1><span class="pulse"></span>{h1 or t["h1"]}</h1>
+  <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
   <div class="slide-txt">{txts}</div>
   {extra}
   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>
@@ -547,7 +550,7 @@ def page_service(L, s):
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
     slide = [(SVC_PHOTO[s["id"]], ("Intervention 24h/24" if L == "fr" else "Interventie 24/7"), e(c["h1"]), c["intro"], c["name"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=e(c["name"]) + (" · Bruxelles" if L == "fr" else " · Brussel"), cls="sv-hero") + f'''
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles" if L == "fr" else "Interventie 24/7 · Brussel"), cls="sv-hero", big_h1=True) + f'''
 <section class="section"><div class="wrap">
  <div class="cols2">
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
@@ -578,7 +581,7 @@ def page_about(L):
     blocks = "".join(f'<div class="box reveal" data-d="{i}"><h2>{e(t)}</h2><ul class="list ok">{"".join(f"<li>{ico(chr(99)+chr(104)+chr(101)+chr(99)+chr(107))}<span>{e(x)}</span></li>" for x in items)}</ul></div>'
                      for i, (t, items) in enumerate(a["blocks"]))
     slide = [("tools", "ABS", e(a["h1"]), a["lead"], a["h1"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_about"], None)], h1=u["nav_about"], cls="sv-hero") + \
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_about"], None)], h1=u["nav_about"], cls="sv-hero", big_h1=True) + \
         f'<section class="section"><div class="wrap"><div class="blocks">{blocks}</div></div></section>' + \
         steps_section(L) + prices_section(L) + band(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_about"], abs_url(L, u["about_slug"]))]
@@ -597,7 +600,7 @@ def page_contact(L):
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
                  f'<span class="ic">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if hh else '</div>') for ic, l, v, hh in cards_)
     slide = [("sink", u["nav_contact"], h, lead, u["nav_contact"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_contact"], None)], h1=u["nav_contact"] + " · ABS Débouchage", cls="sv-hero") + \
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_contact"], None)], h1="24h/24 · 7j/7" if L=="fr" else "24/7", cls="sv-hero", big_h1=True) + \
         f'<section class="section-sm soft"><div class="wrap"><div class="contact-grid reveal">{ch}</div></div></section>' + \
         diagnostic(L) + zones_section(L, "") + band(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_contact"], abs_url(L, u["contact_slug"]))]
