@@ -401,13 +401,13 @@ def hero_home(L):
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
         lead = "Un technicien équipé chez vous en 30 minutes, jour et nuit. Prix annoncé avant de commencer, sans casse."
-        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation"}
-        aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule."
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
+        aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
         lead = "Een uitgeruste technieker binnen 30 minuten bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
-        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen"}
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
