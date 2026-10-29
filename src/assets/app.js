@@ -313,6 +313,30 @@
     d.querySelectorAll("main>section,footer").forEach(function(sec){offIO.observe(sec);});
   }
 
+  /* ---------- Avant / après : curseur à glisser + onglets ---------- */
+  d.querySelectorAll("[data-compare]").forEach(function(box){
+    var stage=box.querySelector(".ba-stage"), range=box.querySelector(".ba-range");
+    function set(v){ stage.style.setProperty("--x",v+"%"); }
+    range.addEventListener("input",function(){ set(range.value); });
+    box.querySelectorAll(".ba-tab").forEach(function(t){
+      t.addEventListener("click",function(){
+        var k=t.getAttribute("data-tab");
+        box.querySelectorAll(".ba-tab").forEach(function(o){o.setAttribute("aria-selected",o===t);});
+        box.querySelectorAll(".ba-pane").forEach(function(p){p.classList.toggle("on",p.getAttribute("data-ba")===k);});
+        range.value=50; set(50);
+      });
+    });
+    /* petite démonstration automatique quand la carte apparaît */
+    if("IntersectionObserver" in w){
+      var shown=false, io2=new IntersectionObserver(function(en){
+        if(!en[0].isIntersecting||shown) return; shown=true; io2.disconnect();
+        var t0=null; function anim(t){ if(!t0)t0=t; var k=(t-t0)/1600; if(k>1){set(50);range.value=50;return;}
+          var v=50+Math.sin(k*Math.PI*2)*28; set(v.toFixed(1)); requestAnimationFrame(anim); }
+        setTimeout(function(){requestAnimationFrame(anim);},500);
+      },{threshold:.5}); io2.observe(stage);
+    }
+  });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

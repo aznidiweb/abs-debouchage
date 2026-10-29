@@ -12,7 +12,8 @@ TODAY = datetime.date.today().isoformat()
 import hashlib
 from scenes import scene, scene_mini
 from house import house_svg
-VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read()+open(os.path.join(ROOT,"house.py"),"rb").read())).hexdigest()[:10]
+from beforeafter import compare_html
+VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read()+open(os.path.join(ROOT,"assets","hero-pipe.js"),"rb").read()+open(os.path.join(ROOT,"scenes.py"),"rb").read()+open(os.path.join(ROOT,"house.py"),"rb").read()+open(os.path.join(ROOT,"beforeafter.py"),"rb").read())).hexdigest()[:10]
 e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
@@ -639,13 +640,7 @@ def prices_section(L, cls=""):
   <h3 class="pr-h">{T["f_title"]}</h3>
   <ul class="pfac">{facts}</ul>
  </div>
- <div class="peng peng2 reveal" data-d="1">
-  <div class="pe-top"><h3 class="pe-title">{T["e_title"]}</h3><span class="pe-badge">{ico("shield")}{"Garanti" if L=="fr" else "Gegarandeerd"}</span></div>
-  <ul class="pe-list">{eng}</ul>
-  <div class="pe-receipt" aria-label="{e(E["r_aria"])}"><span>{E["r1"]}</span><span class="pe-dots" aria-hidden="true"></span><b>{E["r2"]}</b></div>
-  <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{T["cta"]}</span></a>
-  <p class="peng-or">{T["or"]} <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
- </div>
+ {compare_html(L, ico, T["cta"], PHONE_TEL, PHONE_DISPLAY, T["or"])}
 </div></section>'''
 
 PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos": "1620", "Kraainem": "1950",
