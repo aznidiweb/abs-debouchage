@@ -455,6 +455,8 @@ def hero_home(L):
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe">
+ <video class="hp-video" autoplay muted loop playsinline preload="auto" poster="/assets/video/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="/assets/video/hero.mp4" type="video/mp4"></video>
+ <div class="hp-shade" aria-hidden="true"></div>
  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"/></filter></svg>
  <div class="wrap hero-inner hp-grid">
   <div class="hp-copy">
@@ -893,6 +895,9 @@ def build():
     shutil.copy(os.path.join(ROOT, "assets", "app.js"), os.path.join(OUT, "assets", "app.js"))
     # police hébergée sur le site (pas de Google Fonts : rien n'est envoyé à Google, conforme RGPD)
     os.makedirs(os.path.join(OUT, "assets", "fonts"), exist_ok=True)
+    os.makedirs(os.path.join(OUT, "assets", "video"), exist_ok=True)
+    for f in ("hero.mp4", "hero-poster.jpg"):
+        shutil.copy(os.path.join(ROOT, "assets", "video", f), os.path.join(OUT, "assets", "video", f))
     for f in ("plus-jakarta-sans.woff2", "OFL.txt"):
         shutil.copy(os.path.join(ROOT, "assets", "fonts", f), os.path.join(OUT, "assets", "fonts", f))
     shutil.copy(os.path.join(ROOT, "assets", "hero-pipe.js"), os.path.join(OUT, "assets", "hero-pipe.js"))
