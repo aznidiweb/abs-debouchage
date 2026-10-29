@@ -268,7 +268,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 </main>
 {footer(L)}
 {urg_dialog(L)}
-<script src="/assets/app.js?v={VERSION}" defer></script>{'<script src="/assets/hero-pipe.js?v=' + VERSION + '" defer></script>' if page == "" else ""}
+<script src="/assets/app.js?v={VERSION}" defer></script>
 </body>
 </html>'''
 
@@ -454,25 +454,19 @@ def hero_home(L):
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
     a1, a2 = t["avail"]
-    return f'''<section class="hero hero-pipe">
- <video class="hp-video" autoplay muted loop playsinline preload="auto" poster="/assets/video/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="/assets/video/hero.mp4" type="video/mp4"></video>
+    return f'''<section class="hero hero-pipe hero-video">
+ <div class="hv-media" aria-hidden="true">
+  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4" type="video/mp4"></video>
+  <img class="hp-anim" alt="" data-src="/assets/video/hero.webp" hidden>
+ </div>
  <div class="hp-shade" aria-hidden="true"></div>
- <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"/></filter></svg>
- <div class="wrap hero-inner hp-grid">
+ <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{e(lead)}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
    <ul class="hp-checks">{checks}</ul>
-  </div>
-  <div class="hp-visual">
-   <div class="pipe-box" data-pipe='{e(json.dumps(pipe, ensure_ascii=False), quote=True)}' role="img" aria-label="{e(aria)}">
-    <canvas class="pc-back"></canvas><canvas class="pc-water"></canvas><canvas class="pc-front"></canvas>
-    <span class="pipe-chip s0" aria-hidden="true"><span class="dot"></span><span>{pipe["states"][0]}</span></span>
-    <span class="pipe-lab" aria-hidden="true">{lab}</span>
-    <button type="button" class="pipe-replay" aria-label="{pipe["pause"]}">{ico("pause")}</button>
-   </div>
   </div>
  </div>
 </section>'''
@@ -896,7 +890,7 @@ def build():
     # police hébergée sur le site (pas de Google Fonts : rien n'est envoyé à Google, conforme RGPD)
     os.makedirs(os.path.join(OUT, "assets", "fonts"), exist_ok=True)
     os.makedirs(os.path.join(OUT, "assets", "video"), exist_ok=True)
-    for f in ("hero.mp4", "hero-poster.jpg"):
+    for f in ("hero.mp4", "hero-poster.jpg", "hero.webp"):
         shutil.copy(os.path.join(ROOT, "assets", "video", f), os.path.join(OUT, "assets", "video", f))
     for f in ("plus-jakarta-sans.woff2", "OFL.txt"):
         shutil.copy(os.path.join(ROOT, "assets", "fonts", f), os.path.join(OUT, "assets", "fonts", f))

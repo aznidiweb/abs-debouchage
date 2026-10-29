@@ -269,15 +269,18 @@
     d.querySelectorAll("[data-mini]").forEach(function(m){m.classList.add("off");mio.observe(m);});
   }
 
-  /* ---------- Vidéo du héros : lecture en boucle garantie ---------- */
+  /* ---------- Vidéo du héros : lecture en boucle ; sinon animation image (téléphones qui bloquent les vidéos) ---------- */
   d.querySelectorAll(".hp-video").forEach(function(v){
-    v.muted=true; v.loop=true; v.setAttribute("muted",""); v.playsInline=true;
-    function go(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+    var img=v.parentNode.querySelector(".hp-anim"), ok=false, swapped=false;
+    v.muted=true; v.defaultMuted=true; v.loop=true; v.playsInline=true; v.setAttribute("muted",""); v.setAttribute("playsinline","");
+    function swap(){ if(ok||swapped||!img) return; swapped=true; img.src=img.getAttribute("data-src"); img.hidden=false; v.style.visibility="hidden"; try{v.pause();}catch(e){} }
+    function go(){ if(swapped) return; var p=v.play(); if(p&&p.then) p.then(function(){ok=true;}).catch(function(){}); }
+    v.addEventListener("playing",function(){ ok=true; });
     v.addEventListener("ended",function(){ v.currentTime=0; go(); });
-    v.addEventListener("pause",function(){ if(!d.hidden) setTimeout(go,200); });
+    v.addEventListener("pause",function(){ if(!d.hidden&&!swapped) setTimeout(go,250); });
     d.addEventListener("visibilitychange",function(){ if(!d.hidden) go(); });
-    ["touchstart","click","scroll"].forEach(function(t){ w.addEventListener(t,go,{once:true,passive:true}); });
-    if(v.readyState>=2) go(); else v.addEventListener("canplay",go,{once:true});
+    go(); if(v.readyState<2) v.addEventListener("canplay",go,{once:true});
+    setTimeout(function(){ if(!ok&&(v.paused||v.currentTime===0)) swap(); },2200);
   });
 
   /* ---------- Diagnostic express ---------- */

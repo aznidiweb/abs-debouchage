@@ -1069,3 +1069,29 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 /* vidéo du héros plus visible */
 .hp-shade{background:linear-gradient(90deg,rgba(11,27,46,.9) 0%,rgba(11,27,46,.7) 36%,rgba(11,27,46,.25) 68%,rgba(11,27,46,.12) 100%),linear-gradient(0deg,rgba(11,27,46,.8) 0%,rgba(11,27,46,0) 26%),linear-gradient(180deg,rgba(11,27,46,.6) 0%,rgba(11,27,46,0) 20%)}
 @media(max-width:960px){.hp-shade{background:linear-gradient(180deg,rgba(11,27,46,.85) 0%,rgba(11,27,46,.6) 45%,rgba(11,27,46,.85) 100%)}}
+
+/* ======================= Héros vidéo plein écran (accueil) ======================= */
+.hero-video{min-height:100vh;min-height:100svh;display:flex;align-items:center;background:var(--dark)}
+.hero-video::after{display:none}
+.hv-media{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hv-media .hp-video,.hv-media .hp-anim{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%}
+.hero-video .hp-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(90deg,rgba(11,27,46,.93) 0%,rgba(11,27,46,.78) 30%,rgba(11,27,46,.25) 55%,rgba(11,27,46,0) 72%),
+            linear-gradient(0deg,rgba(11,27,46,.7) 0%,rgba(11,27,46,0) 22%),linear-gradient(180deg,rgba(11,27,46,.55) 0%,rgba(11,27,46,0) 18%)}
+.hv-inner{position:relative;z-index:2;padding-top:140px;padding-bottom:90px}
+.hero-video .hp-copy{max-width:620px}
+.hero-video .hp-title,.hero-video .hp-lead{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+@media(max-width:960px){
+ .hero-video{align-items:flex-end}
+ .hv-media .hp-video,.hv-media .hp-anim{object-position:70% 35%}
+ .hero-video .hp-shade{background:linear-gradient(180deg,rgba(11,27,46,.55) 0%,rgba(11,27,46,0) 16%,rgba(11,27,46,0) 30%,rgba(11,27,46,.8) 50%,rgba(11,27,46,.96) 72%)}
+ .hv-inner{padding-top:240px;padding-bottom:32px}}
+@media(max-width:560px){.hv-inner{padding-top:200px}}
+/* mobile : la vidéo occupe le haut de l'écran, bien visible, le texte arrive en dessous */
+@media(max-width:960px){
+ .hero-video{display:block;min-height:0}
+ .hv-media{bottom:auto;height:min(58vh,520px)}
+ .hv-media .hp-video,.hv-media .hp-anim{object-position:64% 50%}
+ .hero-video .hp-shade{bottom:auto;height:min(58vh,520px);background:linear-gradient(180deg,rgba(11,27,46,.55) 0%,rgba(11,27,46,0) 20%,rgba(11,27,46,0) 62%,rgba(11,27,46,1) 100%)}
+ .hv-inner{padding-top:calc(min(58vh,520px) - 70px);padding-bottom:36px}}
+@media(max-width:560px){.hv-inner{padding-top:calc(min(58vh,520px) - 70px)}}
