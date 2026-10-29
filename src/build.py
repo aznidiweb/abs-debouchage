@@ -9,7 +9,8 @@ from content import *
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(ROOT), "public")
 TODAY = datetime.date.today().isoformat()
-VERSION = TODAY.replace("-", "")
+import hashlib
+VERSION = hashlib.md5((open(os.path.join(ROOT,"assets","styles.css"),"rb").read()+open(os.path.join(ROOT,"assets","app.js"),"rb").read())).hexdigest()[:10]
 e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
