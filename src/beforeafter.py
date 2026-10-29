@@ -74,8 +74,8 @@ def compare_html(L, ico, cta, phone_tel, phone_display, or_txt):
         return svg.replace('id="ba-', f'id="ba{tag}-').replace('url(#ba-', f'url(#ba{tag}-')
     def pane(i, fn, name):
         return (f'<figure class="ba-pane" style="--d:{i * 6}s">'
-                f'<svg class="ba-img ba-after" viewBox="0 0 480 360" aria-hidden="true">{u(fn("after"), f"a{i}")}</svg>'
-                f'<svg class="ba-img ba-before" viewBox="0 0 480 360" aria-hidden="true">{u(fn("before"), f"b{i}")}</svg>'
+                f'<svg class="ba-img ba-after" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{u(fn("after"), f"a{i}")}</svg>'
+                f'<svg class="ba-img ba-before" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{u(fn("before"), f"b{i}")}</svg>'
                 f'<span class="ba-wipe" aria-hidden="true"><i></i></span>'
                 f'<figcaption class="ba-name">{e(name)}</figcaption></figure>')
     steps = (("Bouché", "Débouché", "Contrôlé") if fr else ("Verstopt", "Ontstopt", "Gecontroleerd"))

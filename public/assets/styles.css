@@ -1336,6 +1336,31 @@ html{-webkit-tap-highlight-color:transparent}
 .ba-res b{display:block;color:#fff;font-size:14.5px}
 .ba-res small{display:block;color:#93a3b8;font-size:12.5px}
 
+/* ---------- Tarifs + avant/après : version compacte ---------- */
+#tarifs.section{padding-top:56px;padding-bottom:56px}
+.pricing{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:32px;align-items:center}
+.pricing .sh{margin-bottom:14px}
+.pricing .sh h2{font-size:clamp(26px,2.8vw,36px)}
+.pricing .sh p{font-size:16px}
+.pfac li{padding:10px 12px}
+.ba{padding:16px}
+.ba-head{margin-bottom:8px}
+.ba-head h3{font-size:18px}
+.ba-stage{aspect-ratio:16/9}
+.ba-img{object-fit:cover}
+.ba-steps{margin-top:8px}
+.ba-steps li{padding:5px 6px 5px 24px;font-size:12px}
+.ba-note{display:none}
+.ba-rt{display:none}
+.ba-res{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.ba-res li{flex-direction:column;align-items:flex-start;gap:6px;padding:10px;border:0;border-radius:10px;background:rgba(255,255,255,.05)}
+.ba-ri{width:28px;height:28px}
+.ba-res b{font-size:13px;line-height:1.25}
+.ba-res small{font-size:11.5px;line-height:1.35}
+@media(max-width:960px){.pricing{grid-template-columns:1fr;gap:20px}}
+@media(max-width:560px){#tarifs.section{padding-top:44px;padding-bottom:44px}.ba-res small{display:none}.ba-res li{align-items:center;text-align:center}}
+@keyframes baPane2{0%,47%{opacity:1}50%,97%{opacity:0}100%{opacity:1}}.ba-pane{animation-name:baPane2}.ba-pane+.ba-pane{opacity:0}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
