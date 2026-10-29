@@ -63,7 +63,8 @@
 
   /* ---------- Carte de la zone d'intervention ---------- */
   d.querySelectorAll("[data-zones]").forEach(function(box){
-    var map=box.querySelector(".zmap"), pin=box.querySelector(".zm-pin"), lbl=box.querySelector(".zm-lbl");
+    var map=box.querySelector(".zmap"), pin=box.querySelector(".zm-pin"), lbl=box.querySelector(".zm-lbl"), drop=box.querySelector(".zm-drop");
+    var pipe=box.querySelector(".zm-pipe"), pipeC=box.querySelector(".zm-pipe-c"), pipeW=box.querySelector(".zm-pipe-w"), last=null;
     var shapes=box.querySelectorAll(".zm-shapes [data-z]"), chips=box.querySelectorAll(".zc");
     var zName=box.querySelector("[data-zname]"), zCp=box.querySelector("[data-zcp]"), live=box.querySelector(".zm-name");
     var byZ={}; shapes.forEach(function(p){byZ[p.getAttribute("data-z")]=p;});
@@ -76,6 +77,14 @@
       chips.forEach(function(c){c.setAttribute("aria-pressed",c.getAttribute("data-z")===z);});
       p.parentNode.appendChild(p);                                   /* contour sélectionné au premier plan */
       var x=+p.getAttribute("data-x"), y=+p.getAttribute("data-y");
+      if(last){                                                       /* le tuyau amène l'eau de la commune précédente à la nouvelle */
+        var dx=x-last[0], dy=y-last[1], mx=(x+last[0])/2-dy*.25, my=(y+last[1])/2+dx*.25;
+        var dd="M"+last[0]+" "+last[1]+"Q"+mx.toFixed(1)+" "+my.toFixed(1)+" "+x+" "+y;
+        pipeC.setAttribute("d",dd); pipeW.setAttribute("d",dd);
+        pipe.classList.remove("go"); void pipe.getBoundingClientRect(); pipe.classList.add("go");
+      }
+      last=[x,y];
+      drop.classList.remove("fall"); void drop.getBoundingClientRect(); drop.classList.add("fall");
       pin.style.transform="translate("+x+"px,"+y+"px)";
       lbl.textContent=p.getAttribute("data-n");
       lbl.setAttribute("text-anchor",x<110?"start":x>490?"end":"middle");

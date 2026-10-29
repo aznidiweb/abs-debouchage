@@ -556,7 +556,8 @@ def zone_map(L):
     return f'''<svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
 <defs>{hatch}</defs><g class="zm-ctx" aria-hidden="true">{ctx}</g>
 <g class="zm-shapes" aria-hidden="true">{shapes(MAP["peri"], "peri")}{shapes(MAP["bxl"], "bxl")}</g>
-<g class="zm-pin" aria-hidden="true" transform="translate(336 301)"><circle class="zm-ring" r="10"/><circle class="zm-ring r2" r="10"/><circle class="zm-dot" r="7"/><text class="zm-lbl" y="-16" text-anchor="middle"></text></g>
+<g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
+<g class="zm-pin" aria-hidden="true" transform="translate(336 301)"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
 </svg>'''
 
 def zones_section(L, cls="soft"):
