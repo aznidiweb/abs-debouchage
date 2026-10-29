@@ -1116,6 +1116,13 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 @media(max-width:560px){.hv-inner{padding-top:calc(84px + 100vw * .5625 + 4px)}}
 @media(min-width:961px){.hero-video{min-height:max(620px,56.25vw);max-height:none}.hv-media .hp-video,.hv-media .hp-anim{object-position:50% 50%}}
 
+/* Héros vidéo : jamais de bouton « lecture » du téléphone ; l'image fixe reste visible tant que la vidéo ne joue pas */
+.hv-media .hp-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.hv-media .hp-video{opacity:0;transition:opacity .4s ease}
+.hv-media .hp-video.on{opacity:1}
+.hv-media .hp-anim{z-index:1}
+.hp-video::-webkit-media-controls,.hp-video::-webkit-media-controls-panel,.hp-video::-webkit-media-controls-play-button,.hp-video::-webkit-media-controls-start-playback-button,.hp-video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none!important;opacity:0!important}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

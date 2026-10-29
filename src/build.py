@@ -456,6 +456,7 @@ def hero_home(L):
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
  <div class="hv-media" aria-hidden="true">
+  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" fetchpriority="high">
   <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4" type="video/mp4"></video>
   <img class="hp-anim" alt="" data-src="/assets/video/hero.webp?v=2" hidden>
  </div>

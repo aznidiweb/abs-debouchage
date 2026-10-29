@@ -274,13 +274,13 @@
     var img=v.parentNode.querySelector(".hp-anim"), ok=false, swapped=false;
     v.muted=true; v.defaultMuted=true; v.loop=true; v.playsInline=true; v.setAttribute("muted",""); v.setAttribute("playsinline","");
     function swap(){ if(ok||swapped||!img) return; swapped=true; img.src=img.getAttribute("data-src"); img.hidden=false; v.style.visibility="hidden"; try{v.pause();}catch(e){} }
-    function go(){ if(swapped) return; var p=v.play(); if(p&&p.then) p.then(function(){ok=true;}).catch(function(){}); }
-    v.addEventListener("playing",function(){ ok=true; });
+    function go(){ if(swapped) return; var p=v.play(); if(p&&p.then) p.then(function(){ok=true;}).catch(function(){ if(!ok) swap(); }); }
+    v.addEventListener("playing",function(){ ok=true; v.classList.add("on"); });
     v.addEventListener("ended",function(){ v.currentTime=0; go(); });
     v.addEventListener("pause",function(){ if(!d.hidden&&!swapped) setTimeout(go,250); });
     d.addEventListener("visibilitychange",function(){ if(!d.hidden) go(); });
     go(); if(v.readyState<2) v.addEventListener("canplay",go,{once:true});
-    setTimeout(function(){ if(!ok&&(v.paused||v.currentTime===0)) swap(); },2200);
+    setTimeout(function(){ if(!ok&&(v.paused||v.currentTime===0)) swap(); },1200);
   });
 
   /* ---------- Diagnostic express ---------- */
