@@ -690,3 +690,29 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .nf-bub:nth-of-type(2){animation-delay:.9s}.nf-bub:nth-of-type(3){animation-delay:1.8s}
 @keyframes nfBub{0%{transform:none;opacity:0}20%{opacity:.9}100%{transform:translateY(-70px);opacity:0}}
 @media(max-width:760px){.nf{grid-template-columns:1fr}.nf-art{max-width:260px;order:-1}}
+
+/* 4 bis. Le tuyau des étapes : vrai tuyau PVC avec manchons, l'eau coule dedans */
+.steps::before{top:18px;height:20px;border-radius:10px;
+ background:
+  linear-gradient(180deg,#8796aa,#c4ceda 30%,#8796aa) calc(16.66% - 7px) 0/14px 100% no-repeat,
+  linear-gradient(180deg,#8796aa,#c4ceda 30%,#8796aa) calc(50% - 7px) 0/14px 100% no-repeat,
+  linear-gradient(180deg,#8796aa,#c4ceda 30%,#8796aa) calc(83.33% - 7px) 0/14px 100% no-repeat,
+  linear-gradient(180deg,#b9c4d2 0%,#f1f5f9 28%,#dfe6ee 55%,#a7b3c2 100%);
+ box-shadow:inset 0 -2px 0 rgba(11,27,46,.12),0 3px 8px rgba(11,27,46,.12)}
+.steps::after{top:24px;height:8px;border-radius:4px;
+ background:repeating-linear-gradient(90deg,#0ea5e9 0 16px,#7dd3fc 16px 22px,#0ea5e9 22px 34px);
+ background-size:34px 100%;box-shadow:0 0 10px rgba(56,189,248,.5);
+ animation:pipeFlow .7s linear infinite}
+@keyframes pipeFlow{to{background-position:34px 0}}
+@media(max-width:520px){
+ .steps::before{left:18px;right:auto;top:28px;bottom:28px;width:20px;height:auto;
+  background:
+   linear-gradient(90deg,#8796aa,#c4ceda 30%,#8796aa) 0 calc(16.66% - 7px)/100% 14px no-repeat,
+   linear-gradient(90deg,#8796aa,#c4ceda 30%,#8796aa) 0 calc(50% - 7px)/100% 14px no-repeat,
+   linear-gradient(90deg,#8796aa,#c4ceda 30%,#8796aa) 0 calc(83.33% - 7px)/100% 14px no-repeat,
+   linear-gradient(90deg,#b9c4d2 0%,#f1f5f9 28%,#dfe6ee 55%,#a7b3c2 100%)}
+ .steps::after{left:24px;top:28px;bottom:28px;width:8px;height:auto;
+  background:repeating-linear-gradient(180deg,#0ea5e9 0 16px,#7dd3fc 16px 22px,#0ea5e9 22px 34px);background-size:100% 34px;animation-name:pipeFlowV}
+ @keyframes pipeFlowV{to{background-position:0 34px}}}
+@media(min-width:521px) and (max-width:900px){.steps::after{display:none}}
+@media(max-width:520px){.steps::before{display:block}}
