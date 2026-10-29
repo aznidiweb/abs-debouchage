@@ -1305,6 +1305,37 @@ html{-webkit-tap-highlight-color:transparent}
 .ba.hint .ba-stage{--x:50%}
 @media(max-width:560px){.ba{padding:16px}.ba-head{flex-direction:column;align-items:flex-start}}
 
+/* ---------- Avant / après en boucle automatique ---------- */
+.ba-head{display:block;margin-bottom:12px}
+.ba-stage{aspect-ratio:4/3;touch-action:auto}
+.ba-pane{display:block!important;opacity:0;animation:baPane 12s infinite;animation-delay:var(--d)}
+@keyframes baPane{0%{opacity:0}3%,47%{opacity:1}50%,100%{opacity:0}}
+.ba-before{clip-path:inset(0 0 0 0);animation:baWipe 6s infinite cubic-bezier(.65,0,.35,1);animation-delay:var(--d)}
+@keyframes baWipe{0%,25%{clip-path:inset(0 0 0 0)}55%,85%{clip-path:inset(0 0 0 100%)}100%{clip-path:inset(0 0 0 100%)}}
+.ba-wipe{position:absolute;top:0;bottom:0;left:0;z-index:2;width:3px;background:#fff;box-shadow:0 0 14px rgba(56,189,248,.9);opacity:0;animation:baLine 6s infinite cubic-bezier(.65,0,.35,1);animation-delay:var(--d)}
+.ba-wipe i{position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#38bdf8;box-shadow:inset 0 0 0 3px #fff}
+@keyframes baLine{0%,25%{left:0;opacity:0}27%{opacity:1}55%{left:100%;opacity:1}57%,100%{left:100%;opacity:0}}
+.ba-name{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:3;padding:5px 12px;border-radius:999px;background:rgba(11,27,46,.8);color:#fff;font-size:12.5px;font-weight:700}
+.ba-lab.l{animation:baL 6s infinite}.ba-lab.r{animation:baR 6s infinite}
+@keyframes baL{0%,40%{opacity:1}50%,95%{opacity:.25}100%{opacity:1}}
+@keyframes baR{0%,40%{opacity:.25}50%,95%{opacity:1}100%{opacity:.25}}
+.ba-handle,.ba-range,.ba-tabs,.ba-chips{display:none!important}
+.ba-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 0;counter-reset:b}
+.ba-steps li{position:relative;padding:7px 8px 7px 26px;border-radius:10px;background:rgba(255,255,255,.05);color:#93a3b8;font-size:12.5px;font-weight:700;animation:baStep 6s infinite}
+.ba-steps li::before{counter-increment:b;content:counter(b);position:absolute;left:8px;top:50%;transform:translateY(-50%);width:13px;height:13px;border-radius:50%;background:#33475e;color:#fff;font-size:9px;display:grid;place-items:center}
+.ba-steps li:nth-child(2){animation-name:baStep2}.ba-steps li:nth-child(3){animation-name:baStep3}
+@keyframes baStep{0%,25%{background:rgba(251,122,53,.18);color:#fff}30%,100%{background:rgba(255,255,255,.05);color:#93a3b8}}
+@keyframes baStep2{0%,27%{background:rgba(255,255,255,.05);color:#93a3b8}30%,55%{background:rgba(56,189,248,.2);color:#fff}60%,100%{background:rgba(255,255,255,.05);color:#93a3b8}}
+@keyframes baStep3{0%,57%{background:rgba(255,255,255,.05);color:#93a3b8}60%,95%{background:rgba(22,163,74,.25);color:#fff}100%{background:rgba(255,255,255,.05);color:#93a3b8}}
+.ba-note{margin:8px 0 12px}
+.ba-rt{color:#fff;font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;opacity:.85}
+.ba-res{list-style:none;display:grid;gap:0;margin:0}
+.ba-res li{display:flex;gap:11px;align-items:center;padding:9px 0;border-top:1px solid rgba(255,255,255,.08)}
+.ba-ri{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:rgba(56,189,248,.14);color:#7dd3fc}
+.ba-ri .ico{width:16px;height:16px}
+.ba-res b{display:block;color:#fff;font-size:14.5px}
+.ba-res small{display:block;color:#93a3b8;font-size:12.5px}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

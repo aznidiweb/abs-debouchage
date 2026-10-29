@@ -67,25 +67,36 @@ TX = {
 }
 
 def compare_html(L, ico, cta, phone_tel, phone_display, or_txt):
+    """Avant / après en boucle automatique (aucune action à faire)."""
     T = TX[L]; e = html.escape
+    fr = L == "fr"
     def u(svg, tag):
         return svg.replace('id="ba-', f'id="ba{tag}-').replace('url(#ba-', f'url(#ba{tag}-')
-    def pane(i, fn):
-        return (f'<div class="ba-pane{" on" if i == 0 else ""}" data-ba="{i}">'
+    def pane(i, fn, name):
+        return (f'<figure class="ba-pane" style="--d:{i * 6}s">'
                 f'<svg class="ba-img ba-after" viewBox="0 0 480 360" aria-hidden="true">{u(fn("after"), f"a{i}")}</svg>'
-                f'<svg class="ba-img ba-before" viewBox="0 0 480 360" aria-hidden="true">{u(fn("before"), f"b{i}")}</svg></div>')
-    tabs = "".join(f'<button type="button" class="ba-tab" role="tab" aria-selected="{"true" if i == 0 else "false"}" data-tab="{i}">{e(t)}</button>' for i, t in enumerate(T["tabs"]))
-    chips = "".join(f'<li>{ico("check")}<span>{e(c)}</span></li>' for c in T["chips"])
+                f'<svg class="ba-img ba-before" viewBox="0 0 480 360" aria-hidden="true">{u(fn("before"), f"b{i}")}</svg>'
+                f'<span class="ba-wipe" aria-hidden="true"><i></i></span>'
+                f'<figcaption class="ba-name">{e(name)}</figcaption></figure>')
+    steps = (("Bouché", "Débouché", "Contrôlé") if fr else ("Verstopt", "Ontstopt", "Gecontroleerd"))
+    res = ([("gauge", "Écoulement rétabli", "Testé devant vous avant de partir"),
+            ("shield", "Tuyaux préservés", "Méthode mécanique, sans produit corrosif"),
+            ("file", "Rapport + facture", "Pour votre assurance, remis sur place")] if fr else
+           [("gauge", "Afvoer hersteld", "Getest in je bijzijn voor we vertrekken"),
+            ("shield", "Leidingen gespaard", "Mechanisch, zonder bijtende producten"),
+            ("file", "Verslag + factuur", "Voor je verzekering, ter plaatse bezorgd")])
+    items = "".join(f'<li><span class="ba-ri">{ico(ic)}</span><div><b>{e(a)}</b><small>{e(b)}</small></div></li>' for ic, a, b in res)
+    title = "Avant / après" if fr else "Voor / na"
+    lead = "Le résultat d'un débouchage professionnel." if fr else "Het resultaat van een professionele ontstopping."
+    rtitle = "Ce que vous obtenez" if fr else "Wat je krijgt"
     return f'''<div class="ba reveal" data-d="1" data-compare>
- <div class="ba-head"><div><h3>{e(T["title"])}</h3><p>{e(T["lead"])}</p></div><div class="ba-tabs" role="tablist">{tabs}</div></div>
- <div class="ba-stage" style="--x:50%">
-  {pane(0, sink)}{pane(1, pipe)}
+ <div class="ba-head"><h3>{e(title)}</h3><p>{e(lead)}</p></div>
+ <div class="ba-stage" role="img" aria-label="{e(title)} : {e(T["tabs"][0])}, {e(T["tabs"][1])}">
+  {pane(0, sink, T["tabs"][0])}{pane(1, pipe, T["tabs"][1])}
   <span class="ba-lab l">{e(T["before"])}</span><span class="ba-lab r">{e(T["after"])}</span>
-  <span class="ba-handle" aria-hidden="true"><i><svg viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span>
-  <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="{e(T["range"])}">
  </div>
+ <ol class="ba-steps" aria-hidden="true"><li>{e(steps[0])}</li><li>{e(steps[1])}</li><li>{e(steps[2])}</li></ol>
  <p class="ba-note">{e(T["note"])}</p>
- <ul class="ba-chips">{chips}</ul>
- <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{e(cta)}</span></a>
- <p class="peng-or">{e(or_txt)} <a href="tel:{phone_tel}">{phone_display}</a></p>
+ <h4 class="ba-rt">{e(rtitle)}</h4>
+ <ul class="ba-res">{items}</ul>
 </div>'''
