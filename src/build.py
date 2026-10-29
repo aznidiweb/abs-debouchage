@@ -535,17 +535,66 @@ def prices_section(L, cls=""):
  <div class="plans">{plans}</div><p class="p-note">{u["p_note"]}</p>
 </div></section>'''
 
+PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos": "1620", "Kraainem": "1950",
+           "Wezembeek-Oppem": "1970", "Machelen": "1830", "Grimbergen": "1850"}
+
+def zone_map(L):
+    """Carte SVG des communes, dessinée dans la page (aucun service externe, rien à charger)."""
+    from map_data import MAP
+    names = {c[0]: (c[0] if L == "fr" else c[1], c[2]) for c in COMMUNES}
+    names.update({c[0]: (c[0] if L == "fr" else c[1], PERI_CP.get(c[0], "")) for c in PERIPHERIE})
+    ctx = "".join(f'<path d="{d}"/>' for d in MAP["ctx"])
+    def shapes(lst, kind):
+        out = []
+        for i, (n, d, (x, y)) in enumerate(lst):
+            nm, cp = names[n]
+            out.append(f'<path class="zm-{kind}" d="{d}" data-z="{e(n)}" data-n="{e(nm)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>')
+        return "".join(out)
+    lbl = "Carte de la zone d'intervention : les 19 communes de Bruxelles et la périphérie" if L == "fr" else \
+          "Kaart van het werkgebied: de 19 Brusselse gemeenten en de rand"
+    hatch = '<pattern id="zm-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="zm-hb"/><line x1="0" y1="0" x2="0" y2="6" class="zm-hl"/></pattern>'
+    return f'''<svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
+<defs>{hatch}</defs><g class="zm-ctx" aria-hidden="true">{ctx}</g>
+<g class="zm-shapes" aria-hidden="true">{shapes(MAP["peri"], "peri")}{shapes(MAP["bxl"], "bxl")}</g>
+<g class="zm-pin" aria-hidden="true" transform="translate(336 301)"><circle class="zm-ring" r="10"/><circle class="zm-ring r2" r="10"/><circle class="zm-dot" r="7"/><text class="zm-lbl" y="-16" text-anchor="middle"></text></g>
+</svg>'''
+
 def zones_section(L, cls="soft"):
     u = UI[L]
-    communes = "".join(f'<li>{e(c[0] if L=="fr" else c[1])} <small>{c[2]}</small></li>' for c in COMMUNES)
-    peri = "".join(f'<li>{e(c[0] if L=="fr" else c[1])}</li>' for c in PERIPHERIE)
-    more = ("Votre commune n'est pas dans la liste ? Appelez-nous, on vous dit tout de suite si on peut venir." if L == "fr"
+    fr = L == "fr"
+    def chip(c, cp):
+        return f'<li><button type="button" class="zc" data-z="{e(c[0])}" aria-pressed="false">{e(c[0] if fr else c[1])}{f" <small>{cp}</small>" if cp else ""}</button></li>'
+    communes = "".join(chip(c, c[2]) for c in COMMUNES)
+    peri = "".join(chip(c, PERI_CP.get(c[0], "")) for c in PERIPHERIE)
+    more = ("Votre commune n'est pas dans la liste ? Appelez-nous, on vous dit tout de suite si on peut venir." if fr
             else "Je gemeente staat er niet bij? Bel ons, we zeggen je meteen of we kunnen komen.")
+    T = {"avail": "Technicien disponible 24h/24" if fr else "Technieker beschikbaar 24/7",
+         "eta": "Sur place en 30 min en moyenne" if fr else "Gemiddeld binnen 30 min ter plaatse",
+         "hint": "Touchez votre commune sur la carte ou dans la liste." if fr else "Tik op je gemeente op de kaart of in de lijst.",
+         "bxl": "19 communes de Bruxelles" if fr else "19 Brusselse gemeenten",
+         "peri": u["z_peri"], "call": "Appeler" if fr else "Bellen",
+         "list": "Communes de Bruxelles" if fr else "Brusselse gemeenten"}
     return f'''<section class="section {cls}" id="zones"><div class="wrap">
  {sh(u["z_kick"], u["z_title"], u["z_lead"])}
- <div class="zones">
-  <ul class="zlist reveal">{communes}</ul>
-  <div class="zone-box reveal" data-d="1"><h3>{u["z_peri"]}</h3><ul>{peri}</ul><p>{more}</p>{btn_call(L, "btn-block btn-lg", PHONE_DISPLAY)}</div>
+ <div class="zones" data-zones>
+  <div class="zmap reveal">
+   {zone_map(L)}
+   <ul class="zm-legend" aria-hidden="true"><li><i class="k-bxl"></i>{T["bxl"]}</li><li><i class="k-peri"></i>{T["peri"]}</li></ul>
+   <div class="zm-card">
+    <span class="zm-live"><i></i>{T["avail"]}</span>
+    <p class="zm-name" aria-live="polite"><b data-zname>Bruxelles-Ville</b> <span data-zcp>1000</span></p>
+    <p class="zm-eta">{ico("clock")}<span>{T["eta"]}</span></p>
+    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]}</span></a>
+   </div>
+  </div>
+  <div class="zside reveal" data-d="1">
+   <h3 class="zh">{T["list"]}</h3>
+   <ul class="zlist">{communes}</ul>
+   <h3 class="zh">{T["peri"]}</h3>
+   <ul class="zlist zl-peri">{peri}</ul>
+   <p class="zhint">{T["hint"]}</p>
+   <p class="zmore">{more}</p>
+  </div>
  </div>
 </div></section>'''
 

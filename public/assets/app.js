@@ -61,6 +61,60 @@
     els.forEach(function(el){el.style.transitionDelay=(Number(el.getAttribute("data-d"))||0)*60+"ms";io.observe(el);});
   } else els.forEach(function(el){el.classList.add("in");});
 
+  /* ---------- Carte de la zone d'intervention ---------- */
+  d.querySelectorAll("[data-zones]").forEach(function(box){
+    var map=box.querySelector(".zmap"), pin=box.querySelector(".zm-pin"), lbl=box.querySelector(".zm-lbl");
+    var shapes=box.querySelectorAll(".zm-shapes [data-z]"), chips=box.querySelectorAll(".zc");
+    var zName=box.querySelector("[data-zname]"), zCp=box.querySelector("[data-zcp]"), live=box.querySelector(".zm-name");
+    var byZ={}; shapes.forEach(function(p){byZ[p.getAttribute("data-z")]=p;});
+    var order=Array.prototype.map.call(chips,function(c){return c.getAttribute("data-z");});
+    var cur=null, tour=null, k=0, user=false, visible=false;
+
+    function select(z,fromUser){
+      var p=byZ[z]; if(!p) return; cur=z;
+      shapes.forEach(function(s){s.classList.toggle("on",s===p);});
+      chips.forEach(function(c){c.setAttribute("aria-pressed",c.getAttribute("data-z")===z);});
+      p.parentNode.appendChild(p);                                   /* contour sélectionné au premier plan */
+      var x=+p.getAttribute("data-x"), y=+p.getAttribute("data-y");
+      pin.style.transform="translate("+x+"px,"+y+"px)";
+      lbl.textContent=p.getAttribute("data-n");
+      lbl.setAttribute("text-anchor",x<110?"start":x>490?"end":"middle");
+      lbl.setAttribute("x",x<110?-8:x>490?8:0);
+      live.setAttribute("aria-live",fromUser?"polite":"off");
+      zName.textContent=p.getAttribute("data-n"); zCp.textContent=p.getAttribute("data-cp");
+    }
+    function stopTour(){clearInterval(tour);tour=null;}
+    function startTour(){
+      if(reduce||user||tour||!visible||d.hidden) return;
+      tour=setInterval(function(){k=(k+1)%order.length;select(order[k],false);},2300);
+    }
+    function takeOver(z){user=true;stopTour();select(z,true);}
+    function hov(z,on){
+      var p=byZ[z]; if(p)p.classList.toggle("hov",on);
+      chips.forEach(function(c){if(c.getAttribute("data-z")===z)c.classList.toggle("hov",on);});
+    }
+    shapes.forEach(function(p){
+      var z=p.getAttribute("data-z");
+      p.addEventListener("click",function(){takeOver(z);});
+      p.addEventListener("mouseenter",function(){hov(z,true);if(w.matchMedia("(hover:hover)").matches)takeOver(z);});
+      p.addEventListener("mouseleave",function(){hov(z,false);});
+    });
+    chips.forEach(function(c){
+      var z=c.getAttribute("data-z");
+      c.addEventListener("click",function(){takeOver(z);});
+      c.addEventListener("mouseenter",function(){hov(z,true);});
+      c.addEventListener("mouseleave",function(){hov(z,false);});
+      c.addEventListener("focus",function(){hov(z,true);});
+      c.addEventListener("blur",function(){hov(z,false);});
+    });
+    select(order[3]||order[0],false); k=Math.max(0,order.indexOf(cur));
+    setTimeout(function(){map.classList.add("ready");},2600);
+    if("IntersectionObserver" in w){
+      new IntersectionObserver(function(en){visible=en[0].isIntersecting; if(visible)setTimeout(startTour,1600); else stopTour();},{threshold:.3}).observe(map);
+    }
+    d.addEventListener("visibilitychange",function(){if(d.hidden)stopTour();else startTour();});
+  });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;
