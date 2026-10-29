@@ -605,21 +605,43 @@ PF_ICONS = {
  "clock": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="pfa-face" cx="12" cy="12.5" r="8.5" fill="none" stroke-width="2.2"/><g class="pfa-h"><path d="M12 12.5V8.5" stroke-width="2.4" stroke-linecap="round"/></g><g class="pfa-m"><path d="M12 12.5V6" stroke-width="1.8" stroke-linecap="round"/></g><circle class="pfa-sun" cx="19.5" cy="4.5" r="2.6" fill="#f59e0b"/><path class="pfa-moon" d="M20.8 2.4a3 3 0 1 0 1.6 4.6 2.4 2.4 0 0 1-1.6-4.6z" fill="#e2e8f0"/></svg>',
 }
 
+ENG_TX = {
+ "fr": {"kick": "Garanti sur chaque intervention", "ring": "PRIX ANNONCÉ · ZÉRO SURPRISE · GARANTI · ",
+        "items": [("euro", "Prix annoncé avant de commencer", "Au téléphone ou sur WhatsApp, avant le départ du technicien."),
+                  ("check", "Aucun travail sans votre accord", "Vous validez le prix, puis on commence. Jamais l'inverse."),
+                  ("file", "Pas de frais cachés", "Le prix annoncé est celui qui figure sur la facture."),
+                  ("shield", "Facture pour votre assurance", "Officielle, avec n° TVA et rapport technique.")],
+        "r1": "Prix annoncé = prix facturé", "r2": "Surprise : 0,00 €", "r_aria": "Le prix annoncé est le prix facturé : aucune surprise"},
+ "nl": {"kick": "Gegarandeerd bij elke interventie", "ring": "PRIJS VOORAF · GEEN VERRASSING · GARANTIE · ",
+        "items": [("euro", "Prijs vooraf meegedeeld", "Telefonisch of via WhatsApp, voordat de technieker vertrekt."),
+                  ("check", "Geen werk zonder je akkoord", "Jij keurt de prijs goed, dan beginnen we. Nooit andersom."),
+                  ("file", "Geen verborgen kosten", "De meegedeelde prijs staat op de factuur."),
+                  ("shield", "Factuur voor je verzekering", "Officieel, met btw-nummer en technisch verslag.")],
+        "r1": "Meegedeelde prijs = gefactureerde prijs", "r2": "Verrassing: € 0,00", "r_aria": "De meegedeelde prijs is de gefactureerde prijs: geen verrassingen"},
+}
+
 def prices_section(L, cls=""):
     T = PRICE_TX[L]
     facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic pf-{ic}">{PF_ICONS[ic]}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
                     for i, (ic, a, b) in enumerate(T["factors"]))
-    eng = "".join(f'<li style="--i:{i}"><span class="ck"><i class="ck-drop"></i>{ico("check")}</span><span>{e(x)}</span></li>' for i, x in enumerate(T["eng"]))
+    E = ENG_TX[L]
+    eng = "".join(f'''<li style="--i:{i}"><span class="pe-ic">{ico(ic)}</span><div><b>{e(t)}</b><small>{e(d)}</small></div><span class="ck" aria-hidden="true">{ico("check")}</span></li>'''
+                  for i, (ic, t, d) in enumerate(E["items"]))
+    ring = E["ring"]
+    seal = (f'''<svg class="pe-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pe-ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>'''
+            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7a35"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
+            f'''<g class="pe-ringtxt"><text><textPath href="#pe-ring" startOffset="0" textLength="286" lengthAdjust="spacingAndGlyphs">{e(ring)}</textPath></text></g>'''
+            f'''<circle cx="60" cy="60" r="31" fill="#0f2338" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#fb7a35" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
     return f'''<section class="section {cls}" id="tarifs"><div class="wrap pricing">
  <div class="pr-left">
   {sh(T["kick"], T["title"], T["lead"])}
   <h3 class="pr-h">{T["f_title"]}</h3>
   <ul class="pfac">{facts}</ul>
  </div>
- <div class="peng reveal" data-d="1">
-  <span class="peng-ic">{ico("shield")}</span><span class="peng-stamp" aria-hidden="true">{"Garanti" if L=="fr" else "Gegarandeerd"}</span>
-  <h3>{T["e_title"]}</h3><p>{T["e_lead"]}</p>
-  <ul>{eng}</ul>
+ <div class="peng peng2 reveal" data-d="1">
+  <div class="pe-head">{seal}<div><span class="pe-kick">{E["kick"]}</span><h3>{T["e_title"]}</h3><p>{T["e_lead"]}</p></div></div>
+  <ul class="pe-list">{eng}</ul>
+  <div class="pe-receipt" aria-label="{e(E["r_aria"])}"><span>{E["r1"]}</span><span class="pe-dots" aria-hidden="true"></span><b>{E["r2"]}</b></div>
   <a class="btn btn-wa btn-lg btn-block" href="#diagnostic">{ico("wa")}<span>{T["cta"]}</span></a>
   <p class="peng-or">{T["or"]} <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
  </div>
