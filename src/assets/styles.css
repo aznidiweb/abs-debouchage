@@ -1371,3 +1371,30 @@ html{-webkit-tap-highlight-color:transparent}
 .ck-ok{--h:44px;flex:none;padding:0 18px;font-size:14px;background:var(--dark);color:#fff}
 .ck-ok:hover{background:var(--dark-3)}
 @media(max-width:959px){.ck-bar{left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom));max-width:none;gap:10px;padding:12px}.ck-ic{display:none}.ck-bar p{font-size:12.5px}}
+
+/* ---------- Diagnostic express : version compacte ---------- */
+.diag-sec.section{padding-top:56px;padding-bottom:56px}
+.diag-wrap{grid-template-columns:.8fr 1.2fr;gap:40px}
+.diag-aside .sh{margin-bottom:16px}
+.diag-aside .sh h2{font-size:clamp(28px,3vw,40px)}
+.diag-aside .sh p{font-size:16px}
+.ticks{gap:8px;margin-bottom:18px}
+.ticks li{font-size:15px}
+.diag-aside .alt a{font-size:22px;margin-top:2px}
+.diag-head{padding:16px 20px 0}
+.diag-head h3{font-size:18px}
+.diag-body{padding:14px 20px 20px}
+.diag-q{font-size:16px}
+.diag-hint{font-size:13.5px;margin-bottom:12px}
+.diag-grid{gap:8px}
+.d-opt{min-height:48px;padding:9px 12px;font-size:14.5px}
+.d-list{gap:8px}
+.d-list .d-opt{min-height:48px;padding:11px 14px;font-size:15px}
+.diag-nav{margin-top:10px}
+.verdict{padding:12px 14px;margin-bottom:10px}
+.res-grid{margin-bottom:12px}
+.res-box{padding:10px 12px}
+.fields{gap:10px;margin-bottom:10px}
+.field input{min-height:46px}
+@media(max-width:960px){.diag-wrap{grid-template-columns:1fr;gap:20px}.diag-aside .ticks,.diag-aside .alt{display:none}}
+@media(max-width:560px){.diag-sec.section{padding-top:44px;padding-bottom:44px}.diag-grid{grid-template-columns:repeat(2,1fr)}.d-opt{min-height:46px;font-size:13.5px;gap:8px}.d-opt .ico{width:19px;height:19px}.diag-head{padding:14px 14px 0}.diag-body{padding:12px 14px 16px}}
