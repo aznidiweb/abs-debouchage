@@ -223,6 +223,18 @@ def urg_dialog(L):
  <div class="urg-cta">{btn_call(L, "btn-lg btn-block", T["call"] + " · " + PHONE_DISPLAY)}</div>
 </dialog>'''
 
+def cookie_bar(L):
+    fr = L == "fr"
+    txt = ("Ce site n'utilise aucun cookie publicitaire ni de suivi. Seuls des éléments techniques nécessaires à son fonctionnement sont utilisés."
+           if fr else "Deze site gebruikt geen advertentie- of trackingcookies. Alleen technische elementen die nodig zijn voor de werking worden gebruikt.")
+    more = "En savoir plus" if fr else "Meer info"
+    ok = "J'ai compris" if fr else "Begrepen"
+    return (f'<div class="ck-bar" role="region" aria-label="Cookies" hidden><span class="ck-ic" aria-hidden="true">'
+            f'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3-3 3 3 0 0 1-3-3 3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
+            f'<circle cx="8.5" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1" fill="currentColor"/></svg></span>'
+            f'<p>{e(txt)} <a href="{url(L, UI[L]["privacy_slug"])}">{more}</a></p>'
+            f'<button type="button" class="btn ck-ok" data-ck-ok>{ok}</button></div>')
+
 def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex=False):
     other = UI[L]["other"]
     canon = abs_url(L, page)
@@ -270,6 +282,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 </main>
 {footer(L)}
 {urg_dialog(L)}
+{cookie_bar(L)}
 <script src="/assets/app.js?v={VERSION}" defer></script>
 </body>
 </html>'''

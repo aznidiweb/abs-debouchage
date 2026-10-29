@@ -313,6 +313,18 @@
     d.querySelectorAll("main>section,footer").forEach(function(sec){offIO.observe(sec);});
   }
 
+  /* ---------- Bandeau cookies (information : aucun cookie de suivi) ---------- */
+  (function(){
+    var bar=d.querySelector(".ck-bar"); if(!bar) return;
+    var seen=false; try{seen=localStorage.getItem("abs-ck")==="1";}catch(e){}
+    if(seen) return;
+    setTimeout(function(){bar.hidden=false;requestAnimationFrame(function(){bar.classList.add("show");});},1200);
+    bar.querySelector("[data-ck-ok]").addEventListener("click",function(){
+      try{localStorage.setItem("abs-ck","1");}catch(e){}
+      bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350);
+    });
+  })();
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

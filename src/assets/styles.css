@@ -1360,3 +1360,14 @@ html{-webkit-tap-highlight-color:transparent}
 @media(max-width:960px){.pricing{grid-template-columns:1fr;gap:20px}}
 @media(max-width:560px){#tarifs.section{padding-top:44px;padding-bottom:44px}.ba-res small{display:none}.ba-res li{align-items:center;text-align:center}}
 @keyframes baPane2{0%,47%{opacity:1}50%,97%{opacity:0}100%{opacity:1}}.ba-pane{animation-name:baPane2}.ba-pane+.ba-pane{opacity:0}
+
+/* ---------- Bandeau cookies ---------- */
+.ck-bar{position:fixed;left:16px;bottom:16px;z-index:95;display:flex;align-items:center;gap:14px;max-width:560px;padding:14px 14px 14px 16px;border-radius:16px;background:#fff;color:var(--text);box-shadow:var(--sh-3);border:1px solid var(--line);opacity:0;transform:translateY(16px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.ck-bar.show{opacity:1;transform:none}
+.ck-ic{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--water-50);color:var(--water-ink)}
+.ck-ic svg{width:22px;height:22px}
+.ck-bar p{flex:1;font-size:13.5px;line-height:1.45;margin:0}
+.ck-bar a{color:var(--water-ink);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.ck-ok{--h:44px;flex:none;padding:0 18px;font-size:14px;background:var(--dark);color:#fff}
+.ck-ok:hover{background:var(--dark-3)}
+@media(max-width:959px){.ck-bar{left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom));max-width:none;gap:10px;padding:12px}.ck-ic{display:none}.ck-bar p{font-size:12.5px}}
