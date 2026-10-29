@@ -33,6 +33,7 @@ P = {
  "manhole": '<circle cx="12" cy="12" r="9"/><path d="M7 9h10M6 12h12M7 15h10"/>',
  "drain": '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 8v8M12 8v8M15.5 8v8"/>',
  "arrow": '<path d="M5 12h14M12 5l7 7-7 7"/>',
+ "search": '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
  "chev": '<path d="m6 9 6 6 6-6"/>',
  "plus": '<path d="M12 5v14M5 12h14"/>',
  "alert": '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
@@ -564,7 +565,9 @@ def zones_section(L, cls="soft"):
     u = UI[L]
     fr = L == "fr"
     def chip(c, cp):
-        return f'<li><button type="button" class="zc" data-z="{e(c[0])}" aria-pressed="false">{e(c[0] if fr else c[1])}{f" <small>{cp}</small>" if cp else ""}</button></li>'
+        nm = c[0] if fr else c[1]
+        key = (c[0] + " " + c[1] + " " + cp).lower()
+        return f'<li><button type="button" class="zc" data-z="{e(c[0])}" data-k="{e(key)}" aria-pressed="false"><span class="zc-n">{e(nm)}</span><span class="zc-cp">{cp}</span><span class="zc-ok" aria-hidden="true"></span></button></li>'
     communes = "".join(chip(c, c[2]) for c in COMMUNES)
     peri = "".join(chip(c, PERI_CP.get(c[0], "")) for c in PERIPHERIE)
     more = ("Votre commune n'est pas dans la liste ? Appelez-nous, on vous dit tout de suite si on peut venir." if fr
@@ -574,7 +577,9 @@ def zones_section(L, cls="soft"):
          "hint": "Touchez votre commune sur la carte ou dans la liste." if fr else "Tik op je gemeente op de kaart of in de lijst.",
          "bxl": "19 communes de Bruxelles" if fr else "19 Brusselse gemeenten",
          "peri": u["z_peri"], "call": "Appeler" if fr else "Bellen",
-         "list": "Communes de Bruxelles" if fr else "Brusselse gemeenten"}
+         "list": "Communes de Bruxelles" if fr else "Brusselse gemeenten",
+         "find": "Votre commune ou code postal" if fr else "Je gemeente of postcode",
+         "none": "Pas dans la liste ? Appelez-nous : on vous dit tout de suite si on peut venir." if fr else "Niet in de lijst? Bel ons: we zeggen je meteen of we kunnen komen."}
     return f'''<section class="section {cls}" id="zones"><div class="wrap">
  {sh(u["z_kick"], u["z_title"], u["z_lead"])}
  <div class="zones" data-zones>
@@ -589,11 +594,12 @@ def zones_section(L, cls="soft"):
    </div>
   </div>
   <div class="zside reveal" data-d="1">
-   <h3 class="zh">{T["list"]}</h3>
-   <ul class="zlist">{communes}</ul>
-   <h3 class="zh">{T["peri"]}</h3>
-   <ul class="zlist zl-peri">{peri}</ul>
-   <p class="zhint">{T["hint"]}</p>
+   <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="search" data-zfind placeholder="{T["find"]}" autocomplete="off" enterkeyhint="search" inputmode="search"></label>
+   <p class="zempty" data-zempty hidden>{T["none"]}</p>
+   <div class="zgroup"><h3 class="zh">{T["list"]}<span>19</span></h3>
+   <ul class="zlist">{communes}</ul></div>
+   <div class="zgroup"><h3 class="zh">{T["peri"]}<span>{len(PERIPHERIE)}</span></h3>
+   <ul class="zlist zl-peri">{peri}</ul></div>
    <p class="zmore">{more}</p>
   </div>
  </div>

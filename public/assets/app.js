@@ -116,6 +116,23 @@
       c.addEventListener("focus",function(){hov(z,true);});
       c.addEventListener("blur",function(){hov(z,false);});
     });
+    /* recherche : commune ou code postal */
+    var find=box.querySelector("[data-zfind]"), empty=box.querySelector("[data-zempty]");
+    function norm(t){return String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+    if(find){
+      chips.forEach(function(c){c._k=norm(c.getAttribute("data-k"));});
+      find.addEventListener("input",function(){
+        var q=norm(find.value), hits=[];
+        chips.forEach(function(c){var ok=!q||c._k.indexOf(q)>-1||c._k.replace(/ /g,"").indexOf(q.replace(/ /g,""))>-1;c.parentNode.hidden=!ok;if(ok)hits.push(c);});
+        box.querySelectorAll(".zgroup").forEach(function(g){g.hidden=!g.querySelector("li:not([hidden])");});
+        empty.hidden=!(q&&!hits.length);
+        if(q&&(hits.length===1||/^\d{4}$/.test(q)&&hits.length)) takeOver(hits[0].getAttribute("data-z"));
+      });
+      find.addEventListener("keydown",function(e){
+        if(e.key==="Enter"){e.preventDefault();var h=box.querySelector(".zlist li:not([hidden]) .zc");if(h)takeOver(h.getAttribute("data-z"));}
+      });
+      find.addEventListener("focus",function(){user=true;stopTour();});
+    }
     select(order[3]||order[0],false); k=Math.max(0,order.indexOf(cur));
     setTimeout(function(){map.classList.add("ready");},2600);
     if("IntersectionObserver" in w){
