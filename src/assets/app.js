@@ -283,6 +283,27 @@
     setTimeout(function(){ if(!ok&&(v.paused||v.currentTime===0)) swap(); },1200);
   });
 
+  /* ---------- Titre de l'accueil : s'écrit lettre par lettre, chaque lettre se forme comme une goutte ---------- */
+  d.querySelectorAll(".hp-title").forEach(function(t){
+    if(t.dataset.typed) return; t.dataset.typed="1";
+    t.setAttribute("aria-label",t.textContent.replace(/\s+/g," ").trim());
+    var n=0, STEP=55;
+    function wrap(node,host){
+      node.textContent.split(/(\s+)/).forEach(function(part){
+        if(!part) return;
+        if(/^\s+$/.test(part)){ host.appendChild(d.createTextNode(" ")); n++; return; }
+        var wd=d.createElement("span"); wd.className="tw-w"; wd.setAttribute("aria-hidden","true");
+        Array.prototype.forEach.call(part,function(ch){ var c=d.createElement("span"); c.className="tw-c"; c.textContent=ch; c.style.animationDelay=(250+n*STEP)+"ms"; n++; wd.appendChild(c); });
+        host.appendChild(wd);
+      });
+    }
+    Array.prototype.slice.call(t.childNodes).forEach(function(node){
+      if(node.nodeType===3){ var f=d.createDocumentFragment(); wrap(node,f); t.replaceChild(f,node); }
+      else if(node.nodeType===1){ var txt=node.textContent; node.textContent=""; wrap({textContent:txt},node); }
+    });
+    t.classList.add("tw-on");
+  });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

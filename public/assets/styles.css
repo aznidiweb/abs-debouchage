@@ -1193,6 +1193,19 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .sv-land .sv-ic{top:9px;left:9px;width:34px;height:34px;border-radius:10px}
 @media(max-width:560px){.svc-grid.land{gap:10px}.sv-land{grid-template-columns:minmax(0,36%) 1fr;min-height:96px}.sv-land .sv-body{padding:12px 44px 12px 14px;gap:3px}.sv-land .sv-t{font-size:15.5px}.sv-d{display:-webkit-box;-webkit-line-clamp:1;font-size:13px}}
 
+/* ---------- Titre de l'accueil : écriture lettre par lettre, chaque lettre tombe et se forme comme une goutte ---------- */
+.tw-w{display:inline-block;white-space:nowrap}
+.tw-on .tw-c{display:inline-block;opacity:0;animation:twDrop .7s cubic-bezier(.3,1.25,.5,1) forwards;transform-origin:50% 100%}
+@keyframes twDrop{
+ 0%{opacity:0;transform:translateY(-.55em) scale(.35,1.5);filter:blur(5px);color:#7dd3fc}
+ 45%{opacity:1;transform:translateY(.04em) scale(1.12,.82);filter:blur(1px);color:#38bdf8}
+ 70%{transform:translateY(-.02em) scale(.97,1.05);filter:blur(0)}
+ 100%{opacity:1;transform:none;filter:none;color:inherit}}
+.tw-caret{display:inline-block;width:.07em;height:.82em;margin-left:.06em;vertical-align:-.05em;border-radius:.05em;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,.8);animation:twBlink .9s steps(2) infinite}
+.tw-caret.done{animation:twOut .6s ease forwards}
+@keyframes twBlink{50%{opacity:0}}
+@keyframes twOut{to{opacity:0;width:0;margin:0}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
