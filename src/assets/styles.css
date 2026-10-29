@@ -1218,3 +1218,11 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 /* titre : un peu plus aéré, et la boîte de chaque lettre inclut la cédille et les jambages (ç, q) pendant l'animation */
 .hero-video .hp-title{letter-spacing:-.018em;line-height:1.12;word-spacing:.04em}
 .tw-on .tw-c{padding:.08em 0 .2em;margin:-.08em 0 -.2em}
+/* goutte sans flou : Safari (iPhone) coupait la cédille du ç et la queue du q pendant l'animation */
+@keyframes twDrop2{
+ 0%{opacity:0;transform:translateY(-.5em) scale(.45,1.45);color:#7dd3fc}
+ 45%{opacity:1;transform:translateY(.04em) scale(1.1,.86);color:#38bdf8}
+ 70%{transform:translateY(-.02em) scale(.97,1.04)}
+ 100%{opacity:1;transform:none;color:inherit}}
+.tw-on .tw-c{animation-name:twDrop2;filter:none!important;overflow:visible}
+.tw-w{overflow:visible}
