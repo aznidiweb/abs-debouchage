@@ -1184,6 +1184,15 @@ main>section:not(.hero)>.wrap{transform-origin:50% 0;will-change:auto}
 .pe-list small{display:block;color:#93a3b8;font-size:13.5px;line-height:1.45;margin-top:2px}
 .peng2 .pe-receipt{margin:2px 0 16px}
 
+/* Cartes services : un peu plus grandes */
+.svc-grid.land{gap:14px}
+.sv-land{grid-template-columns:minmax(0,38%) 1fr;min-height:132px}
+.sv-land .sv-body{padding:16px 52px 16px 18px;gap:5px}
+.sv-land .sv-t{font-size:17px}
+.sv-d{-webkit-line-clamp:2;font-size:14px}
+.sv-land .sv-ic{top:9px;left:9px;width:34px;height:34px;border-radius:10px}
+@media(max-width:560px){.svc-grid.land{gap:10px}.sv-land{grid-template-columns:minmax(0,36%) 1fr;min-height:96px}.sv-land .sv-body{padding:12px 44px 12px 14px;gap:3px}.sv-land .sv-t{font-size:15.5px}.sv-d{display:-webkit-box;-webkit-line-clamp:1;font-size:13px}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
