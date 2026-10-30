@@ -1484,6 +1484,9 @@ html{-webkit-tap-highlight-color:transparent}
 .tools-sec{background:var(--bg)}.tool{background:var(--dark)}.tool-art{background:#0f2338}@media(max-width:860px){.tool-tag{font-size:10.5px}}
 .zm-btn b{font-weight:800}
 .zc-s{display:none}@media(max-width:560px){.zc-l{display:none}.zc-s{display:inline}.zm-btn{font-size:15px}}
+/* grands titres : cachés jusqu'à leur écriture (sécurité : visibles au bout de 4 s si le script ne tourne pas) */
+.js .tw-wait:not(.tw-on):not(.tw-done){opacity:0;animation:twSafe 0s linear 4s forwards}
+.tw-done.tw-wait{opacity:1}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}

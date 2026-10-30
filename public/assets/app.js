@@ -284,18 +284,18 @@
     setTimeout(function(){ if(!ok&&(v.paused||v.currentTime===0)) swap(); },1200);
   });
 
-  /* ---------- Titre de l'accueil : s'écrit lettre par lettre, chaque lettre se forme comme une goutte ---------- */
-  d.querySelectorAll(".hp-title").forEach(function(t){
+  /* ---------- Titres : s'écrivent lettre par lettre, chaque lettre se forme comme une goutte ---------- */
+  function typeIt(t, delay, step){
     if(t.dataset.typed) return; t.dataset.typed="1";
     var original=t.innerHTML;
-    t.setAttribute("aria-label",t.textContent.replace(/\s+/g," ").trim());
-    var n=0, STEP=55;
+    if(!t.getAttribute("aria-label")) t.setAttribute("aria-label",t.textContent.replace(/\s+/g," ").trim());
+    var n=0;
     function wrap(node,host){
       node.textContent.split(/(\s+)/).forEach(function(part){
         if(!part) return;
         if(/^\s+$/.test(part)){ host.appendChild(d.createTextNode(" ")); n++; return; }
         var wd=d.createElement("span"); wd.className="tw-w"; wd.setAttribute("aria-hidden","true");
-        Array.prototype.forEach.call(part,function(ch){ var c=d.createElement("span"); c.className="tw-c"; c.textContent=ch; c.style.animationDelay=(250+n*STEP)+"ms"; n++; wd.appendChild(c); });
+        Array.prototype.forEach.call(part,function(ch){ var c=d.createElement("span"); c.className="tw-c"; c.textContent=ch; c.style.animationDelay=(delay+n*step)+"ms"; n++; wd.appendChild(c); });
         host.appendChild(wd);
       });
     }
@@ -304,9 +304,16 @@
       else if(node.nodeType===1){ var txt=node.textContent; node.textContent=""; wrap({textContent:txt},node); }
     });
     t.classList.add("tw-on");
-    /* une fois écrit, on retire l'animation : le texte redevient du texte normal (évite le scintillement sur iPhone) */
-    setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, 250+n*STEP+900);
-  });
+    /* une fois écrit, le titre redevient du texte normal (pas de scintillement sur iPhone) */
+    setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, delay+n*step+900);
+  }
+  d.querySelectorAll(".hp-title").forEach(function(t){ typeIt(t,250,55); });
+  /* grands titres des sections : s'écrivent quand on arrive sur la partie */
+  var heads=d.querySelectorAll("main .sh h2, main .band h2");
+  if("IntersectionObserver" in w){
+    var tio=new IntersectionObserver(function(en){en.forEach(function(x){ if(x.isIntersecting){ tio.unobserve(x.target); typeIt(x.target,80,28); } });},{rootMargin:"0px 0px -18% 0px",threshold:.6});
+    heads.forEach(function(h){ h.classList.add("tw-wait"); tio.observe(h); });
+  }
 
   /* ---------- Fluidité : toutes les animations d'une section s'arrêtent quand elle n'est pas à l'écran ---------- */
   if("IntersectionObserver" in w){
