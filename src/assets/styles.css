@@ -1487,3 +1487,22 @@ html{-webkit-tap-highlight-color:transparent}
 /* grands titres : cachés jusqu'à leur écriture (sécurité : visibles au bout de 4 s si le script ne tourne pas) */
 .js .tw-wait:not(.tw-on):not(.tw-done){opacity:0;animation:twSafe 0s linear 4s forwards}
 .tw-done.tw-wait{opacity:1}
+
+/* ======================= Héros renforcé : image, contraste, bouton d'appel ======================= */
+/* image plus vive et plus nette */
+.hv-media .hp-video,.hv-media .hp-anim,.hv-media .hp-poster{filter:contrast(1.12) saturate(1.25) brightness(1.05)}
+/* voile : texte sur fond bien sombre, image franche à droite */
+.hero-video .hp-shade{background:
+ linear-gradient(90deg,rgba(8,19,33,.96) 0%,rgba(8,19,33,.88) 32%,rgba(8,19,33,.35) 54%,rgba(8,19,33,0) 68%),
+ linear-gradient(0deg,rgba(8,19,33,.75) 0%,rgba(8,19,33,0) 20%),
+ linear-gradient(180deg,rgba(8,19,33,.6) 0%,rgba(8,19,33,0) 16%)}
+@media(max-width:960px){.hero-video .hp-shade{background:linear-gradient(180deg,rgba(8,19,33,0) 72%,rgba(8,19,33,1) 100%)}}
+.hero-video .hp-lead{color:#e8eef5}
+.hero-video .hlabel{background:rgba(8,19,33,.7)}
+/* bouton d'appel : plus grand, plus lumineux, avec un halo qui pulse */
+.hero-video .cta-row .btn-call{--h:62px;padding:0 30px;font-size:18px;font-weight:800;background:linear-gradient(180deg,#e2531a,#c2410c);
+ box-shadow:0 0 0 0 rgba(251,122,53,.65),0 14px 34px rgba(194,65,12,.55);animation:callPulse 2.2s ease-out infinite}
+.hero-video .cta-row .btn-call .ico{width:22px;height:22px}
+@keyframes callPulse{0%{box-shadow:0 0 0 0 rgba(251,122,53,.65),0 14px 34px rgba(194,65,12,.55)}70%{box-shadow:0 0 0 16px rgba(251,122,53,0),0 14px 34px rgba(194,65,12,.55)}100%{box-shadow:0 0 0 0 rgba(251,122,53,0),0 14px 34px rgba(194,65,12,.55)}}
+.hero-video .cta-row .btn-glass{--h:62px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.28)}
+@media(max-width:560px){.hero-video .cta-row .btn-call{--h:58px;font-size:17px}.hero-video .cta-row .btn-glass{--h:52px}}
