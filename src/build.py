@@ -545,6 +545,42 @@ def steps_html(items):
     """Liste d'étapes reliées par un tuyau ; l'eau finit dans une grille d'égout."""
     return f'<div class="steps-wrap">{PIPE_FX}<ol class="steps">{items}</ol></div>'
 
+TOOLS = {
+ "fr": {"kick": "Notre matériel", "title": "Le bon outil <em>pour chaque bouchon.</em>",
+        "lead": "Pas de produit chimique, pas de casse : du matériel professionnel, adapté à votre canalisation.",
+        "items": [("furet", "Furet électrique", "WC, évier, lavabo, douche", "Un câble rotatif qui perce et ramène le bouchon, sans abîmer la faïence."),
+                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau jusqu'à 400 bars qui décolle graisses, calcaire et racines."),
+                  ("cam", "Caméra d'inspection HD", "Bouchons à répétition", "On voit l'intérieur du tuyau en direct et on localise le problème.")]},
+ "nl": {"kick": "Ons materiaal", "title": "Het juiste gereedschap <em>voor elke verstopping.</em>",
+        "lead": "Geen chemische producten, geen breekwerk: professioneel materiaal, aangepast aan je leiding.",
+        "items": [("furet", "Elektrische veer", "Wc, gootsteen, lavabo, douche", "Een draaiende kabel die de prop doorboort en verwijdert, zonder het porselein te beschadigen."),
+                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een waterstraal tot 400 bar die vet, kalk en wortels losmaakt."),
+                  ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
+}
+TOOL_ART = {
+ "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<path class="ta-clog" d="M112 44c10-3 18 4 18 13s-8 16-18 13c-6-2-8-7-8-13s2-11 8-13z" fill="#8a5a2b"/>
+<g class="ta-cable"><path d="M-80 57h170" stroke="#fbbf24" stroke-width="4" stroke-dasharray="6 4" class="ta-spin"/><path d="M90 50l14 7-14 7z" fill="#e2e8f0"/></g>
+<rect x="10" y="16" width="34" height="18" rx="5" fill="#c2410c"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
+ "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<g class="ta-jet" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"><path d="M64 57h40"/><path d="M64 52l34-8"/><path d="M64 62l34 8"/></g>
+<g class="ta-dirt" fill="#a3895a"><circle cx="118" cy="50" r="4"/><circle cx="130" cy="62" r="5"/><circle cx="142" cy="52" r="3.5"/></g>
+<path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><path d="M50 51h14l6 6-6 6H50z" fill="#e2e8f0"/></svg>''',
+ "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<path d="M120 42l6 9-5 6 8 9" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" class="ta-crack"/>
+<g class="ta-cam"><polygon points="74,50 118,40 118,74 74,64" fill="#fde047" opacity=".18"/><path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><rect x="50" y="49" width="22" height="16" rx="4" fill="#e2e8f0"/><circle cx="72" cy="57" r="5" fill="#0ea5e9" stroke="#e2e8f0" stroke-width="2"/></g>
+<circle cx="146" cy="20" r="5" fill="#ef4444" class="ta-rec"/></svg>''',
+}
+
+def tools_section(L):
+    T = TOOLS[L]
+    cards = "".join(f'''<li class="tool reveal" data-d="{i}"><div class="tool-art">{TOOL_ART[k]}</div><span class="tool-tag">{e(tag)}</span><h3>{e(n)}</h3><p>{e(d)}</p></li>'''
+                    for i, (k, n, tag, d) in enumerate(T["items"]))
+    return f'''<section class="section tools-sec" id="materiel"><div class="wrap">
+ {sh(T["kick"], T["title"], T["lead"])}
+ <ul class="tools">{cards}</ul>
+</div></section>'''
+
 def steps_section(L, cls="soft"):
     t = TX[L]
     st = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (ic, a, b) in enumerate(t["steps"]))
@@ -701,14 +737,10 @@ def zone_map(L):
             '<radialGradient id="zm-glow"><stop offset="0" stop-color="#fb7a35" stop-opacity=".45"/><stop offset=".55" stop-color="#c2410c" stop-opacity=".12"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></radialGradient>'
             '<linearGradient id="zm-sheen" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>'
             '<filter id="zm-neon" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
-    return f'''<div class="zm-stage"><svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
+    return f'''<div class="zm-stage flat"><svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
 <defs>{defs}</defs>
 <g class="zm-ctx" aria-hidden="true">{ctx}</g>
-<ellipse cx="{hx}" cy="{hy + 40}" rx="260" ry="230" fill="url(#zm-glow)" aria-hidden="true"/>
-<g class="zm-depth" aria-hidden="true"><g transform="translate(0 10)">{depth}</g><g transform="translate(0 6)">{depth}</g><g transform="translate(0 3)">{depth}</g></g>
 <g class="zm-shapes" aria-hidden="true">{shapes()}</g>
-<g class="zm-sheen" aria-hidden="true"><path d="{"".join(d for k, (n, d, c) in allz)}" fill="url(#zm-sheen)"/></g>
-<g class="zm-net" aria-hidden="true">{"".join(net)}<circle class="zn-hub" cx="{hx}" cy="{hy}" r="6"/><circle class="zn-hubr" cx="{hx}" cy="{hy}" r="6"/></g>
 <g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
 <g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
 </svg></div>'''
@@ -790,7 +822,7 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + steps_section(L, "") + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
+</div></section>''' + tools_section(L) + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
     schemas = [business_schema(L), faq_schema(u["faq"][:4]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)

@@ -163,7 +163,7 @@
     }
     /* relief qui suit la souris (ordinateur) */
     var stage=box.querySelector(".zm-stage"), svgEl=box.querySelector(".zm-svg");
-    if(stage&&svgEl&&w.matchMedia("(hover:hover)").matches&&!reduceBig){
+    if(false){
       stage.addEventListener("mousemove",function(ev){var r=stage.getBoundingClientRect(),px=(ev.clientX-r.left)/r.width-.5,py=(ev.clientY-r.top)/r.height-.5;
         svgEl.style.setProperty("--ry",(px*10).toFixed(2)+"deg");svgEl.style.setProperty("--rx",(24+py*-10).toFixed(2)+"deg");});
       stage.addEventListener("mouseleave",function(){svgEl.style.removeProperty("--ry");svgEl.style.removeProperty("--rx");});
