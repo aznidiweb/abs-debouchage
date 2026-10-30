@@ -364,6 +364,67 @@
   /* la recherche de commune ouvre la liste */
   d.querySelectorAll("[data-zfind]").forEach(function(f){ f.addEventListener("input",function(){ var h=f.closest(".zside"); if(h&&f.value.trim()) h.classList.add("z-open"); }); });
 
+  /* ---------- Défilement fluide (style grandes marques) : ordinateur, souris uniquement ---------- */
+  (function(){
+    if(reduceBig||!w.matchMedia("(pointer:fine)").matches||!w.requestAnimationFrame) return;
+    var target=w.scrollY, cur=w.scrollY, running=false, EASE=.085;
+    function max(){return d.documentElement.scrollHeight-w.innerHeight;}
+    function loop(){
+      cur+=(target-cur)*EASE;
+      if(Math.abs(target-cur)<.5){cur=target;running=false;}
+      w.scrollTo(0,cur);
+      if(running) requestAnimationFrame(loop);
+    }
+    function canScroll(el){  /* laisse défiler normalement les zones qui ont leur propre défilement */
+      for(;el&&el!==d.body;el=el.parentElement){ var o=getComputedStyle(el).overflowY; if((o==="auto"||o==="scroll")&&el.scrollHeight>el.clientHeight) return true; if(el.tagName==="DIALOG") return true; }
+      return false;
+    }
+    w.addEventListener("wheel",function(e){
+      if(e.ctrlKey||e.defaultPrevented||canScroll(e.target)) return;
+      e.preventDefault();
+      var dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*w.innerHeight:e.deltaY;
+      if(!running){target=cur=w.scrollY;}
+      target=Math.max(0,Math.min(max(),target+dy));
+      if(!running){running=true;requestAnimationFrame(loop);}
+    },{passive:false});
+    /* clavier, barre de défilement, ancres : on se resynchronise */
+    w.addEventListener("scroll",function(){ if(!running){target=cur=w.scrollY;} },{passive:true});
+    d.addEventListener("click",function(e){
+      var a=e.target.closest&&e.target.closest('a[href^="#"],a[href*="/#"]'); if(!a) return;
+      var id=a.getAttribute("href").split("#")[1]; var el=id&&d.getElementById(id); if(!el||a.pathname!==location.pathname) return;
+      e.preventDefault(); history.pushState(null,"","#"+id);
+      if(!running){target=cur=w.scrollY;}
+      target=Math.max(0,Math.min(max(),el.getBoundingClientRect().top+w.scrollY-90));
+      if(!running){running=true;requestAnimationFrame(loop);}
+    });
+    d.documentElement.classList.add("smooth-on");
+  })();
+
+  /* ---------- Apparition des textes et des boutons ---------- */
+  (function(){
+    if(!("IntersectionObserver" in w)) return;
+    var sel="main .sh p, main .sh .chip, main .cta-row, main .btn-lg:not(.cta-row .btn), main .zsearch, main .faq details, main .band p, .hp-lead, .hp-checks, .urg-btn, .hlabel";
+    var els=[].slice.call(d.querySelectorAll(sel));
+    els.forEach(function(el){ if(!el.closest(".tw-on")) el.classList.add("rise"); });
+    var rio=new IntersectionObserver(function(en){en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("risen"); rio.unobserve(x.target);} });},{rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el,i){ var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.setProperty("--rd",(Math.min(sib,6)*70)+"ms"); });
+    /* héros : les éléments arrivent après le titre */
+    d.querySelectorAll(".hero-video .hp-lead,.hero-video .cta-row,.hero-video .urg-btn,.hero-video .hp-checks").forEach(function(el,i){ el.style.setProperty("--rd",(1700+i*140)+"ms"); });
+    d.querySelectorAll(".hero-video .hlabel").forEach(function(el){ el.style.setProperty("--rd","100ms"); });
+    /* on laisse le navigateur afficher l'état de départ avant de lancer les apparitions */
+    void d.body.offsetHeight;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
+  })();
+
+  /* ---------- Boutons « aimantés » (ordinateur) ---------- */
+  if(!reduceBig&&w.matchMedia("(hover:hover) and (pointer:fine)").matches){
+    d.querySelectorAll(".btn-lg,.head-call").forEach(function(b){
+      b.addEventListener("mousemove",function(e){ var r=b.getBoundingClientRect(), x=(e.clientX-r.left-r.width/2)/r.width, y=(e.clientY-r.top-r.height/2)/r.height;
+        b.style.transform="translate("+(x*8).toFixed(1)+"px,"+(y*6).toFixed(1)+"px)"; });
+      b.addEventListener("mouseleave",function(){ b.style.transform=""; });
+    });
+  }
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;
