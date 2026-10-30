@@ -227,6 +227,8 @@
     spipe.innerHTML='<svg class="spipe-fau" viewBox="0 0 34 34"><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/><rect x="5" y="22" width="8" height="5" rx="1.5" fill="#64748b"/><rect x="20" y="1" width="4" height="7" fill="#64748b"/><rect x="14" y="0" width="16" height="4" rx="2" fill="#c2410c"/></svg>'+
       '<i class="spipe-drop"></i><i class="spipe-drop d2"></i><span class="spipe-tube"><i class="spipe-water"></i><i class="spipe-rip"></i></span>';
     d.body.appendChild(spipe);
+    var ft=d.querySelector("footer");
+    if(ft&&"IntersectionObserver" in w) new IntersectionObserver(function(en){spipe.classList.toggle("spipe-off",en[0].isIntersecting);}).observe(ft);
   }
   var wTick=false;
   function water(){
@@ -341,7 +343,11 @@
     var bar=d.querySelector(".ck-bar"); if(!bar) return;
     var seen=false; try{seen=localStorage.getItem("abs-ck")==="1";}catch(e){}
     if(seen) return;
-    setTimeout(function(){bar.hidden=false;requestAnimationFrame(function(){bar.classList.add("show");});},1200);
+    /* discret : n'apparaît qu'après un vrai défilement, pour ne jamais cacher le titre ni le bouton d'appel */
+    var shown=false;
+    function show(){ if(shown) return; shown=true; w.removeEventListener("scroll",onS); bar.hidden=false; requestAnimationFrame(function(){requestAnimationFrame(function(){bar.classList.add("show");});}); }
+    function onS(){ if(w.scrollY>w.innerHeight*.9) show(); }
+    w.addEventListener("scroll",onS,{passive:true});
     bar.querySelector("[data-ck-ok]").addEventListener("click",function(){
       try{localStorage.setItem("abs-ck","1");}catch(e){}
       bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350);

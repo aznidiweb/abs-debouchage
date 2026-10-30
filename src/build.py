@@ -226,8 +226,8 @@ def urg_dialog(L):
 
 def cookie_bar(L):
     fr = L == "fr"
-    txt = ("Ce site n'utilise aucun cookie publicitaire ni de suivi. Seuls des éléments techniques nécessaires à son fonctionnement sont utilisés."
-           if fr else "Deze site gebruikt geen advertentie- of trackingcookies. Alleen technische elementen die nodig zijn voor de werking worden gebruikt.")
+    txt = ("Aucun cookie publicitaire ni de suivi sur ce site."
+           if fr else "Geen advertentie- of trackingcookies op deze site.")
     more = "En savoir plus" if fr else "Meer info"
     ok = "J'ai compris" if fr else "Begrepen"
     return (f'<div class="ck-bar" role="region" aria-label="Cookies" hidden><span class="ck-ic" aria-hidden="true">'
@@ -244,6 +244,13 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
     nl_url = canon if L == "nl" else alt
     ld = "".join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>' for s in schemas)
     robots = '<meta name="robots" content="noindex">' if noindex else '<meta name="robots" content="index, follow, max-image-preview:large">'
+    hl = "" if noindex else (f'<link rel="alternate" hreflang="fr-BE" href="{fr_url}">\n<link rel="alternate" hreflang="nl-BE" href="{nl_url}">\n'
+                             f'<link rel="alternate" hreflang="x-default" href="{fr_url}">')
+    if 'id="diagnostic"' not in body:
+        body = body.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
+    foot = footer(L)
+    if 'id="diagnostic"' not in body:
+        foot = foot.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
     return f'''<!doctype html>
 <html lang="{L}-BE">
 <head>
@@ -253,9 +260,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta name="description" content="{e(desc)}">
 {robots}
 <link rel="canonical" href="{canon}">
-<link rel="alternate" hreflang="fr-BE" href="{fr_url}">
-<link rel="alternate" hreflang="nl-BE" href="{nl_url}">
-<link rel="alternate" hreflang="x-default" href="{fr_url}">
+{hl}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND}">
 <meta property="og:locale" content="{"fr_BE" if L=="fr" else "nl_BE"}">
@@ -281,7 +286,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <main id="main">
 {body}
 </main>
-{footer(L)}
+{foot}
 {urg_dialog(L)}
 {cookie_bar(L)}
 <script src="/assets/app.js?v={VERSION}" defer></script>
@@ -316,7 +321,7 @@ def photo_url(key, w=1200, h=None):
 def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(480, 800, 1200, 1600)):
     src = ", ".join(f"{photo_url(key, w)} {w}w" for w in widths)
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return f'<img src="{photo_url(key, 1200)}" srcset="{src}" sizes="{sizes}" alt="{e(PHOTOS[key][1][L])}" {load} decoding="async">'
+    return f'<img src="{photo_url(key, 1200)}" srcset="{src}" sizes="{sizes}" alt="{e(PHOTOS[key][1][L])}" width="1200" height="800" {load} decoding="async">'
 
 TX = {
  "fr": {
@@ -331,7 +336,7 @@ TX = {
            ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
            ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
   "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
-  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("11", "Provinces")],
+  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
@@ -354,7 +359,7 @@ TX = {
            ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
            ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
   "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
-  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("11", "Provincies")],
+  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
@@ -463,9 +468,9 @@ def hero_home(L):
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
  <div class="hv-media" aria-hidden="true">
-  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" fetchpriority="high">
-  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4" type="video/mp4"></video>
-  <img class="hp-anim" alt="" data-src="/assets/video/hero.webp?v=2" hidden>
+  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" width="1024" height="576" fetchpriority="high">
+  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4?v=3" type="video/mp4"></video>
+  <img class="hp-anim" alt="" width="1024" height="576" data-src="/assets/video/hero.webp?v=2" hidden>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
@@ -585,7 +590,7 @@ def diagnostic(L, pre=None, photo="pipecam"):
     svc = {}
     for s in SERVICES:
         tip = s[L]["tip"]
-        for pfx in ("En attendant : ", "In afwachting: "):
+        for pfx in ("En attendant le technicien : ", "In afwachting van de technieker: ", "En attendant : ", "In afwachting: "):
             if tip.startswith(pfx): tip = tip[len(pfx):]
         svc[s["id"]] = {"name": s[L]["name"], "price": s["price"], "tip": tip[0].upper() + tip[1:],
                         "sits": [[a, (b if L == "fr" else c)] for a, b, c in DIAG[s["id"]]]}
@@ -742,7 +747,7 @@ def zones_section(L, cls="soft"):
          "find": "Votre code postal" if fr else "Je postcode",
          "ok": "Bonne nouvelle : on intervient chez vous." if fr else "Goed nieuws: we komen bij je.",
          "bad": "Entrez un code postal belge à 4 chiffres." if fr else "Geef een Belgische postcode van 4 cijfers in.",
-         "list": "Les 11 provinces" if fr else "De 11 provincies",
+         "list": "10 provinces + Bruxelles" if fr else "10 provincies + Brussel",
          "base": "Base à Bruxelles" if fr else "Basis in Brussel", "all": "Toute la Belgique" if fr else "Heel België"}
     cpmap = e(json.dumps({k: v for k, v in PROV_CP.items()}))
     return f'''<section class="section {cls}" id="zones"><div class="wrap">
@@ -761,7 +766,7 @@ def zones_section(L, cls="soft"):
   <div class="zside reveal" data-d="1">
    <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="text" data-zcp-in data-ok="{e(T["ok"])}" data-bad="{e(T["bad"])}" placeholder="{T["find"]}" inputmode="numeric" maxlength="4" autocomplete="postal-code" enterkeyhint="go"></label>
    <p class="zcp-msg" data-zcp-msg aria-live="polite" hidden></p>
-   <div class="zgroup"><h3 class="zh">{T["list"]}<span>11</span></h3>
+   <div class="zgroup"><h3 class="zh">{T["list"]}</h3>
    <ul class="zlist zl-prov">{chips}</ul></div>
   </div>
  </div>
@@ -809,7 +814,7 @@ def page_service(L, s):
     causes = "".join(f'<li>{ico("help")}<span>{e(x)}</span></li>' for x in c["causes"])
     method = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, ((a, b), ic) in enumerate(zip(c["method"], ["help", "zap", "check", "shield"])))
     tip = c["tip"]
-    for pfx in ("En attendant : ", "In afwachting: "):
+    for pfx in ("En attendant le technicien : ", "In afwachting van de technieker: ", "En attendant : ", "In afwachting: "):
         if tip.startswith(pfx): tip = tip[len(pfx):]
     tip = tip[0].upper() + tip[1:]
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
@@ -828,8 +833,9 @@ def page_service(L, s):
  <div class="tip reveal"><span class="ic">{ico("alert")}</span><div><h3>{u["sv_tip"]}</h3><p>{e(tip)}</p></div></div>
 </div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + f'''
 <section class="section soft"><div class="wrap">
- {sh(u["s_kick"], u["sv_other"], u["sv_zone"] + " : " + e(communes) + ".")}
+ {sh(u["s_kick"], u["sv_other"], u["sv_zone"] + ".")}
  {cards(L, exclude=s["id"])}
+ <p class="sv-communes"><b>{"Bruxelles" if L == "fr" else "Brussel"} :</b> {e(communes)}.</p>
 </div></section>''' + band(L)
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
                   "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
@@ -855,13 +861,13 @@ def page_about(L):
 def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
-    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Partout à Bruxelles." if L == "fr"
+    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Bruxelles et toute la Belgique." if L == "fr"
             else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel België.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part chez vous, de jour comme de nuit." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Een technieker vertrekt naar je toe, dag en nacht.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
-              ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", u["foot_hours"], "24/7 · 365", None)]
+              ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
                  f'<span class="ic">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if hh else '</div>') for ic, l, v, hh in cards_)
     slide = [("sink", u["nav_contact"], h, lead, u["nav_contact"])]

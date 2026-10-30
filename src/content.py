@@ -365,7 +365,7 @@ UI = {
          "urgv": {"now": "URGENT – maintenant", "today": "Aujourd'hui", "plan": "À planifier"}},
   # Accueil
   "home_title": "Débouchage 24h/24 Bruxelles et toute la Belgique | ABS",
-  "home_desc": "Débouchage WC, évier, douche, égout et inspection caméra à Bruxelles et dans toute la Belgique. Urgence 24h/24, intervention rapide, prix annoncé avant. ☎ 0484 72 47 24",
+  "home_desc": "Débouchage WC, évier, douche, égout et inspection caméra à Bruxelles et dans toute la Belgique. Urgence 24h/24, prix annoncé avant. ☎ 0484 72 47 24",
   "hero_pill": "Urgence débouchage à Bruxelles",
   "hero_h1": "Débouchage à Bruxelles, <em>rapidement sur place</em>, jour et nuit.",
   "hero_lead": "WC, évier, douche, égout à Bruxelles : un technicien équipé part dès votre appel, jour et nuit. Prix annoncé avant de commencer, intervention propre et sans casse.",
@@ -465,7 +465,7 @@ ABOUT = {
   "title": "À propos & tarifs – ABS Débouchage Bruxelles",
   "desc": "ABS Débouchage, entreprise belge de débouchage d'urgence à Bruxelles : nos engagements, notre matériel et nos tarifs transparents. TVA BE 0719.885.401.",
   "h1": "À propos d'ABS Débouchage",
-  "lead": "Une entreprise belge spécialisée dans le débouchage d'urgence, l'hydrocurage et l'inspection caméra, pour les particuliers, les syndics, les commerces et les restaurants de Bruxelles.",
+  "lead": "Une entreprise belge spécialisée dans le débouchage d'urgence, l'hydrocurage et l'inspection caméra, pour les particuliers, les syndics, les commerces et les restaurants, à Bruxelles et dans toute la Belgique.",
   "blocks": [["Nos engagements", ["Intervention rapide, 24h/24 et 7j/7.", "Prix annoncé avant le départ du technicien : c'est ce prix qui figure sur la facture.", "Aucun travail ne commence sans votre accord.", "Intervention propre : la zone est nettoyée avant notre départ."]],
              ["Notre matériel", ["Furets électriques rotatifs professionnels.", "Camions hydrocureurs haute pression jusqu'à 400 bars.", "Caméra d'inspection HD rotative 360° avec sonde de localisation.", "Aucun produit chimique corrosif."]],
              ["Assurance & facturation", ["Facture officielle avec n° TVA BE 0719.885.401.", "Rapport technique et vidéo pour votre dossier d'assurance.", "Documents acceptés par les syndics et notaires."]]]
@@ -474,7 +474,7 @@ ABOUT = {
   "title": "Over ons & prijzen – ABS Débouchage Brussel",
   "desc": "ABS, Belgisch bedrijf voor spoedontstopping in Brussel: onze engagementen, ons materiaal en onze transparante prijzen. Btw BE 0719.885.401.",
   "h1": "Over ABS",
-  "lead": "Een Belgisch bedrijf gespecialiseerd in spoedontstopping, hogedrukreiniging en camera-inspectie, voor particulieren, syndici, winkels en restaurants in Brussel.",
+  "lead": "Een Belgisch bedrijf gespecialiseerd in spoedontstopping, hogedrukreiniging en camera-inspectie, voor particulieren, syndici, winkels en restaurants, in Brussel en heel België.",
   "blocks": [["Onze engagementen", ["Snelle interventie, 24/7.", "Prijs gekend vóór de technieker vertrekt: die prijs staat op de factuur.", "Er gebeurt niets zonder je akkoord.", "Propere interventie: de werkzone wordt gereinigd voor we vertrekken."]],
              ["Ons materiaal", ["Professionele elektrische veren.", "Hogedrukwagens tot 400 bar.", "Draaibare HD-inspectiecamera 360° met lokalisatiesonde.", "Geen bijtende chemische producten."]],
              ["Verzekering & facturatie", ["Officiële factuur met btw-nummer BE 0719.885.401.", "Technisch en videoverslag voor je verzekeringsdossier.", "Documenten aanvaard door syndici en notarissen."]]]
