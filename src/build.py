@@ -122,6 +122,8 @@ def footer(L):
   <div><h2 class="fh">{u["foot_info"]}</h2><ul>
    <li>{u["foot_hours"]}</li>
    <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+   <li>{LEGAL_NAME}</li>
+   <li>{STREET}, {POSTCODE} {CITY[L]}</li>
    <li>{u["vat"]} : {VAT}</li>
    <li>{u["insured"]}</li>
   </ul></div>
@@ -171,13 +173,13 @@ def business_schema(L):
         "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
-        "address": {"@type": "PostalAddress", "addressLocality": "Bruxelles" if L=="fr" else "Brussel", "addressRegion": "Bruxelles-Capitale", "addressCountry": "BE"},
-        "geo": {"@type": "GeoCoordinates", "latitude": 50.8466, "longitude": 4.3528},
+        "legalName": LEGAL_NAME,
+        "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
         "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}, {"@type": "City", "name": "Bruxelles" if L=="fr" else "Brussel"}],
         "knowsLanguage": ["fr", "nl"],
-        "slogan": "Débouchage d'urgence à Bruxelles, 24h/24" if L == "fr" else "Spoedontstopping in Brussel, 24/7",
+        "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
@@ -411,6 +413,8 @@ def footer(L):
   <div><h2 class="fh">{u["foot_info"]}</h2><ul>
    <li>{u["foot_hours"]}</li>
    <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+   <li>{LEGAL_NAME}</li>
+   <li>{STREET}, {POSTCODE} {CITY[L]}</li>
    <li>{u["vat"]} : {VAT}</li>
    <li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li>
    <li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li>

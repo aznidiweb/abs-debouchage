@@ -12,6 +12,10 @@ EMAIL = "contact@abs-debouchage.be"
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
 BRAND = "ABS Débouchage"
+LEGAL_NAME = "C.R.N.M. & Cie SRL"
+STREET = "Rue de la Carpe 2"
+POSTCODE = "1080"
+CITY = {"fr": "Bruxelles", "nl": "Brussel"}
 
 COMMUNES = [
     # (FR, NL, code postal)
@@ -479,13 +483,13 @@ ABOUT = {
 
 PRIVACY = {
  "fr": ("Politique de confidentialité", [
-  "ABS Débouchage (TVA BE 0719.885.401) respecte votre vie privée conformément au Règlement général sur la protection des données (RGPD).",
+  "ABS Débouchage est une marque de C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Bruxelles, TVA BE 0719.885.401. Responsable du traitement, elle respecte votre vie privée conformément au Règlement général sur la protection des données (RGPD).",
   "Données collectées : ce site ne collecte aucune donnée via des formulaires stockés sur nos serveurs. Lorsque vous utilisez le bouton de devis, un message est préparé dans WhatsApp et c'est vous qui choisissez de l'envoyer. Les informations que vous nous transmettez par téléphone ou WhatsApp (prénom, commune, description du problème, photos) servent uniquement à établir un devis et à réaliser l'intervention.",
   "Conservation : vos données sont conservées le temps nécessaire au suivi de l'intervention et aux obligations comptables légales.",
   "Cookies : ce site n'utilise pas de cookies de suivi ou publicitaires. Votre choix de langue peut être mémorisé localement dans votre navigateur.",
   "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à contact@abs-debouchage.be. Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
  "nl": ("Privacybeleid", [
-  "ABS (btw BE 0719.885.401) respecteert je privacy overeenkomstig de Algemene Verordening Gegevensbescherming (AVG/GDPR).",
+  "ABS Débouchage is een merk van C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Brussel, btw BE 0719.885.401. Als verwerkingsverantwoordelijke respecteert zij je privacy overeenkomstig de Algemene Verordening Gegevensbescherming (AVG/GDPR).",
   "Verzamelde gegevens: deze site verzamelt geen gegevens via formulieren die op onze servers worden opgeslagen. Wanneer je de offerteknop gebruikt, wordt een bericht in WhatsApp voorbereid en kies jij of je het verstuurt. De informatie die je ons telefonisch of via WhatsApp bezorgt (voornaam, gemeente, beschrijving, foto's) dient enkel om een offerte op te maken en de interventie uit te voeren.",
   "Bewaring: je gegevens worden bewaard zolang nodig voor de opvolging van de interventie en de wettelijke boekhoudkundige verplichtingen.",
   "Cookies: deze site gebruikt geen tracking- of advertentiecookies. Je taalkeuze kan lokaal in je browser worden onthouden.",
