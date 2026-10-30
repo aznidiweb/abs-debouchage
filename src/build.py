@@ -760,7 +760,7 @@ def zones_section(L, cls="soft"):
          "eta": "Prix annoncé avant l'intervention" if fr else "Prijs vooraf meegedeeld",
          "hint": "Touchez votre commune sur la carte ou dans la liste." if fr else "Tik op je gemeente op de kaart of in de lijst.",
          "bxl": "19 communes de Bruxelles" if fr else "19 Brusselse gemeenten",
-         "peri": u["z_peri"], "call": "Appeler" if fr else "Bellen",
+         "peri": u["z_peri"], "call": "Faites-nous venir à" if fr else "Laat ons komen naar", "call_s": "Venez à" if fr else "Kom naar",
          "list": "Communes de Bruxelles" if fr else "Brusselse gemeenten",
          "find": "Votre commune ou code postal" if fr else "Je gemeente of postcode",
          "none": "Pas dans la liste ? Appelez-nous : on vous dit tout de suite si on peut venir." if fr else "Niet in de lijst? Bel ons: we zeggen je meteen of we kunnen komen."}
@@ -774,7 +774,7 @@ def zones_section(L, cls="soft"):
     <span class="zm-live"><i></i>{T["avail"]}</span>
     <p class="zm-name" aria-live="polite"><b data-zname>Bruxelles-Ville</b> <span data-zcp>1000</span></p>
     <p class="zm-eta">{ico("clock")}<span>{T["eta"]}</span></p>
-    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]}</span></a>
+    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="zc-l">{T["call"]}</span><span class="zc-s">{T["call_s"]}</span> <b data-zcall>Bruxelles-Ville</b></span></a>
    </div>
   </div>
   <div class="zside reveal" data-d="1">

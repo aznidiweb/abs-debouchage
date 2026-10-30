@@ -119,6 +119,7 @@
       lbl.setAttribute("x",x<110?-8:x>490?8:0);
       live.setAttribute("aria-live",fromUser?"polite":"off");
       zName.textContent=p.getAttribute("data-n"); zCp.textContent=p.getAttribute("data-cp");
+      var zc=box.querySelector("[data-zcall]"); if(zc) zc.textContent=p.getAttribute("data-n");
     }
     function stopTour(){clearInterval(tour);tour=null;}
     function startTour(){

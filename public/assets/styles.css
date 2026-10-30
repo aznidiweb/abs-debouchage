@@ -1482,6 +1482,8 @@ html{-webkit-tap-highlight-color:transparent}
 .zm-stage.flat .zm-shapes .on{transform:none;filter:none}
 .k-bxl{background:#0e7cc0!important}.k-peri{background:#13314f!important;border-color:#38bdf8!important}
 .tools-sec{background:var(--bg)}.tool{background:var(--dark)}.tool-art{background:#0f2338}@media(max-width:860px){.tool-tag{font-size:10.5px}}
+.zm-btn b{font-weight:800}
+.zc-s{display:none}@media(max-width:560px){.zc-l{display:none}.zc-s{display:inline}.zm-btn{font-size:15px}}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
