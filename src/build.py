@@ -822,7 +822,7 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + tools_section(L) + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
+</div></section>''' + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
     schemas = [business_schema(L), faq_schema(u["faq"][:4]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
