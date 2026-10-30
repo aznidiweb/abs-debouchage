@@ -114,7 +114,7 @@
       last=[x,y];
       drop.classList.remove("fall"); void drop.getBoundingClientRect(); drop.classList.add("fall");
       pin.style.transform="translate("+x+"px,"+y+"px)";
-      lbl.textContent=p.getAttribute("data-n");
+      lbl.textContent=(z==="bxl")?"":p.getAttribute("data-n");   /* Bruxelles-Capitale est déjà écrit sur la carte */
       lbl.setAttribute("text-anchor",x<110?"start":x>490?"end":"middle");
       lbl.setAttribute("x",x<110?-8:x>490?8:0);
       live.setAttribute("aria-live",fromUser?"polite":"off");

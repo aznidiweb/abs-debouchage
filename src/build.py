@@ -721,10 +721,16 @@ def zone_map(L):
     fr = L == "fr"
     paths = "".join(f'<path class="zm-bxl{" zm-home" if pid == "bxl" else ""}" d="{d}" data-z="{pid}" data-n="{e(nfr if fr else nnl)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>'
                     for i, (pid, nfr, nnl, cp, d, (x, y)) in enumerate(MAP_BE["prov"]))
-    hx, hy = next(c for pid, a, b2, cp, d, c in MAP_BE["prov"] if pid == "bxl")
+    from map_be import RIVERS, BXL
+    hx, hy = BXL
+    RLAB = {"Meuse": (372, 300), "Escaut": (226, 112)}
     lbl = "Carte de la zone d'intervention : toute la Belgique, au départ de Bruxelles" if fr else "Kaart van het werkgebied: heel België, vanuit Brussel"
     return f'''<div class="zm-stage flat be"><svg class="zm-svg" viewBox="0 0 {MAP_BE["w"]} {MAP_BE["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid meet">
+<defs><clipPath id="be-clip">{"".join(f'<path d="{d}"/>' for pid, a, b2, cp, d, c in MAP_BE["prov"])}</clipPath></defs>
 <g class="zm-shapes" aria-hidden="true">{paths}</g>
+<g class="zm-rivers" clip-path="url(#be-clip)" aria-hidden="true">{"".join(f'<path class="rv rv{k}" d="{d}"/><path class="rv-f rv{k}" d="{d}" style="animation-delay:-{i*0.7:.1f}s"/>' for i, (n, d, k) in enumerate(RIVERS))}</g>
+<g class="zm-rlab" aria-hidden="true"><text x="{RLAB["Meuse"][0]}" y="{RLAB["Meuse"][1]}">{"Meuse" if fr else "Maas"}</text><text x="{RLAB["Escaut"][0]}" y="{RLAB["Escaut"][1]}">{"Escaut" if fr else "Schelde"}</text></g>
+<g class="zm-cap" aria-hidden="true" transform="translate({BXL[0]} {BXL[1]})"><path class="zc-star" d="M0-9l2.6 5.6 6.1.7-4.5 4.2 1.2 6.1L0 4.6l-5.4 3 1.2-6.1-4.5-4.2 6.1-.7z"/><text class="zc-t" x="12" y="-8">{"Bruxelles-Capitale" if fr else "Brussel-Hoofdstad"}</text></g>
 <g class="zm-base" aria-hidden="true"><circle class="zb-r" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-r r2" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-d" cx="{hx}" cy="{hy}" r="5"/></g>
 <g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
 <g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>

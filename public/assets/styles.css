@@ -1558,6 +1558,21 @@ html.smooth-on{scroll-behavior:auto}
  .hv-inner{padding-top:46vh;padding-top:46svh}}
 @media(max-width:960px){.nav-wrap:not(.scrolled) .navbar{background:rgba(8,19,33,.62);box-shadow:0 6px 20px rgba(0,0,0,.2)}}
 
+/* ---------- Carte : cours d'eau + Bruxelles-Capitale ---------- */
+.zm-rivers{pointer-events:none}
+.rv{fill:none;stroke:#bae6fd;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.rv.rv1{stroke-width:3.2}.rv.rv2{stroke-width:2}.rv.rv3{stroke-width:1.6;stroke-dasharray:2 3;opacity:.4}
+.rv-f{fill:none;stroke:#ffffff;stroke-linecap:round;stroke-dasharray:3 22;opacity:.9;animation:rvFlow 2.2s linear infinite}
+.rv-f.rv1{stroke-width:2.2}.rv-f.rv2{stroke-width:1.4}.rv-f.rv3{display:none}
+@keyframes rvFlow{to{stroke-dashoffset:-50}}
+.zm-rlab text{fill:#e0f2fe;font:italic 700 11px var(--f);letter-spacing:.06em;opacity:.8;paint-order:stroke;stroke:#0b4f7d;stroke-width:3px}
+.zm-cap{pointer-events:none}
+.zc-star{fill:#fde047;stroke:#7c2d12;stroke-width:1.2}
+.zc-t{fill:#fff;font:800 12.5px var(--f);paint-order:stroke;stroke:#0b1b2e;stroke-width:4px;stroke-linejoin:round}
+.zb-r,.zb-d{display:none}
+@media(max-width:560px){.zc-t{font-size:15px}.zm-rlab text{font-size:13px}}
+.rv{opacity:.8}.rv.rv3{opacity:.55}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
