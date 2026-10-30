@@ -175,7 +175,7 @@ def business_schema(L):
         "geo": {"@type": "GeoCoordinates", "latitude": 50.8466, "longitude": 4.3528},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
-        "areaServed": [{"@type": "City", "name": c[0] if L=="fr" else c[1]} for c in COMMUNES],
+        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}, {"@type": "City", "name": "Bruxelles" if L=="fr" else "Brussel"}],
         "knowsLanguage": ["fr", "nl"],
         "slogan": "Débouchage d'urgence à Bruxelles, 24h/24" if L == "fr" else "Spoedontstopping in Brussel, 24/7",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
@@ -318,7 +318,7 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage à Bruxelles · 24h/24",
+  "h1": "Débouchage en Belgique · 24h/24",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
@@ -328,8 +328,8 @@ TX = {
   "feat": [("shield", "Techniciens expérimentés", "Des déboucheurs équipés de furets électriques, de pompes haute pression et d'une caméra HD."),
            ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
            ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
-  "hq": ("Zone d'intervention", "Bruxelles & périphérie", "Disponible 24/7"),
-  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("19", "Communes")],
+  "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
+  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("11", "Provinces")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
@@ -341,7 +341,7 @@ TX = {
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping in Brussel · 24/7",
+  "h1": "Ontstopping in België · 24/7",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
@@ -351,8 +351,8 @@ TX = {
   "feat": [("shield", "Ervaren techniekers", "Ontstoppers met elektrische veren, hogedrukpompen en een HD-camera."),
            ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
            ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
-  "hq": ("Werkgebied", "Brussel & rand", "24/7 beschikbaar"),
-  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("19", "Gemeenten")],
+  "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
+  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("11", "Provincies")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
@@ -707,87 +707,62 @@ def prices_section(L, cls=""):
 PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos": "1620", "Kraainem": "1950",
            "Wezembeek-Oppem": "1970", "Machelen": "1830", "Grimbergen": "1850"}
 
+PROV_CP = {"bxl": [(1000, 1299)], "bw": [(1300, 1499)], "vb": [(1500, 1999), (3000, 3499)], "an": [(2000, 2999)],
+           "li": [(3500, 3999)], "lg": [(4000, 4999)], "na": [(5000, 5999)], "ha": [(6000, 6599), (7000, 7999)],
+           "lu": [(6600, 6999)], "wv": [(8000, 8999)], "ov": [(9000, 9999)]}
+
 def zone_map(L):
-    """Carte SVG des communes en relief, avec le réseau d'eau ; dessinée dans la page (rien à charger)."""
-    from map_data import MAP
-    names = {c[0]: (c[0] if L == "fr" else c[1], c[2]) for c in COMMUNES}
-    names.update({c[0]: (c[0] if L == "fr" else c[1], PERI_CP.get(c[0], "")) for c in PERIPHERIE})
-    ctx = "".join(f'<path d="{d}"/>' for d in MAP["ctx"])
-    allz = [("peri", z) for z in MAP["peri"]] + [("bxl", z) for z in MAP["bxl"]]
-    def shapes():
-        out = []
-        for i, (kind, (n, d, (x, y))) in enumerate(allz):
-            nm, cp = names[n]
-            out.append(f'<path class="zm-{kind}" d="{d}" data-z="{e(n)}" data-n="{e(nm)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>')
-        return "".join(out)
-    # socle : les mêmes contours, décalés vers le bas, pour l'effet de relief
-    depth = "".join(f'<path class="zd-{k}" d="{d}"/>' for k, (n, d, c) in allz)
-    # réseau d'eau : du centre de Bruxelles vers chaque commune
-    hx, hy = next(c for n, d, c in MAP["bxl"] if n == "Bruxelles-Ville")
-    net = []
-    for i, (k, (n, d, (x, y))) in enumerate(allz):
-        if n == "Bruxelles-Ville": continue
-        mx, my = (hx + x) / 2 + (y - hy) * .18, (hy + y) / 2 - (x - hx) * .18
-        path = f"M{hx} {hy}Q{mx:.1f} {my:.1f} {x} {y}"
-        net.append(f'<path class="zn-b" d="{path}"/><path class="zn-p" pathLength="100" style="animation-delay:-{(i * 0.37) % 3:.2f}s" d="{path}"/><circle class="zn-n" cx="{x}" cy="{y}" r="2.6"/>')
-    lbl = "Carte de la zone d'intervention : les 19 communes de Bruxelles et la périphérie" if L == "fr" else \
-          "Kaart van het werkgebied: de 19 Brusselse gemeenten en de rand"
-    defs = ('<pattern id="zm-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="zm-hb"/><line x1="0" y1="0" x2="0" y2="6" class="zm-hl"/></pattern>'
-            '<pattern id="zm-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#24486e"/></pattern>'
-            '<radialGradient id="zm-glow"><stop offset="0" stop-color="#fb7a35" stop-opacity=".45"/><stop offset=".55" stop-color="#c2410c" stop-opacity=".12"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></radialGradient>'
-            '<linearGradient id="zm-sheen" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>'
-            '<filter id="zm-neon" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
-    return f'''<div class="zm-stage flat"><svg class="zm-svg" viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid slice">
-<defs>{defs}</defs>
-<g class="zm-ctx" aria-hidden="true">{ctx}</g>
-<g class="zm-shapes" aria-hidden="true">{shapes()}</g>
+    """Carte des provinces belges (toute la Belgique), dessinée dans la page."""
+    from map_be import MAP_BE
+    fr = L == "fr"
+    paths = "".join(f'<path class="zm-bxl{" zm-home" if pid == "bxl" else ""}" d="{d}" data-z="{pid}" data-n="{e(nfr if fr else nnl)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>'
+                    for i, (pid, nfr, nnl, cp, d, (x, y)) in enumerate(MAP_BE["prov"]))
+    hx, hy = next(c for pid, a, b2, cp, d, c in MAP_BE["prov"] if pid == "bxl")
+    lbl = "Carte de la zone d'intervention : toute la Belgique, au départ de Bruxelles" if fr else "Kaart van het werkgebied: heel België, vanuit Brussel"
+    return f'''<div class="zm-stage flat be"><svg class="zm-svg" viewBox="0 0 {MAP_BE["w"]} {MAP_BE["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid meet">
+<g class="zm-shapes" aria-hidden="true">{paths}</g>
+<g class="zm-base" aria-hidden="true"><circle class="zb-r" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-r r2" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-d" cx="{hx}" cy="{hy}" r="5"/></g>
 <g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
 <g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
 </svg></div>'''
 
 def zones_section(L, cls="soft"):
-    u = UI[L]
-    fr = L == "fr"
-    def chip(c, cp):
-        nm = c[0] if fr else c[1]
-        key = (c[0] + " " + c[1] + " " + cp).lower()
-        return f'<li><button type="button" class="zc" data-z="{e(c[0])}" data-k="{e(key)}" aria-pressed="false"><span class="zc-n">{e(nm)}</span><span class="zc-cp">{cp}</span><span class="zc-ok" aria-hidden="true"></span></button></li>'
-    communes = "".join(chip(c, c[2]) for c in COMMUNES)
-    peri = "".join(chip(c, PERI_CP.get(c[0], "")) for c in PERIPHERIE)
-    more = ("Votre commune n'est pas dans la liste ? Appelez-nous, on vous dit tout de suite si on peut venir." if fr
-            else "Je gemeente staat er niet bij? Bel ons, we zeggen je meteen of we kunnen komen.")
+    from map_be import MAP_BE
+    u = UI[L]; fr = L == "fr"
+    order = ["bxl", "bw", "vb", "an", "li", "lg", "na", "ha", "lu", "wv", "ov"]
+    by = {p[0]: p for p in MAP_BE["prov"]}
+    def chip(pid):
+        _, nfr, nnl, cp, d, c = by[pid]; nm = nfr if fr else nnl
+        key = (nfr + " " + nnl).lower()
+        return f'<li><button type="button" class="zc" data-z="{pid}" data-k="{e(key)}" aria-pressed="false"><span class="zc-n">{e(nm)}</span><span class="zc-ok" aria-hidden="true"></span></button></li>'
+    chips = "".join(chip(p) for p in order)
     T = {"avail": "Technicien disponible 24h/24" if fr else "Technieker beschikbaar 24/7",
          "eta": "Prix annoncé avant l'intervention" if fr else "Prijs vooraf meegedeeld",
-         "hint": "Touchez votre commune sur la carte ou dans la liste." if fr else "Tik op je gemeente op de kaart of in de lijst.",
-         "bxl": "19 communes de Bruxelles" if fr else "19 Brusselse gemeenten",
-         "peri": u["z_peri"], "call": "Faites-nous venir à" if fr else "Laat ons komen naar", "call_s": "Venez à" if fr else "Kom naar",
-         "list": "Communes de Bruxelles" if fr else "Brusselse gemeenten",
-         "find": "Votre commune ou code postal" if fr else "Je gemeente of postcode",
-         "none": "Pas dans la liste ? Appelez-nous : on vous dit tout de suite si on peut venir." if fr else "Niet in de lijst? Bel ons: we zeggen je meteen of we kunnen komen."}
+         "call": "Faites-nous venir ·" if fr else "Laat ons komen ·", "call_s": "On arrive ·" if fr else "We komen ·",
+         "find": "Votre code postal" if fr else "Je postcode",
+         "ok": "Bonne nouvelle : on intervient chez vous." if fr else "Goed nieuws: we komen bij je.",
+         "bad": "Entrez un code postal belge à 4 chiffres." if fr else "Geef een Belgische postcode van 4 cijfers in.",
+         "list": "Les 11 provinces" if fr else "De 11 provincies",
+         "base": "Base à Bruxelles" if fr else "Basis in Brussel", "all": "Toute la Belgique" if fr else "Heel België"}
+    cpmap = e(json.dumps({k: v for k, v in PROV_CP.items()}))
     return f'''<section class="section {cls}" id="zones"><div class="wrap">
  {sh(u["z_kick"], u["z_title"], u["z_lead"])}
- <div class="zones" data-zones>
+ <div class="zones" data-zones data-cpmap="{cpmap}">
   <div class="zmap reveal">
    {zone_map(L)}
-   <ul class="zm-legend" aria-hidden="true"><li><i class="k-bxl"></i>{T["bxl"]}</li><li><i class="k-peri"></i>{T["peri"]}</li></ul>
+   <ul class="zm-legend" aria-hidden="true"><li><i class="k-home"></i>{T["base"]}</li><li><i class="k-bxl"></i>{T["all"]}</li></ul>
    <div class="zm-card">
     <span class="zm-live"><i></i>{T["avail"]}</span>
-    <p class="zm-name" aria-live="polite"><b data-zname>Bruxelles-Ville</b> <span data-zcp>1000</span></p>
+    <p class="zm-name" aria-live="polite"><b data-zname>Bruxelles</b> <span data-zcp>1000–1299</span></p>
     <p class="zm-eta">{ico("clock")}<span>{T["eta"]}</span></p>
-    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="zc-l">{T["call"]}</span><span class="zc-s">{T["call_s"]}</span> <b data-zcall>Bruxelles-Ville</b></span></a>
+    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="zc-l">{T["call"]}</span><span class="zc-s">{T["call_s"]}</span> <b data-zcall>Bruxelles</b></span></a>
    </div>
   </div>
   <div class="zside reveal" data-d="1">
-   <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="search" data-zfind placeholder="{T["find"]}" autocomplete="off" enterkeyhint="search" inputmode="search"></label>
-   <p class="zempty" data-zempty hidden>{T["none"]}</p>
-   <button type="button" class="zmore-btn" data-zmore aria-expanded="false">{"Voir les 27 communes" if fr else "Bekijk de 27 gemeenten"}{ico("chev")}</button>
-   <div class="zlists">
-   <div class="zgroup"><h3 class="zh">{T["list"]}<span>19</span></h3>
-   <ul class="zlist">{communes}</ul></div>
-   <div class="zgroup"><h3 class="zh">{T["peri"]}<span>{len(PERIPHERIE)}</span></h3>
-   <ul class="zlist zl-peri">{peri}</ul></div>
-   </div>
-   <p class="zmore">{more}</p>
+   <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="text" data-zcp-in data-ok="{e(T["ok"])}" data-bad="{e(T["bad"])}" placeholder="{T["find"]}" inputmode="numeric" maxlength="4" autocomplete="postal-code" enterkeyhint="go"></label>
+   <p class="zcp-msg" data-zcp-msg aria-live="polite" hidden></p>
+   <div class="zgroup"><h3 class="zh">{T["list"]}<span>11</span></h3>
+   <ul class="zlist zl-prov">{chips}</ul></div>
   </div>
  </div>
 </div></section>'''
@@ -840,7 +815,7 @@ def page_service(L, s):
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
     slide = [(SVC_PHOTO[s["id"]], ("Intervention 24h/24" if L == "fr" else "Interventie 24/7"), e(c["h1"]), c["intro"], c["name"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles" if L == "fr" else "Interventie 24/7 · Brussel"), cls="sv-hero", big_h1=True, side=scene(L, s["id"], ico("pause"), ico("play"))) + f'''
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles et toute la Belgique" if L == "fr" else "Interventie 24/7 · Brussel en heel België"), cls="sv-hero", big_h1=True, side=scene(L, s["id"], ico("pause"), ico("play"))) + f'''
 <section class="section"><div class="wrap">
  <div class="cols2">
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
@@ -859,7 +834,7 @@ def page_service(L, s):
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
                   "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
                   "provider": {"@id": SITE_URL + "/#business"},
-                  "areaServed": {"@type": "City", "name": "Bruxelles" if L == "fr" else "Brussel"},
+                  "areaServed": {"@type": "Country", "name": "Belgique" if L == "fr" else "België"},
                   "availableChannel": {"@type": "ServiceChannel", "servicePhone": PHONE_TEL}}
     if s["price"]:
         svc_schema["offers"] = {"@type": "Offer", "priceCurrency": "EUR", "price": s["price"],
@@ -881,7 +856,7 @@ def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
     desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Partout à Bruxelles." if L == "fr"
-            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel Brussel.")
+            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel België.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part chez vous, de jour comme de nuit." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Een technieker vertrekt naar je toe, dag en nacht.")
@@ -999,9 +974,9 @@ def build():
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm))
     llms = ["# ABS Débouchage", "",
-            "> Entreprise de débouchage d'urgence à Bruxelles (Belgique), 24h/24 et 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
+            "> Entreprise de débouchage d'urgence basée à Bruxelles, active dans toute la Belgique, 24h/24 et 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
             f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)", f"- E-mail : {EMAIL}",
-            "- Zone : les 19 communes de la Région de Bruxelles-Capitale et la périphérie proche (" + ", ".join(c[0] for c in PERIPHERIE) + ")",
+            "- Zone : toute la Belgique (Bruxelles, Wallonie, Flandre), base à Bruxelles",
             "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
             "## Services (FR)"] + [f"- [{s['fr']['name']}]({abs_url('fr', s['slug']['fr'])}): {s['fr']['card']}" for s in SERVICES] + ["",
             "## Diensten (NL)"] + [f"- [{s['nl']['name']}]({abs_url('nl', s['slug']['nl'])}): {s['nl']['card']}" for s in SERVICES] + ["",

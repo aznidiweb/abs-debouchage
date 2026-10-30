@@ -169,7 +169,22 @@
         svgEl.style.setProperty("--ry",(px*10).toFixed(2)+"deg");svgEl.style.setProperty("--rx",(24+py*-10).toFixed(2)+"deg");});
       stage.addEventListener("mouseleave",function(){svgEl.style.removeProperty("--ry");svgEl.style.removeProperty("--rx");});
     }
-    select(order[3]||order[0],false); k=Math.max(0,order.indexOf(cur));
+    /* code postal belge → province */
+    var cpIn=box.querySelector("[data-zcp-in]"), cpMsg=box.querySelector("[data-zcp-msg]"), cpMap={};
+    try{cpMap=JSON.parse(box.getAttribute("data-cpmap")||"{}");}catch(e){}
+    if(cpIn){
+      cpIn.addEventListener("focus",function(){user=true;stopTour();});
+      cpIn.addEventListener("input",function(){
+        var v=cpIn.value.replace(/\D/g,"").slice(0,4); cpIn.value=v;
+        if(v.length<4){cpMsg.hidden=true;return;}
+        var n=+v, hit=null;
+        Object.keys(cpMap).forEach(function(k){cpMap[k].forEach(function(r){if(n>=r[0]&&n<=r[1])hit=k;});});
+        cpMsg.hidden=false;
+        if(hit){takeOver(hit); cpMsg.className="zcp-msg ok"; cpMsg.textContent=cpIn.getAttribute("data-ok")+" ("+byZ[hit].getAttribute("data-n")+")";}
+        else{cpMsg.className="zcp-msg bad"; cpMsg.textContent=cpIn.getAttribute("data-bad");}
+      });
+    }
+    select(order[0],false); k=Math.max(0,order.indexOf(cur));
     setTimeout(function(){map.classList.add("ready");},2600);
     if("IntersectionObserver" in w){
       new IntersectionObserver(function(en){visible=en[0].isIntersecting; if(visible)setTimeout(startTour,1600); else stopTour();},{threshold:.3}).observe(map);
