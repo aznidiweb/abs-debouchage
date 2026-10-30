@@ -1540,3 +1540,20 @@ html.smooth-on{scroll-behavior:auto}
 /* sécurité : tout s'affiche au bout de 5 s si le script ne tourne pas */
 .js .rise:not(.risen){animation:riseSafe 0s linear 5s forwards}
 @keyframes riseSafe{to{opacity:1;transform:none;filter:none}}
+
+/* ---------- Mobile : la vidéo remplit tout le haut de page, texte par-dessus ---------- */
+@media(max-width:960px){
+ .hero-video{display:flex;align-items:flex-end;min-height:100vh;min-height:100svh}
+ .hv-media{top:0;bottom:0;height:auto}
+ .hv-media .hp-video,.hv-media .hp-anim,.hv-media .hp-poster{object-fit:cover;object-position:56% 50%;transform:scale(1.02)}
+ .hero-video .hp-shade{top:0;bottom:0;height:auto;background:
+  linear-gradient(180deg,rgba(8,19,33,.55) 0%,rgba(8,19,33,.05) 18%,rgba(8,19,33,.05) 34%,rgba(8,19,33,.78) 52%,rgba(8,19,33,.94) 70%,rgba(8,19,33,.98) 100%)}
+ .hv-inner{padding-top:42vh;padding-top:42svh;padding-bottom:28px}
+ .hero-video .hp-title{text-shadow:0 2px 14px rgba(0,0,0,.45)}}
+@media(max-width:960px){
+ .hv-media{bottom:auto;height:64vh;height:64svh}
+ .hv-media .hp-video,.hv-media .hp-anim,.hv-media .hp-poster{object-position:58% 58%;transform:none}
+ .hero-video .hp-shade{bottom:auto;height:64vh;height:64svh;background:
+  linear-gradient(180deg,rgba(8,19,33,.5) 0%,rgba(8,19,33,0) 16%,rgba(8,19,33,0) 50%,rgba(8,19,33,.85) 82%,rgba(8,19,33,1) 100%)}
+ .hv-inner{padding-top:46vh;padding-top:46svh}}
+@media(max-width:960px){.nav-wrap:not(.scrolled) .navbar{background:rgba(8,19,33,.62);box-shadow:0 6px 20px rgba(0,0,0,.2)}}
