@@ -398,31 +398,21 @@ def header(L, alt_url, current=""):
 </div></div></div>'''
 
 def footer(L):
-    u = UI[L]
-    svc_links = "".join(f'<li><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></li>' for s in SERVICES[:5])
-    svc_links2 = "".join(f'<li><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></li>' for s in SERVICES[5:])
-    return f'''<footer class="footer"><div class="wrap">
- <div class="footer-grid">
-  <div>
-   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-   <p>{e(u["foot_about"])}</p>
-   <a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>
-  </div>
-  <div><h2 class="fh">{u["foot_services"]}</h2><ul>{svc_links}</ul></div>
-  <div><h2 class="fh" aria-hidden="true">&nbsp;</h2><ul>{svc_links2}</ul></div>
-  <div><h2 class="fh">{u["foot_info"]}</h2><ul>
-   <li>{u["foot_hours"]}</li>
-   <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
-   <li>{LEGAL_NAME}</li>
-   <li>{STREET}, {POSTCODE} {CITY[L]}</li>
-   <li>{u["vat"]} : {VAT}</li>
-   <li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li>
-   <li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li>
-  </ul></div>
+    """Pied de page compact : tous les liens restent présents (référencement), sur moins de place."""
+    u = UI[L]; fr = L == "fr"
+    svc = "".join(f'<li><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></li>' for s in SERVICES)
+    return f'''<footer class="footer fc"><div class="wrap">
+ <div class="fc-top">
+  <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
+  <div class="fc-contact"><a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a><span>{u["foot_hours"]} · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div>
  </div>
- <div class="legal"><span>© {datetime.date.today().year} {BRAND} · {u["rights"]} · {TX[L]["photo_credit"]}</span><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></div>
+ <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
+ <div class="fc-bottom">
+  <p class="fc-legal">© {datetime.date.today().year} {BRAND} · {LEGAL_NAME} · {STREET}, {POSTCODE} {CITY[L]} · {u["vat"]} {VAT}</p>
+  <ul class="fc-links"><li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li><li><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></li></ul>
+ </div>
 </div></footer>
-<div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if L=="fr" else "Diagnose"}</span></a></div>'''
+<div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if fr else "Diagnose"}</span></a></div>'''
 
 # ---------------------------------------------------------------- héros diaporama
 def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side=""):
