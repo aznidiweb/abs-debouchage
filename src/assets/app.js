@@ -325,6 +325,22 @@
     });
   })();
 
+  /* ---------- Mobile : listes repliables (services, communes) ---------- */
+  function toggler(sel, cls){
+    d.querySelectorAll(sel).forEach(function(b){
+      var label=b.firstChild.textContent;
+      b.addEventListener("click",function(){
+        var host=b.parentNode, o=!host.classList.contains(cls);
+        host.classList.toggle(cls,o); b.setAttribute("aria-expanded",o);
+        b.firstChild.textContent=o?(d.documentElement.lang.indexOf("nl")===0?"Minder tonen":"Afficher moins"):label;
+      });
+    });
+  }
+  toggler("[data-svcmore]","svc-open");
+  toggler("[data-zmore]","z-open");
+  /* la recherche de commune ouvre la liste */
+  d.querySelectorAll("[data-zfind]").forEach(function(f){ f.addEventListener("input",function(){ var h=f.closest(".zside"); if(h&&f.value.trim()) h.classList.add("z-open"); }); });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

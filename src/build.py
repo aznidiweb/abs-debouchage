@@ -493,7 +493,7 @@ def intro_section(L, photo="valves"):
     feats = "".join(f'<li><span class="ic">{ico(i)}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>' for i, a, b in t["feat"])
     stats = "".join(f"<div><b>{a}</b><span>{b}</span></div>" for a, b in t["stats"])
     h1, h2, h3 = t["hq"]
-    return f'''<section class="section"><div class="wrap intro">
+    return f'''<section class="section intro-sec"><div class="wrap intro">
  <div class="reveal">
   {sh(t["intro_chip"], t["intro_title"], t["intro_lead"])}
   <ul class="feat">{feats}</ul>
@@ -519,7 +519,9 @@ def cards(L, exclude=None):
  <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-d">{e(s[L]["card"])}</span><span class="sv-m">{meta}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''' for i, s in enumerate(lst))
-    return f'<ul class="svc-grid land">{items}</ul>'
+    more = (f'Voir les {len(lst) - 6} autres services' if L == "fr" else f'Bekijk de {len(lst) - 6} andere diensten')
+    btn = f'<button type="button" class="svc-more" data-svcmore aria-expanded="false">{more}{ico("chev")}</button>' if len(lst) > 6 else ""
+    return f'<ul class="svc-grid land">{items}</ul>{btn}'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'
@@ -736,10 +738,13 @@ def zones_section(L, cls="soft"):
   <div class="zside reveal" data-d="1">
    <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="search" data-zfind placeholder="{T["find"]}" autocomplete="off" enterkeyhint="search" inputmode="search"></label>
    <p class="zempty" data-zempty hidden>{T["none"]}</p>
+   <button type="button" class="zmore-btn" data-zmore aria-expanded="false">{"Voir les 27 communes" if fr else "Bekijk de 27 gemeenten"}{ico("chev")}</button>
+   <div class="zlists">
    <div class="zgroup"><h3 class="zh">{T["list"]}<span>19</span></h3>
    <ul class="zlist">{communes}</ul></div>
    <div class="zgroup"><h3 class="zh">{T["peri"]}<span>{len(PERIPHERIE)}</span></h3>
    <ul class="zlist zl-peri">{peri}</ul></div>
+   </div>
    <p class="zmore">{more}</p>
   </div>
  </div>

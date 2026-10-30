@@ -1398,3 +1398,33 @@ html{-webkit-tap-highlight-color:transparent}
 .field input{min-height:46px}
 @media(max-width:960px){.diag-wrap{grid-template-columns:1fr;gap:20px}.diag-aside .ticks,.diag-aside .alt{display:none}}
 @media(max-width:560px){.diag-sec.section{padding-top:44px;padding-bottom:44px}.diag-grid{grid-template-columns:repeat(2,1fr)}.d-opt{min-height:46px;font-size:13.5px;gap:8px}.d-opt .ico{width:19px;height:19px}.diag-head{padding:14px 14px 0}.diag-body{padding:12px 14px 16px}}
+
+/* ======================= Mobile : page plus courte ======================= */
+.svc-more,.zmore-btn{display:none}
+@media(max-width:760px){
+ /* services : 6 visibles, le reste derrière un bouton */
+ .svc-grid.land li:nth-child(n+7){display:none}
+ .svc-open .svc-grid.land li:nth-child(n+7){display:flex}
+ .svc-more,.zmore-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:12px;border-radius:14px;border:1.5px solid var(--line-2);background:#fff;color:var(--ink);font-weight:700;font-size:15px;cursor:pointer}
+ .svc-more .ico,.zmore-btn .ico{width:18px;height:18px;transition:transform .25s}
+ .svc-open .svc-more .ico,.z-open .zmore-btn .ico{transform:rotate(180deg)}
+ /* zones : la liste des communes est repliée (toujours dans la page pour Google) */
+ .zlists{display:none}
+ .z-open .zlists{display:block;margin-top:14px}
+ .zmore-btn{margin-top:0}
+ .zside .zmore{margin-top:12px}
+ /* « On ne fait pas que déboucher » : masqué sur mobile (le message est déjà dans le haut de page et les étapes) */
+ .intro-sec{display:none}
+ /* pied de page plus court */
+ .footer{padding-top:36px;padding-bottom:110px;font-size:14px}
+ .footer-grid{gap:20px 16px}
+ .footer-grid>:first-child p{display:none}
+ .footer ul{gap:2px}
+ .footer ul li a,.footer ul li{padding:5px 0}
+ .legal{margin-top:24px;padding-top:16px;font-size:12px}}
+@media(max-width:760px){
+ .footer{padding-bottom:20px}
+ .footer ul li a,.footer ul li{min-height:34px!important;padding:0!important;display:flex;align-items:center;line-height:1.3}
+ .footer-grid>:last-child ul{grid-template-columns:1fr 1fr;column-gap:16px}
+ .footer .phone{margin-top:10px}
+ .legal{margin-top:16px}}
