@@ -508,20 +508,29 @@ def intro_section(L, photo="valves"):
  </div>
 </div></section>'''
 
+GROUPS = [  # (service principal = lien + animation, autres services de la famille)
+ ("wc", ["sanibroyeur"], {"fr": "WC & sanibroyeur", "nl": "Wc & sanibroyeur"},
+  {"fr": "Cuvette qui déborde, WC suspendu, broyeur bloqué.", "nl": "Overlopende pot, hangtoilet, geblokkeerde vermaler."}),
+ ("evier", ["lavabo", "cuisine"], {"fr": "Évier, lavabo & cuisine", "nl": "Gootsteen, lavabo & keuken"},
+  {"fr": "Graisse, cheveux, siphon et conduites de cuisine.", "nl": "Vet, haren, sifon en keukenleidingen."}),
+ ("douche", ["baignoire", "siphon"], {"fr": "Douche, bain & siphon de sol", "nl": "Douche, bad & afvoerputje"},
+  {"fr": "Eau qui stagne, sans casser le carrelage.", "nl": "Stilstaand water, zonder tegels te breken."}),
+ ("egout", ["camera"], {"fr": "Égout & inspection caméra", "nl": "Riool & camera-inspectie"},
+  {"fr": "Refoulement en cave, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, hogedruk, HD-camera."}),
+]
+
 def cards(L, exclude=None):
-    """Cartes services en format paysage : animation du métier à gauche, texte à droite."""
-    u = UI[L]
-    lst = [x for x in SERVICES if x["id"] != exclude]
-    if exclude: lst = lst[:8]          # nombre pair : jamais de carte seule sur une ligne
-    meta = "Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"
-    items = "".join(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
- <span class="sv-anim sc-mini" data-mini>{scene_mini(L, s["id"], f"{s['id']}{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
- <span class="sv-body"><span class="sv-t">{e(s[L]["name"])}</span><span class="sv-d">{e(s[L]["card"])}</span><span class="sv-m">{meta}</span></span>
+    """4 familles de services (moins de choix) ; chaque famille mène à sa page principale."""
+    items = []
+    for i, (main, others, title, desc) in enumerate(GROUPS):
+        s = svc_by_id(main)
+        links = " · ".join(f'<span>{e(svc_by_id(o)[L]["name"])}</span>' for o in others)
+        items.append(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
+ <span class="sv-anim sc-mini" data-mini>{scene_mini(L, main, f"g{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
+ <span class="sv-body"><span class="sv-t">{e(title[L])}</span><span class="sv-d">{e(desc[L])}</span><span class="sv-m">{"Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
-</a></li>''' for i, s in enumerate(lst))
-    more = (f'Voir les {len(lst) - 6} autres services' if L == "fr" else f'Bekijk de {len(lst) - 6} andere diensten')
-    btn = f'<button type="button" class="svc-more" data-svcmore aria-expanded="false">{more}{ico("chev")}</button>' if len(lst) > 6 else ""
-    return f'<ul class="svc-grid land">{items}</ul>{btn}'
+</a></li>''')
+    return f'<ul class="svc-grid land g-4">{"".join(items)}</ul>'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'
@@ -556,8 +565,9 @@ def diagnostic(L, pre=None, photo="pipecam"):
     ui = {k: U[k] for k in ("step", "sev", "price", "price_q", "wait", "wait_generic", "wa")}
     ui.update({"from": u["from"], "chev": ico("chevr"), "icons": {"urgent": ico("alert"), "today": ico("clock"), "plan": ico("check")}})
     data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
-    order = ["wc", "evier", "douche", "lavabo", "baignoire", "egout", "siphon", "sanibroyeur", "autre"]
-    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(svc[i]["name"])}</span></button>' for i in order)
+    order = ["wc", "evier", "douche", "egout", "autre"]
+    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder")}
+    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
     uid = f"dg-{L}-{pre or 'x'}"
     pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
     return f'''<section class="section dark diag-sec on-dark" id="diagnostic">
@@ -652,8 +662,7 @@ def prices_section(L, cls=""):
     return f'''<section class="section {cls}" id="tarifs"><div class="wrap pricing">
  <div class="pr-left">
   {sh(T["kick"], T["title"], T["lead"])}
-  <h3 class="pr-h">{T["f_title"]}</h3>
-  <ul class="pfac">{facts}</ul>
+  <ul class="pr-eng">{"".join(f'<li>{ico("check")}<span>{e(x)}</span></li>' for x in T["eng"])}</ul>
  </div>
  {compare_html(L, ico, T["cta"], PHONE_TEL, PHONE_DISPLAY, T["or"])}
 </div></section>'''
@@ -776,12 +785,12 @@ def band(L):
 # ---------------------------------------------------------------- pages
 def page_home(L):
     u = UI[L]; t = TX[L]
-    body = hero_home(L) + intro_section(L) + f'''
+    body = hero_home(L) + f'''
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + steps_section(L, "") + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"]) + band(L)
-    schemas = [business_schema(L), faq_schema(u["faq"]),
+</div></section>''' + steps_section(L, "") + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
+    schemas = [business_schema(L), faq_schema(u["faq"][:4]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 

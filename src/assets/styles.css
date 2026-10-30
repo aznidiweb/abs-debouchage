@@ -1428,3 +1428,14 @@ html{-webkit-tap-highlight-color:transparent}
  .footer-grid>:last-child ul{grid-template-columns:1fr 1fr;column-gap:16px}
  .footer .phone{margin-top:10px}
  .legal{margin-top:16px}}
+
+/* ======================= Version simplifiée ======================= */
+.svc-grid.land.g-4 li:nth-child(n){display:flex}
+.svc-more{display:none!important}
+.pr-eng{list-style:none;display:grid;gap:10px;margin-top:6px}
+.pr-eng li{display:flex;gap:10px;align-items:center;font-weight:600;color:var(--ink);font-size:15.5px}
+.pr-eng .ico{flex:none;width:22px;height:22px;padding:4px;border-radius:50%;background:var(--ok);color:#fff;stroke-width:3}
+.diag-grid{grid-template-columns:repeat(5,1fr)}
+.diag-grid .d-opt{flex-direction:column;justify-content:center;text-align:center;gap:6px;min-height:84px}
+@media(max-width:1100px){.diag-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.diag-grid{grid-template-columns:repeat(2,1fr)}.diag-grid .d-opt:last-child{grid-column:1/-1;flex-direction:row;min-height:48px}}
