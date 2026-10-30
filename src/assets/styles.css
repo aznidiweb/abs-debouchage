@@ -1572,3 +1572,4 @@ html.smooth-on{scroll-behavior:auto}
 .zb-r,.zb-d{display:none}
 @media(max-width:560px){.zc-t{font-size:15px}.zm-rlab text{font-size:13px}}
 .rv{opacity:.8}.rv.rv3{opacity:.55}
+.hero-video .rise{transition-duration:.6s}

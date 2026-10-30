@@ -409,7 +409,7 @@
     var rio=new IntersectionObserver(function(en){en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("risen"); rio.unobserve(x.target);} });},{rootMargin:"0px 0px -8% 0px"});
     els.forEach(function(el,i){ var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.setProperty("--rd",(Math.min(sib,6)*70)+"ms"); });
     /* héros : les éléments arrivent après le titre */
-    d.querySelectorAll(".hero-video .hp-lead,.hero-video .cta-row,.hero-video .urg-btn,.hero-video .hp-checks").forEach(function(el,i){ el.style.setProperty("--rd",(1700+i*140)+"ms"); });
+    d.querySelectorAll(".hero-video .hp-lead,.hero-video .cta-row,.hero-video .urg-btn,.hero-video .hp-checks").forEach(function(el,i){ el.style.setProperty("--rd",(250+i*110)+"ms"); });
     d.querySelectorAll(".hero-video .hlabel").forEach(function(el){ el.style.setProperty("--rd","100ms"); });
     /* on laisse le navigateur afficher l'état de départ avant de lancer les apparitions */
     void d.body.offsetHeight;
