@@ -1618,6 +1618,64 @@ html.smooth-on{scroll-behavior:auto}
 .ck-bar [data-ck-ok]{padding:9px 16px;font-size:13.5px;min-height:40px}
 @media(max-width:959px){.ck-bar{padding:8px 8px 8px 14px}.ck-bar p{font-size:12.5px;line-height:1.4}}
 
+/* =================== Boutons « atelier » : touches physiques, plus de pilules génériques =================== */
+.btn{border-radius:14px;font-weight:750;letter-spacing:-.01em}
+.btn-lg{border-radius:16px}
+.btn-call{background:#c2410c;color:#fff;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -3px 0 rgba(0,0,0,.22),0 6px 14px -4px rgba(154,52,18,.55)}
+.btn-call>.ico{box-sizing:content-box;padding:7px;margin:0 2px 0 -12px;border-radius:10px;background:rgba(0,0,0,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.btn-lg.btn-call>.ico{padding:8px;margin-left:-16px}
+.btn-call:active,.btn-wa:active,.btn-dark:active{transform:translateY(1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.25),0 2px 6px -2px rgba(154,52,18,.5)}
+.btn-wa{box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -3px 0 rgba(0,0,0,.14),0 6px 14px -4px rgba(22,101,52,.45)}
+.btn-wa>.ico{box-sizing:content-box;padding:6px;margin:0 2px 0 -10px;border-radius:9px;background:rgba(0,0,0,.08)}
+.btn-dark{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -3px 0 rgba(0,0,0,.35)}
+.btn-glass{border-width:1.5px}
+.btn-white{box-shadow:inset 0 -3px 0 rgba(154,52,18,.14),0 6px 14px -6px rgba(0,0,0,.3)}
+/* plus de halo qui pulse (effet « IA ») : un relief net à la place */
+.hero-video .cta-row .btn-call{animation:none;background:#c2410c;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -4px 0 rgba(0,0,0,.24),0 10px 24px -8px rgba(0,0,0,.6)}
+.hero-video .cta-row .btn-call>.ico{width:22px;height:22px;padding:9px;margin-left:-18px}
+.hero-video .cta-row .btn-glass{border-radius:16px}
+/* barre mobile */
+.mbar{border-radius:22px}
+.mbar .btn{border-radius:15px}
+.mbar .btn-call>.ico{padding:6px;margin-left:-8px}
+.mbar .btn-wa>.ico{padding:5px;margin-left:-6px}
+.head-call{border-radius:14px!important}
+
+/* =================== Bandeau final « Un bouchon ? On arrive. » =================== */
+.band2::before{display:none}
+.band2{background:#c2410c;background-image:radial-gradient(120% 140% at 0% 0%,#d9531c 0,#c2410c 45%,#a8380b 100%)}
+.band2 .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-top:76px;padding-bottom:92px}
+.b2-kick{display:inline-flex;align-items:center;gap:9px;margin:0 0 14px;font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ffe3d4!important}
+.b2-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25);animation:b2Blink 2.4s ease-in-out infinite}
+@keyframes b2Blink{50%{opacity:.35}}
+.band2 h2{font-size:clamp(32px,4.2vw,54px);line-height:1.02;letter-spacing:-.03em;margin:0 0 14px}
+.b2-lead{font-size:18px;line-height:1.55;color:#ffe9dd!important;max-width:520px;margin:0}
+.b2-facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:22px 0 0;padding:0;list-style:none}
+.b2-facts li{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700;color:#fff}
+.b2-facts .ico{width:17px;height:17px;padding:3px;border-radius:50%;background:rgba(255,255,255,.18);stroke-width:3}
+/* plaque façon camionnette : métal sombre, vis aux coins */
+.b2-plate{position:relative;padding:30px 30px 24px;border-radius:22px;background:linear-gradient(180deg,#11243b,#0b1b2e);color:#fff;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 0 0 1px rgba(255,255,255,.05),0 24px 50px -18px rgba(60,16,2,.75);text-align:left}
+.b2-plate::after{content:"";position:absolute;inset:8px;border-radius:16px;border:1px dashed rgba(148,163,184,.18);pointer-events:none}
+.b2-screw{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#cbd5e1,#64748b 60%,#334155);box-shadow:0 1px 1px rgba(0,0,0,.5)}
+.b2-screw::after{content:"";position:absolute;left:2px;right:2px;top:4.25px;height:1.5px;background:#1e293b;transform:rotate(-35deg)}
+.b2-screw.s1{top:14px;left:14px}.b2-screw.s2{top:14px;right:14px}.b2-screw.s3{bottom:14px;left:14px}.b2-screw.s4{bottom:14px;right:14px}
+.b2-screw.s2::after{transform:rotate(20deg)}.b2-screw.s3::after{transform:rotate(70deg)}.b2-screw.s4::after{transform:rotate(-5deg)}
+.b2-pk{margin:0 0 4px;font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc!important}
+.b2-num{display:block;font-size:clamp(34px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.1;color:#fff;font-variant-numeric:tabular-nums;text-decoration:none;white-space:nowrap}
+.b2-num:hover{color:#ffd8c2}
+.b2-ps{margin:8px 0 20px;font-size:14px;color:#94a3b8!important}
+.b2-plate .btn-call{--h:58px;font-size:17.5px}
+.b2-diag{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:6px;font-size:14.5px;font-weight:700;color:#cbd5e1;text-decoration:none}
+.b2-diag .ico{width:16px;height:16px;transition:transform .25s var(--ease)}
+.b2-diag:hover{color:#fff}.b2-diag:hover .ico{transform:translateX(3px)}
+@media(max-width:900px){.band2 .wrap{grid-template-columns:1fr;gap:30px;padding-top:56px;padding-bottom:80px}}
+@media(max-width:560px){.b2-plate{padding:26px 20px 18px}.b2-num{font-size:34px}.b2-lead{font-size:16.5px}.b2-facts{gap:8px 16px}.b2-facts li{font-size:13.5px}}
+@media(max-width:959px){.head-call>.ico{padding:0!important;margin:0!important;background:none!important;box-shadow:none!important}.head-call{border-radius:13px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.22)!important}}
+.slide img,.bgimg img,.card-ph img,.sv-ph img,.hq-ph img{color:transparent}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

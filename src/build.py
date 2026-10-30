@@ -789,10 +789,32 @@ def faq_section(L, items, title=None, cls=""):
 </div></section>'''
 
 def band(L):
-    t = TX[L]; u = UI[L]
-    return f'''<section class="band"><div class="band-fx" aria-hidden="true"><svg class="w1" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(255,255,255,.08)"/></svg><svg class="w2" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(124,45,18,.35)"/></svg><i style="left:8%;--s:10px;--d:7s;--l:0s"></i><i style="left:19%;--s:6px;--d:6s;--l:2.4s"></i><i style="left:33%;--s:12px;--d:8s;--l:1.1s"></i><i style="left:47%;--s:7px;--d:6.5s;--l:3.6s"></i><i style="left:61%;--s:9px;--d:7.5s;--l:0.6s"></i><i style="left:74%;--s:5px;--d:5.5s;--l:2.9s"></i><i style="left:86%;--s:11px;--d:8.5s;--l:1.8s"></i><i style="left:94%;--s:7px;--d:6s;--l:4.2s"></i></div><div class="wrap">
- <div class="reveal"><h2>{t["band_title"]}</h2><p>{t["band_lead"]}</p></div>
- <div class="cta-row reveal" data-d="1"><a class="btn btn-dark btn-lg" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a><a class="btn btn-white btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}</a></div>
+    t = TX[L]; fr = L == "fr"
+    waves = ('<div class="band-fx" aria-hidden="true"><svg class="w1" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(255,255,255,.08)"/></svg>'
+             '<svg class="w2" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(124,45,18,.35)"/></svg></div>')
+    facts = (("Prix annoncé avant", "Facture avec n° TVA", "Toute la Belgique") if fr else
+             ("Prijs vooraf gekend", "Factuur met btw-nr.", "Heel België"))
+    li = "".join(f'<li>{ico("check")}{e(x)}</li>' for x in facts)
+    kick = "Ligne d'urgence 24h/24" if fr else "Spoedlijn 24/7"
+    plate_k = "Appelez directement" if fr else "Bel ons rechtstreeks"
+    plate_s = "Jour et nuit, week-ends et jours fériés compris." if fr else "Dag en nacht, ook in het weekend en op feestdagen."
+    call = "Appeler maintenant" if fr else "Nu bellen"
+    diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
+    return f'''<section class="band band2">{waves}<div class="wrap">
+ <div class="b2-copy reveal">
+  <p class="b2-kick"><span class="b2-dot" aria-hidden="true"></span>{kick}</p>
+  <h2>{t["band_title"]}</h2>
+  <p class="b2-lead">{t["band_lead"]}</p>
+  <ul class="b2-facts">{li}</ul>
+ </div>
+ <div class="b2-plate reveal" data-d="1">
+  <span class="b2-screw s1" aria-hidden="true"></span><span class="b2-screw s2" aria-hidden="true"></span><span class="b2-screw s3" aria-hidden="true"></span><span class="b2-screw s4" aria-hidden="true"></span>
+  <p class="b2-pk">{plate_k}</p>
+  <a class="b2-num" href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a>
+  <p class="b2-ps">{plate_s}</p>
+  <a class="btn btn-call btn-lg btn-block" href="tel:{PHONE_TEL}">{ico("phone")}<span>{call}</span></a>
+  <a class="b2-diag" href="#diagnostic">{diag}{ico("arrow")}</a>
+ </div>
 </div></section>'''
 
 # ---------------------------------------------------------------- pages
