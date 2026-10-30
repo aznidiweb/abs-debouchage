@@ -90,7 +90,6 @@ def compare_html(L, ico, cta, phone_tel, phone_display, or_txt):
     lead = "Le résultat d'un débouchage professionnel." if fr else "Het resultaat van een professionele ontstopping."
     rtitle = "Ce que vous obtenez" if fr else "Wat je krijgt"
     return f'''<div class="ba reveal" data-d="1" data-compare>
- <div class="ba-head"><h3>{e(title)}</h3><p>{e(lead)}</p></div>
  <div class="ba-stage" role="img" aria-label="{e(title)} : {e(T["tabs"][0])}, {e(T["tabs"][1])}">
   {pane(0, sink, T["tabs"][0])}{pane(1, pipe, T["tabs"][1])}
   <span class="ba-lab l">{e(T["before"])}</span><span class="ba-lab r">{e(T["after"])}</span>

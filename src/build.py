@@ -97,7 +97,6 @@ def header(L, alt_url, current=""):
  <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
-  <a href="{url(L)}#tarifs">{u["nav_prices"]}</a>
   <a href="{url(L)}#zones">{u["nav_zones"]}</a>
   <a href="{url(L, u["about_slug"])}"{cur("about")}>{u["nav_about"]}</a>
   <a href="{url(L, u["contact_slug"])}"{cur("contact")}>{u["nav_contact"]}</a>
@@ -386,7 +385,6 @@ def header(L, alt_url, current=""):
  <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
-  <a href="{url(L)}#tarifs">{u["nav_prices"]}</a>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
   <a class="hide-md" href="{url(L, u["about_slug"])}"{cur("about")}>{u["nav_about"]}</a>
   <a href="{url(L, u["contact_slug"])}"{cur("contact")}>{u["nav_contact"]}</a>
@@ -659,10 +657,13 @@ def prices_section(L, cls=""):
             f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7a35"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
             f'''<g class="pe-ringtxt"><text><textPath href="#pe-ring" startOffset="0" textLength="286" lengthAdjust="spacingAndGlyphs">{e(ring)}</textPath></text></g>'''
             f'''<circle cx="60" cy="60" r="31" fill="#0f2338" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#fb7a35" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
-    return f'''<section class="section {cls}" id="tarifs"><div class="wrap pricing">
+    fr = L == "fr"
+    kick, title, lead = (("Le résultat", "Avant / <em>après</em>", "Un écoulement rétabli, des tuyaux propres, et un rapport pour votre assurance.") if fr else
+                         ("Het resultaat", "Voor / <em>na</em>", "Een vrije afvoer, propere leidingen en een verslag voor je verzekering."))
+    return f'''<section class="section {cls}" id="resultat"><div class="wrap pricing">
  <div class="pr-left">
-  {sh(T["kick"], T["title"], T["lead"])}
-  <ul class="pr-eng">{"".join(f'<li>{ico("check")}<span>{e(x)}</span></li>' for x in T["eng"])}</ul>
+  {sh(kick, title, lead)}
+  {btn_call(L, "btn-lg", UI[L]["call_now"])}
  </div>
  {compare_html(L, ico, T["cta"], PHONE_TEL, PHONE_DISPLAY, T["or"])}
 </div></section>'''
