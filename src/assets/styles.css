@@ -2057,3 +2057,12 @@ p.hp-tag:hover{background:none}
 .band4 .wrap{flex-direction:row!important;align-items:center!important;text-align:left}
 .band4 .b4-act .btn{flex:none!important;width:auto!important}
 @media(max-width:760px){.b4-txt{min-width:0}.b4-txt h2{font-size:18px;line-height:1.2}}
+/* pied de page : coordonnées en une ligne discrète (le gros numéro est déjà dans le bandeau juste au-dessus) */
+.footer.fc .fc-c2{display:block;margin:0;font-size:14px;color:#94a3b8;line-height:1.6}
+.footer.fc .fc-c2 a{color:#cbd5e1;text-decoration:none;font-variant-numeric:tabular-nums;padding:6px 0}
+.footer.fc .fc-c2 a:hover{color:#fff;text-decoration:underline}
+@media(max-width:760px){.footer.fc .fc-c2{margin-top:10px;font-size:13.5px}}
+@media(min-width:761px){.footer.fc .fc-c2{white-space:nowrap}.footer.fc .fc-c2 a{padding:0}}
+.footer.fc .fc-c2{line-height:1.8}
+@media(min-width:761px){.footer.fc .fc-c2{flex:none}}
+.footer.fc .fc-c2{max-width:none!important}

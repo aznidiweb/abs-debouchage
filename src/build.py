@@ -409,7 +409,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <div class="fc-contact"><a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a><span>{u["foot_hours"]} · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
  <div class="fc-bottom">
@@ -1101,7 +1101,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <div class="fc-contact"><a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a><span>{u["foot_hours"]} · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
  <div class="fc-bottom">
