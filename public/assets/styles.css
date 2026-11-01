@@ -1707,6 +1707,23 @@ main>section.band2::before{display:none}
 /* 19. sous le logo : « Ouvert 24h/24 », sans horloge ni point */
 .brand-sub{color:rgba(255,255,255,.75)}
 
+/* =================== Bandeau final, version simple =================== */
+.band3{background:#c2410c}
+.band3::before{display:none}
+.band3 .wrap{display:flex;align-items:center;justify-content:space-between;gap:40px;padding-top:64px;padding-bottom:78px}
+.band3 h2{color:#fff;font-size:clamp(30px,3.6vw,46px);line-height:1.05;letter-spacing:-.025em;margin:0 0 10px}
+.band3 .b3-copy p{margin:0;max-width:520px;font-size:17.5px;line-height:1.55;color:#ffe9dd}
+.b3-actions{display:flex;flex-direction:column;gap:12px;flex:none;width:340px}
+.b3-call{background:#fff;color:#9a3412;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;--h:60px;
+ box-shadow:inset 0 -3px 0 rgba(154,52,18,.16),0 10px 22px -10px rgba(0,0,0,.45)}
+.b3-call:hover{background:#fff7f2}
+.b3-call>.ico{width:20px;height:20px}
+.b3-diag{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.b3-diag:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.b3-diag .ico{width:17px;height:17px}
+@media(max-width:860px){.band3 .wrap{flex-direction:column;align-items:stretch;gap:26px;padding-top:52px;padding-bottom:70px}.b3-actions{width:100%}}
+.b3-actions .btn{flex:none!important;width:100%}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

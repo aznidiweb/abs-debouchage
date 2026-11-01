@@ -799,18 +799,11 @@ def band(L):
     plate_s = "Jour et nuit, week-ends et jours fériés compris." if fr else "Dag en nacht, ook in het weekend en op feestdagen."
     call = "Appeler maintenant" if fr else "Nu bellen"
     diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
-    return f'''<section class="band band2">{waves}<div class="wrap">
- <div class="b2-copy reveal">
-  <h2>{t["band_title"]}</h2>
-  <p class="b2-lead">{t["band_lead"]}</p>
- </div>
- <div class="b2-plate reveal" data-d="1">
-  <span class="b2-screw s1" aria-hidden="true"></span><span class="b2-screw s2" aria-hidden="true"></span><span class="b2-screw s3" aria-hidden="true"></span><span class="b2-screw s4" aria-hidden="true"></span>
-  <p class="b2-pk">{plate_k}</p>
-  <a class="b2-num" href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a>
-  <p class="b2-ps">{plate_s}</p>
-  <a class="btn btn-call btn-lg btn-block" href="tel:{PHONE_TEL}">{ico("phone")}<span>{call}</span></a>
-  <a class="b2-diag" href="#diagnostic">{diag}{ico("arrow")}</a>
+    return f'''<section class="band band3">{waves}<div class="wrap">
+ <div class="b3-copy reveal"><h2>{t["band_title"]}</h2><p>{t["band_lead"]}</p></div>
+ <div class="b3-actions reveal" data-d="1">
+  <a class="btn btn-lg b3-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
+  <a class="btn btn-lg b3-diag" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a>
  </div>
 </div></section>'''
 
@@ -821,7 +814,7 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + diagnostic(L) + prices_section(L, "") + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
+</div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
     schemas = [business_schema(L), faq_schema(u["faq"][:4]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
@@ -873,7 +866,7 @@ def page_about(L):
     slide = [("tools", "ABS", e(a["h1"]), a["lead"], a["h1"])]
     body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_about"], None)], h1=u["nav_about"], cls="sv-hero", big_h1=True) + \
         f'<section class="section"><div class="wrap"><div class="blocks">{blocks}</div></div></section>' + \
-        steps_section(L) + prices_section(L) + band(L)
+        steps_section(L) + band(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_about"], abs_url(L, u["about_slug"]))]
     return layout(L, u["about_slug"], a["title"], a["desc"], body, UI[other]["about_slug"], [business_schema(L), crumbs_schema(crumbs)], current="about")
 
