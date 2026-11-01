@@ -467,10 +467,8 @@ def hero_home(L):
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
- <div class="hv-media" aria-hidden="true">
-  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" width="1024" height="576" fetchpriority="high">
-  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4?v=3" type="video/mp4"></video>
-  <img class="hp-anim" alt="" width="1024" height="576" data-src="/assets/video/hero.webp?v=2" hidden>
+ <div class="hv-media hv-photo" aria-hidden="true">
+  <picture><source type="image/webp" srcset="/assets/video/hero-photo-640.webp 640w, /assets/video/hero-photo.webp 941w" sizes="(max-width:960px) 100vw, 50vw"><img class="hp-photo" src="/assets/video/hero-photo.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
@@ -1159,10 +1157,8 @@ def hero_home(L):
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
- <div class="hv-media" aria-hidden="true">
-  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" width="1024" height="576" fetchpriority="high">
-  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4?v=3" type="video/mp4"></video>
-  <img class="hp-anim" alt="" width="1024" height="576" data-src="/assets/video/hero.webp?v=2" hidden>
+ <div class="hv-media hv-photo" aria-hidden="true">
+  <picture><source type="image/webp" srcset="/assets/video/hero-photo-640.webp 640w, /assets/video/hero-photo.webp 941w" sizes="(max-width:960px) 100vw, 50vw"><img class="hp-photo" src="/assets/video/hero-photo.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
@@ -1667,7 +1663,7 @@ def build():
     # police hébergée sur le site (pas de Google Fonts : rien n'est envoyé à Google, conforme RGPD)
     os.makedirs(os.path.join(OUT, "assets", "fonts"), exist_ok=True)
     os.makedirs(os.path.join(OUT, "assets", "video"), exist_ok=True)
-    for f in ("hero.mp4", "hero-poster.jpg", "hero.webp"):
+    for f in ("hero-photo.jpg", "hero-photo.webp", "hero-photo-640.webp"):
         shutil.copy(os.path.join(ROOT, "assets", "video", f), os.path.join(OUT, "assets", "video", f))
     for f in ("plus-jakarta-sans.woff2", "OFL.txt"):
         shutil.copy(os.path.join(ROOT, "assets", "fonts", f), os.path.join(OUT, "assets", "fonts", f))
