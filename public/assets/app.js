@@ -53,9 +53,6 @@
     if(navWrap){
       navWrap.classList.toggle("scrolled", y>40);
       /* mobile : cachée quand on descend, revient dès qu'on remonte (la barre du bas garde le bouton Appeler) */
-      var menuOpen=d.querySelector('.burger[aria-expanded="true"]');
-      if(!menuOpen&&Math.abs(y-lastY)>6){ navWrap.classList.toggle("nav-hide", y>lastY&&y>160); lastY=y; }
-      if(y<=160) navWrap.classList.remove("nav-hide");
     }
     if(!navTick){navTick=true;requestAnimationFrame(navTone);}
   }

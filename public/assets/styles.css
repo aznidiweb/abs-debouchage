@@ -2142,6 +2142,14 @@ p.hp-tag:hover{background:none}
 .nav-wrap.scrolled .brand-name,.nav-wrap.scrolled .brand-sub,.nav-wrap.scrolled .nav>a,.nav-wrap.scrolled .nav .dd>button{text-shadow:none!important}
 .nav-wrap{transition:transform .32s var(--ease),padding .35s var(--ease)}
 @media(max-width:959px){.nav-wrap.nav-hide{transform:translateY(-115%)}}
+/* barre : reste visible en défilant, verre transparent + fine bordure pour la délimiter */
+.nav-wrap.nav-hide{transform:none!important}
+.nav-wrap.scrolled .navbar{border:1px solid rgba(255,255,255,.22)!important}
+.nav-wrap.scrolled.on-light .navbar{border-color:rgba(13,23,38,.14)!important}
+@media(max-width:959px){
+ .nav-wrap.scrolled .navbar{background:rgba(5,7,10,.32)!important}
+ .nav-wrap.scrolled.on-light .navbar{background:rgba(255,255,255,.45)!important}
+}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
