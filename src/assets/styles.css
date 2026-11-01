@@ -2031,3 +2031,29 @@ p.hp-tag:hover{background:none}
  .hero-video .urg-btn{width:auto!important;max-width:100%;white-space:nowrap;font-size:13.5px;padding:6px 4px}
 }
 @media(max-width:360px){.hero-video .urg-btn{white-space:normal}}
+
+/* =================== Bandeau final : une bande horizontale simple =================== */
+.band4{background:#c2410c;color:#fff}
+.band4::before{display:none}
+.band4 .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:26px;padding-bottom:26px}
+.b4-txt h2{margin:0;color:#fff;font-size:clamp(20px,2.2vw,28px);line-height:1.15;letter-spacing:-.02em}
+.b4-txt p{margin:4px 0 0;font-size:14.5px;color:#ffe2d1}
+.b4-act{display:flex;align-items:center;gap:18px;flex:none}
+.b4-call{--h:50px;padding:0 22px;border-radius:12px;background:#fff;color:#9a3412;font-size:16.5px;font-weight:800;font-variant-numeric:tabular-nums;gap:9px;box-shadow:inset 0 -2px 0 rgba(154,52,18,.15),0 8px 18px -10px rgba(0,0,0,.45)}
+.b4-call:hover{background:#fff7f2}
+.b4-call>.ico{width:18px;height:18px}
+.b4-diag{display:inline-flex;align-items:center;gap:6px;font-size:14.5px;font-weight:700;color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:4px;white-space:nowrap}
+.b4-diag .ico{width:15px;height:15px}
+.b4-diag:hover{text-decoration-color:#fff}
+@media(max-width:760px){
+ .band4 .wrap{gap:14px;padding-top:20px;padding-bottom:20px}
+ .b4-txt h2{font-size:19px}
+ .b4-txt p{display:none}
+ .b4-diag{display:none}
+ .b4-call{--h:46px;padding:0 16px;font-size:15px}
+ .b4-l{display:none}
+}
+@media(max-width:400px){.b4-call span{font-size:14px}.b4-call{padding:0 12px}}
+.band4 .wrap{flex-direction:row!important;align-items:center!important;text-align:left}
+.band4 .b4-act .btn{flex:none!important;width:auto!important}
+@media(max-width:760px){.b4-txt{min-width:0}.b4-txt h2{font-size:18px;line-height:1.2}}

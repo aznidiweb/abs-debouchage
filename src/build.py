@@ -1504,11 +1504,12 @@ def band(L):
     plate_s = "Jour et nuit, week-ends et jours fériés compris." if fr else "Dag en nacht, ook in het weekend en op feestdagen."
     call = "Appeler maintenant" if fr else "Nu bellen"
     diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
-    return f'''<section class="band band3">{waves}<div class="wrap">
- <div class="b3-copy reveal"><h2>{t["band_title"]}</h2><p>{t["band_lead"]}</p></div>
- <div class="b3-actions reveal" data-d="1">
-  <a class="btn btn-lg b3-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
-  <a class="btn btn-lg b3-diag" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a>
+    sub = "Prix annoncé au téléphone · 24h/24, partout en Belgique" if fr else "Prijs aan de telefoon · 24/7, in heel België"
+    return f'''<section class="band band4"><div class="wrap">
+ <div class="b4-txt"><h2>{t["band_title"]}</h2><p>{sub}</p></div>
+ <div class="b4-act">
+  <a class="btn b4-call" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="b4-l">{"Appeler" if fr else "Bellen"} · </span>{PHONE_DISPLAY}</span></a>
+  <a class="b4-diag" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a>
  </div>
 </div></section>'''
 
