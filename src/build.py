@@ -177,7 +177,7 @@ def business_schema(L):
         "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
-        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}, {"@type": "City", "name": "Bruxelles" if L=="fr" else "Brussel"}],
+        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
         "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
@@ -739,6 +739,20 @@ PROV_GEO = [  # id, nom FR, nom NL, chef-lieu (lat, lon)
  ("na", "Namur", "Namen", 50.4674, 4.8720), ("wv", "Flandre-Occidentale", "West-Vlaanderen", 51.2093, 3.2247),
  ("ov", "Flandre-Orientale", "Oost-Vlaanderen", 51.0543, 3.7174)]
 
+
+PROV_CITIES = {
+ "an": ("Anvers, Malines, Turnhout, Lierre, Mol, Boom", "Antwerpen, Mechelen, Turnhout, Lier, Mol, Boom"),
+ "vb": ("Louvain, Vilvorde, Hal, Zaventem, Tirlemont, Grimbergen", "Leuven, Vilvoorde, Halle, Zaventem, Tienen, Grimbergen"),
+ "bw": ("Wavre, Nivelles, Louvain-la-Neuve, Waterloo, Braine-l'Alleud, Tubize", "Waver, Nijvel, Louvain-la-Neuve, Waterloo, Eigenbrakel, Tubeke"),
+ "ha": ("Charleroi, Mons, Tournai, La Louvière, Mouscron, Ath", "Charleroi, Bergen, Doornik, La Louvière, Moeskroen, Aat"),
+ "lg": ("Liège, Verviers, Seraing, Herstal, Huy, Spa", "Luik, Verviers, Seraing, Herstal, Hoei, Spa"),
+ "li": ("Hasselt, Genk, Saint-Trond, Tongres, Maasmechelen, Lommel", "Hasselt, Genk, Sint-Truiden, Tongeren, Maasmechelen, Lommel"),
+ "lu": ("Arlon, Bastogne, Marche-en-Famenne, Libramont, Virton, Durbuy", "Aarlen, Bastenaken, Marche-en-Famenne, Libramont, Virton, Durbuy"),
+ "na": ("Namur, Dinant, Gembloux, Sambreville, Ciney, Andenne", "Namen, Dinant, Gembloux, Sambreville, Ciney, Andenne"),
+ "wv": ("Bruges, Courtrai, Ostende, Roulers, Ypres, Knokke-Heist", "Brugge, Kortrijk, Oostende, Roeselare, Ieper, Knokke-Heist"),
+ "ov": ("Gand, Alost, Saint-Nicolas, Termonde, Audenarde, Eeklo", "Gent, Aalst, Sint-Niklaas, Dendermonde, Oudenaarde, Eeklo"),
+}
+
 def _merc(lat, lon, z):
     import math
     n = 256 * 2 ** z
@@ -747,8 +761,9 @@ def _merc(lat, lon, z):
     return x, y
 
 def osm_map(L):
+    from map_osm import OSM_SHAPES as S
     z = 8
-    x0, y0 = _merc(51.62, 2.35, z); x1, y1 = _merc(49.42, 6.55, z)      # cadre : Belgique + marge
+    x0, y0 = _merc(51.62, 2.35, z); x1, y1 = _merc(49.42, 6.55, z)      # cadre : Belgique + marge (identique à map_osm.py)
     W, H = x1 - x0, y1 - y0
     tiles = ""
     for tx in range(int(x0 // 256), int(x1 // 256) + 1):
@@ -758,13 +773,23 @@ def osm_map(L):
                       f'style="left:{l:.3f}%;top:{t:.3f}%;width:{25600 / W:.3f}%;height:{25600 / H:.3f}%">')
     def pos(lat, lon):
         x, y = _merc(lat, lon, z); return (x - x0) / W * 100, (y - y0) / H * 100
-    bx, by = pos(50.8466, 4.3528)
     fr = L == "fr"
+    names = {pid: (nfr if fr else nnl) for pid, nfr, nnl, la, lo in PROV_GEO}
+    allp = "".join(f'<path d="{d}"/>' for d in S["prov"].values())
+    prov = "".join(f'<path class="om-p" data-zp="{pid}" d="{d}"><title>{e(names[pid])}</title></path>' for pid, d in S["prov"].items() if pid != "bxl")
+    prov += f'<path class="om-p om-bxl" data-zp="bxl" d="{S["prov"]["bxl"]}"><title>{e(names["bxl"])}</title></path>'
+    svg = (f'<svg class="om-svg" viewBox="0 0 {S["w"]} {S["h"]}" preserveAspectRatio="none" aria-hidden="true">'
+           f'<defs><mask id="om-m-{L}" maskUnits="userSpaceOnUse" x="0" y="0" width="{S["w"]}" height="{S["h"]}"><rect width="{S["w"]}" height="{S["h"]}" fill="#fff"/><g fill="#000">{allp}</g></mask></defs>'
+           f'<rect class="om-out" width="{S["w"]}" height="{S["h"]}" mask="url(#om-m-{L})"/>'
+           f'<g class="om-provs">{prov}</g></svg>')
+    bx, by = pos(50.8466, 4.3528)
     aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
     base = "Notre base" if fr else "Onze basis"
-    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}"><div class="om-tiles" aria-hidden="true">{tiles}</div>'
+    hint = "Cliquez sur votre province" if fr else "Klik op je provincie"
+    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}"><div class="om-tiles" aria-hidden="true">{tiles}</div>{svg}'
             f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i></i><b>{base}</b></span>'
-            f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg></span>'
+            f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg><b data-ompl></b></span>'
+            f'<span class="om-hint" aria-hidden="true">{hint}</span>'
             f'<a class="om-attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></div>'), pos
 
 def zones_section(L, cls="soft"):
@@ -775,6 +800,10 @@ def zones_section(L, cls="soft"):
          "bad": "Entrez un code postal belge à 4 chiffres." if fr else "Geef een Belgische postcode van 4 cijfers in.",
          "call": "Appeler" if fr else "Bellen", "prov": "Provinces desservies" if fr else "Provincies"}
     data = {pid: {"n": (nfr if fr else nnl), "cp": PROV_CP[pid], "p": [round(v, 2) for v in pos(lat, lon)]} for pid, nfr, nnl, lat, lon in PROV_GEO}
+    bxl_c = ", ".join((c[0] if fr else c[1]) for c in COMMUNES)
+    towns = f'<dt>{"Bruxelles (19 communes)" if fr else "Brussel (19 gemeenten)"}</dt><dd>{e(bxl_c)}</dd>' + "".join(
+        f'<dt>{e(nfr if fr else nnl)}</dt><dd>{e(PROV_CITIES[pid][0 if fr else 1])}</dd>' for pid, nfr, nnl, la, lo in PROV_GEO if pid != "bxl")
+    T["more"] = "Communes et villes desservies" if fr else "Gemeenten en steden die we bedienen"
     chips = "".join(f'<li><button type="button" data-zp="{pid}" aria-pressed="{"true" if pid == "bxl" else "false"}">{e(nfr if fr else nnl)}</button></li>'
                     for pid, nfr, nnl, lat, lon in PROV_GEO)
     return f'''<section class="section zn-sec {cls}" id="zones"><div class="wrap">
@@ -786,6 +815,7 @@ def zones_section(L, cls="soft"):
    <p class="zn-res" aria-live="polite">{ico("pin")}<b data-zname>{"Bruxelles" if fr else "Brussel"}</b><span data-zcp>1000–1299</span><span class="zn-ok" data-zok hidden>{ico("check")}{T["ok"]}</span></p>
    <a class="btn btn-call btn-lg zn-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]} · {PHONE_DISPLAY}</span></a>
    <ul class="zn-prov" aria-label="{T["prov"]}">{chips}</ul>
+   <details class="zn-more"><summary>{T["more"]}{ico("chev")}</summary><dl>{towns}</dl></details>
   </div>
   <div class="zn-map reveal" data-d="1">{mp}</div>
  </div>
@@ -809,7 +839,7 @@ def business_schema(L):
         "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
-        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}, {"@type": "City", "name": "Bruxelles" if L=="fr" else "Brussel"}],
+        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
         "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
         "knowsAbout": [s[L]["name"] for s in SERVICES],

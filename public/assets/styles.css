@@ -1831,6 +1831,37 @@ main>section.band2::before{display:none}
 .zn-ok[hidden]{display:none!important}
 @media(max-width:900px){.zn-prov{display:none}.zn-lead{margin-bottom:14px}}
 
+/* =================== Carte v2 : la Belgique ressort, provinces cliquables =================== */
+.om-tiles img{filter:saturate(.85) contrast(1.02)}
+.om-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.om-out{fill:#0b1b2e;opacity:.42}
+.om-p{fill:rgba(255,255,255,0);stroke:#0b1b2e;stroke-opacity:.38;stroke-width:1.1;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .2s,stroke .2s,stroke-opacity .2s}
+.om-p:hover{fill:rgba(194,65,12,.14);stroke:#c2410c;stroke-opacity:.9}
+.om-p.on{fill:rgba(194,65,12,.22);stroke:#c2410c;stroke-opacity:1;stroke-width:2}
+.om-bxl{stroke-dasharray:3 2}
+.om-base{z-index:2}
+.om-pin{z-index:3;display:flex;flex-direction:column;align-items:center}
+.om-pin b{position:absolute;bottom:100%;margin-bottom:4px;white-space:nowrap;font-size:12.5px;font-weight:800;color:#fff;background:#0b1b2e;padding:4px 9px;border-radius:7px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.om-pin b:empty{display:none}
+.zn.pin-drop .om-pin svg{animation:pinDrop .5s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pinDrop{0%{transform:translateY(-18px);opacity:0}100%{transform:none;opacity:1}}
+.om-hint{position:absolute;left:10px;top:10px;z-index:2;padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.92);font-size:12px;font-weight:700;color:#0b1b2e;box-shadow:0 2px 8px rgba(0,0,0,.15);pointer-events:none;transition:opacity .3s}
+.zn.has-sel .om-hint{opacity:0}
+.zn-map{border:0}
+/* liste repliable des communes et villes */
+.zn-more{margin-top:14px;border-top:1px solid var(--line)}
+.zn-more summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:12px 2px;cursor:pointer;font-size:14px;font-weight:700;color:var(--ink)}
+.zn-more summary::-webkit-details-marker{display:none}
+.zn-more summary .ico{width:16px;height:16px;color:var(--muted);transition:transform .25s}
+.zn-more[open] summary .ico{transform:rotate(180deg)}
+.zn-more dl{margin:0 0 6px;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;line-height:1.5}
+.zn-more dt{font-weight:700;color:var(--ink);white-space:nowrap}
+.zn-more dd{margin:0;color:var(--muted)}
+@media(max-width:560px){.zn-more dl{grid-template-columns:1fr;gap:0}.zn-more dd{margin-bottom:8px}}
+.om-pin.lbl-below b{bottom:auto;top:100%;margin:4px 0 0}
+.om-pin.lbl-left b{right:50%;margin-right:-12px}
+.om-pin.lbl-right b{left:50%;margin-left:-12px}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

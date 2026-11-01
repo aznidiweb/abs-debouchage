@@ -343,7 +343,10 @@
       var p=D[id]; if(!p) return;
       nm.textContent=p.n; cp.textContent=rng(p.cp);
       pin.style.left=p.p[0]+"%"; pin.style.top=p.p[1]+"%"; box.classList.add("has-sel");
-      btns.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-zp")===id);});
+      btns.forEach(function(b){ var on=b.getAttribute("data-zp")===id; if(b.tagName==="BUTTON") b.setAttribute("aria-pressed",on); else b.classList.toggle("on",on); });
+      var pl=box.querySelector("[data-ompl]"); if(pl) pl.textContent=p.n;
+      pin.classList.toggle("lbl-below",p.p[1]<26); pin.classList.toggle("lbl-left",p.p[0]>80); pin.classList.toggle("lbl-right",p.p[0]<20);
+      box.classList.remove("pin-drop"); void box.offsetWidth; box.classList.add("pin-drop");
     }
     var okEl=box.querySelector("[data-zok]");
     btns.forEach(function(b){ b.addEventListener("click",function(){ sel(b.getAttribute("data-zp")); msg.hidden=true; if(okEl) okEl.hidden=true; }); });
