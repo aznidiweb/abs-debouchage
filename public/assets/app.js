@@ -319,6 +319,9 @@
     d.querySelectorAll("main>section,footer").forEach(function(sec){offIO.observe(sec);});
   }
 
+  /* pied de page : sur mobile, la liste des services est repliée (les liens restent dans la page) */
+  if(w.matchMedia("(max-width:760px)").matches) d.querySelectorAll(".fc-dt").forEach(function(x){x.open=false;});
+
   /* ---------- Bandeau cookies (information : aucun cookie de suivi) ---------- */
   (function(){
     var bar=d.querySelector(".ck-bar"); if(!bar) return;

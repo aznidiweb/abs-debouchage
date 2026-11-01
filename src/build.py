@@ -411,7 +411,7 @@ def footer(L):
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
- <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
+ <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
   <p class="fc-legal">© {datetime.date.today().year} {BRAND} · {LEGAL_NAME} · {STREET}, {POSTCODE} {CITY[L]} · {u["vat"]} {VAT}</p>
   <ul class="fc-links"><li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li><li><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></li></ul>
@@ -1101,7 +1101,7 @@ def footer(L):
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
- <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
+ <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
   <p class="fc-legal">© {datetime.date.today().year} {BRAND} · {LEGAL_NAME} · {STREET}, {POSTCODE} {CITY[L]} · {u["vat"]} {VAT}</p>
   <ul class="fc-links"><li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li><li><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></li></ul>

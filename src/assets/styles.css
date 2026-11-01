@@ -2232,3 +2232,25 @@ p.hp-tag:hover{background:none}
  .tl-go .ico{width:13px;height:13px}
 }
 @media(max-width:560px){.tl-art{aspect-ratio:4/3}}
+
+/* =================== Pied de page compact =================== */
+.fc-dt summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:default}
+.fc-dt summary::-webkit-details-marker{display:none}
+.fc-dt summary .ico{display:none;width:16px;height:16px;color:#94a3b8;transition:transform .25s}
+.fc-dt summary .fh{margin:0}
+@media(min-width:761px){.fc-dt summary{pointer-events:none}.fc-dt>ul{margin-top:8px}}
+@media(max-width:760px){
+ .footer.fc{padding-top:22px!important}
+ .fc-top{gap:6px!important;padding-bottom:14px!important}
+ .footer.fc .fc-c2{margin-top:2px!important;line-height:1.6}
+ .fc-svc{padding:4px 0!important}
+ .fc-dt summary{cursor:pointer;min-height:44px}
+ .fc-dt summary .ico{display:block}
+ .fc-dt[open] summary .ico{transform:rotate(180deg)}
+ .fc-dt>ul{padding-bottom:10px!important}
+ .fc-bottom{padding-top:12px!important;gap:8px!important}
+ .footer.fc .fc-legal{font-size:12px;line-height:1.5}
+ .footer.fc .brand-sub{display:none}
+}
+.fc-dt summary .fh{width:auto!important;flex:1}
+.fc-dt{width:100%}.fc-dt summary{width:100%}
