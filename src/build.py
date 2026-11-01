@@ -454,13 +454,13 @@ def hero_home(L):
     u = UI[L]; t = TX[L]
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
-        lead = "Un technicien équipé chez vous rapidement, jour et nuit. Prix annoncé avant de commencer, sans casse."
+        lead = "Un technicien chez vous, <b>24h/24</b>.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
         pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
-        lead = "Een uitgeruste technieker snel bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
+        lead = "Een technieker bij je, <b>24/7</b>.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
         pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
@@ -477,7 +477,7 @@ def hero_home(L):
   <div class="hp-copy">
    <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
-   <p class="hp-lead">{e(lead)}</p>
+   <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
    <ul class="hp-checks">{checks}</ul>
   </div>
@@ -1145,13 +1145,13 @@ def hero_home(L):
     u = UI[L]; t = TX[L]
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
-        lead = "Un technicien équipé chez vous rapidement, jour et nuit. Prix annoncé avant de commencer, sans casse."
+        lead = "Un technicien chez vous, <b>24h/24</b>.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
         pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
-        lead = "Een uitgeruste technieker snel bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
+        lead = "Een technieker bij je, <b>24/7</b>.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
         pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
@@ -1168,7 +1168,7 @@ def hero_home(L):
   <div class="hp-copy">
    <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
-   <p class="hp-lead">{e(lead)}</p>
+   <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
    <ul class="hp-checks">{checks}</ul>
   </div>
