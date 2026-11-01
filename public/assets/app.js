@@ -248,6 +248,13 @@
     function swap(){ if(ok||swapped||!img) return; swapped=true; img.src=img.getAttribute("data-src"); img.hidden=false; v.style.visibility="hidden"; try{v.pause();}catch(e){} }
     function go(){ if(swapped) return; var p=v.play(); if(p&&p.then) p.then(function(){ok=true;}).catch(function(){ if(!ok) swap(); }); }
     v.addEventListener("playing",function(){ ok=true; v.classList.add("on"); });
+    /* synchro : le bouchon saute vers 4 s dans la boucle -> petit éclat sur le bouton d'appel */
+    var call=v.closest(".hero-video")&&v.closest(".hero-video").querySelector(".cta-row .btn-call"), lastT=0, BURST=4.0;
+    if(call) v.addEventListener("timeupdate",function(){
+      var t=v.currentTime;
+      if(lastT<BURST&&t>=BURST&&t<BURST+.6){ call.classList.remove("burst"); void call.offsetWidth; call.classList.add("burst"); }
+      lastT=t;
+    });
     v.addEventListener("ended",function(){ v.currentTime=0; go(); });
     v.addEventListener("pause",function(){ if(!d.hidden&&!swapped) setTimeout(go,250); });
     d.addEventListener("visibilitychange",function(){ if(!d.hidden) go(); });
