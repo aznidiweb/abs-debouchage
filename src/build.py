@@ -1506,13 +1506,24 @@ def band(L):
     plate_s = "Jour et nuit, week-ends et jours fériés compris." if fr else "Dag en nacht, ook in het weekend en op feestdagen."
     call = "Appeler maintenant" if fr else "Nu bellen"
     diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
-    sub = "Prix annoncé au téléphone · 24h/24, partout en Belgique" if fr else "Prijs aan de telefoon · 24/7, in heel België"
-    return f'''<section class="band band4"><div class="wrap">
- <div class="b4-txt"><h2>{t["band_title"]}</h2><p>{sub}</p></div>
- <div class="b4-act">
-  <a class="btn b4-call" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="b4-l">{"Appeler" if fr else "Bellen"} · </span>{PHONE_DISPLAY}</span></a>
-  <a class="b4-diag" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a>
- </div>
+    k = "Toujours bouché ?" if fr else "Nog steeds verstopt?"
+    h = "On se déplace partout en Belgique, 24h/24." if fr else "We komen in heel België, 24/7."
+    sub = "Le prix vous est donné au téléphone, avant de partir." if fr else "Je krijgt de prijs aan de telefoon, voor we vertrekken."
+    pipe = ('<svg class="b5-svg" viewBox="0 0 320 44" preserveAspectRatio="none" aria-hidden="true">'
+            '<defs><linearGradient id="b5g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset=".45" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/></linearGradient>'
+            '<clipPath id="b5c"><rect x="0" y="15" width="320" height="14" rx="2"/></clipPath></defs>'
+            '<rect x="0" y="12" width="320" height="20" rx="4" fill="url(#b5g)"/>'
+            '<g clip-path="url(#b5c)"><rect x="0" y="15" width="320" height="14" fill="#0f2238"/>'
+            '<rect class="b5-wl" x="0" y="17" width="150" height="12" fill="#38bdf8"/>'
+            '<rect class="b5-wr" x="150" y="17" width="170" height="12" fill="#38bdf8"/>'
+            '<path class="b5-sh" d="M0 19H320" stroke="#e0f2fe" stroke-width="1.4" stroke-dasharray="10 14" opacity=".8"/></g>'
+            '<g class="b5-clog"><ellipse cx="156" cy="22" rx="9" ry="7.5" fill="#7c5a2e"/><circle cx="152" cy="19" r="2.6" fill="#5a3f1f"/><circle cx="160" cy="25" r="2" fill="#a07a43"/><path d="M149 17q4 3 0 7M163 18q-3 4 1 8" stroke="#3f2a12" stroke-width="1.1" fill="none"/></g>'
+            '<g fill="#64748b"><rect x="48" y="8" width="10" height="28" rx="2"/><rect x="262" y="8" width="10" height="28" rx="2"/></g>'
+            '</svg>')
+    return f'''<section class="band band5"><div class="wrap b5">
+ <div class="b5-txt"><p class="b5-k">{k}</p><h2>{h}</h2><p class="b5-s">{sub}</p></div>
+ <div class="b5-pipe" aria-hidden="true">{pipe}<span class="b5-drop"></span></div>
+ <a class="btn b5-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
 </div></section>'''
 
 # ---------------------------------------------------------------- pages

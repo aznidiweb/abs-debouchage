@@ -2286,6 +2286,36 @@ p.hp-tag:hover{background:none}
  @keyframes dgNudgeD{0%,100%{transform:rotate(90deg) translateX(0)}50%{transform:rotate(90deg) translateX(6px)}}
 }
 
+/* =================== Bandeau final : un tuyau relie le texte au bouton, l'appel « débouche » =================== */
+.band5{background:#0b1b2e;color:#fff;border-top:1px solid #16263b}
+.band5::before{display:none}
+.b5{display:grid!important;grid-template-columns:auto minmax(80px,1fr) auto;align-items:center;gap:22px;padding-top:30px!important;padding-bottom:30px!important}
+.b5-k{margin:0 0 2px;font-size:13px;font-weight:800;color:#fb923c;letter-spacing:.01em}
+.band5 h2{margin:0;font-size:clamp(19px,2vw,25px);line-height:1.2;color:#fff;letter-spacing:-.015em}
+.b5-s{margin:4px 0 0;font-size:14px;color:#94a3b8}
+.b5-pipe{position:relative;height:44px;min-width:80px}
+.b5-svg{position:absolute;inset:0;width:100%;height:100%}
+/* boucle : l'eau pousse, le bouchon saute, l'eau file jusqu'au bouton */
+.b5-wr{transform-origin:150px 0;transform:scaleX(0);animation:b5flow 4.5s ease-in-out infinite}
+.b5-clog{transform-origin:156px 22px;animation:b5pop 4.5s ease-in-out infinite}
+.b5-sh{animation:b5dash 1.2s linear infinite}
+@keyframes b5flow{0%,38%{transform:scaleX(0)}55%,88%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes b5pop{0%,30%{transform:none;opacity:1}34%{transform:translateX(-2px) rotate(-6deg)}38%{transform:translateX(3px) rotate(8deg)}46%{transform:translate(70px,-2px) scale(.5) rotate(140deg);opacity:0}96%{opacity:0;transform:none}100%{opacity:1;transform:none}}
+@keyframes b5dash{to{stroke-dashoffset:-24}}
+.b5-drop{position:absolute;right:-4px;top:50%;width:7px;height:9px;margin-top:-4px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#38bdf8;opacity:0;animation:b5drop 4.5s ease-in infinite}
+@keyframes b5drop{0%,56%{opacity:0;transform:none}60%{opacity:1}80%{opacity:0;transform:translate(6px,14px)}100%{opacity:0}}
+.b5-call{--h:52px;padding:0 22px;border-radius:12px;background:#c2410c;color:#fff;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;gap:10px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),0 10px 24px -12px rgba(194,65,12,.9)}
+.b5-call:hover{background:#b23a0a}
+.b5-call>.ico{width:18px;height:18px}
+.band5 .wrap{flex-direction:row!important}
+@media(prefers-reduced-motion:reduce){.b5-wr{transform:scaleX(1);animation:none}.b5-clog{display:none}.b5-sh,.b5-drop{animation:none}}
+@media(max-width:860px){.b5{grid-template-columns:1fr auto;gap:14px}.b5-pipe{display:none}}
+@media(max-width:560px){.b5{padding-top:20px!important;padding-bottom:20px!important}.band5 h2{font-size:17px}.b5-s{display:none}.b5-k{font-size:12.5px}.b5-call{--h:46px;padding:0 14px;font-size:15px}}
+main>section.band5,.band5{background:#0b1b2e!important;background-image:none!important}
+@media(max-width:560px){.band5 h2{font-size:16px;line-height:1.25}}
+.band5 .b5-k{color:#fb923c!important}.band5 .b5-s{color:#94a3b8!important}.b5-pipe{height:56px}
+.band5 .b5-k{font-size:13px!important;font-weight:800}.band5 .b5-s{font-size:14px!important}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
