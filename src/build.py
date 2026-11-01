@@ -1206,17 +1206,24 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
 ]
 
 def cards(L, exclude=None):
-    """4 familles de services (moins de choix) ; chaque famille mène à sa page principale."""
+    """4 familles de services : la carte mène à la page principale, les sous-services ont leur propre lien."""
     items = []
     for i, (main, others, title, desc) in enumerate(GROUPS):
         s = svc_by_id(main)
-        links = " · ".join(f'<span>{e(svc_by_id(o)[L]["name"])}</span>' for o in others)
-        items.append(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
- <span class="sv-anim sc-mini" data-mini>{scene_mini(L, main, f"g{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
- <span class="sv-body"><span class="sv-t">{e(title[L])}</span><span class="sv-d">{e(desc[L])}</span><span class="sv-m">{"Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"}</span></span>
- <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
-</a></li>''')
-    return f'<ul class="svc-grid land g-4">{"".join(items)}</ul>'
+        SHORT = {"wc": ("WC", "Wc"), "sanibroyeur": ("Sanibroyeur", "Sanibroyeur"), "evier": ("Évier", "Gootsteen"), "lavabo": ("Lavabo", "Lavabo"),
+                 "cuisine": ("Canalisations", "Leidingen"), "douche": ("Douche", "Douche"), "baignoire": ("Baignoire", "Bad"), "siphon": ("Siphon de sol", "Afvoerputje"),
+                 "egout": ("Égout", "Riool"), "camera": ("Caméra", "Camera")}
+        subs = "".join(f'<li><a href="{url(L, svc_by_id(o)["slug"][L])}" title="{e(svc_by_id(o)[L]["name"])}">{e(SHORT[o][0 if L == "fr" else 1])}</a></li>' for o in [main] + others)
+        items.append(f'''<li class="reveal" data-d="{i%2}"><article class="sv2">
+ <div class="sv2-art sc-mini" data-mini aria-hidden="true">{scene_mini(L, main, f"g{i}")}</div>
+ <div class="sv2-body">
+  <h3 class="sv2-t"><a class="sv2-link" href="{url(L, s["slug"][L])}">{e(title[L])}</a></h3>
+  <p class="sv2-d">{e(desc[L])}</p>
+  <ul class="sv2-sub">{subs}</ul>
+ </div>
+ <span class="sv2-go" aria-hidden="true">{ico("arrow")}</span>
+</article></li>''')
+    return f'<ul class="svc-grid sv2-grid">{"".join(items)}</ul>'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'
