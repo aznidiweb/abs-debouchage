@@ -333,6 +333,36 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
   })();
 
+  /* ---------- Zones : carte réelle + code postal ---------- */
+  d.querySelectorAll("[data-zones2]").forEach(function(box){
+    var D={}; try{D=JSON.parse(box.getAttribute("data-zd"));}catch(e){return;}
+    var pin=box.querySelector("[data-ompin]"), nm=box.querySelector("[data-zname]"), cp=box.querySelector("[data-zcp]");
+    var inp=box.querySelector("[data-zcp-in]"), msg=box.querySelector("[data-zcp-msg]"), btns=box.querySelectorAll("[data-zp]");
+    function rng(r){return r.map(function(a){return a[0]+"–"+a[1];}).join(", ");}
+    function sel(id){
+      var p=D[id]; if(!p) return;
+      nm.textContent=p.n; cp.textContent=rng(p.cp);
+      pin.style.left=p.p[0]+"%"; pin.style.top=p.p[1]+"%"; box.classList.add("has-sel");
+      btns.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-zp")===id);});
+    }
+    var okEl=box.querySelector("[data-zok]");
+    btns.forEach(function(b){ b.addEventListener("click",function(){ sel(b.getAttribute("data-zp")); msg.hidden=true; if(okEl) okEl.hidden=true; }); });
+    function find(v){
+      var n=parseInt(v,10);
+      for(var id in D){ if(D[id].cp.some(function(r){return n>=r[0]&&n<=r[1];})) return id; }
+      return null;
+    }
+    function check(force){
+      var v=(inp.value||"").replace(/\D/g,"").slice(0,4);
+      if(v.length<4){ if(force){ msg.textContent=inp.getAttribute("data-bad"); msg.hidden=false; msg.className="zcp-msg bad"; } else msg.hidden=true; return; }
+      var id=find(v);
+      if(!id){ msg.textContent=inp.getAttribute("data-bad"); msg.className="zcp-msg bad"; msg.hidden=false; if(okEl) okEl.hidden=true; return; }
+      sel(id); msg.hidden=true; if(okEl) okEl.hidden=false;
+    }
+    inp.addEventListener("input",function(){check(false);});
+    inp.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); check(true); inp.blur(); } });
+  });
+
   /* ---------- FAQ : sur ordinateur, la réponse s'affiche à droite ---------- */
   d.querySelectorAll("[data-fq]").forEach(function(fq){
     var items=[].slice.call(fq.querySelectorAll(".fq-i")), panel=fq.querySelector(".fq-panel"), mq=w.matchMedia("(min-width:960px)");

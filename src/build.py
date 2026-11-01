@@ -730,46 +730,637 @@ def zone_map(L):
 <g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
 </svg></div>'''
 
+# Carte réaliste : tuiles OpenStreetMap (pas de cookie), calées sur la Belgique au moment du build
+PROV_GEO = [  # id, nom FR, nom NL, chef-lieu (lat, lon)
+ ("bxl", "Bruxelles", "Brussel", 50.8466, 4.3528), ("an", "Anvers", "Antwerpen", 51.2194, 4.4025),
+ ("bw", "Brabant wallon", "Waals-Brabant", 50.7170, 4.6011), ("vb", "Brabant flamand", "Vlaams-Brabant", 50.8798, 4.7005),
+ ("ha", "Hainaut", "Henegouwen", 50.4542, 3.9567), ("lg", "Liège", "Luik", 50.6326, 5.5797),
+ ("li", "Limbourg", "Limburg", 50.9307, 5.3378), ("lu", "Luxembourg", "Luxemburg", 49.6833, 5.8167),
+ ("na", "Namur", "Namen", 50.4674, 4.8720), ("wv", "Flandre-Occidentale", "West-Vlaanderen", 51.2093, 3.2247),
+ ("ov", "Flandre-Orientale", "Oost-Vlaanderen", 51.0543, 3.7174)]
+
+def _merc(lat, lon, z):
+    import math
+    n = 256 * 2 ** z
+    x = (lon + 180) / 360 * n
+    y = (1 - math.log(math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))) / math.pi) / 2 * n
+    return x, y
+
+def osm_map(L):
+    z = 8
+    x0, y0 = _merc(51.62, 2.35, z); x1, y1 = _merc(49.42, 6.55, z)      # cadre : Belgique + marge
+    W, H = x1 - x0, y1 - y0
+    tiles = ""
+    for tx in range(int(x0 // 256), int(x1 // 256) + 1):
+        for ty in range(int(y0 // 256), int(y1 // 256) + 1):
+            l = (tx * 256 - x0) / W * 100; t = (ty * 256 - y0) / H * 100
+            tiles += (f'<img src="https://tile.openstreetmap.org/{z}/{tx}/{ty}.png" alt="" loading="lazy" decoding="async" width="256" height="256" '
+                      f'style="left:{l:.3f}%;top:{t:.3f}%;width:{25600 / W:.3f}%;height:{25600 / H:.3f}%">')
+    def pos(lat, lon):
+        x, y = _merc(lat, lon, z); return (x - x0) / W * 100, (y - y0) / H * 100
+    bx, by = pos(50.8466, 4.3528)
+    fr = L == "fr"
+    aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
+    base = "Notre base" if fr else "Onze basis"
+    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}"><div class="om-tiles" aria-hidden="true">{tiles}</div>'
+            f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i></i><b>{base}</b></span>'
+            f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg></span>'
+            f'<a class="om-attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></div>'), pos
+
 def zones_section(L, cls="soft"):
-    from map_be import MAP_BE
     u = UI[L]; fr = L == "fr"
-    order = ["bxl", "bw", "vb", "an", "li", "lg", "na", "ha", "lu", "wv", "ov"]
-    by = {p[0]: p for p in MAP_BE["prov"]}
-    def chip(pid):
-        _, nfr, nnl, cp, d, c = by[pid]; nm = nfr if fr else nnl
-        key = (nfr + " " + nnl).lower()
-        return f'<li><button type="button" class="zc" data-z="{pid}" data-k="{e(key)}" aria-pressed="false"><span class="zc-n">{e(nm)}</span><span class="zc-ok" aria-hidden="true"></span></button></li>'
-    chips = "".join(chip(p) for p in order)
-    T = {"avail": "Technicien disponible 24h/24" if fr else "Technieker beschikbaar 24/7",
-         "eta": "Prix annoncé avant l'intervention" if fr else "Prijs vooraf meegedeeld",
-         "call": "Faites-nous venir ·" if fr else "Laat ons komen ·", "call_s": "On arrive ·" if fr else "We komen ·",
-         "find": "Votre code postal" if fr else "Je postcode",
-         "ok": "Bonne nouvelle : on intervient chez vous." if fr else "Goed nieuws: we komen bij je.",
+    mp, pos = osm_map(L)
+    T = {"find": "Votre code postal" if fr else "Je postcode",
+         "ok": "On intervient chez vous" if fr else "We komen bij je",
          "bad": "Entrez un code postal belge à 4 chiffres." if fr else "Geef een Belgische postcode van 4 cijfers in.",
-         "list": "10 provinces + Bruxelles" if fr else "10 provincies + Brussel",
-         "base": "Base à Bruxelles" if fr else "Basis in Brussel", "all": "Toute la Belgique" if fr else "Heel België"}
-    cpmap = e(json.dumps({k: v for k, v in PROV_CP.items()}))
-    return f'''<section class="section {cls}" id="zones"><div class="wrap">
- {sh(u["z_kick"], u["z_title"], u["z_lead"])}
- <div class="zones" data-zones data-cpmap="{cpmap}">
-  <div class="zmap reveal">
-   {zone_map(L)}
-   <ul class="zm-legend" aria-hidden="true"><li><i class="k-home"></i>{T["base"]}</li><li><i class="k-bxl"></i>{T["all"]}</li></ul>
-   <div class="zm-card">
-    <span class="zm-live"><i></i>{T["avail"]}</span>
-    <p class="zm-name" aria-live="polite"><b data-zname>Bruxelles</b> <span data-zcp>1000–1299</span></p>
-    <p class="zm-eta">{ico("clock")}<span>{T["eta"]}</span></p>
-    <a class="btn btn-call zm-btn" href="tel:{PHONE_TEL}">{ico("phone")}<span><span class="zc-l">{T["call"]}</span><span class="zc-s">{T["call_s"]}</span> <b data-zcall>Bruxelles</b></span></a>
-   </div>
-  </div>
-  <div class="zside reveal" data-d="1">
+         "call": "Appeler" if fr else "Bellen", "prov": "Provinces desservies" if fr else "Provincies"}
+    data = {pid: {"n": (nfr if fr else nnl), "cp": PROV_CP[pid], "p": [round(v, 2) for v in pos(lat, lon)]} for pid, nfr, nnl, lat, lon in PROV_GEO}
+    chips = "".join(f'<li><button type="button" data-zp="{pid}" aria-pressed="{"true" if pid == "bxl" else "false"}">{e(nfr if fr else nnl)}</button></li>'
+                    for pid, nfr, nnl, lat, lon in PROV_GEO)
+    return f'''<section class="section zn-sec {cls}" id="zones"><div class="wrap">
+ <div class="zn" data-zones2 data-zd="{e(json.dumps(data, ensure_ascii=False))}">
+  <div class="zn-text reveal">
+   <h2>{u["z_title"]}</h2><p class="zn-lead">{u["z_lead"]}</p>
    <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="text" data-zcp-in data-ok="{e(T["ok"])}" data-bad="{e(T["bad"])}" placeholder="{T["find"]}" inputmode="numeric" maxlength="4" autocomplete="postal-code" enterkeyhint="go"></label>
    <p class="zcp-msg" data-zcp-msg aria-live="polite" hidden></p>
-   <div class="zgroup"><h3 class="zh">{T["list"]}</h3>
-   <ul class="zlist zl-prov">{chips}</ul></div>
+   <p class="zn-res" aria-live="polite">{ico("pin")}<b data-zname>{"Bruxelles" if fr else "Brussel"}</b><span data-zcp>1000–1299</span><span class="zn-ok" data-zok hidden>{ico("check")}{T["ok"]}</span></p>
+   <a class="btn btn-call btn-lg zn-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]} · {PHONE_DISPLAY}</span></a>
+   <ul class="zn-prov" aria-label="{T["prov"]}">{chips}</ul>
+  </div>
+  <div class="zn-map reveal" data-d="1">{mp}</div>
+ </div>
+</div></section>'''
+
+def faq_html(items):
+    return '<div class="faq">' + "".join(
+        f'<details class="reveal"><summary>{e(q)}{ico("plus")}</summary><p>{e(a)}</p></details>' for q, a in items) + '</div>'
+
+def faq_schema(items):
+    return {"@context": "https://schema.org", "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in items]}
+
+def business_schema(L):
+    return {
+        "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
+        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
+        "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
+        "priceRange": "€€", "currenciesAccepted": "EUR",
+        "legalName": LEGAL_NAME,
+        "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
+        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
+        "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}, {"@type": "City", "name": "Bruxelles" if L=="fr" else "Brussel"}],
+        "knowsLanguage": ["fr", "nl"],
+        "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
+        "knowsAbout": [s[L]["name"] for s in SERVICES],
+        "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
+            "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
+    }
+
+def crumbs_schema(items):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i+1, "name": n, "item": u} for i, (n, u) in enumerate(items)]}
+
+URG = {
+ "fr": {"btn": "Ça déborde ? Les 3 gestes à faire maintenant", "title": "Ça déborde ? Faites ces 3 gestes",
+        "lead": "En attendant le technicien, ces gestes limitent les dégâts.",
+        "steps": [("valve", "Coupez l'arrivée d'eau", "Fermez le robinet d'arrêt : sous l'évier, derrière le WC ou près du compteur."),
+                  ("nowater", "N'utilisez plus d'eau", "Plus de chasse, de lave-linge ni de lave-vaisselle tant que ça ne s'écoule pas."),
+                  ("nochem", "Pas de produit chimique", "Les déboucheurs chimiques abîment les tuyaux et sont dangereux en cas d'éclaboussure.")],
+        "call": "Appeler un technicien", "close": "Fermer"},
+ "nl": {"btn": "Loopt het over? De 3 dingen die je nu doet", "title": "Loopt het over? Doe deze 3 dingen",
+        "lead": "In afwachting van de technieker beperken deze stappen de schade.",
+        "steps": [("valve", "Sluit de watertoevoer af", "Draai de afsluitkraan dicht: onder de gootsteen, achter het toilet of bij de meter."),
+                  ("nowater", "Gebruik geen water meer", "Niet meer spoelen, geen wasmachine of vaatwasser tot het weer wegloopt."),
+                  ("nochem", "Geen chemische producten", "Chemische ontstoppers beschadigen de leidingen en zijn gevaarlijk bij spatten.")],
+        "call": "Een technieker bellen", "close": "Sluiten"},
+}
+URG_ART = {
+ "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#c2410c" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#9a3412"/></svg>',
+ "nowater": '<svg viewBox="0 0 48 48" aria-hidden="true"><path class="ua-drop" d="M24 8c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z" fill="#38bdf8"/><circle cx="24" cy="26" r="19" fill="none" stroke="#b91c1c" stroke-width="3.5"/><path d="M11 39 37 13" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/></svg>',
+ "nochem": '<svg viewBox="0 0 48 48" aria-hidden="true"><g class="ua-bottle"><rect x="17" y="6" width="14" height="6" rx="2" fill="#64748b"/><path d="M15 14h18v26a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4z" fill="#a3e635"/><rect x="18" y="24" width="12" height="9" rx="2" fill="#fff" opacity=".85"/></g><circle cx="35" cy="35" r="10" fill="#b91c1c"/><path d="M31 31l8 8M39 31l-8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+}
+
+def urg_btn(L):
+    return f'<button type="button" class="urg-btn" data-urg>{ico("alert")}<span>{URG[L]["btn"]}</span>{ico("chevr")}</button>'
+
+def urg_dialog(L):
+    T = URG[L]
+    steps = "".join(f'<li style="--i:{i}"><span class="urg-art">{URG_ART[k]}</span><span class="urg-n">{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>'
+                    for i, (k, a, b) in enumerate(T["steps"]))
+    return f'''<dialog class="urg" id="urgence" aria-labelledby="urg-t">
+ <button type="button" class="urg-x" data-urg-close aria-label="{T["close"]}">{ico("plus")}</button>
+ <span class="urg-k">{ico("alert")}{"Urgence" if L=="fr" else "Noodgeval"}</span>
+ <h2 id="urg-t">{T["title"]}</h2><p class="urg-lead">{T["lead"]}</p>
+ <ol class="urg-steps">{steps}</ol>
+ <div class="urg-cta">{btn_call(L, "btn-lg btn-block", T["call"] + " · " + PHONE_DISPLAY)}</div>
+</dialog>'''
+
+def cookie_bar(L):
+    fr = L == "fr"
+    txt = ("Aucun cookie publicitaire ni de suivi sur ce site."
+           if fr else "Geen advertentie- of trackingcookies op deze site.")
+    more = "En savoir plus" if fr else "Meer info"
+    ok = "J'ai compris" if fr else "Begrepen"
+    return (f'<div class="ck-bar" role="region" aria-label="Cookies" hidden><span class="ck-ic" aria-hidden="true">'
+            f'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3-3 3 3 0 0 1-3-3 3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
+            f'<circle cx="8.5" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1" fill="currentColor"/></svg></span>'
+            f'<p>{e(txt)} <a href="{url(L, UI[L]["privacy_slug"])}">{more}</a></p>'
+            f'<button type="button" class="btn ck-ok" data-ck-ok>{ok}</button></div>')
+
+def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex=False):
+    other = UI[L]["other"]
+    canon = abs_url(L, page)
+    alt = abs_url(other, alt_page)
+    fr_url = canon if L == "fr" else alt
+    nl_url = canon if L == "nl" else alt
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>' for s in schemas)
+    robots = '<meta name="robots" content="noindex">' if noindex else '<meta name="robots" content="index, follow, max-image-preview:large">'
+    hl = "" if noindex else (f'<link rel="alternate" hreflang="fr-BE" href="{fr_url}">\n<link rel="alternate" hreflang="nl-BE" href="{nl_url}">\n'
+                             f'<link rel="alternate" hreflang="x-default" href="{fr_url}">')
+    if 'id="diagnostic"' not in body:
+        body = body.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
+    foot = footer(L)
+    if 'id="diagnostic"' not in body:
+        foot = foot.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
+    return f'''<!doctype html>
+<html lang="{L}-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{e(title)}</title>
+<meta name="description" content="{e(desc)}">
+{robots}
+<link rel="canonical" href="{canon}">
+{hl}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{BRAND}">
+<meta property="og:locale" content="{"fr_BE" if L=="fr" else "nl_BE"}">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:url" content="{canon}">
+<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b2545">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
+<script>document.documentElement.classList.add("js")</script>
+{ld}
+</head>
+<body>
+{header(L, url(other, alt_page), current)}
+<main id="main">
+{body}
+</main>
+{foot}
+{urg_dialog(L)}
+{cookie_bar(L)}
+<script src="/assets/app.js?v={VERSION}" defer></script>
+</body>
+</html>'''
+
+
+
+# ================================================================ STYLE « SOLARIS » ADAPTÉ À ABS
+LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#c2410c"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#c2410c" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'''
+
+PHOTOS = {
+ "sink":     ("photo-1676210133055-eab6ef033ce3", {"fr": "Technicien débouchant la canalisation sous un évier", "nl": "Technieker ontstopt de afvoer onder een gootsteen"}),
+ "siphon":   ("photo-1676210134188-4c05dd172f89", {"fr": "Démontage d'un siphon sous un lavabo", "nl": "Demontage van een sifon onder een lavabo"}),
+ "bathroom": ("photo-1749532125405-70950966b0e5", {"fr": "Plombier intervenant dans une salle de bain", "nl": "Loodgieter aan het werk in een badkamer"}),
+ "sewer":    ("photo-1779518083245-bb0397ac17f9", {"fr": "Technicien intervenant sur un regard d'égout", "nl": "Technieker aan het werk aan een rioolput"}),
+ "pipecam":  ("photo-1608094920051-d3a31d5db8db", {"fr": "Intérieur d'une canalisation, vue caméra", "nl": "Binnenkant van een leiding, camerabeeld"}),
+ "wc":       ("photo-1587527901949-ab0341697c1e", {"fr": "WC dans une salle de bain moderne", "nl": "Toilet in een moderne badkamer"}),
+ "wallwork": ("photo-1676210134050-6f12c6898395", {"fr": "Technicien en gants de travail dans une salle de bain", "nl": "Technieker met werkhandschoenen in een badkamer"}),
+ "bath":     ("photo-1638799869566-b17fa794c4de", {"fr": "Baignoire et douche dans une salle de bain", "nl": "Bad en douche in een badkamer"}),
+ "floordrain": ("photo-1745265796934-c34e78554872", {"fr": "Siphon de sol métallique", "nl": "Metalen vloerputje"}),
+ "pipes":    ("photo-1607472586893-edb57bdc0e39", {"fr": "Canalisations et colonnes d'évacuation", "nl": "Leidingen en afvoerkolommen"}),
+ "valves":   ("photo-1650551182991-b07558247564", {"fr": "Réseau de canalisations et vannes", "nl": "Netwerk van leidingen en kranen"}),
+ "tools":    ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
+}
+SVC_PHOTO = {"wc": "wc", "sanibroyeur": "wallwork", "evier": "sink", "lavabo": "siphon", "douche": "bathroom",
+             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam"}
+
+def photo_url(key, w=1200, h=None):
+    return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}{f'&h={h}' if h else ''}&q=72"
+
+def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(480, 800, 1200, 1600)):
+    src = ", ".join(f"{photo_url(key, w)} {w}w" for w in widths)
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return f'<img src="{photo_url(key, 1200)}" srcset="{src}" sizes="{sizes}" alt="{e(PHOTOS[key][1][L])}" width="1200" height="800" {load} decoding="async">'
+
+TX = {
+ "fr": {
+  "h1": "Débouchage en Belgique · 24h/24",
+  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
+             ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
+             ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
+  "avail": ("Technicien disponible", "Jour et nuit"),
+  "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
+  "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
+  "feat": [("shield", "Techniciens expérimentés", "Des déboucheurs équipés de furets électriques, de pompes haute pression et d'une caméra HD."),
+           ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
+           ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
+  "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
+  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
+  "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
+  "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
+  "card_eta": "Intervention rapide", "all": "Voir tous les services",
+  "steps_chip": "Comment ça se passe", "steps_title": "Quatre étapes, <em>zéro surprise.</em>",
+  "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
+            ("truck", "Intervention", "Le technicien arrive rapidement, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
+  "diag_chip": "Diagnostic express", "diag_title": "Trois questions, et vous savez <em>quoi faire.</em>",
+  "band_title": "Un appel suffit. On se déplace.", "band_lead": "On écoute votre problème, on vous donne le prix au téléphone, et un technicien part chez vous.",
+  "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
+ },
+ "nl": {
+  "h1": "Ontstopping in België · 24/7",
+  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
+             ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
+             ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
+  "avail": ("Technieker beschikbaar", "Dag en nacht"),
+  "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
+  "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
+  "feat": [("shield", "Ervaren techniekers", "Ontstoppers met elektrische veren, hogedrukpompen en een HD-camera."),
+           ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
+           ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
+  "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
+  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
+  "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
+  "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
+  "card_eta": "Snelle interventie", "all": "Alle diensten",
+  "steps_chip": "Hoe het werkt", "steps_title": "Vier stappen, <em>geen verrassingen.</em>",
+  "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
+            ("truck", "Interventie", "De technieker is er snel, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
+  "diag_chip": "Snelle diagnose", "diag_title": "Drie vragen, en je weet <em>wat te doen.</em>",
+  "band_title": "Eén telefoontje volstaat. Wij komen.", "band_lead": "We luisteren naar je probleem, geven je de prijs aan de telefoon, en een technieker vertrekt naar je toe.",
+  "photo_credit": "Foto's: Unsplash", "menu_home": "Home",
+ },
+}
+
+def chip(t):
+    return f'<span class="chip"><i></i>{t}</span>'
+
+def sh(c, title, lead=None, center=False):
+    return f'<div class="sh{" center" if center else ""} reveal"><h2>{title}</h2>{f"<p>{lead}</p>" if lead else ""}</div>'
+
+def header(L, alt_url, current=""):
+    u = UI[L]
+    items = "".join(
+        f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
+        for s in SERVICES)
+    lang_sw = (f'<span>FR</span><a href="{alt_url}" hreflang="nl" lang="nl">NL</a>' if L == "fr"
+               else f'<a href="{alt_url}" hreflang="fr" lang="fr">FR</a><span>NL</span>')
+    def cur(k): return ' aria-current="page"' if current == k else ""
+    solid = " nav-solid" if current == "solid" else ""
+    return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
+<div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
+ <nav class="nav" id="nav" aria-label="Navigation">
+  <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
+  <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
+  <a class="hide-md" href="{url(L, u["about_slug"])}"{cur("about")}>{u["nav_about"]}</a>
+  <a href="{url(L, u["contact_slug"])}"{cur("contact")}>{u["nav_contact"]}</a>
+  <a class="lang-m" href="{alt_url}" hreflang="{u["other"]}">{"Nederlands" if L=="fr" else "Français"}</a>
+ </nav>
+ <div class="lang" aria-label="Langue / Taal">{lang_sw}</div>
+ <a class="btn btn-call head-call" href="tel:{PHONE_TEL}" aria-label="{u["call"]} {PHONE_DISPLAY}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
+ <button class="burger" type="button" aria-label="{u["menu"]}" aria-controls="nav" aria-expanded="false">{ico("menu")}</button>
+</div></div></div>'''
+
+def footer(L):
+    """Pied de page compact : tous les liens restent présents (référencement), sur moins de place."""
+    u = UI[L]; fr = L == "fr"
+    svc = "".join(f'<li><a href="{url(L, s["slug"][L])}">{e(s[L]["name"])}</a></li>' for s in SERVICES)
+    return f'''<footer class="footer fc"><div class="wrap">
+ <div class="fc-top">
+  <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
+  <div class="fc-contact"><a class="phone" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a><span>{u["foot_hours"]} · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div>
+ </div>
+ <nav class="fc-svc" aria-label="{u["foot_services"]}"><h2 class="fh">{u["foot_services"]}</h2><ul>{svc}</ul></nav>
+ <div class="fc-bottom">
+  <p class="fc-legal">© {datetime.date.today().year} {BRAND} · {LEGAL_NAME} · {STREET}, {POSTCODE} {CITY[L]} · {u["vat"]} {VAT}</p>
+  <ul class="fc-links"><li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li><li><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></li></ul>
+ </div>
+</div></footer>
+<div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if fr else "Diagnose"}</span></a></div>'''
+
+# ---------------------------------------------------------------- héros diaporama
+def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side=""):
+    """slides : liste de (photo, kicker, titre_html, texte, libellé_barre)"""
+    u = UI[L]; t = TX[L]
+    imgs = "".join(f'<div class="slide{" on" if i==0 else ""}">{img(p, L, eager=(i==0), sizes="100vw", widths=(800, 1280, 1920, 2400))}</div>' for i, (p, *_ ) in enumerate(slides))
+    if big_h1:
+        txts = "".join(f'<div class="on"><h1 class="t">{ti}</h1><p>{e(tx)}</p></div>' for (_, k, ti, tx, _l) in slides)
+    else:
+        txts = "".join(f'<div class="{"on" if i==0 else ""}"><span class="k">{k}</span><span class="t">{ti}</span><p>{e(tx)}</p></div>' for i, (_, k, ti, tx, _l) in enumerate(slides))
+    prog = ""
+    if len(slides) > 1:
+        prog = '<ol class="prog">' + "".join(f'<li><button type="button"{" class=on" if i==0 else ""} aria-label="{e(lb)}"><span class="bar"><i></i></span>{e(lb)}</button></li>' for i, (*_, lb) in enumerate(slides)) + '</ol>'
+    cr = ""
+    if crumbs:
+        cr = '<ol class="crumbs">' + "".join((f'<li><a href="{h}">{e(n)}</a></li>' if h else f'<li aria-current="page">{e(n)}</li>') for n, h in crumbs) + '</ol>'
+    a1, a2 = t["avail"]
+    return f'''<section class="hero {cls}"{" data-slider" if len(slides)>1 else ""}>
+ <div class="slides">{imgs}</div>
+ <div class="wrap hero-inner">
+  {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
+  <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
+  <div class="slide-txt">{txts}</div>
+  {extra}
+  <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
+  {('</div><div class="hero-side">' + side + '</div></div>') if side else ""}
+  <div class="hero-foot">{('<div class="prog-wrap">' + prog + '<button type="button" class="pause" aria-pressed="false" aria-label="' + ("Mettre le diaporama en pause" if L=="fr" else "Diavoorstelling pauzeren") + '">' + ico("pause") + '</button></div>') if prog else "<span></span>"}</div>
+ </div>
+</section>'''
+
+
+def hero_home(L):
+    """Héros de l'accueil : accroche + canalisation animée qui se débouche."""
+    u = UI[L]; t = TX[L]
+    if L == "fr":
+        title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
+        lead = "Un technicien équipé chez vous rapidement, jour et nuit. Prix annoncé avant de commencer, sans casse."
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
+        aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
+        lab, rep = "Vue en coupe", "Rejouer"
+    else:
+        title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
+        lead = "Een uitgeruste technieker snel bij je, dag en nacht. Prijs vooraf gekend, zonder breekwerk."
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
+        aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
+        lab, rep = "Doorsnede", "Opnieuw"
+    checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
+    a1, a2 = t["avail"]
+    return f'''<section class="hero hero-pipe hero-video">
+ <div class="hv-media" aria-hidden="true">
+  <img class="hp-poster" src="/assets/video/hero-poster.jpg" alt="" width="1024" height="576" fetchpriority="high">
+  <video class="hp-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="/assets/video/hero-poster.jpg" tabindex="-1"><source src="/assets/video/hero.mp4?v=3" type="video/mp4"></video>
+  <img class="hp-anim" alt="" width="1024" height="576" data-src="/assets/video/hero.webp?v=2" hidden>
+ </div>
+ <div class="hp-shade" aria-hidden="true"></div>
+ <div class="wrap hero-inner hv-inner">
+  <div class="hp-copy">
+   <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
+   <p class="hp-title">{title}</p>
+   <p class="hp-lead">{e(lead)}</p>
+   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
+   <ul class="hp-checks">{checks}</ul>
+  </div>
+ </div>
+</section>'''
+
+# ---------------------------------------------------------------- blocs
+def intro_section(L, photo="valves"):
+    t = TX[L]
+    feats = "".join(f'<li><span class="ic">{ico(i)}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>' for i, a, b in t["feat"])
+    stats = "".join(f"<div><b>{a}</b><span>{b}</span></div>" for a, b in t["stats"])
+    h1, h2, h3 = t["hq"]
+    return f'''<section class="section intro-sec"><div class="wrap intro">
+ <div class="reveal">
+  {sh(t["intro_chip"], t["intro_title"], t["intro_lead"])}
+  <ul class="feat">{feats}</ul>
+  {btn_call(L, "btn-lg", UI[L]["call_now"])}
+ </div>
+ <div class="hq reveal" data-d="2">
+  <div class="hq-ph">{house_svg(L)}</div>
+  <div class="hq-body">
+   <div class="hq-top"><div><small>{h1}</small><b>{h2}</b></div><span class="badge-ok"><span class="pulse"></span>{h3}</span></div>
+   <div class="stats">{stats}</div>
   </div>
  </div>
 </div></section>'''
+
+GROUPS = [  # (service principal = lien + animation, autres services de la famille)
+ ("wc", ["sanibroyeur"], {"fr": "WC & sanibroyeur", "nl": "Wc & sanibroyeur"},
+  {"fr": "Cuvette qui déborde, WC suspendu, broyeur bloqué.", "nl": "Overlopende pot, hangtoilet, geblokkeerde vermaler."}),
+ ("evier", ["lavabo", "cuisine"], {"fr": "Évier, lavabo & cuisine", "nl": "Gootsteen, lavabo & keuken"},
+  {"fr": "Graisse, cheveux, siphon et conduites de cuisine.", "nl": "Vet, haren, sifon en keukenleidingen."}),
+ ("douche", ["baignoire", "siphon"], {"fr": "Douche, bain & siphon de sol", "nl": "Douche, bad & afvoerputje"},
+  {"fr": "Eau qui stagne, sans casser le carrelage.", "nl": "Stilstaand water, zonder tegels te breken."}),
+ ("egout", ["camera"], {"fr": "Égout & inspection caméra", "nl": "Riool & camera-inspectie"},
+  {"fr": "Refoulement en cave, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, hogedruk, HD-camera."}),
+]
+
+def cards(L, exclude=None):
+    """4 familles de services (moins de choix) ; chaque famille mène à sa page principale."""
+    items = []
+    for i, (main, others, title, desc) in enumerate(GROUPS):
+        s = svc_by_id(main)
+        links = " · ".join(f'<span>{e(svc_by_id(o)[L]["name"])}</span>' for o in others)
+        items.append(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
+ <span class="sv-anim sc-mini" data-mini>{scene_mini(L, main, f"g{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
+ <span class="sv-body"><span class="sv-t">{e(title[L])}</span><span class="sv-d">{e(desc[L])}</span><span class="sv-m">{"Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"}</span></span>
+ <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
+</a></li>''')
+    return f'<ul class="svc-grid land g-4">{"".join(items)}</ul>'
+
+PIPE_FX = ('<div class="spw" aria-hidden="true">'
+           '<div class="spw-run"><i class="spw-water"></i></div>'
+           '<b class="spw-m m1"></b><b class="spw-m m2"></b><b class="spw-m m3"></b>'
+           '<svg class="spw-elbow" viewBox="0 0 44 44"><path d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#8796aa" stroke-width="24"/>'
+           '<path d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#e6ecf2" stroke-width="20"/>'
+           '<path class="spw-ew" d="M0 11H11Q33 11 33 33V44" fill="none" stroke="#38bdf8" stroke-width="13"/>'
+           '<path d="M0 6H11Q38 6 38 33V44" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/></svg>'
+           '<div class="spw-down"><i class="spw-water"></i></div><b class="spw-flange"></b>'
+           '<i class="spw-fall"></i><i class="spw-drop d1"></i><i class="spw-drop d2"></i>'
+           '<span class="spw-drain"><i class="r1"></i><i class="r2"></i></span></div>')
+
+def steps_html(items):
+    """Liste d'étapes reliées par un tuyau ; l'eau finit dans une grille d'égout."""
+    return f'<div class="steps-wrap">{PIPE_FX}<ol class="steps">{items}</ol></div>'
+
+TOOLS = {
+ "fr": {"kick": "Notre matériel", "title": "Le bon outil <em>pour chaque bouchon.</em>",
+        "lead": "Pas de produit chimique, pas de casse : du matériel professionnel, adapté à votre canalisation.",
+        "items": [("furet", "Furet électrique", "WC, évier, lavabo, douche", "Un câble rotatif qui perce et ramène le bouchon, sans abîmer la faïence."),
+                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau jusqu'à 400 bars qui décolle graisses, calcaire et racines."),
+                  ("cam", "Caméra d'inspection HD", "Bouchons à répétition", "On voit l'intérieur du tuyau en direct et on localise le problème.")]},
+ "nl": {"kick": "Ons materiaal", "title": "Het juiste gereedschap <em>voor elke verstopping.</em>",
+        "lead": "Geen chemische producten, geen breekwerk: professioneel materiaal, aangepast aan je leiding.",
+        "items": [("furet", "Elektrische veer", "Wc, gootsteen, lavabo, douche", "Een draaiende kabel die de prop doorboort en verwijdert, zonder het porselein te beschadigen."),
+                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een waterstraal tot 400 bar die vet, kalk en wortels losmaakt."),
+                  ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
+}
+TOOL_ART = {
+ "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<path class="ta-clog" d="M112 44c10-3 18 4 18 13s-8 16-18 13c-6-2-8-7-8-13s2-11 8-13z" fill="#8a5a2b"/>
+<g class="ta-cable"><path d="M-80 57h170" stroke="#fbbf24" stroke-width="4" stroke-dasharray="6 4" class="ta-spin"/><path d="M90 50l14 7-14 7z" fill="#e2e8f0"/></g>
+<rect x="10" y="16" width="34" height="18" rx="5" fill="#c2410c"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
+ "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<g class="ta-jet" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"><path d="M64 57h40"/><path d="M64 52l34-8"/><path d="M64 62l34 8"/></g>
+<g class="ta-dirt" fill="#a3895a"><circle cx="118" cy="50" r="4"/><circle cx="130" cy="62" r="5"/><circle cx="142" cy="52" r="3.5"/></g>
+<path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><path d="M50 51h14l6 6-6 6H50z" fill="#e2e8f0"/></svg>''',
+ "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#12263f" stroke="#2b4a6e" stroke-width="2"/>
+<path d="M120 42l6 9-5 6 8 9" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" class="ta-crack"/>
+<g class="ta-cam"><polygon points="74,50 118,40 118,74 74,64" fill="#fde047" opacity=".18"/><path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><rect x="50" y="49" width="22" height="16" rx="4" fill="#e2e8f0"/><circle cx="72" cy="57" r="5" fill="#0ea5e9" stroke="#e2e8f0" stroke-width="2"/></g>
+<circle cx="146" cy="20" r="5" fill="#ef4444" class="ta-rec"/></svg>''',
+}
+
+def tools_section(L):
+    T = TOOLS[L]
+    cards = "".join(f'''<li class="tool reveal" data-d="{i}"><div class="tool-art">{TOOL_ART[k]}</div><span class="tool-tag">{e(tag)}</span><h3>{e(n)}</h3><p>{e(d)}</p></li>'''
+                    for i, (k, n, tag, d) in enumerate(T["items"]))
+    return f'''<section class="section tools-sec" id="materiel"><div class="wrap">
+ {sh(T["kick"], T["title"], T["lead"])}
+ <ul class="tools">{cards}</ul>
+</div></section>'''
+
+def steps_section(L, cls="soft"):
+    t = TX[L]
+    st = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (ic, a, b) in enumerate(t["steps"]))
+    return f'<section class="section {cls}"><div class="wrap">{sh(t["steps_chip"], t["steps_title"], center=True)}{steps_html(st)}</div></section>'
+
+def diagnostic(L, pre=None, photo="pipecam"):
+    U = DIAG_UI[L]; u = UI[L]; t = TX[L]
+    svc = {}
+    for s in SERVICES:
+        tip = s[L]["tip"]
+        for pfx in ("En attendant le technicien : ", "In afwachting van de technieker: ", "En attendant : ", "In afwachting: "):
+            if tip.startswith(pfx): tip = tip[len(pfx):]
+        svc[s["id"]] = {"name": s[L]["name"], "price": s["price"], "tip": tip[0].upper() + tip[1:],
+                        "sits": [[a, (b if L == "fr" else c)] for a, b, c in DIAG[s["id"]]]}
+    svc["autre"] = {"name": U["other"], "price": None, "tip": None, "sits": [[a, (b if L == "fr" else c)] for a, b, c in DIAG["autre"]]}
+    ui = {k: U[k] for k in ("step", "sev", "price", "price_q", "wait", "wait_generic", "wa")}
+    ui.update({"from": u["from"], "chev": ico("chevr"), "icons": {"urgent": ico("alert"), "today": ico("clock"), "plan": ico("check")}})
+    data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
+    order = ["wc", "evier", "douche", "egout", "autre"]
+    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder")}
+    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
+    uid = f"dg-{L}-{pre or 'x'}"
+    pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
+    return f'''<section class="section dark diag-sec on-dark" id="diagnostic">
+ <div class="bgimg" aria-hidden="true">{img(photo, L, sizes="100vw", widths=(800, 1600))}</div>
+ <div class="diag-rain" aria-hidden="true"><i style="left:4%;--h:18px;--d:2.6s;--l:0s"></i><i style="left:11%;--h:26px;--d:3.4s;--l:1.2s"></i><i style="left:19%;--h:14px;--d:2.2s;--l:0.4s"></i><i style="left:27%;--h:22px;--d:3.0s;--l:2.0s"></i><i style="left:36%;--h:16px;--d:2.5s;--l:0.9s"></i><i style="left:44%;--h:28px;--d:3.6s;--l:2.6s"></i><i style="left:52%;--h:18px;--d:2.8s;--l:0.2s"></i><i style="left:61%;--h:24px;--d:3.2s;--l:1.6s"></i><i style="left:69%;--h:14px;--d:2.3s;--l:2.9s"></i><i style="left:77%;--h:20px;--d:2.9s;--l:0.7s"></i><i style="left:85%;--h:26px;--d:3.5s;--l:2.2s"></i><i style="left:93%;--h:16px;--d:2.4s;--l:1.1s"></i><i style="left:48%;--h:12px;--d:2.0s;--l:3.1s"></i><i style="left:15%;--h:12px;--d:2.1s;--l:3.4s"></i></div>
+ <div class="wrap diag-wrap">
+  <div class="diag-aside reveal">
+   {sh(t["diag_chip"], t["diag_title"], U["lead"])}
+   <p class="alt">{U["alt"]}<br><a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a></p>
+  </div>
+  <div class="diag reveal" data-d="2" data-diag='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
+   <div class="diag-head"><div><h3>{U["box"]}</h3></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
+   <div class="diag-body">
+    <div class="diag-panel" data-p="1"><p class="diag-q" tabindex="-1">{U["q1"]}</p><p class="diag-hint">{U["h1"]}</p><div class="diag-grid">{opts}</div></div>
+    <div class="diag-panel" data-p="2" hidden><p class="diag-q" tabindex="-1">{U["q2"]}</p><p class="diag-hint">{U["h2"]}</p><div class="d-list" data-sits></div>
+     <div class="diag-nav"><button type="button" class="d-back" data-back="1">{ico("chevl")}{U["back"]}</button></div></div>
+    <div class="diag-panel" data-p="3" hidden><p class="diag-q" tabindex="-1" style="margin-bottom:14px">{U["q3"]}</p><div data-result></div>
+     <div class="fields">
+      <div class="field"><label for="{uid}-w">{U["where"]}</label><input id="{uid}-w" name="where" type="text" autocomplete="address-level2" placeholder="{e(U["where_ph"])}" aria-describedby="{uid}-err"><p class="err" id="{uid}-err" role="alert">{U["err"]}</p></div>
+      <div class="field"><label for="{uid}-n">{U["name"]} <small>{U["opt"]}</small></label><input id="{uid}-n" name="name" type="text" autocomplete="given-name"></div>
+     </div>
+     <div class="res-actions"><button type="button" class="btn btn-wa btn-lg" data-send>{ico("wa")}<span>{U["send"]}</span></button><a class="btn btn-call btn-lg" href="tel:{PHONE_TEL}">{ico("phone")}<span>{U["call"]}</span></a></div>
+     <p class="diag-note">{U["note"]}</p><p class="diag-sent" role="status">{U["sent"]}</p>
+     <div class="diag-nav"><button type="button" class="d-back" data-back="2">{ico("chevl")}{U["back"]}</button></div></div>
+   </div>
+   <div class="diag-noscript"><p style="margin-bottom:12px">{U["noscript"]}</p>{btn_call(L, "btn-lg", PHONE_DISPLAY)}</div>
+  </div>
+ </div>
+</section>'''
+
+PRICE_TX = {
+ "fr": {"kick": "Tarifs transparents", "title": "Comment on fixe <em>votre prix</em>",
+        "lead": "Chaque bouchon est différent. On regarde votre situation, puis on vous annonce le prix avant de commencer.",
+        "f_title": "Ce qui fait varier le prix",
+        "factors": [("pipes", "Le type de bouchon", "Un siphon de lavabo ou une colonne d'égout, ce n'est pas le même travail."),
+                    ("pin", "L'accès", "Étage, regard extérieur, cave ou faux plafond."),
+                    ("gauge", "Le matériel nécessaire", "Furet, haute pression ou caméra d'inspection."),
+                    ("clock", "Le moment de l'intervention", "En journée, la nuit ou le week-end.")],
+        "e_title": "Nos engagements", "e_lead": "Ce qui ne change jamais, quelle que soit l'intervention :",
+        "eng": ["Le prix est annoncé avant de commencer", "Aucun travail sans votre accord", "Pas de frais cachés sur la facture",
+                "Facture officielle avec n° TVA pour votre assurance"],
+        "cta": "Recevoir mon prix", "or": "ou appelez le"},
+ "nl": {"kick": "Transparante prijzen", "title": "Hoe we <em>je prijs</em> bepalen",
+        "lead": "Elke verstopping is anders. We bekijken je situatie en geven je de prijs voordat we beginnen.",
+        "f_title": "Wat de prijs beïnvloedt",
+        "factors": [("pipes", "Het soort verstopping", "Een lavabosifon of een rioolkolom is niet hetzelfde werk."),
+                    ("pin", "De toegang", "Verdieping, buitenput, kelder of vals plafond."),
+                    ("gauge", "Het nodige materiaal", "Veer, hogedruk of inspectiecamera."),
+                    ("clock", "Het moment van de interventie", "Overdag, 's nachts of in het weekend.")],
+        "e_title": "Onze beloftes", "e_lead": "Wat nooit verandert, welke interventie ook:",
+        "eng": ["De prijs wordt vooraf meegedeeld", "Geen werk zonder je akkoord", "Geen verborgen kosten op de factuur",
+                "Officiële factuur met btw-nummer voor je verzekering"],
+        "cta": "Mijn prijs ontvangen", "or": "of bel"},
+}
+
+# icônes animées de la partie Tarifs (SVG, animation CSS en continu)
+PF_ICONS = {
+ "pipes": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#7aa7c7" stroke-width="5" stroke-linecap="round"/><path d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path class="pfa-flow" d="M2 7h9a6 6 0 0 1 6 6v9" fill="none" stroke="#0ea5e9" stroke-width="2.4" stroke-linecap="round"/></svg>',
+ "pin": '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse class="pfa-shadow" cx="12" cy="21" rx="4" ry="1.3" fill="#0369a1" opacity=".3"/><g class="pfa-pin"><path d="M12 19s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" fill="#0369a1"/><circle cx="12" cy="9" r="2.3" fill="#fff"/></g></svg>',
+ "gauge": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0" fill="none" stroke="#7aa7c7" stroke-width="2.2" stroke-linecap="round"/><path d="M16.5 10.5 18 9" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round"/><g class="pfa-needle"><path d="M12 17 12 9.5" stroke="#0369a1" stroke-width="2.4" stroke-linecap="round"/></g><circle cx="12" cy="17" r="2" fill="#0369a1"/></svg>',
+ "clock": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="pfa-face" cx="12" cy="12.5" r="8.5" fill="none" stroke-width="2.2"/><g class="pfa-h"><path d="M12 12.5V8.5" stroke-width="2.4" stroke-linecap="round"/></g><g class="pfa-m"><path d="M12 12.5V6" stroke-width="1.8" stroke-linecap="round"/></g><circle class="pfa-sun" cx="19.5" cy="4.5" r="2.6" fill="#f59e0b"/><path class="pfa-moon" d="M20.8 2.4a3 3 0 1 0 1.6 4.6 2.4 2.4 0 0 1-1.6-4.6z" fill="#e2e8f0"/></svg>',
+}
+
+ENG_TX = {
+ "fr": {"kick": "Garanti sur chaque intervention", "ring": "PRIX ANNONCÉ · ZÉRO SURPRISE · GARANTI · ",
+        "items": [("euro", "Prix annoncé avant de commencer", "Au téléphone ou sur WhatsApp, avant le départ du technicien."),
+                  ("check", "Aucun travail sans votre accord", "Vous validez le prix, puis on commence. Jamais l'inverse."),
+                  ("file", "Pas de frais cachés", "Le prix annoncé est celui qui figure sur la facture."),
+                  ("shield", "Facture pour votre assurance", "Officielle, avec n° TVA et rapport technique.")],
+        "r1": "Prix annoncé = prix facturé", "r2": "Surprise : 0,00 €", "r_aria": "Le prix annoncé est le prix facturé : aucune surprise"},
+ "nl": {"kick": "Gegarandeerd bij elke interventie", "ring": "PRIJS VOORAF · GEEN VERRASSING · GARANTIE · ",
+        "items": [("euro", "Prijs vooraf meegedeeld", "Telefonisch of via WhatsApp, voordat de technieker vertrekt."),
+                  ("check", "Geen werk zonder je akkoord", "Jij keurt de prijs goed, dan beginnen we. Nooit andersom."),
+                  ("file", "Geen verborgen kosten", "De meegedeelde prijs staat op de factuur."),
+                  ("shield", "Factuur voor je verzekering", "Officieel, met btw-nummer en technisch verslag.")],
+        "r1": "Meegedeelde prijs = gefactureerde prijs", "r2": "Verrassing: € 0,00", "r_aria": "De meegedeelde prijs is de gefactureerde prijs: geen verrassingen"},
+}
+
+def prices_section(L, cls=""):
+    T = PRICE_TX[L]
+    facts = "".join(f'<li class="reveal" data-d="{i}"><span class="pf-ic pf-{ic}">{PF_ICONS[ic]}</span><div><h4>{e(a)}</h4><p>{e(b)}</p></div></li>'
+                    for i, (ic, a, b) in enumerate(T["factors"]))
+    E = ENG_TX[L]
+    eng = "".join(f'''<li style="--i:{i}"><span class="pe-ic" aria-hidden="true">{ico(ic)}</span><div><b>{e(t)}</b><small>{e(d)}</small></div></li>'''
+                  for i, (ic, t, d) in enumerate(E["items"]))
+    ring = E["ring"]
+    seal = (f'''<svg class="pe-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pe-ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>'''
+            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7a35"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
+            f'''<g class="pe-ringtxt"><text><textPath href="#pe-ring" startOffset="0" textLength="286" lengthAdjust="spacingAndGlyphs">{e(ring)}</textPath></text></g>'''
+            f'''<circle cx="60" cy="60" r="31" fill="#0f2338" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#fb7a35" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
+    fr = L == "fr"
+    kick, title, lead = (("Le résultat", "Avant / <em>après</em>", "Un écoulement rétabli, des tuyaux propres, et un rapport pour votre assurance.") if fr else
+                         ("Het resultaat", "Voor / <em>na</em>", "Een vrije afvoer, propere leidingen en een verslag voor je verzekering."))
+    return f'''<section class="section {cls}" id="resultat"><div class="wrap pricing">
+ <div class="pr-left">
+  {sh(kick, title, lead)}
+  {btn_call(L, "btn-lg", UI[L]["call_now"])}
+ </div>
+ {compare_html(L, ico, T["cta"], PHONE_TEL, PHONE_DISPLAY, T["or"])}
+</div></section>'''
+
+PERI_CP = {"Zaventem": "1930", "Vilvorde": "1800", "Dilbeek": "1700", "Drogenbos": "1620", "Kraainem": "1950",
+           "Wezembeek-Oppem": "1970", "Machelen": "1830", "Grimbergen": "1850"}
+
+PROV_CP = {"bxl": [(1000, 1299)], "bw": [(1300, 1499)], "vb": [(1500, 1999), (3000, 3499)], "an": [(2000, 2999)],
+           "li": [(3500, 3999)], "lg": [(4000, 4999)], "na": [(5000, 5999)], "ha": [(6000, 6599), (7000, 7999)],
+           "lu": [(6600, 6999)], "wv": [(8000, 8999)], "ov": [(9000, 9999)]}
+
+def zone_map(L):
+    """Carte des provinces belges (toute la Belgique), dessinée dans la page."""
+    from map_be import MAP_BE
+    fr = L == "fr"
+    paths = "".join(f'<path class="zm-bxl{" zm-home" if pid == "bxl" else ""}" d="{d}" data-z="{pid}" data-n="{e(nfr if fr else nnl)}" data-cp="{cp}" data-x="{x}" data-y="{y}" style="--i:{i}"/>'
+                    for i, (pid, nfr, nnl, cp, d, (x, y)) in enumerate(MAP_BE["prov"]))
+    from map_be import RIVERS, BXL
+    hx, hy = BXL
+    RLAB = {"Meuse": (372, 300), "Escaut": (226, 112)}
+    lbl = "Carte de la zone d'intervention : toute la Belgique, au départ de Bruxelles" if fr else "Kaart van het werkgebied: heel België, vanuit Brussel"
+    return f'''<div class="zm-stage flat be"><svg class="zm-svg" viewBox="0 0 {MAP_BE["w"]} {MAP_BE["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid meet">
+<defs><clipPath id="be-clip">{"".join(f'<path d="{d}"/>' for pid, a, b2, cp, d, c in MAP_BE["prov"])}</clipPath></defs>
+<g class="zm-shapes" aria-hidden="true">{paths}</g>
+<g class="zm-rivers" clip-path="url(#be-clip)" aria-hidden="true">{"".join(f'<path class="rv rv{k}" d="{d}"/><path class="rv-f rv{k}" d="{d}" style="animation-delay:-{i*0.7:.1f}s"/>' for i, (n, d, k) in enumerate(RIVERS))}</g>
+<g class="zm-rlab" aria-hidden="true"><text x="{RLAB["Meuse"][0]}" y="{RLAB["Meuse"][1]}">{"Meuse" if fr else "Maas"}</text><text x="{RLAB["Escaut"][0]}" y="{RLAB["Escaut"][1]}">{"Escaut" if fr else "Schelde"}</text></g>
+<g class="zm-cap" aria-hidden="true" transform="translate({BXL[0]} {BXL[1]})"><path class="zc-star" d="M0-9l2.6 5.6 6.1.7-4.5 4.2 1.2 6.1L0 4.6l-5.4 3 1.2-6.1-4.5-4.2 6.1-.7z"/><text class="zc-t" x="12" y="-8">{"Bruxelles-Capitale" if fr else "Brussel-Hoofdstad"}</text></g>
+<g class="zm-base" aria-hidden="true"><circle class="zb-r" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-r r2" cx="{hx}" cy="{hy}" r="8"/><circle class="zb-d" cx="{hx}" cy="{hy}" r="5"/></g>
+<g class="zm-pipe" aria-hidden="true"><path class="zm-pipe-c" pathLength="100"/><path class="zm-pipe-w"/></g>
+<g class="zm-pin" aria-hidden="true" transform="translate({hx} {hy})"><ellipse class="zm-rip" rx="20" ry="7"/><ellipse class="zm-rip r2" rx="20" ry="7"/><g class="zm-drop"><g transform="scale(1.4)"><path d="M0 -2C-7 -11-10 -17-10 -22a10 10 0 0 1 20 0c0 5-3 11-10 20z"/><path class="zm-shine" d="M-4.5 -24a5 5 0 0 1 3-4"/></g></g><text class="zm-lbl" y="-56" text-anchor="middle"></text></g>
+</svg></div>'''
 
 def faq_html(items):
     return '<div class="faq">' + "".join(f'<details class="reveal"><summary>{e(q)}{ico("chev")}</summary><p>{e(a)}</p></details>' for q, a in items) + '</div>'
@@ -780,7 +1371,6 @@ HOME_FAQ = {
   ("Prix et délai", [
    ("Combien coûte un débouchage ?", "Ça dépend de ce qui bouche et où : un siphon d'évier ne demande pas le même travail qu'une colonne d'immeuble. Décrivez-nous la situation au téléphone ou via le diagnostic : on vous annonce le prix avant de se déplacer, et c'est ce prix-là qui figure sur la facture."),
    ("En combien de temps arrivez-vous ?", "Ça dépend de votre commune et de l'heure. Au téléphone, on vous donne une heure d'arrivée estimée, pas une promesse vague."),
-   ("Y a-t-il un supplément la nuit ou le week-end ?", "On intervient 24h/24 et 7j/7. Le prix annoncé au téléphone tient déjà compte de l'heure de l'intervention : il n'y a pas de surprise à l'arrivée."),
   ]),
   ("Qui paie ?", [
    ("Je suis locataire : c'est à moi ou au propriétaire de payer ?", "En général, un bouchon causé par l'usage (cheveux, graisse, lingettes) est à charge du locataire. Si la cause vient de l'installation elle-même (tuyau cassé, pente insuffisante, racines), c'est plutôt au propriétaire. Notre rapport indique la cause du bouchon, ce qui aide à trancher."),
@@ -793,14 +1383,12 @@ HOME_FAQ = {
   ]),
   ("Pendant et après", [
    ("Faudra-t-il casser quelque chose ?", "Presque jamais. On débouche au furet électrique ou à la haute pression, en passant par les accès existants : siphon, regard, bouchon de visite. Si la caméra montre un tuyau cassé, on vous montre les images et on vous explique avant de proposer quoi que ce soit."),
-   ("Comment éviter que ça recommence ?", "Trois coupables reviennent sans cesse : les lingettes dans les WC, même « biodégradables », la graisse de cuisson dans l'évier et les cheveux dans la douche. Une grille sur la bonde et l'huile de cuisson à la poubelle évitent la plupart des retours."),
   ]),
  ],
  "nl": [
   ("Prijs en tijd", [
    ("Hoeveel kost een ontstopping?", "Dat hangt af van wat verstopt is en waar: een gootsteensifon is ander werk dan een afvoerkolom in een gebouw. Beschrijf de situatie aan de telefoon of via de diagnose: we geven je de prijs voor we vertrekken, en die prijs staat op de factuur."),
    ("Hoe snel zijn jullie ter plaatse?", "Dat hangt af van je gemeente en het uur. Aan de telefoon krijg je een geschat aankomstuur, geen vage belofte."),
-   ("Is er een toeslag 's nachts of in het weekend?", "We komen 24/7. De prijs die je aan de telefoon krijgt, houdt al rekening met het uur van de interventie: geen verrassing bij aankomst."),
   ]),
   ("Wie betaalt?", [
    ("Ik huur: betaal ik of de eigenaar?", "Meestal is een verstopping door gebruik (haren, vet, doekjes) ten laste van de huurder. Ligt de oorzaak bij de installatie zelf (gebroken buis, te weinig verval, wortels), dan is het eerder voor de eigenaar. Ons verslag vermeldt de oorzaak, wat helpt om te beslissen."),
@@ -813,7 +1401,6 @@ HOME_FAQ = {
   ]),
   ("Tijdens en na", [
    ("Moet er iets opengebroken worden?", "Bijna nooit. We ontstoppen met een elektrische veer of hogedruk, via de bestaande toegangen: sifon, putje, ontstoppingsstop. Toont de camera een gebroken buis, dan laten we je de beelden zien en leggen we het uit voor we iets voorstellen."),
-   ("Hoe vermijd ik dat het opnieuw gebeurt?", "Drie boosdoeners komen steeds terug: doekjes in de wc, ook „afbreekbare”, frituur- en bakvet in de gootsteen en haren in de douche. Een zeefje op de afvoer en vet in de vuilnisbak voorkomen de meeste problemen."),
   ]),
  ],
 }
@@ -840,9 +1427,8 @@ def faq_section(L, items, title=None, cls="", groups=None):
  <div class="fq-head reveal"><h2>{title or u["f_title"]}</h2><p>{lead}</p></div>
  <div class="fq" data-fq>
   <div class="fq-list">{lst}</div>
-  <div class="fq-panel" aria-live="polite" hidden></div>
+  <div class="fq-side"><div class="fq-panel" aria-live="polite" hidden></div>{more}</div>
  </div>
- {more}
 </div></section>'''
 
 def band(L):
