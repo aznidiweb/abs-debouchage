@@ -607,11 +607,12 @@ def diagnostic(L, pre=None, photo="pipecam"):
  <div class="diag-rain" aria-hidden="true"><i style="left:4%;--h:18px;--d:2.6s;--l:0s"></i><i style="left:11%;--h:26px;--d:3.4s;--l:1.2s"></i><i style="left:19%;--h:14px;--d:2.2s;--l:0.4s"></i><i style="left:27%;--h:22px;--d:3.0s;--l:2.0s"></i><i style="left:36%;--h:16px;--d:2.5s;--l:0.9s"></i><i style="left:44%;--h:28px;--d:3.6s;--l:2.6s"></i><i style="left:52%;--h:18px;--d:2.8s;--l:0.2s"></i><i style="left:61%;--h:24px;--d:3.2s;--l:1.6s"></i><i style="left:69%;--h:14px;--d:2.3s;--l:2.9s"></i><i style="left:77%;--h:20px;--d:2.9s;--l:0.7s"></i><i style="left:85%;--h:26px;--d:3.5s;--l:2.2s"></i><i style="left:93%;--h:16px;--d:2.4s;--l:1.1s"></i><i style="left:48%;--h:12px;--d:2.0s;--l:3.1s"></i><i style="left:15%;--h:12px;--d:2.1s;--l:3.4s"></i></div>
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
-   {sh(t["diag_chip"], t["diag_title"], U["lead"])}
-   <p class="alt">{U["alt"]}<br><a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a></p>
+   {sh(t["diag_chip"], t["diag_title"], ("Gratuit, sans engagement, en moins d'une minute. Vous recevez :" if L == "fr" else "Gratis, vrijblijvend, in minder dan een minuut. Je krijgt:"))}
+   <ul class="dg-get">{"".join(f'<li><span class="dg-i">{ico(ic)}</span><span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in ((("gauge", "Le niveau d'urgence", "de votre situation"), ("euro", "Le prix de départ", "avant tout déplacement"), ("shield", "Les bons gestes", "à faire en attendant")) if L == "fr" else (("gauge", "Het dringendheidsniveau", "van je situatie"), ("euro", "De startprijs", "voor we vertrekken"), ("shield", "De juiste reflexen", "in afwachting"))))}</ul>
+   <p class="dg-start" aria-hidden="true"><span>{"Commencez ici" if L == "fr" else "Begin hier"}</span><svg class="dg-arrow" viewBox="0 0 60 24"><path d="M2 12h50M42 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
   </div>
   <div class="diag reveal" data-d="2" data-diag='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
-   <div class="diag-head"><div><h3>{U["box"]}</h3></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
+   <div class="diag-head"><div><h3>{U["box"]}</h3><span class="dg-badge">{"Gratuit · 1 min" if L == "fr" else "Gratis · 1 min"}</span></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
    <div class="diag-body">
     <div class="diag-panel" data-p="1"><p class="diag-q" tabindex="-1">{U["q1"]}</p><p class="diag-hint">{U["h1"]}</p><div class="diag-grid">{opts}</div></div>
     <div class="diag-panel" data-p="2" hidden><p class="diag-q" tabindex="-1">{U["q2"]}</p><p class="diag-hint">{U["h2"]}</p><div class="d-list" data-sits></div>
@@ -1301,11 +1302,12 @@ def diagnostic(L, pre=None, photo="pipecam"):
  <div class="diag-rain" aria-hidden="true"><i style="left:4%;--h:18px;--d:2.6s;--l:0s"></i><i style="left:11%;--h:26px;--d:3.4s;--l:1.2s"></i><i style="left:19%;--h:14px;--d:2.2s;--l:0.4s"></i><i style="left:27%;--h:22px;--d:3.0s;--l:2.0s"></i><i style="left:36%;--h:16px;--d:2.5s;--l:0.9s"></i><i style="left:44%;--h:28px;--d:3.6s;--l:2.6s"></i><i style="left:52%;--h:18px;--d:2.8s;--l:0.2s"></i><i style="left:61%;--h:24px;--d:3.2s;--l:1.6s"></i><i style="left:69%;--h:14px;--d:2.3s;--l:2.9s"></i><i style="left:77%;--h:20px;--d:2.9s;--l:0.7s"></i><i style="left:85%;--h:26px;--d:3.5s;--l:2.2s"></i><i style="left:93%;--h:16px;--d:2.4s;--l:1.1s"></i><i style="left:48%;--h:12px;--d:2.0s;--l:3.1s"></i><i style="left:15%;--h:12px;--d:2.1s;--l:3.4s"></i></div>
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
-   {sh(t["diag_chip"], t["diag_title"], U["lead"])}
-   <p class="alt">{U["alt"]}<br><a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a></p>
+   {sh(t["diag_chip"], t["diag_title"], ("Gratuit, sans engagement, en moins d'une minute. Vous recevez :" if L == "fr" else "Gratis, vrijblijvend, in minder dan een minuut. Je krijgt:"))}
+   <ul class="dg-get">{"".join(f'<li><span class="dg-i">{ico(ic)}</span><span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in ((("gauge", "Le niveau d'urgence", "de votre situation"), ("euro", "Le prix de départ", "avant tout déplacement"), ("shield", "Les bons gestes", "à faire en attendant")) if L == "fr" else (("gauge", "Het dringendheidsniveau", "van je situatie"), ("euro", "De startprijs", "voor we vertrekken"), ("shield", "De juiste reflexen", "in afwachting"))))}</ul>
+   <p class="dg-start" aria-hidden="true"><span>{"Commencez ici" if L == "fr" else "Begin hier"}</span><svg class="dg-arrow" viewBox="0 0 60 24"><path d="M2 12h50M42 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
   </div>
   <div class="diag reveal" data-d="2" data-diag='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
-   <div class="diag-head"><div><h3>{U["box"]}</h3></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
+   <div class="diag-head"><div><h3>{U["box"]}</h3><span class="dg-badge">{"Gratuit · 1 min" if L == "fr" else "Gratis · 1 min"}</span></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
    <div class="diag-body">
     <div class="diag-panel" data-p="1"><p class="diag-q" tabindex="-1">{U["q1"]}</p><p class="diag-hint">{U["h1"]}</p><div class="diag-grid">{opts}</div></div>
     <div class="diag-panel" data-p="2" hidden><p class="diag-q" tabindex="-1">{U["q2"]}</p><p class="diag-hint">{U["h2"]}</p><div class="d-list" data-sits></div>
