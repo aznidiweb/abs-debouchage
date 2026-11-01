@@ -1971,6 +1971,35 @@ p.hp-tag .ico{width:18px;height:18px;padding:0;background:none;color:#38bdf8}
 p.hp-tag:hover{background:none}
 @media(max-width:560px){p.hp-tag{font-size:15px}}
 
+/* =================== Héros : 3 actions affinées (1 principale, 1 secondaire, 1 lien) =================== */
+.hero-video .cta-row{gap:10px;margin-top:2px}
+/* 1. Appeler : orange plein, fin, sans pastille ni gros relief */
+.hero-video .cta-row .btn-call{--h:54px!important;padding:0 26px!important;border-radius:12px!important;font-size:16.5px!important;font-weight:700!important;gap:10px;
+ background:#c2410c!important;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),0 8px 22px -10px rgba(194,65,12,.8)!important;letter-spacing:0}
+.hero-video .cta-row .btn-call>.ico{width:18px!important;height:18px!important;padding:0!important;margin:0!important;background:none!important;box-shadow:none!important}
+.hero-video .cta-row .btn-call span{font-variant-numeric:tabular-nums}
+.hero-video .cta-row .btn-call:hover{background:#b23a0a!important}
+.hero-video .cta-row .btn-call:active{transform:scale(.98)}
+/* 2. Diagnostic : contour fin, transparent */
+.hero-video .cta-row .btn-glass{--h:54px!important;padding:0 22px!important;border-radius:12px!important;font-size:16px!important;font-weight:600!important;
+ background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.32)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#fff}
+.hero-video .cta-row .btn-glass .ico{width:16px;height:16px;transition:transform .25s var(--ease)}
+.hero-video .cta-row .btn-glass:hover{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.6)!important}
+.hero-video .cta-row .btn-glass:hover .ico{transform:translateX(3px)}
+/* 3. Ça déborde : simple lien ambré, sans encadré */
+.hero-video .urg-btn{margin-top:14px;min-height:44px;padding:6px 8px;border:0!important;background:none!important;border-radius:8px;gap:8px;font-size:14.5px;font-weight:600;color:#fcd34d}
+.hero-video .urg-btn>.ico:first-child{width:18px;height:18px;padding:0;background:none;color:#fbbf24;animation:none}
+.hero-video .urg-btn>.ico:last-child{width:14px;height:14px;opacity:.8;transition:transform .25s var(--ease)}
+.hero-video .urg-btn span{text-decoration:underline;text-decoration-color:rgba(252,211,77,.4);text-underline-offset:4px;text-decoration-thickness:1px}
+.hero-video .urg-btn:hover span{text-decoration-color:#fcd34d}
+.hero-video .urg-btn:hover>.ico:last-child{transform:translateX(3px)}
+@media(max-width:560px){
+ .hero-video .cta-row{flex-direction:column;gap:8px}
+ .hero-video .cta-row .btn{width:100%;--h:52px!important}
+ .hero-video .urg-btn{margin-top:8px;font-size:14px}
+}
+@media(max-width:560px){.hero-video .hp-lead{margin-bottom:18px!important}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
