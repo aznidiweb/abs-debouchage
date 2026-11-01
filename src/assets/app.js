@@ -333,6 +333,26 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
   })();
 
+  /* ---------- FAQ : sur ordinateur, la réponse s'affiche à droite ---------- */
+  d.querySelectorAll("[data-fq]").forEach(function(fq){
+    var items=[].slice.call(fq.querySelectorAll(".fq-i")), panel=fq.querySelector(".fq-panel"), mq=w.matchMedia("(min-width:960px)");
+    if(!items.length||!panel) return;
+    function show(it){
+      items.forEach(function(x){ x.classList.toggle("is-on",x===it); });
+      var n=it.querySelector(".fq-n").textContent, q=it.querySelector(".fq-q").textContent, a=it.querySelector(".fq-a").innerHTML;
+      panel.innerHTML='<div class="fq-in"><span class="fq-pn">'+n+'</span><h3>'+q.replace(/</g,"&lt;")+'</h3>'+a+'</div>';
+    }
+    function mode(){
+      var split=mq.matches; fq.classList.toggle("is-split",split); panel.hidden=!split;
+      if(split){ items.forEach(function(x){x.open=false;}); show(fq.querySelector(".fq-i.is-on")||items[0]); }
+    }
+    items.forEach(function(it){
+      it.querySelector("summary").addEventListener("click",function(e){ if(mq.matches){ e.preventDefault(); show(it); } });
+    });
+    if(mq.addEventListener) mq.addEventListener("change",mode); else if(mq.addListener) mq.addListener(mode);
+    mode();
+  });
+
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
     var D=JSON.parse(box.getAttribute("data-diag")), U=D.ui;

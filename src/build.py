@@ -774,17 +774,75 @@ def zones_section(L, cls="soft"):
 def faq_html(items):
     return '<div class="faq">' + "".join(f'<details class="reveal"><summary>{e(q)}{ico("chev")}</summary><p>{e(a)}</p></details>' for q, a in items) + '</div>'
 
-def faq_section(L, items, title=None, cls=""):
-    u = UI[L]
-    fr = L == "fr"
-    ask = {"t": "Une autre question ?" if fr else "Nog een vraag?",
-           "p": "Un technicien vous répond tout de suite, 24h/24." if fr else "Een technieker antwoordt meteen, 24/7.",
-           "wa": "Écrire sur WhatsApp" if fr else "Sturen via WhatsApp"}
-    return f'''<section class="section {cls}" id="faq"><div class="wrap faq-grid">
- <div class="faq-side">{sh(u["f_kick"], title or u["f_title"])}
-  <div class="faq-ask reveal"><h3>{ask["t"]}</h3><p>{ask["p"]}</p>{btn_call(L, "btn-block", PHONE_DISPLAY)}{btn_wa(L, "btn-block", f"https://wa.me/{WHATSAPP}", ask["wa"])}</div>
+# FAQ de l'accueil : les questions qu'on pose vraiment au téléphone, rangées par thème
+HOME_FAQ = {
+ "fr": [
+  ("Prix et délai", [
+   ("Combien coûte un débouchage ?", "Ça dépend de ce qui bouche et où : un siphon d'évier ne demande pas le même travail qu'une colonne d'immeuble. Décrivez-nous la situation au téléphone ou via le diagnostic : on vous annonce le prix avant de se déplacer, et c'est ce prix-là qui figure sur la facture."),
+   ("En combien de temps arrivez-vous ?", "Ça dépend de votre commune et de l'heure. Au téléphone, on vous donne une heure d'arrivée estimée, pas une promesse vague."),
+   ("Y a-t-il un supplément la nuit ou le week-end ?", "On intervient 24h/24 et 7j/7. Le prix annoncé au téléphone tient déjà compte de l'heure de l'intervention : il n'y a pas de surprise à l'arrivée."),
+  ]),
+  ("Qui paie ?", [
+   ("Je suis locataire : c'est à moi ou au propriétaire de payer ?", "En général, un bouchon causé par l'usage (cheveux, graisse, lingettes) est à charge du locataire. Si la cause vient de l'installation elle-même (tuyau cassé, pente insuffisante, racines), c'est plutôt au propriétaire. Notre rapport indique la cause du bouchon, ce qui aide à trancher."),
+   ("Mon assurance rembourse-t-elle le débouchage ?", "Le plus souvent, l'assurance habitation couvre les dégâts causés par l'eau (sol, plafond, murs), pas le débouchage lui-même. Certains contrats incluent une assistance plomberie : vérifiez le vôtre. On vous remet une facture avec n° TVA et un rapport pour votre dossier."),
+   ("En appartement, c'est à moi ou au syndic d'appeler ?", "Si le bouchon est dans votre logement (évier, WC, douche), c'est à vous. Si plusieurs appartements sont touchés ou si l'eau remonte chez vous depuis les étages, c'est souvent la colonne commune : prévenez le syndic. On intervient pour l'un comme pour l'autre."),
+  ]),
+  ("En attendant le technicien", [
+   ("Je peux verser du déboucheur chimique en attendant ?", "On vous le déconseille. Ces produits abîment les joints et les tuyaux en PVC, ils viennent rarement à bout d'un vrai bouchon, et ils restent dans l'eau stagnante, ce qui est dangereux pour vous et pour le technicien. Une ventouse et de l'eau chaude, pas bouillante, font moins de dégâts."),
+   ("Ça sent l'égout mais rien n'est bouché, c'est normal ?", "Souvent, c'est un siphon qui s'est vidé, par exemple un siphon de sol ou une douche peu utilisés : faites couler un peu d'eau pour le remplir. Si l'odeur revient vite ou s'accompagne de glouglous, il peut y avoir un bouchon plus loin ou un problème de ventilation, et un contrôle s'impose."),
+  ]),
+  ("Pendant et après", [
+   ("Faudra-t-il casser quelque chose ?", "Presque jamais. On débouche au furet électrique ou à la haute pression, en passant par les accès existants : siphon, regard, bouchon de visite. Si la caméra montre un tuyau cassé, on vous montre les images et on vous explique avant de proposer quoi que ce soit."),
+   ("Comment éviter que ça recommence ?", "Trois coupables reviennent sans cesse : les lingettes dans les WC, même « biodégradables », la graisse de cuisson dans l'évier et les cheveux dans la douche. Une grille sur la bonde et l'huile de cuisson à la poubelle évitent la plupart des retours."),
+  ]),
+ ],
+ "nl": [
+  ("Prijs en tijd", [
+   ("Hoeveel kost een ontstopping?", "Dat hangt af van wat verstopt is en waar: een gootsteensifon is ander werk dan een afvoerkolom in een gebouw. Beschrijf de situatie aan de telefoon of via de diagnose: we geven je de prijs voor we vertrekken, en die prijs staat op de factuur."),
+   ("Hoe snel zijn jullie ter plaatse?", "Dat hangt af van je gemeente en het uur. Aan de telefoon krijg je een geschat aankomstuur, geen vage belofte."),
+   ("Is er een toeslag 's nachts of in het weekend?", "We komen 24/7. De prijs die je aan de telefoon krijgt, houdt al rekening met het uur van de interventie: geen verrassing bij aankomst."),
+  ]),
+  ("Wie betaalt?", [
+   ("Ik huur: betaal ik of de eigenaar?", "Meestal is een verstopping door gebruik (haren, vet, doekjes) ten laste van de huurder. Ligt de oorzaak bij de installatie zelf (gebroken buis, te weinig verval, wortels), dan is het eerder voor de eigenaar. Ons verslag vermeldt de oorzaak, wat helpt om te beslissen."),
+   ("Betaalt mijn verzekering de ontstopping terug?", "Meestal dekt de woningverzekering de waterschade (vloer, plafond, muren), niet de ontstopping zelf. Sommige contracten bevatten loodgietersbijstand: kijk je polis na. Je krijgt een factuur met btw-nummer en een verslag voor je dossier."),
+   ("In een appartement: bel ik of de syndicus?", "Zit de verstopping in je eigen woning (gootsteen, wc, douche), dan bel jij. Zijn meerdere appartementen getroffen of komt het water van boven, dan is het vaak de gemeenschappelijke kolom: verwittig de syndicus. We komen voor allebei."),
+  ]),
+  ("In afwachting van de technieker", [
+   ("Mag ik intussen een chemische ontstopper gebruiken?", "Liever niet. Die producten beschadigen dichtingen en pvc-buizen, lossen een echte verstopping zelden op en blijven in het stilstaande water, wat gevaarlijk is voor jou en de technieker. Een ontstopper met zuignap en warm water, geen kokend water, doen minder schade."),
+   ("Het ruikt naar riool maar niets is verstopt, is dat normaal?", "Vaak is een sifon drooggevallen, bijvoorbeeld een vloerputje of een weinig gebruikte douche: laat wat water lopen om hem te vullen. Komt de geur snel terug of hoor je geborrel, dan zit er misschien verderop een verstopping of een ventilatieprobleem, en is een controle nodig."),
+  ]),
+  ("Tijdens en na", [
+   ("Moet er iets opengebroken worden?", "Bijna nooit. We ontstoppen met een elektrische veer of hogedruk, via de bestaande toegangen: sifon, putje, ontstoppingsstop. Toont de camera een gebroken buis, dan laten we je de beelden zien en leggen we het uit voor we iets voorstellen."),
+   ("Hoe vermijd ik dat het opnieuw gebeurt?", "Drie boosdoeners komen steeds terug: doekjes in de wc, ook „afbreekbare”, frituur- en bakvet in de gootsteen en haren in de douche. Een zeefje op de afvoer en vet in de vuilnisbak voorkomen de meeste problemen."),
+  ]),
+ ],
+}
+
+def faq_section(L, items, title=None, cls="", groups=None):
+    """FAQ : liste des questions + réponse à côté (ordinateur), accordéon (mobile). Sans JS : accordéon."""
+    u = UI[L]; fr = L == "fr"
+    groups = groups or [(None, items)]
+    n = 0; lst = ""
+    for g, qs in groups:
+        if g: lst += f'<p class="fq-g">{e(g)}</p>'
+        for q, a in qs:
+            n += 1
+            lst += (f'<details class="fq-i" id="faq-{n}"><summary><span class="fq-n">{n:02d}</span><span class="fq-q">{e(q)}</span>{ico("chev")}</summary>'
+                    f'<div class="fq-a"><p>{e(a)}</p></div></details>')
+    lead = ("Les questions qu'on nous pose le plus souvent au téléphone, avec des réponses franches." if fr
+            else "De vragen die we het vaakst aan de telefoon krijgen, met eerlijke antwoorden.")
+    more_t = "Pas trouvé votre réponse ?" if fr else "Je antwoord niet gevonden?"
+    more_p = "Posez-la directement à un technicien." if fr else "Vraag het rechtstreeks aan een technieker."
+    more = (f'<div class="fq-more"><p><b>{more_t}</b> {more_p}</p><div class="fq-more-a">'
+            f'<a class="fq-link" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>'
+            f'<a class="fq-link" href="https://wa.me/{WHATSAPP}" target="_blank" rel="noopener">{ico("wa")}WhatsApp</a></div></div>')
+    return f'''<section class="section fq-sec {cls}" id="faq"><div class="wrap">
+ <div class="fq-head reveal"><h2>{title or u["f_title"]}</h2><p>{lead}</p></div>
+ <div class="fq" data-fq>
+  <div class="fq-list">{lst}</div>
+  <div class="fq-panel" aria-live="polite" hidden></div>
  </div>
- {faq_html(items)}
+ {more}
 </div></section>'''
 
 def band(L):
@@ -814,8 +872,8 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, u["faq"][:4]) + band(L)
-    schemas = [business_schema(L), faq_schema(u["faq"][:4]),
+</div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
+    schemas = [business_schema(L), faq_schema([qa for _, qs in HOME_FAQ[L] for qa in qs]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
