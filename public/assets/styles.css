@@ -2000,6 +2000,38 @@ p.hp-tag:hover{background:none}
 }
 @media(max-width:560px){.hero-video .hp-lead{margin-bottom:18px!important}}
 
+/* =================== Héros compact =================== */
+@media(min-width:961px){
+ .hero-video{min-height:min(92vh,860px)!important}
+ .hero-video .hv-inner{padding-bottom:34px!important}
+ .hero-video p.hp-tag{margin-bottom:10px}
+ .hero-video .hp-title{margin-bottom:10px}
+ .hero-video .hp-lead{margin-bottom:18px}
+ .hero-video .urg-btn{margin-top:8px}
+ .hero-video .hp-checks{margin-top:6px}
+}
+@media(max-width:960px){
+ .hero-video .hv-media{height:min(50vh,430px)!important}
+ .hero-video .hp-title{font-size:clamp(34px,9.4vw,40px)!important;line-height:1.04;margin-bottom:10px!important}
+ .hero-video p.hp-tag{margin-bottom:8px}
+ .hero-video .urg-btn{margin-top:4px}
+ .hero-video .hp-checks{margin-top:2px;gap:4px 12px!important;font-size:13px}
+ .hero-video .hp-checks li{font-size:13px}
+ .hero-video .hp-checks .ico{width:16px;height:16px}
+}
+@media(max-width:960px){
+ .hero-video{min-height:0!important}
+ .hero-video .hv-media{height:44vh!important;height:44svh!important;max-height:400px}
+ .hero-video .hv-inner{padding-top:min(37vh,330px)!important;padding-top:min(37svh,330px)!important;padding-bottom:24px!important}
+}
+@media(max-width:960px){
+ .hero-video{background:#0b1b2e}
+ .hero-video .hp-shade{display:none!important}
+ .hero-video .hv-media::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(11,27,46,.5) 0,rgba(11,27,46,0) 22%,rgba(11,27,46,0) 55%,rgba(11,27,46,.85) 85%,#0b1b2e 100%)}
+ .hero-video .urg-btn{width:auto!important;max-width:100%;white-space:nowrap;font-size:13.5px;padding:6px 4px}
+}
+@media(max-width:360px){.hero-video .urg-btn{white-space:normal}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
