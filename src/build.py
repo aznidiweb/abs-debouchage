@@ -784,10 +784,10 @@ def osm_map(L):
            f'<g class="om-provs">{prov}</g></svg>')
     bx, by = pos(50.8466, 4.3528)
     aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
-    base = "Notre base" if fr else "Onze basis"
+    base = "ABS Débouchage"
     hint = "Cliquez sur votre province" if fr else "Klik op je provincie"
     return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}"><div class="om-tiles" aria-hidden="true">{tiles}</div>{svg}'
-            f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i></i><b>{base}</b></span>'
+            f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i class="om-logo">{LOGO}</i><b>{base}<small>{"Notre base" if fr else "Onze basis"}</small></b></span>'
             f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg><b data-ompl></b></span>'
             f'<span class="om-hint" aria-hidden="true">{hint}</span>'
             f'<a class="om-attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></div>'), pos
@@ -795,29 +795,58 @@ def osm_map(L):
 def zones_section(L, cls="soft"):
     u = UI[L]; fr = L == "fr"
     mp, pos = osm_map(L)
-    T = {"find": "Votre code postal" if fr else "Je postcode",
-         "ok": "On intervient chez vous" if fr else "We komen bij je",
-         "bad": "Entrez un code postal belge à 4 chiffres." if fr else "Geef een Belgische postcode van 4 cijfers in.",
+    T = {"find": "Votre commune ou code postal" if fr else "Je gemeente of postcode",
+         "ask": "Où êtes-vous ?" if fr else "Waar ben je?",
+         "ask_s": "Vérifiez en 2 secondes qu'on vient chez vous." if fr else "Controleer in 2 seconden of we bij je komen.",
+         "go": "Vérifier" if fr else "Controleren",
+         "ok": "Oui, on vient chez vous." if fr else "Ja, we komen bij je.",
+         "bad": "Commune introuvable : essayez avec votre code postal (4 chiffres)." if fr else "Gemeente niet gevonden: probeer met je postcode (4 cijfers).",
+         "change": "Changer" if fr else "Wijzigen",
          "call": "Appeler" if fr else "Bellen", "prov": "Provinces desservies" if fr else "Provincies"}
     data = {pid: {"n": (nfr if fr else nnl), "cp": PROV_CP[pid], "p": [round(v, 2) for v in pos(lat, lon)]} for pid, nfr, nnl, lat, lon in PROV_GEO}
+    # communes et villes reconnues (FR + NL) -> province
+    names = {}
+    for c in COMMUNES:
+        names[c[0]] = "bxl"; names[c[1]] = "bxl"
+    for pid, nfr, nnl, la, lo in PROV_GEO:
+        names[nfr] = pid; names[nnl] = pid
+        if pid in PROV_CITIES:
+            for i in (0, 1):
+                for town in PROV_CITIES[pid][i].split(", "): names.setdefault(town, pid)
+    names.update({"Brussels": "bxl", "Bruxelles": "bxl", "Brussel": "bxl"})
+    cps = {c[2]: (c[0] if fr else c[1]) for c in COMMUNES}
+    shown = sorted({(c[0] if fr else c[1]) for c in COMMUNES} | {t for pid in PROV_CITIES for t in PROV_CITIES[pid][0 if fr else 1].split(", ")})
+    dlist = "".join(f'<option value="{e(n)}">' for n in shown)
     bxl_c = ", ".join((c[0] if fr else c[1]) for c in COMMUNES)
     towns = f'<dt>{"Bruxelles (19 communes)" if fr else "Brussel (19 gemeenten)"}</dt><dd>{e(bxl_c)}</dd>' + "".join(
         f'<dt>{e(nfr if fr else nnl)}</dt><dd>{e(PROV_CITIES[pid][0 if fr else 1])}</dd>' for pid, nfr, nnl, la, lo in PROV_GEO if pid != "bxl")
     T["more"] = "Communes et villes desservies" if fr else "Gemeenten en steden die we bedienen"
-    chips = "".join(f'<li><button type="button" data-zp="{pid}" aria-pressed="{"true" if pid == "bxl" else "false"}">{e(nfr if fr else nnl)}</button></li>'
+    chips = "".join(f'<li><button type="button" data-zp="{pid}" aria-pressed="false">{e(nfr if fr else nnl)}</button></li>'
                     for pid, nfr, nnl, lat, lon in PROV_GEO)
+    zd = {"prov": data, "names": names, "cps": cps}
     return f'''<section class="section zn-sec {cls}" id="zones"><div class="wrap">
- <div class="zn" data-zones2 data-zd="{e(json.dumps(data, ensure_ascii=False))}">
+ <div class="zn" data-zones2 data-zd="{e(json.dumps(zd, ensure_ascii=False))}">
   <div class="zn-text reveal">
    <h2>{u["z_title"]}</h2><p class="zn-lead">{u["z_lead"]}</p>
-   <label class="zsearch"><span class="sr">{T["find"]}</span>{ico("search")}<input type="text" data-zcp-in data-ok="{e(T["ok"])}" data-bad="{e(T["bad"])}" placeholder="{T["find"]}" inputmode="numeric" maxlength="4" autocomplete="postal-code" enterkeyhint="go"></label>
-   <p class="zcp-msg" data-zcp-msg aria-live="polite" hidden></p>
-   <p class="zn-res" aria-live="polite">{ico("pin")}<b data-zname>{"Bruxelles" if fr else "Brussel"}</b><span data-zcp>1000–1299</span><span class="zn-ok" data-zok hidden>{ico("check")}{T["ok"]}</span></p>
-   <a class="btn btn-call btn-lg zn-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]} · {PHONE_DISPLAY}</span></a>
    <ul class="zn-prov" aria-label="{T["prov"]}">{chips}</ul>
    <details class="zn-more"><summary>{T["more"]}{ico("chev")}</summary><dl>{towns}</dl></details>
   </div>
-  <div class="zn-map reveal" data-d="1">{mp}</div>
+  <div class="zn-card reveal" data-d="1">
+   <div class="zn-map">{mp}</div>
+   <div class="zn-bar">
+    <form class="zn-ask" data-zform novalidate>
+     <p class="zn-q"><b>{T["ask"]}</b> <span>{T["ask_s"]}</span></p>
+     <div class="zn-field"><label class="zsearch"><span class="sr">{T["find"]}</span>{ico("pin")}<input type="text" data-zcp-in list="zn-list-{L}" data-bad="{e(T["bad"])}" placeholder="{T["find"]}" autocomplete="address-level2" enterkeyhint="go"></label>
+      <button type="submit" class="btn zn-go">{T["go"]}{ico("arrow")}</button></div>
+     <datalist id="zn-list-{L}">{dlist}</datalist>
+     <p class="zcp-msg bad" data-zcp-msg aria-live="polite" hidden></p>
+    </form>
+    <div class="zn-done" data-zdone hidden>
+     <p class="zn-okline" aria-live="polite">{ico("check")}<span class="zn-okt"><b>{T["ok"]}</b><small>{ico("pin")}<span data-zname></span> <span data-zcp></span></small></span><button type="button" class="zn-chg" data-zchg>{T["change"]}</button></p>
+     <a class="btn btn-call btn-lg zn-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{T["call"]} · {PHONE_DISPLAY}</span></a>
+    </div>
+   </div>
+  </div>
  </div>
 </div></section>'''
 

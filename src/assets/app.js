@@ -333,37 +333,51 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
   })();
 
-  /* ---------- Zones : carte réelle + code postal ---------- */
+  /* ---------- Zones : carte réelle + « Où êtes-vous ? » (commune ou code postal) ---------- */
   d.querySelectorAll("[data-zones2]").forEach(function(box){
-    var D={}; try{D=JSON.parse(box.getAttribute("data-zd"));}catch(e){return;}
+    var Z={}; try{Z=JSON.parse(box.getAttribute("data-zd"));}catch(e){return;}
+    var D=Z.prov||{};
     var pin=box.querySelector("[data-ompin]"), nm=box.querySelector("[data-zname]"), cp=box.querySelector("[data-zcp]");
-    var inp=box.querySelector("[data-zcp-in]"), msg=box.querySelector("[data-zcp-msg]"), btns=box.querySelectorAll("[data-zp]");
+    var form=box.querySelector("[data-zform]"), inp=box.querySelector("[data-zcp-in]"), msg=box.querySelector("[data-zcp-msg]");
+    var done=box.querySelector("[data-zdone]"), btns=box.querySelectorAll("[data-zp]");
+    function norm(s){return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+    var N={}; Object.keys(Z.names||{}).forEach(function(k){N[norm(k)]=[Z.names[k],k];});
     function rng(r){return r.map(function(a){return a[0]+"–"+a[1];}).join(", ");}
-    function sel(id){
+    function mark(id){
       var p=D[id]; if(!p) return;
-      nm.textContent=p.n; cp.textContent=rng(p.cp);
       pin.style.left=p.p[0]+"%"; pin.style.top=p.p[1]+"%"; box.classList.add("has-sel");
       btns.forEach(function(b){ var on=b.getAttribute("data-zp")===id; if(b.tagName==="BUTTON") b.setAttribute("aria-pressed",on); else b.classList.toggle("on",on); });
       var pl=box.querySelector("[data-ompl]"); if(pl) pl.textContent=p.n;
       pin.classList.toggle("lbl-below",p.p[1]<26); pin.classList.toggle("lbl-left",p.p[0]>80); pin.classList.toggle("lbl-right",p.p[0]<20);
       box.classList.remove("pin-drop"); void box.offsetWidth; box.classList.add("pin-drop");
     }
-    var okEl=box.querySelector("[data-zok]");
-    btns.forEach(function(b){ b.addEventListener("click",function(){ sel(b.getAttribute("data-zp")); msg.hidden=true; if(okEl) okEl.hidden=true; }); });
+    function ok(id,label){
+      mark(id); var p=D[id];
+      nm.textContent=label||p.n; cp.textContent=(label&&label!==p.n)?"· "+p.n:"";
+      msg.hidden=true; form.hidden=true; done.hidden=false; box.classList.add("is-done");
+    }
     function find(v){
-      var n=parseInt(v,10);
-      for(var id in D){ if(D[id].cp.some(function(r){return n>=r[0]&&n<=r[1];})) return id; }
+      var digits=v.replace(/\D/g,"");
+      if(/^\d{4}$/.test(v.trim())||digits.length===4&&v.replace(/[\s\d]/g,"").length===0){
+        var n=parseInt(digits,10);
+        for(var id in D){ if(D[id].cp.some(function(r){return n>=r[0]&&n<=r[1];})) return [id,(Z.cps&&Z.cps[digits])?digits+" "+Z.cps[digits]:digits]; }
+        return null;
+      }
+      var q=norm(v); if(q.length<2) return null;
+      if(N[q]) return [N[q][0],N[q][1]];
+      for(var k in N){ if(q.length>2&&k.indexOf(q)===0) return [N[k][0],N[k][1]]; }   /* début de nom : « ixel » -> Ixelles */
       return null;
     }
-    function check(force){
-      var v=(inp.value||"").replace(/\D/g,"").slice(0,4);
-      if(v.length<4){ if(force){ msg.textContent=inp.getAttribute("data-bad"); msg.hidden=false; msg.className="zcp-msg bad"; } else msg.hidden=true; return; }
-      var id=find(v);
-      if(!id){ msg.textContent=inp.getAttribute("data-bad"); msg.className="zcp-msg bad"; msg.hidden=false; if(okEl) okEl.hidden=true; return; }
-      sel(id); msg.hidden=true; if(okEl) okEl.hidden=false;
+    function check(){
+      var v=inp.value||""; if(!v.trim()){ inp.focus(); return; }
+      var r=find(v);
+      if(!r){ msg.textContent=inp.getAttribute("data-bad"); msg.hidden=false; return; }
+      ok(r[0],r[1]);
     }
-    inp.addEventListener("input",function(){check(false);});
-    inp.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); check(true); inp.blur(); } });
+    form.addEventListener("submit",function(e){ e.preventDefault(); check(); inp.blur(); });
+    inp.addEventListener("input",function(){ msg.hidden=true; if(N[norm(inp.value)]) check(); });
+    btns.forEach(function(b){ b.addEventListener("click",function(){ ok(b.getAttribute("data-zp")); }); });
+    box.querySelector("[data-zchg]").addEventListener("click",function(){ done.hidden=true; form.hidden=false; box.classList.remove("is-done"); inp.value=""; inp.focus(); });
   });
 
   /* ---------- FAQ : sur ordinateur, la réponse s'affiche à droite ---------- */
