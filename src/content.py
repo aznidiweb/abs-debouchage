@@ -360,7 +360,7 @@ UI = {
   "f_where": "Commune ou code postal", "ph_where": "ex. 1050 Ixelles", "f_name": "Votre prénom", "ph_name": "ex. Marc",
   "f_desc": "Détails (facultatif)", "ph_desc": "ex. L'eau remonte dans la douche depuis ce matin, 2e étage.",
   "other_pb": "Autre", "err": "Choisissez un problème et indiquez votre commune.",
-  "send": "Envoyer ma demande sur WhatsApp", "note": "Gratuit et sans engagement · Réponse immédiate",
+  "send": "Envoyer ma demande sur WhatsApp", "note": "Gratuit et sans engagement",
   "wa": {"hello": "Bonjour ABS Débouchage, je souhaite un devis.", "prob": "Problème", "urg": "Urgence", "where": "Commune", "name": "Nom", "det": "Détails",
          "urgv": {"now": "URGENT – maintenant", "today": "Aujourd'hui", "plan": "À planifier"}},
   # Accueil
@@ -419,7 +419,7 @@ UI = {
   "f_where": "Gemeente of postcode", "ph_where": "bv. 1050 Elsene", "f_name": "Je voornaam", "ph_name": "bv. Marc",
   "f_desc": "Details (optioneel)", "ph_desc": "bv. Het water komt sinds vanochtend omhoog in de douche, 2e verdieping.",
   "other_pb": "Andere", "err": "Kies een probleem en vul je gemeente in.",
-  "send": "Mijn aanvraag via WhatsApp versturen", "note": "Gratis en vrijblijvend · Meteen antwoord",
+  "send": "Mijn aanvraag via WhatsApp versturen", "note": "Gratis en vrijblijvend",
   "wa": {"hello": "Hallo ABS Débouchage, ik wil graag een offerte.", "prob": "Probleem", "urg": "Dringend", "where": "Gemeente", "name": "Naam", "det": "Details",
          "urgv": {"now": "DRINGEND – nu", "today": "Vandaag", "plan": "In te plannen"}},
   "home_title": "Ontstopping 24/7 Brussel en heel België | ABS Débouchage",
@@ -539,7 +539,7 @@ DIAG = {
 DIAG_UI = {
  "fr": {
   "label": "Diagnostic express", "title": "Décrivez votre problème, on vous dit quoi faire",
-  "lead": "Trois questions, moins d'une minute. Vous obtenez le niveau d'urgence, le prix de départ et les bons gestes en attendant. Votre demande nous arrive ensuite déjà complète sur WhatsApp.",
+  "lead": "Moins d'une minute. Vous obtenez le niveau d'urgence, le prix de départ et les bons gestes en attendant. Votre demande nous arrive ensuite déjà complète sur WhatsApp.",
   "pros": ["Gratuit et sans engagement", "Réponse immédiate, 24h/24", "Prix annoncé avant toute intervention"],
   "alt": "Vous préférez appeler directement ?",
   "box": "Diagnostic express", "step": "Étape {n} sur 3",
@@ -561,7 +561,7 @@ DIAG_UI = {
  },
  "nl": {
   "label": "Snelle diagnose", "title": "Beschrijf je probleem, wij zeggen wat je moet doen",
-  "lead": "Drie vragen, minder dan een minuut. Je krijgt het dringendheidsniveau, de startprijs en wat je intussen kunt doen. Je aanvraag komt daarna volledig ingevuld bij ons op WhatsApp.",
+  "lead": "Minder dan een minuut. Je krijgt het dringendheidsniveau, de startprijs en wat je intussen kunt doen. Je aanvraag komt daarna volledig ingevuld bij ons op WhatsApp.",
   "pros": ["Gratis en vrijblijvend", "Meteen antwoord, 24/7", "Prijs gekend vóór elke interventie"],
   "alt": "Liever meteen bellen?",
   "box": "Snelle diagnose", "step": "Stap {n} van 3",

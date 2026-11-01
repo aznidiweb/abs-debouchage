@@ -1675,3 +1675,34 @@ html.smooth-on{scroll-behavior:auto}
 @media(max-width:560px){.b2-plate{padding:26px 20px 18px}.b2-num{font-size:34px}.b2-lead{font-size:16.5px}.b2-facts{gap:8px 16px}.b2-facts li{font-size:13.5px}}
 @media(max-width:959px){.head-call>.ico{padding:0!important;margin:0!important;background:none!important;box-shadow:none!important}.head-call{border-radius:13px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.22)!important}}
 .slide img,.bgimg img,.card-ph img,.sv-ph img,.hq-ph img{color:transparent}
+
+/* =================== Sobriété : retrait des effets et tics « IA » =================== */
+/* 2. apparitions plus discrètes (pas de flou, petit mouvement) */
+.js .reveal{transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.js .rise{transform:translateY(10px);filter:none!important;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.js .cta-row.rise:not(.risen) .btn{transform:none}
+/* 7. le téléphone ne « sonne » plus */
+.mbar .btn-call .ico,.head-call .ico{animation:none!important}
+/* 8. plus de tube sur le côté */
+.spipe{display:none!important}
+/* 11. plus de pluie derrière le diagnostic */
+.diag-rain{display:none!important}
+/* 13. l'orange dans les titres reste réservé au haut de page */
+.sh h2 em,.dark .sh h2 em,.band h2 em{color:inherit}
+/* 14. sections droites, sans « feuille » arrondie ni petite barre grise */
+main>section:not(.hero){border-radius:0!important;margin-top:0!important;box-shadow:none!important}
+main>section:not(.hero)::before{content:none!important}
+main>section.band2::before{display:none}
+.stk-dim{display:none}
+/* 15. moins d'icônes dans des ronds */
+.box h2 .ic{display:none}
+.feat .ic,.c-card .ic{background:none!important;width:auto;height:auto;justify-content:start;place-items:start;border-radius:0;color:var(--brand)!important}
+.feat .ic .ico,.c-card .ic .ico{width:24px;height:24px}
+/* 18. grille des services moins symétrique (ordinateur) */
+@media(min-width:861px){
+ .svc-grid.land.g-4{grid-template-columns:repeat(11,minmax(0,1fr))}
+ .svc-grid.land.g-4>li:nth-child(1),.svc-grid.land.g-4>li:nth-child(4){grid-column:span 6}
+ .svc-grid.land.g-4>li:nth-child(2),.svc-grid.land.g-4>li:nth-child(3){grid-column:span 5}
+}
+/* 19. sous le logo : « Ouvert 24h/24 », sans horloge ni point */
+.brand-sub{color:rgba(255,255,255,.75)}

@@ -94,7 +94,7 @@ def header(L, alt_url, current=""):
  <nav class="lang" aria-label="Langue / Taal">{lang_sw}</nav>
 </div></div>
 <header class="header"><div class="wrap">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -343,8 +343,8 @@ TX = {
   "steps_chip": "Comment ça se passe", "steps_title": "Quatre étapes, <em>zéro surprise.</em>",
   "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
             ("truck", "Intervention", "Le technicien arrive rapidement, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
-  "diag_chip": "Diagnostic express", "diag_title": "Un doute&nbsp;? <em>On vous dit quoi faire.</em>",
-  "band_title": "Un bouchon&nbsp;? On arrive.", "band_lead": "Un seul appel : on écoute votre problème, on vous donne le prix et un technicien part chez vous, de jour comme de nuit.",
+  "diag_chip": "Diagnostic express", "diag_title": "Trois questions, et vous savez <em>quoi faire.</em>",
+  "band_title": "Un appel suffit. On se déplace.", "band_lead": "On écoute votre problème, on vous donne le prix au téléphone, et un technicien part chez vous.",
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
@@ -366,8 +366,8 @@ TX = {
   "steps_chip": "Hoe het werkt", "steps_title": "Vier stappen, <em>geen verrassingen.</em>",
   "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
             ("truck", "Interventie", "De technieker is er snel, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
-  "diag_chip": "Snelle diagnose", "diag_title": "Twijfel? <em>Wij zeggen wat je moet doen.</em>",
-  "band_title": "Verstopping? We komen eraan.", "band_lead": "Eén telefoontje: we luisteren naar je probleem, geven je de prijs en een technieker vertrekt naar je toe, dag en nacht.",
+  "diag_chip": "Snelle diagnose", "diag_title": "Drie vragen, en je weet <em>wat te doen.</em>",
+  "band_title": "Eén telefoontje volstaat. Wij komen.", "band_lead": "We luisteren naar je probleem, geven je de prijs aan de telefoon, en een technieker vertrekt naar je toe.",
   "photo_credit": "Foto's: Unsplash", "menu_home": "Home",
  },
 }
@@ -376,7 +376,7 @@ def chip(t):
     return f'<span class="chip"><i></i>{t}</span>'
 
 def sh(c, title, lead=None, center=False):
-    return f'<div class="sh{" center" if center else ""} reveal">{chip(c)}<h2>{title}</h2>{f"<p>{lead}</p>" if lead else ""}</div>'
+    return f'<div class="sh{" center" if center else ""} reveal"><h2>{title}</h2>{f"<p>{lead}</p>" if lead else ""}</div>'
 
 def header(L, alt_url, current=""):
     u = UI[L]
@@ -389,7 +389,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub" data-open="{"Ouvert maintenant" if L=="fr" else "Nu open"}">{e(u["brand_sub"])}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -609,7 +609,6 @@ def diagnostic(L, pre=None, photo="pipecam"):
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
    {sh(t["diag_chip"], t["diag_title"], U["lead"])}
-   <ul class="ticks">{pros}</ul>
    <p class="alt">{U["alt"]}<br><a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a></p>
   </div>
   <div class="diag reveal" data-d="2" data-diag='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
@@ -802,10 +801,8 @@ def band(L):
     diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
     return f'''<section class="band band2">{waves}<div class="wrap">
  <div class="b2-copy reveal">
-  <p class="b2-kick"><span class="b2-dot" aria-hidden="true"></span>{kick}</p>
   <h2>{t["band_title"]}</h2>
   <p class="b2-lead">{t["band_lead"]}</p>
-  <ul class="b2-facts">{li}</ul>
  </div>
  <div class="b2-plate reveal" data-d="1">
   <span class="b2-screw s1" aria-hidden="true"></span><span class="b2-screw s2" aria-hidden="true"></span><span class="b2-screw s3" aria-hidden="true"></span><span class="b2-screw s4" aria-hidden="true"></span>
@@ -886,8 +883,8 @@ def page_contact(L):
     desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Bruxelles et toute la Belgique." if L == "fr"
             else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel België.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
-    lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part chez vous, de jour comme de nuit." if L == "fr"
-            else "Het snelst: bel ons of doe de snelle diagnose. Een technieker vertrekt naar je toe, dag en nacht.")
+    lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part ensuite chez vous." if L == "fr"
+            else "Het snelst: bel ons of doe de snelle diagnose. Daarna vertrekt een technieker naar je toe.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
               ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +

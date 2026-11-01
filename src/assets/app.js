@@ -57,31 +57,6 @@
     show(0); if(reduce)setPaused(true); else play();
   });
 
-  /* ---------- Pages empilées : la section qui part recule sous la suivante ---------- */
-  (function(){
-    if(reduceBig||w.innerWidth<960) return;     /* effet réservé à l'ordinateur : sur mobile, défilement 100 % fluide */
-    var secs=[].slice.call(d.querySelectorAll("main>section"));
-    if(secs.length<2) return;
-    var items=secs.slice(0,-1).map(function(s,i){
-      var dim=d.createElement("div"); dim.className="stk-dim"; dim.setAttribute("aria-hidden","true"); s.appendChild(dim);
-      return {s:s, next:secs[i+1], wrap:s.querySelector(":scope>.wrap")||s.firstElementChild, dim:dim, p:-1};
-    });
-    var ticking=false;
-    function run(){
-      ticking=false; var vh=w.innerHeight;
-      items.forEach(function(it){
-        var t=it.next.getBoundingClientRect().top;
-        var p=Math.min(1,Math.max(0,(vh*.7-t)/(vh*.7)));          /* 0 = la suivante n'est pas là, 1 = elle couvre l'écran */
-        if(Math.abs(p-it.p)<.004) return; it.p=p;
-        if(p<=0){ if(it.wrap)it.wrap.style.transform=""; it.dim.style.opacity=0; return; }
-        if(it.wrap) it.wrap.style.transform="translate3d(0,"+(p*-28).toFixed(1)+"px,0) scale("+(1-p*.05).toFixed(4)+")";
-        it.dim.style.opacity=(p*.42).toFixed(3);
-      });
-    }
-    function onS(){ if(!ticking){ticking=true;requestAnimationFrame(run);} }
-    w.addEventListener("scroll",onS,{passive:true}); w.addEventListener("resize",onS); run();
-  })();
-
   /* ---------- Apparition discrète ---------- */
   var els=d.querySelectorAll(".reveal");
   if(!reduce&&"IntersectionObserver" in w){
@@ -222,14 +197,6 @@
   /* étapes reliées par un tuyau + tuyau de lecture sur le côté */
   var stepsEls=[].slice.call(d.querySelectorAll(".steps"));
   var spipe=null;
-  if(d.body.scrollHeight>w.innerHeight*2){
-    spipe=d.createElement("div");spipe.className="spipe";spipe.setAttribute("aria-hidden","true");
-    spipe.innerHTML='<svg class="spipe-fau" viewBox="0 0 34 34"><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/><path d="M34 9H16a7 7 0 0 0-7 7v8" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/><rect x="5" y="22" width="8" height="5" rx="1.5" fill="#64748b"/><rect x="20" y="1" width="4" height="7" fill="#64748b"/><rect x="14" y="0" width="16" height="4" rx="2" fill="#c2410c"/></svg>'+
-      '<i class="spipe-drop"></i><i class="spipe-drop d2"></i><span class="spipe-tube"><i class="spipe-water"></i><i class="spipe-rip"></i></span>';
-    d.body.appendChild(spipe);
-    var ft=d.querySelector("footer");
-    if(ft&&"IntersectionObserver" in w) new IntersectionObserver(function(en){spipe.classList.toggle("spipe-off",en[0].isIntersecting);}).observe(ft);
-  }
   var wTick=false;
   function water(){
     wTick=false; var vh=w.innerHeight;
@@ -241,9 +208,6 @@
       var pw=st.parentNode; if(pw.classList.contains("steps-wrap")){pw.style.setProperty("--f",p.toFixed(3));pw.classList.toggle("flow",p>=.985);}
       for(var i=0;i<n;i++) lis[i].classList.toggle("lit",p>=(n>1?i/(n-1):0)-.02&&p>0);
     });
-    if(spipe){var m=d.documentElement.scrollHeight-vh, pp=m>0?Math.max(.03,Math.min(1,w.scrollY/m)):0;
-      spipe.style.setProperty("--p",pp.toFixed(3));
-      var th=spipe.querySelector(".spipe-tube").offsetHeight; spipe.style.setProperty("--fall",Math.round(th*(1-pp)+6)+"px");}
   }
   function onWater(){if(!wTick){wTick=true;requestAnimationFrame(water);}}
   w.addEventListener("scroll",onWater,{passive:true}); w.addEventListener("resize",onWater); water();
@@ -259,16 +223,6 @@
     });},{threshold:.6});
     d.querySelectorAll(".stats b").forEach(function(b){cio.observe(b);});
   }
-
-  /* ---------- Badge « Ouvert maintenant » (heure de Bruxelles) ---------- */
-  d.querySelectorAll(".brand-sub[data-open]").forEach(function(el){
-    var lang=d.documentElement.lang||"fr";
-    function tick(){
-      try{var t=new Intl.DateTimeFormat(lang,{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Brussels"}).format(new Date());
-        el.innerHTML=el.getAttribute("data-open")+" · <b>"+t+"</b>"; el.classList.add("live");}catch(e){}
-    }
-    tick(); setInterval(tick,20000);
-  });
 
   /* ---------- « Ça déborde ? » ---------- */
   var urg=d.getElementById("urgence"), urgFrom=null;
@@ -325,13 +279,6 @@
     setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, delay+n*step+900);
   }
   d.querySelectorAll(".hp-title").forEach(function(t){ typeIt(t,250,55); });
-  /* grands titres des sections : s'écrivent quand on arrive sur la partie */
-  var heads=d.querySelectorAll("main .sh h2, main .band h2");
-  if("IntersectionObserver" in w){
-    var tio=new IntersectionObserver(function(en){en.forEach(function(x){ if(x.isIntersecting){ tio.unobserve(x.target); typeIt(x.target,80,28); } });},{rootMargin:"0px 0px -18% 0px",threshold:.6});
-    heads.forEach(function(h){ h.classList.add("tw-wait"); tio.observe(h); });
-  }
-
   /* ---------- Fluidité : toutes les animations d'une section s'arrêtent quand elle n'est pas à l'écran ---------- */
   if("IntersectionObserver" in w){
     var offIO=new IntersectionObserver(function(en){en.forEach(function(x){x.target.classList.toggle("is-off",!x.isIntersecting);});},{rootMargin:"150px 0px"});
@@ -370,42 +317,6 @@
   /* la recherche de commune ouvre la liste */
   d.querySelectorAll("[data-zfind]").forEach(function(f){ f.addEventListener("input",function(){ var h=f.closest(".zside"); if(h&&f.value.trim()) h.classList.add("z-open"); }); });
 
-  /* ---------- Défilement fluide (style grandes marques) : ordinateur, souris uniquement ---------- */
-  (function(){
-    if(reduceBig||!w.matchMedia("(pointer:fine)").matches||!w.requestAnimationFrame) return;
-    var target=w.scrollY, cur=w.scrollY, running=false, EASE=.085;
-    function max(){return d.documentElement.scrollHeight-w.innerHeight;}
-    function loop(){
-      cur+=(target-cur)*EASE;
-      if(Math.abs(target-cur)<.5){cur=target;running=false;}
-      w.scrollTo(0,cur);
-      if(running) requestAnimationFrame(loop);
-    }
-    function canScroll(el){  /* laisse défiler normalement les zones qui ont leur propre défilement */
-      for(;el&&el!==d.body;el=el.parentElement){ var o=getComputedStyle(el).overflowY; if((o==="auto"||o==="scroll")&&el.scrollHeight>el.clientHeight) return true; if(el.tagName==="DIALOG") return true; }
-      return false;
-    }
-    w.addEventListener("wheel",function(e){
-      if(e.ctrlKey||e.defaultPrevented||canScroll(e.target)) return;
-      e.preventDefault();
-      var dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*w.innerHeight:e.deltaY;
-      if(!running){target=cur=w.scrollY;}
-      target=Math.max(0,Math.min(max(),target+dy));
-      if(!running){running=true;requestAnimationFrame(loop);}
-    },{passive:false});
-    /* clavier, barre de défilement, ancres : on se resynchronise */
-    w.addEventListener("scroll",function(){ if(!running){target=cur=w.scrollY;} },{passive:true});
-    d.addEventListener("click",function(e){
-      var a=e.target.closest&&e.target.closest('a[href^="#"],a[href*="/#"]'); if(!a) return;
-      var id=a.getAttribute("href").split("#")[1]; var el=id&&d.getElementById(id); if(!el||a.pathname!==location.pathname) return;
-      e.preventDefault(); history.pushState(null,"","#"+id);
-      if(!running){target=cur=w.scrollY;}
-      target=Math.max(0,Math.min(max(),el.getBoundingClientRect().top+w.scrollY-90));
-      if(!running){running=true;requestAnimationFrame(loop);}
-    });
-    d.documentElement.classList.add("smooth-on");
-  })();
-
   /* ---------- Apparition des textes et des boutons ---------- */
   (function(){
     if(!("IntersectionObserver" in w)) return;
@@ -421,15 +332,6 @@
     void d.body.offsetHeight;
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
   })();
-
-  /* ---------- Boutons « aimantés » (ordinateur) ---------- */
-  if(!reduceBig&&w.matchMedia("(hover:hover) and (pointer:fine)").matches){
-    d.querySelectorAll(".btn-lg,.head-call").forEach(function(b){
-      b.addEventListener("mousemove",function(e){ var r=b.getBoundingClientRect(), x=(e.clientX-r.left-r.width/2)/r.width, y=(e.clientY-r.top-r.height/2)/r.height;
-        b.style.transform="translate("+(x*8).toFixed(1)+"px,"+(y*6).toFixed(1)+"px)"; });
-      b.addEventListener("mouseleave",function(){ b.style.transform=""; });
-    });
-  }
 
   /* ---------- Diagnostic express ---------- */
   d.querySelectorAll("[data-diag]").forEach(function(box){
