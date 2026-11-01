@@ -2315,3 +2315,7 @@ main>section.band5,.band5{background:#0b1b2e!important;background-image:none!imp
 @media(max-width:560px){.band5 h2{font-size:16px;line-height:1.25}}
 .band5 .b5-k{color:#fb923c!important}.band5 .b5-s{color:#94a3b8!important}.b5-pipe{height:56px}
 .band5 .b5-k{font-size:13px!important;font-weight:800}.band5 .b5-s{font-size:14px!important}
+/* contraste (PageSpeed) */
+.fq-n{color:#64748b!important}
+.fq-i[open] .fq-n,.fq.is-split .fq-i.is-on .fq-n{color:#c2410c!important}
+.nav-wrap.on-light .brand-name b{color:#c2410c}
