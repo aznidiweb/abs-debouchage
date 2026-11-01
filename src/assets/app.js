@@ -28,7 +28,37 @@
 
   /* ---------- Barre de navigation flottante ---------- */
   var navWrap=d.querySelector(".nav-wrap");
-  function onScroll(){ if(navWrap) navWrap.classList.toggle("scrolled", w.scrollY>40); }
+  /* barre transparente : on regarde la couleur du fond juste sous la barre pour choisir texte clair ou foncé */
+  function bgLum(el){
+    for(;el&&el!==d.documentElement;el=el.parentElement){
+      var c=getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if(c&&(c.length<4||+c[3]>.5)) return (0.299*c[0]+0.587*c[1]+0.114*c[2])/255;
+    }
+    return 1;
+  }
+  var navTick=false;
+  function navTone(){
+    navTick=false; if(!navWrap) return;
+    var bar=navWrap.querySelector(".navbar"); if(!bar) return;
+    var r=bar.getBoundingClientRect(), y=46;
+    navWrap.style.pointerEvents="none";
+    var br=bar.querySelector(".brand"), bx=br?br.getBoundingClientRect():r;
+    var under=d.elementFromPoint(Math.round(Math.max(2,bx.left-6)),Math.round(y))||d.elementFromPoint(Math.round(w.innerWidth/2),Math.round(y));
+    navWrap.style.pointerEvents="";
+    if(under&&!navWrap.contains(under)) navWrap.classList.toggle("on-light",bgLum(under)>.6);
+  }
+  var lastY=w.scrollY;
+  function onScroll(){
+    var y=w.scrollY;
+    if(navWrap){
+      navWrap.classList.toggle("scrolled", y>40);
+      /* mobile : cachée quand on descend, revient dès qu'on remonte (la barre du bas garde le bouton Appeler) */
+      var menuOpen=d.querySelector('.burger[aria-expanded="true"]');
+      if(!menuOpen&&Math.abs(y-lastY)>6){ navWrap.classList.toggle("nav-hide", y>lastY&&y>160); lastY=y; }
+      if(y<=160) navWrap.classList.remove("nav-hide");
+    }
+    if(!navTick){navTick=true;requestAnimationFrame(navTone);}
+  }
   w.addEventListener("scroll",onScroll,{passive:true}); onScroll();
 
   /* ---------- Diaporama du héros ---------- */

@@ -2118,6 +2118,31 @@ p.hp-tag:hover{background:none}
 }
 .fq-open .fq-all .ico{transform:rotate(180deg)}
 
+/* =================== Barre du haut : toujours transparente, couleurs qui s'adaptent au fond =================== */
+.nav-wrap .navbar,.nav-wrap.scrolled .navbar,.nav-solid .navbar{background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+@media(max-width:960px){.nav-wrap:not(.scrolled) .navbar{background:transparent!important;box-shadow:none!important}}
+.nav-wrap .brand-name,.nav-wrap .brand-sub,.nav-wrap .nav>a,.nav-wrap .nav .dd>button,.nav-wrap .lang a,.nav-wrap .lang span,.nav-wrap .burger{transition:color .3s,background-color .3s}
+/* sur fond sombre : un léger ombrage du texte pour rester lisible sur la photo */
+.nav-wrap:not(.on-light) .brand-name,.nav-wrap:not(.on-light) .brand-sub{text-shadow:0 1px 8px rgba(0,0,0,.55)}
+@media(min-width:960px){.nav-wrap:not(.on-light) .nav>a,.nav-wrap:not(.on-light) .nav .dd>button{text-shadow:0 1px 8px rgba(0,0,0,.55)}}
+/* sur fond clair : texte foncé */
+.nav-wrap.on-light .brand-name{color:var(--ink)}
+.nav-wrap.on-light .brand-sub{color:var(--muted)}
+@media(min-width:960px){
+ .nav-wrap.on-light .nav>a,.nav-wrap.on-light .nav .dd>button{color:var(--ink)}
+ .nav-wrap.on-light .nav>a:hover,.nav-wrap.on-light .nav .dd>button:hover,.nav-wrap.on-light .nav>a[aria-current]{background:rgba(13,23,38,.07);color:var(--ink)}
+}
+.nav-wrap.on-light .lang span{background:rgba(13,23,38,.08);color:var(--ink)}
+.nav-wrap.on-light .lang a{color:var(--muted)}
+.nav-wrap.on-light .lang a:hover{color:var(--ink)}
+.nav-wrap.on-light .burger{background:rgba(13,23,38,.08);color:var(--ink)}
+/* barre : transparente tout en haut, verre très léger ensuite (on voit au travers), cachée en descendant sur mobile */
+.nav-wrap.scrolled .navbar{background:rgba(5,7,10,.42)!important;backdrop-filter:blur(14px) saturate(1.3)!important;-webkit-backdrop-filter:blur(14px) saturate(1.3)!important;box-shadow:0 1px 0 rgba(255,255,255,.06)!important}
+.nav-wrap.scrolled.on-light .navbar{background:rgba(255,255,255,.6)!important;box-shadow:0 1px 0 rgba(13,23,38,.06),0 8px 24px -16px rgba(13,23,38,.25)!important}
+.nav-wrap.scrolled .brand-name,.nav-wrap.scrolled .brand-sub,.nav-wrap.scrolled .nav>a,.nav-wrap.scrolled .nav .dd>button{text-shadow:none!important}
+.nav-wrap{transition:transform .32s var(--ease),padding .35s var(--ease)}
+@media(max-width:959px){.nav-wrap.nav-hide{transform:translateY(-115%)}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
