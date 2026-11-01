@@ -776,8 +776,8 @@ def osm_map(L):
     fr = L == "fr"
     names = {pid: (nfr if fr else nnl) for pid, nfr, nnl, la, lo in PROV_GEO}
     allp = "".join(f'<path d="{d}"/>' for d in S["prov"].values())
-    prov = "".join(f'<path class="om-p" data-zp="{pid}" d="{d}"><title>{e(names[pid])}</title></path>' for pid, d in S["prov"].items() if pid != "bxl")
-    prov += f'<path class="om-p om-bxl" data-zp="bxl" d="{S["prov"]["bxl"]}"><title>{e(names["bxl"])}</title></path>'
+    prov = "".join(f'<path class="om-p" data-zp="{pid}" d="{d}"/>' for pid, d in S["prov"].items() if pid != "bxl")
+    prov += f'<path class="om-p om-bxl" data-zp="bxl" d="{S["prov"]["bxl"]}"/>'
     svg = (f'<svg class="om-svg" viewBox="0 0 {S["w"]} {S["h"]}" preserveAspectRatio="none" aria-hidden="true">'
            f'<defs><mask id="om-m-{L}" maskUnits="userSpaceOnUse" x="0" y="0" width="{S["w"]}" height="{S["h"]}"><rect width="{S["w"]}" height="{S["h"]}" fill="#fff"/><g fill="#000">{allp}</g></mask></defs>'
            f'<rect class="om-out" width="{S["w"]}" height="{S["h"]}" mask="url(#om-m-{L})"/>'
