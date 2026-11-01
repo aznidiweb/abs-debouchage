@@ -391,7 +391,14 @@
   d.querySelectorAll("[data-fq]").forEach(function(fq){
     var items=[].slice.call(fq.querySelectorAll(".fq-i")), panel=fq.querySelector(".fq-panel"), mq=w.matchMedia("(min-width:960px)");
     if(!items.length||!panel) return;
-    var all=fq.querySelector("[data-fqall]"); if(all) all.addEventListener("click",function(){ fq.classList.add("fq-open"); all.remove(); });
+    var all=fq.querySelector("[data-fqall]");
+    if(all){ var more=all.firstChild.textContent, less=(d.documentElement.lang.indexOf("nl")===0?"Minder tonen":"Voir moins");
+      all.setAttribute("aria-expanded","false");
+      all.addEventListener("click",function(){
+        var o=!fq.classList.contains("fq-open"); fq.classList.toggle("fq-open",o); all.setAttribute("aria-expanded",o);
+        all.firstChild.textContent=o?less:more;
+        if(!o){ items.forEach(function(x,i){ if(i>3) x.open=false; }); var r=fq.getBoundingClientRect(); if(r.top<0) fq.scrollIntoView({block:"start"}); }
+      }); }
     function show(it){
       items.forEach(function(x){ x.classList.toggle("is-on",x===it); });
       var n=it.querySelector(".fq-n").textContent, q=it.querySelector(".fq-q").textContent, a=it.querySelector(".fq-a").innerHTML;

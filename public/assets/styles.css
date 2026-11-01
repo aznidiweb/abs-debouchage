@@ -2116,6 +2116,7 @@ p.hp-tag:hover{background:none}
  .fq-all .ico{width:16px;height:16px}
  .fq-side{margin-top:14px}
 }
+.fq-open .fq-all .ico{transform:rotate(180deg)}
 
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
