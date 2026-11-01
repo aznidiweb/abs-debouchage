@@ -476,7 +476,7 @@ def hero_home(L):
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
-   <a class="hp-tag" href="tel:{PHONE_TEL}">{ico("phone")}<span>{t["tag"]}</span></a>
+   <p class="hp-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.4 4 5.7 7.2 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-3.1 2.3-6.3 5.7-10.3z" fill="currentColor" stroke="none"/></svg><span>{t["tag"]}</span></p>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -1168,7 +1168,7 @@ def hero_home(L):
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
-   <a class="hp-tag" href="tel:{PHONE_TEL}">{ico("phone")}<span>{t["tag"]}</span></a>
+   <p class="hp-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.4 4 5.7 7.2 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-3.1 2.3-6.3 5.7-10.3z" fill="currentColor" stroke="none"/></svg><span>{t["tag"]}</span></p>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
