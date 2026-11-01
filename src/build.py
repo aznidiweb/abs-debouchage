@@ -1483,7 +1483,7 @@ def faq_section(L, items, title=None, cls="", groups=None):
     return f'''<section class="section fq-sec {cls}" id="faq"><div class="wrap">
  <div class="fq-head reveal"><h2>{title or u["f_title"]}</h2><p>{lead}</p></div>
  <div class="fq" data-fq>
-  <div class="fq-list">{lst}</div>
+  <div class="fq-list">{lst}{f'<button type="button" class="fq-all" data-fqall>{"Voir les" if fr else "Bekijk de"} {n - 4} {"autres questions" if fr else "andere vragen"}{ico("chev")}</button>' if n > 5 else ""}</div>
   <div class="fq-side"><div class="fq-panel" aria-live="polite" hidden></div>{more}</div>
  </div>
 </div></section>'''

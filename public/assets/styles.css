@@ -2101,6 +2101,22 @@ p.hp-tag:hover{background:none}
  .hero-video .hv-photo{top:-72px!important}
 }
 
+/* =================== FAQ compacte =================== */
+.fq-g{display:none}
+.fq-head{margin-bottom:14px}
+.fq-head p{font-size:15.5px}
+.fq-i summary{padding:10px 2px;font-size:15.5px;grid-template-columns:30px 1fr 18px}
+.fq-a{padding:0 24px 12px 42px}
+.fq-a p{font-size:15px;line-height:1.6}
+.fq-all{display:none}
+@media(min-width:960px){.fq.is-split{gap:40px}.fq.is-split .fq-panel{padding:24px 26px}}
+@media(max-width:959px){
+ .fq:not(.fq-open) .fq-i:nth-of-type(n+5){display:none}
+ .fq-all{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:10px;padding:11px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer}
+ .fq-all .ico{width:16px;height:16px}
+ .fq-side{margin-top:14px}
+}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

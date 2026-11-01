@@ -391,6 +391,7 @@
   d.querySelectorAll("[data-fq]").forEach(function(fq){
     var items=[].slice.call(fq.querySelectorAll(".fq-i")), panel=fq.querySelector(".fq-panel"), mq=w.matchMedia("(min-width:960px)");
     if(!items.length||!panel) return;
+    var all=fq.querySelector("[data-fqall]"); if(all) all.addEventListener("click",function(){ fq.classList.add("fq-open"); all.remove(); });
     function show(it){
       items.forEach(function(x){ x.classList.toggle("is-on",x===it); });
       var n=it.querySelector(".fq-n").textContent, q=it.querySelector(".fq-q").textContent, a=it.querySelector(".fq-a").innerHTML;
