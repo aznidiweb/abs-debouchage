@@ -1942,6 +1942,25 @@ main>section.band2::before{display:none}
 .hero-video .hp-lead{font-size:clamp(17px,1.4vw,19.5px);line-height:1.5;color:#dbe4ef}
 .hero-video .hp-lead b{color:#fff;font-weight:800}
 
+/* =================== Titre principal (H1) du héros : statut + mots-clés, sans majuscules =================== */
+.hero .hlabel.hl2{display:inline-flex;align-items:stretch;gap:0;padding:0;border-radius:12px;overflow:hidden;text-transform:none;letter-spacing:0;font-size:15px;font-weight:600;line-height:1.25;
+ background:rgba(8,19,33,.62);border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 24px -10px rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hl2 .hl-st{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(34,197,94,.14);color:#86efac;font-weight:800;white-space:nowrap;border-right:1px solid rgba(255,255,255,.12)}
+.hl2 .hl-st::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.25);animation:b2Blink 2.4s ease-in-out infinite}
+.hl2 .hl-t{display:inline-flex;align-items:center;padding:8px 14px;color:#fff}
+@media(max-width:560px){
+ .hero .hlabel.hl2{flex-direction:column;align-items:center;font-size:13.5px;border-radius:12px}
+ .hl2 .hl-st{width:100%;justify-content:center;border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:6px 12px}
+ .hl2 .hl-t{padding:7px 12px;text-align:center}
+}
+@media(max-width:960px){.hero .hlabel.hl2{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(8,19,33,.78)}}
+@media(max-width:560px){
+ .hero .hlabel.hl2{flex-direction:row;align-items:stretch;font-size:13px;text-align:left;max-width:100%}
+ .hl2 .hl-st{width:auto;border-bottom:0;border-right:1px solid rgba(255,255,255,.12);padding:6px 9px;gap:6px}
+ .hl2 .hl-x{display:none}
+ .hl2 .hl-t{padding:6px 10px;text-align:left;line-height:1.3}
+}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}

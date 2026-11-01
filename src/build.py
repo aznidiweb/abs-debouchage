@@ -325,7 +325,7 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage en Belgique · 24h/24",
+  "h1": "<span class=\"hl-st\"><span class=\"hl-x\">Disponible </span>24h/24</span><span class=\"sr\"> – </span><span class=\"hl-t\">Débouchage à Bruxelles et dans toute la Belgique</span>",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
@@ -348,7 +348,7 @@ TX = {
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping in België · 24/7",
+  "h1": "<span class=\"hl-st\">24/7<span class=\"hl-x\"> bereikbaar</span></span><span class=\"sr\"> – </span><span class=\"hl-t\">Ontstopping in Brussel en heel België</span>",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
@@ -475,7 +475,7 @@ def hero_home(L):
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
-   <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
+   <h1 class="hlabel hl2">{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -1016,7 +1016,7 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage en Belgique · 24h/24",
+  "h1": "<span class=\"hl-st\"><span class=\"hl-x\">Disponible </span>24h/24</span><span class=\"sr\"> – </span><span class=\"hl-t\">Débouchage à Bruxelles et dans toute la Belgique</span>",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
@@ -1039,7 +1039,7 @@ TX = {
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping in België · 24/7",
+  "h1": "<span class=\"hl-st\">24/7<span class=\"hl-x\"> bereikbaar</span></span><span class=\"sr\"> – </span><span class=\"hl-t\">Ontstopping in Brussel en heel België</span>",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
@@ -1166,7 +1166,7 @@ def hero_home(L):
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
-   <h1 class="hlabel"><span class="pulse"></span>{t["h1"]}</h1>
+   <h1 class="hlabel hl2">{t["h1"]}</h1>
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
