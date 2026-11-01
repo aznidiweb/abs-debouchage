@@ -338,7 +338,7 @@ TX = {
   "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
   "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
-  "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
+  "cards_lead": "Choisissez votre problème : on a le bon matériel pour chacun.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
   "steps_chip": "Comment ça se passe", "steps_title": "Quatre étapes, <em>zéro surprise.</em>",
   "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
@@ -361,7 +361,7 @@ TX = {
   "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
   "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
-  "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
+  "cards_lead": "Kies je probleem: we hebben voor elk het juiste materiaal.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
   "steps_chip": "Hoe het werkt", "steps_title": "Vier stappen, <em>geen verrassingen.</em>",
   "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
@@ -1028,7 +1028,7 @@ TX = {
   "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
   "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
-  "cards_lead": "Du simple lavabo à l'égout principal : on a le bon matériel pour chaque situation.",
+  "cards_lead": "Choisissez votre problème : on a le bon matériel pour chacun.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
   "steps_chip": "Comment ça se passe", "steps_title": "Quatre étapes, <em>zéro surprise.</em>",
   "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
@@ -1051,7 +1051,7 @@ TX = {
   "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
   "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
-  "cards_lead": "Van een eenvoudige lavabo tot de hoofdriolering: we hebben het juiste materiaal voor elke situatie.",
+  "cards_lead": "Kies je probleem: we hebben voor elk het juiste materiaal.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
   "steps_chip": "Hoe het werkt", "steps_title": "Vier stappen, <em>geen verrassingen.</em>",
   "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
@@ -1206,24 +1206,21 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
 ]
 
 def cards(L, exclude=None):
-    """4 familles de services : la carte mène à la page principale, les sous-services ont leur propre lien."""
+    """4 tuiles : animation, titre court, le problème dit avec les mots du client."""
+    TILE = {"wc": (("WC & sanibroyeur", "Wc & sanibroyeur"), ("La cuvette déborde", "De pot loopt over")),
+            "evier": (("Évier & lavabo", "Gootsteen & lavabo"), ("L'eau s'écoule mal", "Het water loopt slecht weg")),
+            "douche": (("Douche & bain", "Douche & bad"), ("L'eau stagne au fond", "Het water blijft staan")),
+            "egout": (("Égout & caméra", "Riool & camera"), ("Refoulement, odeurs", "Terugslag, geurtjes"))}
+    k = 0 if L == "fr" else 1
     items = []
     for i, (main, others, title, desc) in enumerate(GROUPS):
-        s = svc_by_id(main)
-        SHORT = {"wc": ("WC", "Wc"), "sanibroyeur": ("Sanibroyeur", "Sanibroyeur"), "evier": ("Évier", "Gootsteen"), "lavabo": ("Lavabo", "Lavabo"),
-                 "cuisine": ("Canalisations", "Leidingen"), "douche": ("Douche", "Douche"), "baignoire": ("Baignoire", "Bad"), "siphon": ("Siphon de sol", "Afvoerputje"),
-                 "egout": ("Égout", "Riool"), "camera": ("Caméra", "Camera")}
-        subs = "".join(f'<li><a href="{url(L, svc_by_id(o)["slug"][L])}" title="{e(svc_by_id(o)[L]["name"])}">{e(SHORT[o][0 if L == "fr" else 1])}</a></li>' for o in [main] + others)
-        items.append(f'''<li class="reveal" data-d="{i%2}"><article class="sv2">
- <div class="sv2-art sc-mini" data-mini aria-hidden="true">{scene_mini(L, main, f"g{i}")}</div>
- <div class="sv2-body">
-  <h3 class="sv2-t"><a class="sv2-link" href="{url(L, s["slug"][L])}">{e(title[L])}</a></h3>
-  <p class="sv2-d">{e(desc[L])}</p>
-  <ul class="sv2-sub">{subs}</ul>
- </div>
- <span class="sv2-go" aria-hidden="true">{ico("arrow")}</span>
-</article></li>''')
-    return f'<ul class="svc-grid sv2-grid">{"".join(items)}</ul>'
+        s = svc_by_id(main); t, sym = TILE[main]
+        items.append(f'''<li class="reveal" data-d="{i}"><a class="tl" href="{url(L, s["slug"][L])}" title="{e(title[L])}">
+ <span class="tl-art sc-mini" data-mini aria-hidden="true">{scene_mini(L, main, f"g{i}")}</span>
+ <span class="tl-body"><span class="tl-t">{e(t[k])}</span><span class="tl-s">{e(sym[k])}</span></span>
+ <span class="tl-go" aria-hidden="true">{ico("arrow")}</span>
+</a></li>''')
+    return f'<ul class="svc-grid tl-grid">{"".join(items)}</ul>'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'

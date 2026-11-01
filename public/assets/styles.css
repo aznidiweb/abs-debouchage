@@ -2205,6 +2205,34 @@ p.hp-tag:hover{background:none}
 @media(min-width:861px){.sv2-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sv2-grid>li{grid-column:auto!important}.sv2{grid-template-columns:minmax(0,38%) 1fr}}
 @media(max-width:560px){.sv2-d{display:none}.sv2-body{justify-content:center;gap:8px;padding:14px 40px 14px 14px}.sv2-sub{margin-top:0;padding-top:0}.sv2-art{min-height:96px}}
 
+/* =================== Services : tuiles (animation + problème du client) =================== */
+.tl-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.tl-grid>li{display:block!important;min-width:0}
+.tl{position:relative;display:flex;flex-direction:column;height:100%;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);text-decoration:none;color:inherit;
+ transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+.tl:hover{border-color:rgba(194,65,12,.45);box-shadow:0 18px 36px -24px rgba(11,27,46,.5);transform:translateY(-3px)}
+.tl:active{transform:scale(.98)}
+.tl-art{position:relative;display:block;aspect-ratio:4/3;background:#0b1b2e;overflow:hidden}
+.tl-art svg{position:absolute;inset:0;width:100%;height:100%}
+.tl-art::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(180deg,rgba(11,27,46,0),rgba(11,27,46,.35));pointer-events:none}
+.tl-body{display:flex;flex-direction:column;gap:3px;padding:14px 44px 16px 16px}
+.tl-t{font-size:17px;font-weight:800;line-height:1.2;letter-spacing:-.01em;color:var(--ink)}
+.tl-s{font-size:14px;line-height:1.35;color:var(--muted)}
+.tl-go{position:absolute;right:14px;bottom:16px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--brand);background:var(--brand-50);transition:transform .25s var(--ease),background .25s,color .25s}
+.tl-go .ico{width:15px;height:15px}
+.tl:hover .tl-go{transform:translateX(3px);background:var(--brand);color:#fff}
+@media(max-width:960px){.tl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+@media(max-width:560px){
+ .tl{border-radius:16px}
+ .tl-art{aspect-ratio:1/1}
+ .tl-body{padding:10px 34px 12px 12px;gap:2px}
+ .tl-t{font-size:15px}
+ .tl-s{font-size:12.5px}
+ .tl-go{right:10px;bottom:12px;width:22px;height:22px}
+ .tl-go .ico{width:13px;height:13px}
+}
+@media(max-width:560px){.tl-art{aspect-ratio:4/3}}
+
 /* ---------- Scènes animées des services (généré par scenes.py) ---------- */
 @keyframes scA-water{0%{transform:none}52%{transform:none}70%{transform:translateY(46px)}93%{transform:translateY(46px)}100%{transform:none}}
 .scA-water{animation:scA-water 12s infinite ease-in-out}
