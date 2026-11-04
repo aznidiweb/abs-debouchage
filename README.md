@@ -1,8 +1,8 @@
 # Site ABS Débouchage
 
-## 👉 [Voir le site en ligne : aznidiweb.github.io/abs-debouchage](https://aznidiweb.github.io/abs-debouchage/)
+## 👉 [Voir le site en ligne : abs-debouchage.pages.dev](https://abs-debouchage.pages.dev/)
 
-Version néerlandaise : [aznidiweb.github.io/abs-debouchage/nl/](https://aznidiweb.github.io/abs-debouchage/nl/)
+Version néerlandaise : [abs-debouchage.pages.dev/nl/](https://abs-debouchage.pages.dev/nl/)
 
 Site statique bilingue (FR/NL) pour ABS Débouchage, Bruxelles.
 
@@ -18,5 +18,5 @@ python3 src/build.py
 git add -A && git commit -m "..." && git push
 ```
 
-Netlify publie automatiquement le dossier `public/`.
+Cloudflare Pages publie automatiquement le dossier `public/`.
 Le domaine final est défini dans `SITE_URL` (src/content.py).
