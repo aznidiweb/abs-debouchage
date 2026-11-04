@@ -987,7 +987,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 
 
 # ================================================================ STYLE « SOLARIS » ADAPTÉ À ABS
-LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#c2410c"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#c2410c" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'''
+LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#fff"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#0284c7"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'''
 
 PHOTOS = {
  "sink":     ("photo-1676210133055-eab6ef033ce3", {"fr": "Technicien débouchant la canalisation sous un évier", "nl": "Technieker ontstopt de afvoer onder een gootsteen"}),
