@@ -121,7 +121,6 @@ def footer(L):
   <div><h4>&nbsp;</h4><ul>{svc_links2}<li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li></ul></div>
   <div><h2 class="fh">{u["foot_info"]}</h2><ul>
    <li>{u["foot_hours"]}</li>
-   <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
    <li>{LEGAL_NAME}</li>
    <li>{STREET}, {POSTCODE} {CITY[L]}</li>
    <li>{u["vat"]} : {VAT}</li>
@@ -170,7 +169,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
+        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -409,7 +408,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -861,7 +860,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
+        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -1100,7 +1099,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -1592,13 +1591,13 @@ def page_about(L):
 def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
-    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY}, WhatsApp ou e-mail. Bruxelles et toute la Belgique." if L == "fr"
-            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY}, WhatsApp of e-mail. In heel België.")
+    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY} ou WhatsApp. Bruxelles et toute la Belgique." if L == "fr"
+            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY} of WhatsApp. In heel België.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part ensuite chez vous." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Daarna vertrekt een technieker naar je toe.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
-              ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"), ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
+              ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
                  f'<span class="ic">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if hh else '</div>') for ic, l, v, hh in cards_)
     slide = [("sink", u["nav_contact"], h, lead, u["nav_contact"])]
@@ -1712,7 +1711,7 @@ def build():
     write("sitemap.xml", "\n".join(sm))
     llms = ["# ABS Débouchage", "",
             "> Entreprise de débouchage d'urgence basée à Bruxelles, active dans toute la Belgique, 24h/24 et 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
-            f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)", f"- E-mail : {EMAIL}",
+            f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)",
             "- Zone : toute la Belgique (Bruxelles, Wallonie, Flandre), base à Bruxelles",
             "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
             "## Services (FR)"] + [f"- [{s['fr']['name']}]({abs_url('fr', s['slug']['fr'])}): {s['fr']['card']}" for s in SERVICES] + ["",

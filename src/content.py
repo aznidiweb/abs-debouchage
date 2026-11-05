@@ -487,13 +487,13 @@ PRIVACY = {
   "Données collectées : ce site ne collecte aucune donnée via des formulaires stockés sur nos serveurs. Lorsque vous utilisez le bouton de devis, un message est préparé dans WhatsApp et c'est vous qui choisissez de l'envoyer. Les informations que vous nous transmettez par téléphone ou WhatsApp (prénom, commune, description du problème, photos) servent uniquement à établir un devis et à réaliser l'intervention.",
   "Conservation : vos données sont conservées le temps nécessaire au suivi de l'intervention et aux obligations comptables légales.",
   "Cookies : ce site n'utilise pas de cookies de suivi ou publicitaires. Votre choix de langue peut être mémorisé localement dans votre navigateur.",
-  "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à contact@abs-debouchage.be. Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
+  "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous appelant au 0484 72 47 24 ou en écrivant à notre adresse (Rue de la Carpe 2, 1080 Bruxelles). Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
  "nl": ("Privacybeleid", [
   "ABS Débouchage is een merk van C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Brussel, btw BE 0719.885.401. Als verwerkingsverantwoordelijke respecteert zij je privacy overeenkomstig de Algemene Verordening Gegevensbescherming (AVG/GDPR).",
   "Verzamelde gegevens: deze site verzamelt geen gegevens via formulieren die op onze servers worden opgeslagen. Wanneer je de offerteknop gebruikt, wordt een bericht in WhatsApp voorbereid en kies jij of je het verstuurt. De informatie die je ons telefonisch of via WhatsApp bezorgt (voornaam, gemeente, beschrijving, foto's) dient enkel om een offerte op te maken en de interventie uit te voeren.",
   "Bewaring: je gegevens worden bewaard zolang nodig voor de opvolging van de interventie en de wettelijke boekhoudkundige verplichtingen.",
   "Cookies: deze site gebruikt geen tracking- of advertentiecookies. Je taalkeuze kan lokaal in je browser worden onthouden.",
-  "Je rechten: je kunt inzage, verbetering of verwijdering van je gegevens vragen via contact@abs-debouchage.be. Je kunt ook klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]),
+  "Je rechten: je kunt inzage, verbetering of verwijdering van je gegevens vragen door ons te bellen op 0484 72 47 24 of te schrijven naar ons adres (Rue de la Carpe 2, 1080 Brussel). Je kunt ook klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]),
 }
 
 # --------------------------------------------------------------------------

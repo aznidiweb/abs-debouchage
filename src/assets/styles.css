@@ -458,14 +458,14 @@ button{cursor:pointer}
 @media(max-width:760px){.cols2{grid-template-columns:1fr}.box{padding:24px}.tip{padding:20px}}
 
 /* ---------- Contact / pages simples ---------- */
-.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .c-card{display:flex;flex-direction:column;gap:2px;padding:24px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--sh-2);transition:transform .3s var(--ease),box-shadow .3s}
 a.c-card:hover{transform:translateY(-4px);box-shadow:var(--sh-3)}
 .c-card .ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--brand-50);color:var(--brand);margin-bottom:14px}
 .c-card .ic .ico{width:21px;height:21px}
 .c-card small{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .c-card b{font-size:17px;font-weight:800;color:var(--ink);word-break:break-word}
-@media(max-width:960px){.contact-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.contact-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.contact-grid{grid-template-columns:1fr}}
 .blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:900px){.blocks{grid-template-columns:1fr}}
