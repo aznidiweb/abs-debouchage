@@ -1645,7 +1645,7 @@ def page_404():
 
 # ---------------------------------------------------------------- écriture
 # Sous-dossier d'hébergement (ex. GitHub Pages sans domaine : BASE_PATH=/abs-debouchage).
-# Vide quand le site est servi à la racine d'un domaine (abs-debouchage.be).
+# Vide quand le site est servi à la racine d'un domaine (absdebouchage.be).
 BASE = os.environ.get("BASE_PATH", "").rstrip("/")
 
 def write(rel, content):

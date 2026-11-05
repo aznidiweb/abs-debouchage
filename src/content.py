@@ -4,11 +4,11 @@ CONTENU DU SITE ABS DÉBOUCHAGE
 Tous les textes sont ici. Après une modification : python3 build.py
 """
 
-SITE_URL = "https://www.abs-debouchage.be"   # domaine final (utilisé pour Google)
+SITE_URL = "https://www.absdebouchage.be"   # domaine final (utilisé pour Google)
 PHONE_DISPLAY = "0484 72 47 24"
 PHONE_TEL = "+32484724724"
 WHATSAPP = "32484724724"
-EMAIL = "contact@abs-debouchage.be"
+EMAIL = "contact@absdebouchage.be"
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
 BRAND = "ABS Débouchage"
