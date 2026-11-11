@@ -398,7 +398,7 @@ def header(L, alt_url, current=""):
   <a href="{url(L, u["contact_slug"])}"{cur("contact")}>{u["nav_contact"]}</a>
   <a class="lang-m" href="{alt_url}" hreflang="{u["other"]}">{"Nederlands" if L=="fr" else "Français"}</a>
  </nav>
- <div class="lang" aria-label="Langue / Taal">{lang_sw}</div>
+ <div class="lang" role="group" aria-label="Langue / Taal">{lang_sw}</div>
  <a class="btn btn-call head-call" href="tel:{PHONE_TEL}" aria-label="{u["call"]} {PHONE_DISPLAY}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
  <button class="burger" type="button" aria-label="{u["menu"]}" aria-controls="nav" aria-expanded="false">{ico("menu")}</button>
 </div></div></div>'''
@@ -778,7 +778,7 @@ def osm_map(L):
     allp = "".join(f'<path d="{d}"/>' for d in S["prov"].values())
     prov = "".join(f'<path class="om-p" data-zp="{pid}" d="{d}"/>' for pid, d in S["prov"].items() if pid != "bxl")
     prov += f'<path class="om-p om-bxl" data-zp="bxl" d="{S["prov"]["bxl"]}"/>'
-    svg = (f'<svg class="om-svg" viewBox="0 0 {S["w"]} {S["h"]}" preserveAspectRatio="none" aria-hidden="true">'
+    svg = (f'<svg class="om-svg" viewBox="0 0 {S["w"]} {S["h"]}" preserveAspectRatio="none" role="img" aria-label="__OMARIA__">'
            f'<defs><mask id="om-m-{L}" maskUnits="userSpaceOnUse" x="0" y="0" width="{S["w"]}" height="{S["h"]}"><rect width="{S["w"]}" height="{S["h"]}" fill="#fff"/><g fill="#000">{allp}</g></mask></defs>'
            f'<rect class="om-out" width="{S["w"]}" height="{S["h"]}" mask="url(#om-m-{L})"/>'
            f'<g class="om-provs">{prov}</g></svg>')
@@ -795,7 +795,8 @@ def osm_map(L):
     aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
     base = "ABS Débouchage"
     hint = "Cliquez sur votre province" if fr else "Klik op je provincie"
-    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}">{svg}{rings}{cities}'
+    svg = svg.replace("__OMARIA__", e(aria))   # le rôle « image » est porté par le dessin seul : le lien © reste accessible à côté
+    return (f'<div class="om" style="aspect-ratio:{W:.1f}/{H:.1f}">{svg}{rings}{cities}'
             f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i class="om-logo">{LOGO}</i><b>{base}<small>{"Notre base" if fr else "Onze basis"}</small></b></span>'
             f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg><b data-ompl></b></span>'
             f'<span class="om-hint" aria-hidden="true">{hint}</span>'
@@ -1098,7 +1099,7 @@ def header(L, alt_url, current=""):
   <a href="{url(L, u["contact_slug"])}"{cur("contact")}>{u["nav_contact"]}</a>
   <a class="lang-m" href="{alt_url}" hreflang="{u["other"]}">{"Nederlands" if L=="fr" else "Français"}</a>
  </nav>
- <div class="lang" aria-label="Langue / Taal">{lang_sw}</div>
+ <div class="lang" role="group" aria-label="Langue / Taal">{lang_sw}</div>
  <a class="btn btn-call head-call" href="tel:{PHONE_TEL}" aria-label="{u["call"]} {PHONE_DISPLAY}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
  <button class="burger" type="button" aria-label="{u["menu"]}" aria-controls="nav" aria-expanded="false">{ico("menu")}</button>
 </div></div></div>'''
