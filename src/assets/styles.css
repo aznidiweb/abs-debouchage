@@ -2365,3 +2365,34 @@ main>section.band5,.band5{background:#0b1b2e!important;background-image:none!imp
 @keyframes ptflow{to{stroke-dashoffset:-22}}
 @media(prefers-reduced-motion:reduce){.pt-d,.pt-n,.pt-f{animation:none}}
 @media(max-width:520px){.pt-art{height:96px}.pt-b{padding:10px 12px 12px}}
+
+/* =====================================================================
+   Finition (nov. 2026) — rendu plus artisanal, moins « gabarit » :
+   fond papier chaud, angles plus nets, ombres discrètes, boutons pleins
+   sans halo, étiquettes sobres. Aucune structure ni texte modifiés.
+   ===================================================================== */
+:root{
+  --soft:#f6f4ef; --line:#e8e4db; --line-2:#d5cfc3;
+  --ink:#101820; --muted:#666c74;
+  --r:10px; --r-lg:14px; --r-xl:18px;
+  --sh-1:0 1px 2px rgba(16,24,32,.06);
+  --sh-2:0 1px 2px rgba(16,24,32,.05),0 6px 16px rgba(16,24,32,.06);
+  --sh-3:0 4px 10px rgba(16,24,32,.06),0 18px 40px rgba(16,24,32,.12);
+}
+/* boutons : couleur pleine, simple arête basse, plus de halo coloré ni de pastille derrière l'icône */
+.btn{border-radius:10px}
+.btn-lg{border-radius:12px}
+.head-call{border-radius:10px!important}
+.btn-call,.hero-video .cta-row .btn-call,.head-call{box-shadow:inset 0 -3px 0 rgba(0,0,0,.22)!important}
+.btn-call::before{display:none}
+.btn-call:hover,.btn-call:focus-visible{background:var(--brand-dk)}
+.btn-call>.ico,.btn-lg.btn-call>.ico,.hero-video .cta-row .btn-call>.ico,.btn-wa>.ico{padding:0;margin:0;background:none;box-shadow:none;border-radius:0}
+.btn-wa{box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.btn-white{box-shadow:inset 0 -3px 0 rgba(154,52,18,.14)}
+.hero-video .cta-row .btn-glass{border-radius:12px}
+/* étiquettes du hero : texte simple plutôt que pastille en verre dépoli */
+.hero .hlabel{padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:0;font-size:13px;letter-spacing:.06em;color:rgba(255,255,255,.82)}
+.hero-video .hlabel{background:none}
+.hp-checks .ico{width:17px;height:17px;padding:0;background:none}
+/* cartes : un filet fin plutôt qu'une grosse ombre */
+.card{border:1px solid var(--line)}
