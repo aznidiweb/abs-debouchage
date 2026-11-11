@@ -1551,6 +1551,23 @@ def page_home(L):
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
+def plomberie_tiles(L):
+    fr = L == "fr"
+    T = ([("drain", "Fuites d'eau", "Tuyau, raccord ou flexible qui fuit : on localise et on répare."),
+          ("sink", "Robinetterie", "Robinet qui goutte, mitigeur à remplacer, joints usés."),
+          ("toilet", "Sanitaires & WC", "Chasse d'eau, WC, lavabo, douche : réparation ou installation."),
+          ("gauge", "Chauffe-eau & pression", "Plus d'eau chaude ou pression qui chute : on trouve la cause."),
+          ("pipes", "Canalisations", "Remplacement ou réparation de tuyaux et raccords."),
+          ("wrench", "Installation & remplacement", "Nouveaux appareils, rénovation, mise en place propre.")] if fr else
+         [("drain", "Waterlekken", "Lekkende leiding, koppeling of flexibel: we lokaliseren en herstellen."),
+          ("sink", "Kranen", "Druppelende kraan, mengkraan vervangen, versleten voegen."),
+          ("toilet", "Sanitair & wc", "Spoelbak, wc, lavabo, douche: herstelling of installatie."),
+          ("gauge", "Boiler & waterdruk", "Geen warm water of dalende druk: we zoeken de oorzaak."),
+          ("pipes", "Leidingen", "Vervanging of herstelling van leidingen en koppelingen."),
+          ("wrench", "Installatie & vervanging", "Nieuwe toestellen, renovatie, nette plaatsing.")])
+    li = "".join(f'<li class="reveal" data-d="{i % 3}"><a class="pt" href="#diagnostic"><span class="pt-ic" aria-hidden="true">{ico(ic)}</span><b>{e(t)}</b><span>{e(d)}</span></a></li>' for i, (ic, t, d) in enumerate(T))
+    return f'<ul class="pt-grid">{li}</ul>'
+
 def plomberie_side(L):
     fr = L == "fr"
     items = ([("drain", "Fuites d'eau"), ("sink", "Robinetterie"), ("toilet", "Sanitaires & WC"), ("gauge", "Chauffe-eau & pression"), ("pipes", "Canalisations"), ("wrench", "Installation & remplacement")] if fr else
@@ -1588,6 +1605,12 @@ def page_service(L, s):
  {cards(L, exclude=s["id"])}
  <p class="sv-communes"><b>{"Bruxelles" if L == "fr" else "Brussel"} :</b> {e(communes)}.</p>
 </div></section>''' + band(L)
+    if s["id"] == "plomberie":
+        cut = body.index('<section class="section"><div class="wrap">\n <div class="cols2">')
+        body = body[:cut] + f'''<section class="section"><div class="wrap">
+ {sh("Plomberie" if L == "fr" else "Loodgieterij", "On s'occupe de tout" if L == "fr" else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 24h/24." if L == "fr" else "Klik op uw probleem of bel ons: gratis offerte, 24/7.", center=True)}
+ {plomberie_tiles(L)}
+</div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + band(L)
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
                   "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
                   "provider": {"@id": SITE_URL + "/#business"},
