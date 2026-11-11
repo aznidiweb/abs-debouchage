@@ -2350,3 +2350,18 @@ main>section.band5,.band5{background:#0b1b2e!important;background-image:none!imp
 .pt span:last-child{color:#475569;font-size:.95rem;line-height:1.45}
 @media(max-width:900px){.pt-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.pt-grid{gap:10px}.pt{min-height:0;padding:16px}.pt span:last-child{font-size:.85rem}}
+.pt-grid{gap:14px;max-width:960px;margin-left:auto;margin-right:auto}
+.pt{padding:0!important;min-height:0!important;gap:0!important;overflow:hidden}
+.pt-art{display:block;height:118px;background:#0d2238}
+.pt-art svg{display:block;width:100%;height:100%}
+.pt-b{display:flex;flex-direction:column;gap:2px;padding:12px 14px 14px}
+.pt-b b{font-size:1rem}
+.pt-b span{font-size:.85rem!important;color:#475569}
+.pt-d{animation:ptfall 1.5s ease-in infinite}.pt-d.d2{animation-delay:.75s}
+@keyframes ptfall{0%{transform:translateY(0);opacity:1}85%{opacity:1}100%{transform:translateY(38px);opacity:0}}
+.pt-n{transform-origin:102px 54px;animation:ptneedle 2.4s ease-in-out infinite alternate}
+@keyframes ptneedle{from{transform:rotate(-50deg)}to{transform:rotate(60deg)}}
+.pt-f{stroke-dasharray:8 14;animation:ptflow 1s linear infinite}
+@keyframes ptflow{to{stroke-dashoffset:-22}}
+@media(prefers-reduced-motion:reduce){.pt-d,.pt-n,.pt-f{animation:none}}
+@media(max-width:520px){.pt-art{height:96px}.pt-b{padding:10px 12px 12px}}

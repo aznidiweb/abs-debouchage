@@ -1551,21 +1551,29 @@ def page_home(L):
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
+PT_ART = {
+ "drain": '''<rect x="14" y="52" width="212" height="22" rx="4" fill="#cbd5e1"/><rect x="108" y="46" width="16" height="34" rx="3" fill="#94a3b8"/><rect x="14" y="58" width="212" height="6" fill="#0f2238" opacity=".35"/><path d="M158 52l6 9-6 6 6 9" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/><g fill="#38bdf8"><path class="pt-d" d="M161 80q-5 8 0 12q5-4 0-12z"/><path class="pt-d d2" d="M161 80q-5 8 0 12q5-4 0-12z"/></g><ellipse cx="161" cy="128" rx="44" ry="7" fill="#38bdf8" opacity=".5"/><circle cx="70" cy="30" r="3" fill="#475569"/><circle cx="190" cy="34" r="3" fill="#475569"/>''',
+ "sink": '''<path d="M54 100h132v6a24 24 0 0 1-24 24H78a24 24 0 0 1-24-24z" fill="#e2e8f0"/><path d="M96 100V62q0-24 24-24h30v22" fill="none" stroke="#cbd5e1" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><rect x="86" y="96" width="20" height="8" rx="3" fill="#94a3b8"/><circle cx="96" cy="30" r="7" fill="#c2410c"/><path class="pt-d" d="M150 66q-5 8 0 12q5-4 0-12z" fill="#38bdf8"/><ellipse cx="150" cy="104" rx="16" ry="3" fill="#38bdf8" opacity=".6"/>''',
+ "toilet": '''<rect x="124" y="22" width="56" height="38" rx="7" fill="#e2e8f0"/><circle cx="170" cy="30" r="4" fill="#c2410c"/><path d="M54 62h126c0 24-18 42-44 42h-38c-26 0-44-18-44-42z" fill="#e2e8f0"/><ellipse cx="112" cy="66" rx="48" ry="6" fill="#38bdf8"/><rect x="104" y="102" width="30" height="24" rx="3" fill="#cbd5e1"/><rect x="86" y="124" width="66" height="8" rx="3" fill="#94a3b8"/>''',
+ "gauge": '''<rect x="72" y="22" width="60" height="108" rx="16" fill="#e2e8f0"/><circle cx="102" cy="54" r="17" fill="#0f2238" stroke="#94a3b8" stroke-width="3"/><g class="pt-n"><path d="M102 54L112 44" stroke="#fb923c" stroke-width="3" stroke-linecap="round"/></g><circle cx="102" cy="54" r="3" fill="#fb923c"/><path d="M86 22V8M118 22V8" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/><path d="M118 8" stroke="#fb923c"/><path d="M132 100h70" stroke="#fb923c" stroke-width="9" stroke-linecap="round"/><path d="M102 112q-7-8 0-18q7 10 0 18z" fill="#fb923c"/>''',
+ "pipes": '''<path d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M130 66H196" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/><path class="pt-f" d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="52" y="30" width="10" height="20" rx="2" fill="#94a3b8"/><path d="M48 26h18" stroke="#c2410c" stroke-width="5" stroke-linecap="round"/><rect x="164" y="104" width="10" height="16" rx="2" fill="#94a3b8"/>''',
+ "wrench": '''<rect x="14" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="148" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="92" y="52" width="56" height="46" rx="6" fill="#94a3b8"/><path d="M104 52v46M136 52v46" stroke="#0f2238" stroke-width="2" opacity=".4"/><g transform="rotate(-38 120 75)"><rect x="113" y="6" width="14" height="56" rx="6" fill="#fb923c"/><circle cx="120" cy="8" r="15" fill="#fb923c"/><rect x="114" y="-12" width="12" height="16" fill="#0d2238"/></g>'''}
+
 def plomberie_tiles(L):
     fr = L == "fr"
-    T = ([("drain", "Fuites d'eau", "Tuyau, raccord ou flexible qui fuit : on localise et on répare."),
-          ("sink", "Robinetterie", "Robinet qui goutte, mitigeur à remplacer, joints usés."),
-          ("toilet", "Sanitaires & WC", "Chasse d'eau, WC, lavabo, douche : réparation ou installation."),
-          ("gauge", "Chauffe-eau & pression", "Plus d'eau chaude ou pression qui chute : on trouve la cause."),
-          ("pipes", "Canalisations", "Remplacement ou réparation de tuyaux et raccords."),
-          ("wrench", "Installation & remplacement", "Nouveaux appareils, rénovation, mise en place propre.")] if fr else
-         [("drain", "Waterlekken", "Lekkende leiding, koppeling of flexibel: we lokaliseren en herstellen."),
-          ("sink", "Kranen", "Druppelende kraan, mengkraan vervangen, versleten voegen."),
-          ("toilet", "Sanitair & wc", "Spoelbak, wc, lavabo, douche: herstelling of installatie."),
-          ("gauge", "Boiler & waterdruk", "Geen warm water of dalende druk: we zoeken de oorzaak."),
-          ("pipes", "Leidingen", "Vervanging of herstelling van leidingen en koppelingen."),
-          ("wrench", "Installatie & vervanging", "Nieuwe toestellen, renovatie, nette plaatsing.")])
-    li = "".join(f'<li class="reveal" data-d="{i % 3}"><a class="pt" href="#diagnostic"><span class="pt-ic" aria-hidden="true">{ico(ic)}</span><b>{e(t)}</b><span>{e(d)}</span></a></li>' for i, (ic, t, d) in enumerate(T))
+    T = ([("drain", "Fuites d'eau", "On localise la fuite et on répare."),
+          ("sink", "Robinetterie", "Robinet qui goutte, mitigeur à remplacer."),
+          ("toilet", "Sanitaires & WC", "Réparation ou installation."),
+          ("gauge", "Chauffe-eau & pression", "Plus d'eau chaude, pression qui chute."),
+          ("pipes", "Canalisations", "Tuyaux et raccords réparés ou remplacés."),
+          ("wrench", "Installation & remplacement", "Nouveaux appareils, rénovation.")] if fr else
+         [("drain", "Waterlekken", "We lokaliseren het lek en herstellen."),
+          ("sink", "Kranen", "Druppelende kraan, mengkraan vervangen."),
+          ("toilet", "Sanitair & wc", "Herstelling of installatie."),
+          ("gauge", "Boiler & waterdruk", "Geen warm water, dalende druk."),
+          ("pipes", "Leidingen", "Leidingen en koppelingen herstellen of vervangen."),
+          ("wrench", "Installatie & vervanging", "Nieuwe toestellen, renovatie.")])
+    li = "".join(f'<li class="reveal" data-d="{i % 3}"><a class="pt" href="#diagnostic"><span class="pt-art" aria-hidden="true"><svg viewBox="0 0 240 150" preserveAspectRatio="xMidYMid meet" focusable="false">{PT_ART[ic]}</svg></span><span class="pt-b"><b>{e(t)}</b><span>{e(d)}</span></span></a></li>' for i, (ic, t, d) in enumerate(T))
     return f'<ul class="pt-grid">{li}</ul>'
 
 def plomberie_side(L):
