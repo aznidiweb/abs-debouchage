@@ -60,7 +60,7 @@ def ico(name, cls=""):
         return f'<svg class="ico ico-fill {cls}" viewBox="0 0 24 24" aria-hidden="true">{WA_PATH}</svg>'
     return f'<svg class="ico {cls}" viewBox="0 0 24 24" aria-hidden="true">{P[name]}</svg>'
 
-LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="10" fill="#0b3d55"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#0b3d55" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="14" y="38" width="20" height="3" rx="1.5" fill="#c2410c"/></svg>'''
+LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="10" fill="#0b1726"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#0b1726" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="14" y="38" width="20" height="3" rx="1.5" fill="#1156c7"/></svg>'''
 
 # ---------------------------------------------------------------- URLs
 def url(lang, page=""):
@@ -204,7 +204,7 @@ URG = {
         "call": "Een technieker bellen", "close": "Sluiten"},
 }
 URG_ART = {
- "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#c2410c" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#9a3412"/></svg>',
+ "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#1156c7" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#1156c7" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#164f9e"/></svg>',
  "nowater": '<svg viewBox="0 0 48 48" aria-hidden="true"><path class="ua-drop" d="M24 8c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z" fill="#38bdf8"/><circle cx="24" cy="26" r="19" fill="none" stroke="#b91c1c" stroke-width="3.5"/><path d="M11 39 37 13" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/></svg>',
  "nochem": '<svg viewBox="0 0 48 48" aria-hidden="true"><g class="ua-bottle"><rect x="17" y="6" width="14" height="6" rx="2" fill="#64748b"/><path d="M15 14h18v26a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4z" fill="#a3e635"/><rect x="18" y="24" width="12" height="9" rx="2" fill="#fff" opacity=".85"/></g><circle cx="35" cy="35" r="10" fill="#b91c1c"/><path d="M31 31l8 8M39 31l-8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
 }
@@ -270,7 +270,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b3d55">
+<meta name="theme-color" content="#0b1726">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -296,7 +296,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 
 
 # ================================================================ STYLE « SOLARIS » ADAPTÉ À ABS
-LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#c2410c"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#c2410c" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'''
+LOGO = '''<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#1156c7"/><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#fff"/><path d="M19.6 27.4a4.7 4.7 0 0 0 4.6 4.4" stroke="#1156c7" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'''
 
 PHOTOS = {
  "sink":     ("photo-1676210133055-eab6ef033ce3", {"fr": "Technicien débouchant la canalisation sous un évier", "nl": "Technieker ontstopt de afvoer onder een gootsteen"}),
@@ -557,15 +557,15 @@ TOOLS = {
                   ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
 }
 TOOL_ART = {
- "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+ "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <path class="ta-clog" d="M112 44c10-3 18 4 18 13s-8 16-18 13c-6-2-8-7-8-13s2-11 8-13z" fill="#8a5a2b"/>
 <g class="ta-cable"><path d="M-80 57h170" stroke="#fbbf24" stroke-width="4" stroke-dasharray="6 4" class="ta-spin"/><path d="M90 50l14 7-14 7z" fill="#e2e8f0"/></g>
-<rect x="10" y="16" width="34" height="18" rx="5" fill="#c2410c"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
- "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+<rect x="10" y="16" width="34" height="18" rx="5" fill="#1156c7"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
+ "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <g class="ta-jet" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"><path d="M64 57h40"/><path d="M64 52l34-8"/><path d="M64 62l34 8"/></g>
 <g class="ta-dirt" fill="#a3895a"><circle cx="118" cy="50" r="4"/><circle cx="130" cy="62" r="5"/><circle cx="142" cy="52" r="3.5"/></g>
 <path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><path d="M50 51h14l6 6-6 6H50z" fill="#e2e8f0"/></svg>''',
- "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+ "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <path d="M120 42l6 9-5 6 8 9" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" class="ta-crack"/>
 <g class="ta-cam"><polygon points="74,50 118,40 118,74 74,64" fill="#fde047" opacity=".18"/><path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><rect x="50" y="49" width="22" height="16" rx="4" fill="#e2e8f0"/><circle cx="72" cy="57" r="5" fill="#0ea5e9" stroke="#e2e8f0" stroke-width="2"/></g>
 <circle cx="146" cy="20" r="5" fill="#ef4444" class="ta-rec"/></svg>''',
@@ -689,9 +689,9 @@ def prices_section(L, cls=""):
                   for i, (ic, t, d) in enumerate(E["items"]))
     ring = E["ring"]
     seal = (f'''<svg class="pe-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pe-ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>'''
-            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7a35"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
+            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5488f7"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
             f'''<g class="pe-ringtxt"><text><textPath href="#pe-ring" startOffset="0" textLength="286" lengthAdjust="spacingAndGlyphs">{e(ring)}</textPath></text></g>'''
-            f'''<circle cx="60" cy="60" r="31" fill="#113644" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#fb7a35" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
+            f'''<circle cx="60" cy="60" r="31" fill="#0c1620" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#5488f7" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
     fr = L == "fr"
     kick, title, lead = (("Le résultat", "Avant / <em>après</em>", "Un écoulement rétabli, des tuyaux propres, et un rapport pour votre assurance.") if fr else
                          ("Het resultaat", "Voor / <em>na</em>", "Een vrije afvoer, propere leidingen en een verslag voor je verzekering."))
@@ -896,7 +896,7 @@ URG = {
         "call": "Een technieker bellen", "close": "Sluiten"},
 }
 URG_ART = {
- "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#c2410c" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#9a3412"/></svg>',
+ "valve": '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="28" width="40" height="10" rx="3" fill="#9fb0c4"/><rect x="20" y="22" width="8" height="8" fill="#64748b"/><g class="ua-valve"><circle cx="24" cy="16" r="10" fill="none" stroke="#1156c7" stroke-width="3.5"/><path d="M24 6v20M14 16h20" stroke="#1156c7" stroke-width="3" stroke-linecap="round"/></g><circle cx="24" cy="16" r="3" fill="#164f9e"/></svg>',
  "nowater": '<svg viewBox="0 0 48 48" aria-hidden="true"><path class="ua-drop" d="M24 8c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z" fill="#38bdf8"/><circle cx="24" cy="26" r="19" fill="none" stroke="#b91c1c" stroke-width="3.5"/><path d="M11 39 37 13" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/></svg>',
  "nochem": '<svg viewBox="0 0 48 48" aria-hidden="true"><g class="ua-bottle"><rect x="17" y="6" width="14" height="6" rx="2" fill="#64748b"/><path d="M15 14h18v26a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4z" fill="#a3e635"/><rect x="18" y="24" width="12" height="9" rx="2" fill="#fff" opacity=".85"/></g><circle cx="35" cy="35" r="10" fill="#b91c1c"/><path d="M31 31l8 8M39 31l-8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
 }
@@ -962,7 +962,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b3d55">
+<meta name="theme-color" content="#0b1726">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -1253,15 +1253,15 @@ TOOLS = {
                   ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
 }
 TOOL_ART = {
- "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+ "furet": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <path class="ta-clog" d="M112 44c10-3 18 4 18 13s-8 16-18 13c-6-2-8-7-8-13s2-11 8-13z" fill="#8a5a2b"/>
 <g class="ta-cable"><path d="M-80 57h170" stroke="#fbbf24" stroke-width="4" stroke-dasharray="6 4" class="ta-spin"/><path d="M90 50l14 7-14 7z" fill="#e2e8f0"/></g>
-<rect x="10" y="16" width="34" height="18" rx="5" fill="#c2410c"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
- "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+<rect x="10" y="16" width="34" height="18" rx="5" fill="#1156c7"/><path d="M27 34v23" stroke="#fbbf24" stroke-width="4"/></svg>''',
+ "hydro": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <g class="ta-jet" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"><path d="M64 57h40"/><path d="M64 52l34-8"/><path d="M64 62l34 8"/></g>
 <g class="ta-dirt" fill="#a3895a"><circle cx="118" cy="50" r="4"/><circle cx="130" cy="62" r="5"/><circle cx="142" cy="52" r="3.5"/></g>
 <path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><path d="M50 51h14l6 6-6 6H50z" fill="#e2e8f0"/></svg>''',
- "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#143b4d" stroke="#326c86" stroke-width="2"/>
+ "cam": '''<svg viewBox="0 10 160 74" aria-hidden="true"><rect x="0" y="40" width="160" height="34" rx="6" fill="#0f1824" stroke="#202e3f" stroke-width="2"/>
 <path d="M120 42l6 9-5 6 8 9" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" class="ta-crack"/>
 <g class="ta-cam"><polygon points="74,50 118,40 118,74 74,64" fill="#fde047" opacity=".18"/><path d="M0 57h52" stroke="#fbbf24" stroke-width="4"/><rect x="50" y="49" width="22" height="16" rx="4" fill="#e2e8f0"/><circle cx="72" cy="57" r="5" fill="#0ea5e9" stroke="#e2e8f0" stroke-width="2"/></g>
 <circle cx="146" cy="20" r="5" fill="#ef4444" class="ta-rec"/></svg>''',
@@ -1385,9 +1385,9 @@ def prices_section(L, cls=""):
                   for i, (ic, t, d) in enumerate(E["items"]))
     ring = E["ring"]
     seal = (f'''<svg class="pe-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pe-ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>'''
-            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7a35"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
+            f'''<circle cx="60" cy="60" r="57" fill="none" stroke="url(#pe-g)" stroke-width="2"/><linearGradient id="pe-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5488f7"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>'''
             f'''<g class="pe-ringtxt"><text><textPath href="#pe-ring" startOffset="0" textLength="286" lengthAdjust="spacingAndGlyphs">{e(ring)}</textPath></text></g>'''
-            f'''<circle cx="60" cy="60" r="31" fill="#113644" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#fb7a35" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
+            f'''<circle cx="60" cy="60" r="31" fill="#0c1620" stroke="rgba(255,255,255,.12)"/><path d="M60 42l14 5v10c0 9-6 16-14 19-8-3-14-10-14-19V47z" fill="none" stroke="#5488f7" stroke-width="3" stroke-linejoin="round"/><path d="M53.5 59.5l4.5 4.5 8.5-9" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>''')
     fr = L == "fr"
     kick, title, lead = (("Le résultat", "Avant / <em>après</em>", "Un écoulement rétabli, des tuyaux propres, et un rapport pour votre assurance.") if fr else
                          ("Het resultaat", "Voor / <em>na</em>", "Een vrije afvoer, propere leidingen en een verslag voor je verzekering."))
@@ -1501,7 +1501,7 @@ def faq_section(L, items, title=None, cls="", groups=None):
 def band(L):
     t = TX[L]; fr = L == "fr"
     waves = ('<div class="band-fx" aria-hidden="true"><svg class="w1" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(255,255,255,.08)"/></svg>'
-             '<svg class="w2" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(124,45,18,.35)"/></svg></div>')
+             '<svg class="w2" viewBox="0 0 2880 60" preserveAspectRatio="none"><path d="M0 30Q180 0 360 30T720 30T1080 30T1440 30T1800 30T2160 30T2520 30T2880 30V60H0Z" fill="rgba(22,65,127,.35)"/></svg></div>')
     facts = (("Prix annoncé avant", "Facture avec n° TVA", "Toute la Belgique") if fr else
              ("Prijs vooraf gekend", "Factuur met btw-nr.", "Heel België"))
     li = "".join(f'<li>{ico("check")}{e(x)}</li>' for x in facts)
@@ -1517,7 +1517,7 @@ def band(L):
             '<defs><linearGradient id="b5g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset=".45" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/></linearGradient>'
             '<clipPath id="b5c"><rect x="0" y="15" width="320" height="14" rx="2"/></clipPath></defs>'
             '<rect x="0" y="12" width="320" height="20" rx="4" fill="url(#b5g)"/>'
-            '<g clip-path="url(#b5c)"><rect x="0" y="15" width="320" height="14" fill="#113544"/>'
+            '<g clip-path="url(#b5c)"><rect x="0" y="15" width="320" height="14" fill="#0c1520"/>'
             '<rect class="b5-wl" x="0" y="17" width="150" height="12" fill="#38bdf8"/>'
             '<rect class="b5-wr" x="150" y="17" width="170" height="12" fill="#38bdf8"/>'
             '<path class="b5-sh" d="M0 19H320" stroke="#e0f2fe" stroke-width="1.4" stroke-dasharray="10 14" opacity=".8"/></g>'
@@ -1552,12 +1552,12 @@ def page_home(L):
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
 PT_ART = {
- "drain": '''<rect x="14" y="52" width="212" height="22" rx="4" fill="#cbd5e1"/><rect x="108" y="46" width="16" height="34" rx="3" fill="#94a3b8"/><rect x="14" y="58" width="212" height="6" fill="#113544" opacity=".35"/><path d="M158 52l6 9-6 6 6 9" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/><g fill="#38bdf8"><path class="pt-d" d="M161 80q-5 8 0 12q5-4 0-12z"/><path class="pt-d d2" d="M161 80q-5 8 0 12q5-4 0-12z"/></g><ellipse cx="161" cy="128" rx="44" ry="7" fill="#38bdf8" opacity=".5"/><circle cx="70" cy="30" r="3" fill="#475569"/><circle cx="190" cy="34" r="3" fill="#475569"/>''',
- "sink": '''<path d="M54 100h132v6a24 24 0 0 1-24 24H78a24 24 0 0 1-24-24z" fill="#e2e8f0"/><path d="M96 100V62q0-24 24-24h30v22" fill="none" stroke="#cbd5e1" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><rect x="86" y="96" width="20" height="8" rx="3" fill="#94a3b8"/><circle cx="96" cy="30" r="7" fill="#c2410c"/><path class="pt-d" d="M150 66q-5 8 0 12q5-4 0-12z" fill="#38bdf8"/><ellipse cx="150" cy="104" rx="16" ry="3" fill="#38bdf8" opacity=".6"/>''',
- "toilet": '''<rect x="124" y="22" width="56" height="38" rx="7" fill="#e2e8f0"/><circle cx="170" cy="30" r="4" fill="#c2410c"/><path d="M54 62h126c0 24-18 42-44 42h-38c-26 0-44-18-44-42z" fill="#e2e8f0"/><ellipse cx="112" cy="66" rx="48" ry="6" fill="#38bdf8"/><rect x="104" y="102" width="30" height="24" rx="3" fill="#cbd5e1"/><rect x="86" y="124" width="66" height="8" rx="3" fill="#94a3b8"/>''',
- "gauge": '''<rect x="72" y="22" width="60" height="108" rx="16" fill="#e2e8f0"/><circle cx="102" cy="54" r="17" fill="#113544" stroke="#94a3b8" stroke-width="3"/><g class="pt-n"><path d="M102 54L112 44" stroke="#fb923c" stroke-width="3" stroke-linecap="round"/></g><circle cx="102" cy="54" r="3" fill="#fb923c"/><path d="M86 22V8M118 22V8" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/><path d="M118 8" stroke="#fb923c"/><path d="M132 100h70" stroke="#fb923c" stroke-width="9" stroke-linecap="round"/><path d="M102 112q-7-8 0-18q7 10 0 18z" fill="#fb923c"/>''',
- "pipes": '''<path d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M130 66H196" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/><path class="pt-f" d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="52" y="30" width="10" height="20" rx="2" fill="#94a3b8"/><path d="M48 26h18" stroke="#c2410c" stroke-width="5" stroke-linecap="round"/><rect x="164" y="104" width="10" height="16" rx="2" fill="#94a3b8"/>''',
- "wrench": '''<rect x="14" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="148" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="92" y="52" width="56" height="46" rx="6" fill="#94a3b8"/><path d="M104 52v46M136 52v46" stroke="#113544" stroke-width="2" opacity=".4"/><g transform="rotate(-38 120 75)"><rect x="113" y="6" width="14" height="56" rx="6" fill="#fb923c"/><circle cx="120" cy="8" r="15" fill="#fb923c"/><rect x="114" y="-12" width="12" height="16" fill="#0e3544"/></g>'''}
+ "drain": '''<rect x="14" y="52" width="212" height="22" rx="4" fill="#cbd5e1"/><rect x="108" y="46" width="16" height="34" rx="3" fill="#94a3b8"/><rect x="14" y="58" width="212" height="6" fill="#0c1520" opacity=".35"/><path d="M158 52l6 9-6 6 6 9" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/><g fill="#38bdf8"><path class="pt-d" d="M161 80q-5 8 0 12q5-4 0-12z"/><path class="pt-d d2" d="M161 80q-5 8 0 12q5-4 0-12z"/></g><ellipse cx="161" cy="128" rx="44" ry="7" fill="#38bdf8" opacity=".5"/><circle cx="70" cy="30" r="3" fill="#475569"/><circle cx="190" cy="34" r="3" fill="#475569"/>''',
+ "sink": '''<path d="M54 100h132v6a24 24 0 0 1-24 24H78a24 24 0 0 1-24-24z" fill="#e2e8f0"/><path d="M96 100V62q0-24 24-24h30v22" fill="none" stroke="#cbd5e1" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><rect x="86" y="96" width="20" height="8" rx="3" fill="#94a3b8"/><circle cx="96" cy="30" r="7" fill="#1156c7"/><path class="pt-d" d="M150 66q-5 8 0 12q5-4 0-12z" fill="#38bdf8"/><ellipse cx="150" cy="104" rx="16" ry="3" fill="#38bdf8" opacity=".6"/>''',
+ "toilet": '''<rect x="124" y="22" width="56" height="38" rx="7" fill="#e2e8f0"/><circle cx="170" cy="30" r="4" fill="#1156c7"/><path d="M54 62h126c0 24-18 42-44 42h-38c-26 0-44-18-44-42z" fill="#e2e8f0"/><ellipse cx="112" cy="66" rx="48" ry="6" fill="#38bdf8"/><rect x="104" y="102" width="30" height="24" rx="3" fill="#cbd5e1"/><rect x="86" y="124" width="66" height="8" rx="3" fill="#94a3b8"/>''',
+ "gauge": '''<rect x="72" y="22" width="60" height="108" rx="16" fill="#e2e8f0"/><circle cx="102" cy="54" r="17" fill="#0c1520" stroke="#94a3b8" stroke-width="3"/><g class="pt-n"><path d="M102 54L112 44" stroke="#5c7df7" stroke-width="3" stroke-linecap="round"/></g><circle cx="102" cy="54" r="3" fill="#5c7df7"/><path d="M86 22V8M118 22V8" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/><path d="M118 8" stroke="#5c7df7"/><path d="M132 100h70" stroke="#5c7df7" stroke-width="9" stroke-linecap="round"/><path d="M102 112q-7-8 0-18q7 10 0 18z" fill="#5c7df7"/>''',
+ "pipes": '''<path d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M130 66H196" fill="none" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/><path class="pt-f" d="M14 40H108a22 22 0 0 1 22 22V112H228" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="52" y="30" width="10" height="20" rx="2" fill="#94a3b8"/><path d="M48 26h18" stroke="#1156c7" stroke-width="5" stroke-linecap="round"/><rect x="164" y="104" width="10" height="16" rx="2" fill="#94a3b8"/>''',
+ "wrench": '''<rect x="14" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="148" y="62" width="78" height="26" rx="4" fill="#cbd5e1"/><rect x="92" y="52" width="56" height="46" rx="6" fill="#94a3b8"/><path d="M104 52v46M136 52v46" stroke="#0c1520" stroke-width="2" opacity=".4"/><g transform="rotate(-38 120 75)"><rect x="113" y="6" width="14" height="56" rx="6" fill="#5c7df7"/><circle cx="120" cy="8" r="15" fill="#5c7df7"/><rect x="114" y="-12" width="12" height="16" fill="#0b151f"/></g>'''}
 
 def plomberie_tiles(L):
     fr = L == "fr"
@@ -1678,8 +1678,8 @@ def page_404():
  <circle class="nf-bub" cx="140" cy="196" r="5" fill="none" stroke="#38bdf8" stroke-width="2"/>
  <circle class="nf-bub" cx="162" cy="192" r="4" fill="none" stroke="#38bdf8" stroke-width="2"/>
  <circle class="nf-bub" cx="150" cy="190" r="6" fill="none" stroke="#38bdf8" stroke-width="2"/>
- <g class="nf-plunger"><rect x="144" y="40" width="12" height="130" rx="6" fill="#c2410c"/><rect x="138" y="34" width="24" height="14" rx="7" fill="#9a3412"/>
- <path class="nf-cup" d="M114 196Q114 164 150 164Q186 164 186 196Z" fill="#0c2b38"/></g>
+ <g class="nf-plunger"><rect x="144" y="40" width="12" height="130" rx="6" fill="#1156c7"/><rect x="138" y="34" width="24" height="14" rx="7" fill="#164f9e"/>
+ <path class="nf-cup" d="M114 196Q114 164 150 164Q186 164 186 196Z" fill="#0a111a"/></g>
  <text x="150" y="285" text-anchor="middle" font-size="40" font-weight="800" fill="#cfd6e0" font-family="Plus Jakarta Sans, sans-serif">404</text>
 </svg>'''
     body = f'''<section class="section page-top"><div class="wrap nf">
@@ -1785,7 +1785,7 @@ def build():
 """)
     write("_redirects", "/fr/* /:splat 301\n")
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",
-          "background_color": "#0d2f45", "theme_color": "#0d2f45",
+          "background_color": "#0b131f", "theme_color": "#0b131f",
           "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}))
     from optimize import optimize
     a, b = optimize(OUT)

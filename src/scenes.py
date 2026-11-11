@@ -55,7 +55,7 @@ ARIA = {
           "Animatie: een camera gaat door de leiding en lokaliseert een barst."),
 }
 
-PORC = "#dfe7f1"; DARK = "#0c2b38"; PIPE = "#9fb0c4"; WATER = "#38bdf8"; CLOG = "#8a5a2b"; TOOL = "#fbbf24"
+PORC = "#dfe7f1"; DARK = "#0a111a"; PIPE = "#9fb0c4"; WATER = "#38bdf8"; CLOG = "#8a5a2b"; TOOL = "#fbbf24"
 
 def _check(x, y):
     return (f'<g class="sc-ok" transform="translate({x} {y})"><circle r="17" fill="#16a34a"/>'
@@ -63,32 +63,32 @@ def _check(x, y):
 
 def svg_A():
     return f'''<defs><clipPath id="scA-in"><path d="M126 146H322Q316 200 258 222Q160 214 126 146Z"/></clipPath></defs>
-<rect y="300" width="480" height="40" fill="#143b4d"/>
+<rect y="300" width="480" height="40" fill="#0f1824"/>
 <rect x="318" y="40" width="112" height="100" rx="12" fill="{PORC}"/><rect x="396" y="56" width="20" height="8" rx="4" fill="#b6c3d3"/>
 <path d="M110 140H340V150Q336 214 280 236L276 300H196L200 252Q118 222 110 150Z" fill="{PORC}"/>
 <path d="M126 146H322Q316 200 258 222Q160 214 126 146Z" fill="{DARK}"/>
 <g clip-path="url(#scA-in)"><rect class="scA-water" x="118" y="150" width="214" height="90" fill="{WATER}" opacity=".85"/></g>
-<rect x="226" y="300" width="20" height="40" fill="#1f5067"/>
+<rect x="226" y="300" width="20" height="40" fill="#152130"/>
 <path d="M258 222C246 250 222 238 214 258C206 278 236 280 236 300V340" fill="none" stroke="{DARK}" stroke-width="18" stroke-linecap="round"/>
 <path class="scA-still" d="M258 222C246 250 222 238 214 258" fill="none" stroke="{WATER}" stroke-width="11" stroke-linecap="round" opacity=".85"/>
 <path class="sc-flow scA-flow" d="M258 222C246 250 222 238 214 258C206 278 236 280 236 300V340" fill="none" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/>
 <g class="scA-clog"><path d="M205 252c3-9 18-11 22-2 5 7-1 17-10 16-8 2-15-6-12-14z" fill="{CLOG}"/><circle cx="212" cy="257" r="2.4" fill="#5c3a19"/><circle cx="220" cy="252" r="1.8" fill="#a8743f"/></g>
 <g class="scA-frag"><circle cx="230" cy="290" r="5" fill="{CLOG}"/><circle cx="240" cy="306" r="3.5" fill="{CLOG}"/></g>
 <path class="scA-fur" pathLength="100" d="M108 57C170 57 200 110 222 180C232 205 250 214 252 228C246 246 224 244 216 256" fill="none" stroke="{TOOL}" stroke-width="4" stroke-linecap="round"/>
-<g class="scA-mot"><rect x="34" y="38" width="76" height="38" rx="10" fill="#c2410c"/><rect x="44" y="48" width="30" height="6" rx="3" fill="#fb7a35"/><circle cx="96" cy="57" r="6" fill="#7c2d12"/></g>
+<g class="scA-mot"><rect x="34" y="38" width="76" height="38" rx="10" fill="#1156c7"/><rect x="44" y="48" width="30" height="6" rx="3" fill="#5488f7"/><circle cx="96" cy="57" r="6" fill="#16417f"/></g>
 {_check(196, 108)}'''
 
 def svg_B():
     return f'''<defs><clipPath id="scB-in"><path d="M100 98H280V126Q280 148 258 148H122Q100 148 100 126Z"/></clipPath></defs>
-<rect x="440" width="40" height="340" fill="#143b4d"/>
-<rect x="30" y="84" width="330" height="14" rx="3" fill="#1f5067"/>
+<rect x="440" width="40" height="340" fill="#0f1824"/>
+<rect x="30" y="84" width="330" height="14" rx="3" fill="#152130"/>
 <path d="M305 84V50Q305 36 291 36H262" fill="none" stroke="{PIPE}" stroke-width="8" stroke-linecap="round"/>
 <path d="M90 98H290V128Q290 158 260 158H120Q90 158 90 128Z" fill="{PORC}"/>
 <path d="M100 98H280V126Q280 148 258 148H122Q100 148 100 126Z" fill="{DARK}"/>
 <g clip-path="url(#scB-in)"><rect class="scB-water" x="96" y="102" width="190" height="50" fill="{WATER}" opacity=".85"/></g>
 <rect x="181" y="156" width="18" height="40" fill="{PIPE}"/><rect x="178" y="186" width="24" height="10" rx="2" fill="#cbd5e1"/>
 <path d="M259 214H440" stroke="{PIPE}" stroke-width="18"/><path d="M259 214H440" stroke="{DARK}" stroke-width="9"/>
-<path class="scB-bucket" d="M176 292H264L255 336H185Z" fill="#1f5067" stroke="#33557c" stroke-width="2"/>
+<path class="scB-bucket" d="M176 292H264L255 336H185Z" fill="#152130" stroke="#33557c" stroke-width="2"/>
 <g class="scB-u">
  <path d="M190 196V232Q190 262 220 262Q250 262 250 232V214" fill="none" stroke="{PIPE}" stroke-width="18"/>
  <path d="M190 196V232Q190 262 220 262Q250 262 250 232V214" fill="none" stroke="{DARK}" stroke-width="9"/>
@@ -101,12 +101,12 @@ def svg_B():
 def svg_C():
     hair = "".join(f'<path d="{d}" fill="none" stroke="#c9a27e" stroke-width="2.2" stroke-linecap="round"/>' for d in
                    ("M218 206c6 6-4 12 4 18s-2 12 6 16", "M240 204c-6 8 5 12-2 19s4 12-2 17", "M226 210c8 2 4 10 12 12s2 10 8 12", "M222 230c6-4 12 2 18-2"))
-    return f'''<rect x="0" y="0" width="480" height="164" fill="#0e3442"/>
-<g fill="#194a5e"><rect x="0" y="0" width="480" height="2"/><rect x="0" y="54" width="480" height="2"/><rect x="0" y="108" width="480" height="2"/><rect x="118" width="2" height="164"/><rect x="238" width="2" height="164"/><rect x="358" width="2" height="164"/></g>
+    return f'''<rect x="0" y="0" width="480" height="164" fill="#0b151e"/>
+<g fill="#121e2b"><rect x="0" y="0" width="480" height="2"/><rect x="0" y="54" width="480" height="2"/><rect x="0" y="108" width="480" height="2"/><rect x="118" width="2" height="164"/><rect x="238" width="2" height="164"/><rect x="358" width="2" height="164"/></g>
 <path d="M230 170V236Q230 262 256 262H480" fill="none" stroke="{PIPE}" stroke-width="34"/>
 <path d="M230 170V236Q230 262 256 262H480" fill="none" stroke="{DARK}" stroke-width="24"/>
-<rect x="0" y="170" width="212" height="34" fill="#1f5067"/><rect x="248" y="170" width="232" height="34" fill="#1f5067"/>
-<rect x="0" y="164" width="212" height="6" fill="#326c86"/><rect x="248" y="164" width="232" height="6" fill="#326c86"/>
+<rect x="0" y="170" width="212" height="34" fill="#152130"/><rect x="248" y="170" width="232" height="34" fill="#152130"/>
+<rect x="0" y="164" width="212" height="6" fill="#202e3f"/><rect x="248" y="164" width="232" height="6" fill="#202e3f"/>
 <g class="scC-hair">{hair}</g>
 <ellipse class="scC-pud" cx="230" cy="161" rx="176" ry="7" fill="{WATER}" opacity=".75"/>
 <ellipse class="scC-swirl" cx="230" cy="163" rx="22" ry="5" fill="none" stroke="#7dd3fc" stroke-width="2"/>
@@ -119,11 +119,11 @@ ROOTS = (230, 320, 400); GREASE = (180, 360)
 def svg_D():
     roots = "".join(f'<g class="scD-r{i}"><path d="M{x} 163q-6 18 4 30q8 12-2 26M{x+2} 180q10 4 14 16M{x} 196q-12 2-16 14" fill="none" stroke="#8b6b3f" stroke-width="3" stroke-linecap="round"/></g>' for i, x in enumerate(ROOTS))
     grease = "".join(f'<ellipse class="scD-g{i}" cx="{x}" cy="235" rx="30" ry="7" fill="#a3895a"/>' for i, x in enumerate(GREASE))
-    return f'''<rect width="480" height="62" fill="#143b4d"/><rect y="60" width="480" height="4" fill="#326c86"/>
-<rect y="64" width="480" height="276" fill="#10313e"/>
-<g fill="#194a5e"><circle cx="160" cy="100" r="3"/><circle cx="300" cy="120" r="2.5"/><circle cx="420" cy="96" r="3"/><circle cx="380" cy="300" r="2.5"/><circle cx="140" cy="290" r="3"/></g>
-<g><rect x="16" y="22" width="98" height="38" rx="7" fill="#c2410c"/><rect x="24" y="30" width="40" height="12" rx="3" fill="#fb7a35"/><circle cx="36" cy="60" r="8" fill="#0c2b38" stroke="#475569" stroke-width="3"/><circle cx="94" cy="60" r="8" fill="#0c2b38" stroke="#475569" stroke-width="3"/></g>
-<rect x="52" y="64" width="46" height="100" fill="{DARK}" stroke="#326c86" stroke-width="3"/>
+    return f'''<rect width="480" height="62" fill="#0f1824"/><rect y="60" width="480" height="4" fill="#202e3f"/>
+<rect y="64" width="480" height="276" fill="#0c141d"/>
+<g fill="#121e2b"><circle cx="160" cy="100" r="3"/><circle cx="300" cy="120" r="2.5"/><circle cx="420" cy="96" r="3"/><circle cx="380" cy="300" r="2.5"/><circle cx="140" cy="290" r="3"/></g>
+<g><rect x="16" y="22" width="98" height="38" rx="7" fill="#1156c7"/><rect x="24" y="30" width="40" height="12" rx="3" fill="#5488f7"/><circle cx="36" cy="60" r="8" fill="#0a111a" stroke="#475569" stroke-width="3"/><circle cx="94" cy="60" r="8" fill="#0a111a" stroke="#475569" stroke-width="3"/></g>
+<rect x="52" y="64" width="46" height="100" fill="{DARK}" stroke="#202e3f" stroke-width="3"/>
 <rect x="34" y="160" width="460" height="80" rx="6" fill="{DARK}" stroke="{PIPE}" stroke-width="6"/>
 {roots}{grease}
 <path class="sc-flow scD-flow" d="M40 226H480" fill="none" stroke="#7dd3fc" stroke-width="6" stroke-linecap="round"/>
@@ -135,9 +135,9 @@ def svg_D():
 
 def svg_E(L):
     m = "Fissure · 4,2 m" if L == "fr" else "Barst · 4,2 m"
-    return f'''<rect width="480" height="340" fill="#10313e"/>
+    return f'''<rect width="480" height="340" fill="#0c141d"/>
 <rect x="-6" y="170" width="492" height="80" fill="{DARK}" stroke="{PIPE}" stroke-width="6"/>
-<g fill="#326c86"><rect x="120" y="167" width="6" height="86"/><rect x="240" y="167" width="6" height="86"/><rect x="400" y="167" width="6" height="86"/></g>
+<g fill="#202e3f"><rect x="120" y="167" width="6" height="86"/><rect x="240" y="167" width="6" height="86"/><rect x="400" y="167" width="6" height="86"/></g>
 <path d="M322 173l6 9-5 6 9 9" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <g class="scE-mark"><circle cx="328" cy="186" r="10" fill="none" stroke="#ef4444" stroke-width="2.5"/><rect x="286" y="120" width="88" height="24" rx="12" fill="#ef4444"/><text x="330" y="136" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">{m}</text></g>
 <rect class="scE-cable" x="0" y="208" width="290" height="4" fill="{TOOL}"/>
@@ -145,13 +145,13 @@ def svg_E(L):
  <polygon points="0,200 80,180 80,240 0,220" fill="#fde047" opacity=".16"/>
  <rect x="-34" y="198" width="34" height="24" rx="6" fill="#e2e8f0"/><circle cx="0" cy="210" r="7" fill="#0ea5e9" stroke="#e2e8f0" stroke-width="3"/></g></g>
 <g transform="translate(20 18)">
- <rect width="176" height="120" rx="12" fill="{DARK}" stroke="#326c86" stroke-width="2"/>
- <rect x="10" y="10" width="156" height="92" rx="6" fill="#112333"/>
+ <rect width="176" height="120" rx="12" fill="{DARK}" stroke="#202e3f" stroke-width="2"/>
+ <rect x="10" y="10" width="156" height="92" rx="6" fill="#0b0f18"/>
  <g class="scE-tun" fill="none" stroke="#475569" stroke-width="2"><circle cx="88" cy="56" r="10"/><circle cx="88" cy="56" r="10"/><circle cx="88" cy="56" r="10"/></g>
- <circle cx="88" cy="56" r="40" fill="none" stroke="#3c5867" stroke-width="3"/>
+ <circle cx="88" cy="56" r="40" fill="none" stroke="#222932" stroke-width="3"/>
  <path class="scE-crk" d="M70 26l8 10-6 7 10 10" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
  <circle class="scE-rec" cx="22" cy="22" r="4" fill="#ef4444"/><text x="30" y="26" font-size="10" font-weight="800" fill="#cbd5e1">REC</text>
- <rect x="10" y="106" width="60" height="6" rx="3" fill="#233a48"/></g>'''
+ <rect x="10" y="106" width="60" height="6" rx="3" fill="#151a22"/></g>'''
 
 def scene(L, sid, ico_pause, ico_play):
     k = KIND[sid]; fr = L == "fr"; ix = 0 if fr else 1

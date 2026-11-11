@@ -54,13 +54,13 @@
     c.fillStyle = g; c.fillRect(0, 0, W, GY);
     // sol en coupe
     var sg = c.createLinearGradient(0, GY, 0, H);
-    sg.addColorStop(0, "#203743"); sg.addColorStop(1, "#0e1d26");
+    sg.addColorStop(0, "#131820"); sg.addColorStop(1, "#090d12");
     c.fillStyle = sg; c.fillRect(0, GY, W, H - GY);
     c.fillStyle = "rgba(255,255,255,.05)";
     stones.forEach(function (st) { c.beginPath(); c.ellipse(st[0], st[1], st[2] * 1.4, st[2], 0, 0, Math.PI * 2); c.fill(); });
-    c.fillStyle = "#34515f"; c.fillRect(0, GY - 2, W, 4);
+    c.fillStyle = "#1e252e"; c.fillRect(0, GY - 2, W, 4);
     // regard + égout (intérieur sombre)
-    c.fillStyle = "#05151d";
+    c.fillStyle = "#05080d";
     c.fillRect(DX - DW, GY, DW * 2, SY - GY);
     c.fillRect(DX - DW, SY - SR, W - DX + DW + 10, SR * 2);
     // halo de la grille
@@ -69,10 +69,10 @@
     c.fillStyle = gg; c.beginPath(); c.arc(0, 0, 72, 0, Math.PI * 2); c.fill(); c.restore();
     // intérieur de la canalisation
     var ig = c.createLinearGradient(0, CY - RI, 0, CY + RI);
-    ig.addColorStop(0, "#0d3645"); ig.addColorStop(0.5, "#16556e"); ig.addColorStop(1, "#0b2e3c");
+    ig.addColorStop(0, "#0b151f"); ig.addColorStop(0.5, "#122232"); ig.addColorStop(1, "#09121b");
     c.fillStyle = ig; c.fillRect(-10, CY - RI, XM + 10, RI * 2);
     c.save(); c.translate(XM, CY); c.scale(0.24, 1);
-    c.fillStyle = "#061d26"; c.beginPath(); c.arc(0, 0, RI, 0, Math.PI * 2); c.fill(); c.restore();
+    c.fillStyle = "#060b11"; c.beginPath(); c.arc(0, 0, RI, 0, Math.PI * 2); c.fill(); c.restore();
   }
 
   /* ---- simulation ---- */
@@ -214,12 +214,12 @@
       var spin = t * (t > T.drill[0] && t < T.burst + 0.4 ? 40 : 14);
       c.strokeStyle = "#c9d2dc"; c.lineWidth = 6; c.lineCap = "round";
       c.beginPath(); c.moveTo(-20, CY - 4); c.lineTo(tx - 10, CY - 4); c.stroke();
-      c.strokeStyle = "rgba(71,95,106,.9)"; c.lineWidth = 2;
+      c.strokeStyle = "rgba(39,45,52,.9)"; c.lineWidth = 2;
       for (var s2 = -20 + ((spin * 3) % 12); s2 < tx - 12; s2 += 12) { c.beginPath(); c.moveTo(s2, CY - 8); c.lineTo(s2 + 5, CY); c.stroke(); }
       c.save(); c.translate(tx, CY - 4);
       var hg = c.createLinearGradient(0, -16, 0, 16); hg.addColorStop(0, "#f1f4f7"); hg.addColorStop(0.5, "#9aa6b3"); hg.addColorStop(1, "#5c6876");
       c.fillStyle = hg; c.beginPath(); c.moveTo(-14, -12); c.lineTo(10, -8); c.lineTo(20, 0); c.lineTo(10, 8); c.lineTo(-14, 12); c.closePath(); c.fill();
-      c.strokeStyle = "#c2410c"; c.lineWidth = 2.4;
+      c.strokeStyle = "#1156c7"; c.lineWidth = 2.4;
       for (var b = 0; b < 3; b++) { var aa = spin + b * 2.09; c.beginPath(); c.moveTo(-8 + b * 7, Math.sin(aa) * 11); c.lineTo(-4 + b * 7, -Math.sin(aa) * 11); c.stroke(); }
       c.restore();
       if (t > T.drill[0] + 0.4 && t < T.burst + 0.5) {
