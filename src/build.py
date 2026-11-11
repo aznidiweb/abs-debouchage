@@ -276,7 +276,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>{'<link rel="preload" as="image" type="image/avif" imagesrcset="/assets/video/hero-photo-480.avif 480w, /assets/video/hero-photo-800.avif 800w, /assets/video/hero-photo-941.avif 941w" imagesizes="(max-width:960px) 100vw, 50vw" fetchpriority="high">' if page == "" else ""}
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>{'<link rel="preload" as="image" type="image/avif" imagesrcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" imagesizes="(max-width:960px) 100vw, min(52vw, 760px)" fetchpriority="high">' if page == "" else ""}
 <link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
 <script>document.documentElement.classList.add("js")</script>
 {ld}
@@ -469,7 +469,7 @@ def hero_home(L):
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
  <div class="hv-media hv-photo" aria-hidden="true">
-  <picture><source type="image/avif" srcset="/assets/video/hero-photo-480.avif 480w, /assets/video/hero-photo-800.avif 800w, /assets/video/hero-photo-941.avif 941w" sizes="(max-width:960px) 100vw, 50vw"><source type="image/webp" srcset="/assets/video/hero-photo-480.webp 480w, /assets/video/hero-photo-800.webp 800w, /assets/video/hero-photo.webp 941w" sizes="(max-width:960px) 100vw, 50vw"><img class="hp-photo" src="/assets/video/hero-photo.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
+  <picture><source type="image/avif" srcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><source type="image/webp" srcset="/assets/video/hero-v2-480.webp 480w, /assets/video/hero-v2-800.webp 800w, /assets/video/hero-v2-941.webp 941w, /assets/video/hero-v2-1400.webp 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><img class="hp-photo" src="/assets/video/hero-v2.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
@@ -968,7 +968,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>{'<link rel="preload" as="image" type="image/avif" imagesrcset="/assets/video/hero-photo-480.avif 480w, /assets/video/hero-photo-800.avif 800w, /assets/video/hero-photo-941.avif 941w" imagesizes="(max-width:960px) 100vw, 50vw" fetchpriority="high">' if page == "" else ""}
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>{'<link rel="preload" as="image" type="image/avif" imagesrcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" imagesizes="(max-width:960px) 100vw, min(52vw, 760px)" fetchpriority="high">' if page == "" else ""}
 <link rel="stylesheet" href="/assets/styles.css?v={VERSION}">
 <script>document.documentElement.classList.add("js")</script>
 {ld}
@@ -1161,7 +1161,7 @@ def hero_home(L):
     a1, a2 = t["avail"]
     return f'''<section class="hero hero-pipe hero-video">
  <div class="hv-media hv-photo" aria-hidden="true">
-  <picture><source type="image/avif" srcset="/assets/video/hero-photo-480.avif 480w, /assets/video/hero-photo-800.avif 800w, /assets/video/hero-photo-941.avif 941w" sizes="(max-width:960px) 100vw, 50vw"><source type="image/webp" srcset="/assets/video/hero-photo-480.webp 480w, /assets/video/hero-photo-800.webp 800w, /assets/video/hero-photo.webp 941w" sizes="(max-width:960px) 100vw, 50vw"><img class="hp-photo" src="/assets/video/hero-photo.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
+  <picture><source type="image/avif" srcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><source type="image/webp" srcset="/assets/video/hero-v2-480.webp 480w, /assets/video/hero-v2-800.webp 800w, /assets/video/hero-v2-941.webp 941w, /assets/video/hero-v2-1400.webp 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><img class="hp-photo" src="/assets/video/hero-v2.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
@@ -1731,7 +1731,7 @@ def build():
     # police hébergée sur le site (pas de Google Fonts : rien n'est envoyé à Google, conforme RGPD)
     os.makedirs(os.path.join(OUT, "assets", "fonts"), exist_ok=True)
     os.makedirs(os.path.join(OUT, "assets", "video"), exist_ok=True)
-    for f in ("hero-photo.jpg", "hero-photo.webp", "hero-photo-480.webp", "hero-photo-800.webp", "hero-photo-480.avif", "hero-photo-800.avif", "hero-photo-941.avif"):
+    for f in ("hero-v2.jpg", "hero-v2-480.webp", "hero-v2-800.webp", "hero-v2-941.webp", "hero-v2-1400.webp", "hero-v2-480.avif", "hero-v2-800.avif", "hero-v2-941.avif", "hero-v2-1400.avif"):
         shutil.copy(os.path.join(ROOT, "assets", "video", f), os.path.join(OUT, "assets", "video", f))
     for f in ("plus-jakarta-sans.woff2", "OFL.txt"):
         shutil.copy(os.path.join(ROOT, "assets", "fonts", f), os.path.join(OUT, "assets", "fonts", f))
