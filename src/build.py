@@ -1614,17 +1614,29 @@ def page_service(L, s):
  <p class="sv-communes"><b>{"Bruxelles" if L == "fr" else "Brussel"} :</b> {e(communes)}.</p>
 </div></section>''' + band(L)
     if s["id"] == "plomberie":
+        # page compacte : on aide d'abord (tuiles + diagnostic), le détail reste lisible par Google dans des volets fermés
         fr = L == "fr"
-        det = "".join(f'''<article class="box reveal" id="{did}" data-d="{i % 2}"><h3>{e(t)}</h3><p>{e(tx)}</p><ul class="list ok">{"".join(f"<li>{ico('check')}<span>{e(x)}</span></li>" for x in items)}</ul></article>''' for i, (did, t, tx, items) in enumerate(c["details"]))
+        chev = ico("chev")
+        call = f'<a class="pa-cta" href="tel:{PHONE_TEL}">{u["call"]} · {PHONE_DISPLAY}{ico("arrow")}</a>'
+        def row(rid, title, inner):
+            return f'<details class="pa-i" id="{rid}"><summary><h3 class="pa-q">{e(title)}</h3>{chev}</summary><div class="pa-a">{inner}{call}</div></details>'
+        rows = "".join(row(did, t, f'<p>{e(tx)}</p><ul class="list ok">{"".join(f"<li>{ico(chr(99)+chr(104)+chr(101)+chr(99)+chr(107))}<span>{e(x)}</span></li>" for x in items)}</ul>') for did, t, tx, items in c["details"])
+        rows += row("signes" if fr else "signalen", "Signes d'alerte et causes fréquentes" if fr else "Signalen en vaakste oorzaken",
+                    f'<h4>{u["sv_signs"]}</h4><ul class="list">{signs}</ul><h4>{u["sv_causes"]}</h4><ul class="list b">{causes}</ul>')
+        rows += row("methode" if fr else "werkwijze", "Notre méthode en 4 étapes" if fr else "Onze werkwijze in 4 stappen",
+                    "<ol>" + "".join(f"<li><b>{e(a_)}.</b> {e(b_)}</li>" for a_, b_ in c["method"]) + "</ol>")
+        others = ", ".join(f'<a href="{url(L, x["slug"][L])}">{e(x[L]["name"])}</a>' for x in SERVICES if x["id"] != "plomberie")
         cut = body.index('<section class="section"><div class="wrap">\n <div class="cols2">')
         body = body[:cut] + f'''<section class="section"><div class="wrap">
  {sh("Plomberie" if fr else "Loodgieterij", "On s'occupe de tout" if fr else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 24h/24." if fr else "Klik op uw probleem of bel ons: gratis offerte, 24/7.", center=True)}
  {plomberie_tiles(L)}
-</div></section>
-<section class="section soft"><div class="wrap">
- {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: ce qu'on répare, ce qu'on installe" if fr else "Loodgieter in Brussel: wat we herstellen en plaatsen", "Six types d'intervention, toujours avec un devis gratuit annoncé avant les travaux." if fr else "Zes soorten interventies, altijd met een gratis offerte vóór de werken.")}
- <div class="cols2 pl-detail">{det}</div>
-</div></section>''' + body[cut:]
+</div></section>''' + diagnostic(L, pre=s["id"]) + f'''<section class="section soft"><div class="wrap">
+ {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: le détail, si vous en avez besoin" if fr else "Loodgieter in Brussel: de details, als je ze nodig hebt", "Ouvrez la ligne qui vous concerne." if fr else "Open de lijn die bij jouw probleem past.")}
+ <div class="pa-grid">{rows}</div>
+</div></section>''' + faq_section(L, c["faq"]) + f'''<section class="section-sm"><div class="wrap">
+ <p class="sv-communes"><b>{u["sv_other"]} :</b> {others}.</p>
+ <p class="sv-communes"><b>{"Bruxelles" if fr else "Brussel"} :</b> {e(communes)}.</p>
+</div></section>''' + band(L)
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
                   "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
                   "provider": {"@id": SITE_URL + "/#business"},
