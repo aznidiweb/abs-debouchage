@@ -1614,16 +1614,25 @@ def page_service(L, s):
  <p class="sv-communes"><b>{"Bruxelles" if L == "fr" else "Brussel"} :</b> {e(communes)}.</p>
 </div></section>''' + band(L)
     if s["id"] == "plomberie":
+        fr = L == "fr"
+        det = "".join(f'''<article class="box reveal" id="{did}" data-d="{i % 2}"><h3>{e(t)}</h3><p>{e(tx)}</p><ul class="list ok">{"".join(f"<li>{ico('check')}<span>{e(x)}</span></li>" for x in items)}</ul></article>''' for i, (did, t, tx, items) in enumerate(c["details"]))
         cut = body.index('<section class="section"><div class="wrap">\n <div class="cols2">')
         body = body[:cut] + f'''<section class="section"><div class="wrap">
- {sh("Plomberie" if L == "fr" else "Loodgieterij", "On s'occupe de tout" if L == "fr" else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 24h/24." if L == "fr" else "Klik op uw probleem of bel ons: gratis offerte, 24/7.", center=True)}
+ {sh("Plomberie" if fr else "Loodgieterij", "On s'occupe de tout" if fr else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 24h/24." if fr else "Klik op uw probleem of bel ons: gratis offerte, 24/7.", center=True)}
  {plomberie_tiles(L)}
-</div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + band(L)
+</div></section>
+<section class="section soft"><div class="wrap">
+ {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: ce qu'on répare, ce qu'on installe" if fr else "Loodgieter in Brussel: wat we herstellen en plaatsen", "Six types d'intervention, toujours avec un devis gratuit annoncé avant les travaux." if fr else "Zes soorten interventies, altijd met een gratis offerte vóór de werken.")}
+ <div class="cols2 pl-detail">{det}</div>
+</div></section>''' + body[cut:]
     svc_schema = {"@context": "https://schema.org", "@type": "Service", "name": c["name"], "serviceType": c["name"],
                   "description": c["desc"], "url": abs_url(L, s["slug"][L]), "image": photo_url(SVC_PHOTO[s["id"]], 1200),
                   "provider": {"@id": SITE_URL + "/#business"},
                   "areaServed": {"@type": "Country", "name": "Belgique" if L == "fr" else "België"},
                   "availableChannel": {"@type": "ServiceChannel", "servicePhone": PHONE_TEL}}
+    if c.get("details"):
+        svc_schema["hasOfferCatalog"] = {"@type": "OfferCatalog", "name": c["name"],
+            "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": d[1], "description": d[2]}} for d in c["details"]]}
     if s["price"]:
         svc_schema["offers"] = {"@type": "Offer", "priceCurrency": "EUR", "price": s["price"],
                                 "priceSpecification": {"@type": "PriceSpecification", "minPrice": s["price"], "priceCurrency": "EUR"}}

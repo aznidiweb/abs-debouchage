@@ -2396,3 +2396,10 @@ main>section.band5,.band5{background:#0a111a!important;background-image:none!imp
 .hp-checks .ico{width:17px;height:17px;padding:0;background:none}
 /* cartes : un filet fin plutôt qu'une grosse ombre */
 .card{border:1px solid var(--line)}
+
+/* Page plomberie : blocs détaillés par type d'intervention */
+.pl-detail .box h3{font-size:20px;margin-bottom:10px}
+.pl-detail .box p{font-size:15.5px;line-height:1.6;margin-bottom:18px}
+.pl-detail .list{gap:9px}
+.pl-detail .list li{font-size:15px}
+.pl-detail .box{scroll-margin-top:110px}

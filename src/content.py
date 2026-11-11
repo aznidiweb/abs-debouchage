@@ -342,7 +342,7 @@ SERVICES = [
   "fr": {
    "name": "Plomberie",
    "card": "Fuite, robinetterie, sanitaires, chauffe-eau : un plombier à Bruxelles, 24h/24, sur devis.",
-   "title": "Plombier Bruxelles 24h/24 | Plomberie & dépannage | ABS Débouchage",
+   "title": "Plombier Bruxelles 24h/24 – Fuite & dépannage | ABS Débouchage",
    "desc": "Plombier à Bruxelles et en Belgique, disponible 24h/24 : fuite d'eau, robinetterie, sanitaires, chauffe-eau, canalisations. Devis gratuit avant les travaux.",
    "h1": "Plombier à Bruxelles, dépannage 24h/24",
    "intro": "Dépannage, réparation, remplacement et installation, 24h/24 à Bruxelles et dans toute la Belgique. Devis gratuit avant les travaux.",
@@ -350,12 +350,30 @@ SERVICES = [
    "causes": ["Joints, flexibles ou raccords usés par le temps", "Calcaire qui bloque la robinetterie et les appareils", "Installation ancienne ou mal posée", "Gel ou variation de pression qui fragilise un tuyau"],
    "method": [["Diagnostic", "On cherche l'origine du problème et on coupe l'eau si nécessaire pour limiter les dégâts."], ["Devis gratuit", "Le prix vous est annoncé avant les travaux : pas de surprise sur la facture."], ["Réparation", "Réparation, remplacement ou installation, avec du matériel professionnel."], ["Contrôle", "On teste l'installation avant de partir et on vous explique ce qui a été fait."]],
    "tip": "En attendant le technicien : fermez l'arrivée d'eau (robinet d'arrêt ou compteur), coupez le courant si l'eau approche d'une prise ou du tableau électrique, et épongez pour limiter les dégâts.",
-   "faq": [["Faites-vous aussi de la plomberie ?", "Oui. En plus du débouchage, nous intervenons pour vos besoins de plomberie : dépannage, réparation, remplacement et installation."], ["Intervenez-vous en urgence, la nuit ou le week-end ?", "Oui, 24h/24 et 7j/7, dans les mêmes zones que le débouchage : Bruxelles et toute la Belgique."], ["Comment est calculé le prix ?", "Toujours sur devis gratuit, annoncé avant l'intervention. Décrivez la situation par téléphone ou WhatsApp : on vous répond avec un prix, et c'est ce prix qui figure sur la facture."]]
+   "faq": [["Faites-vous aussi de la plomberie ?", "Oui. En plus du débouchage, nous intervenons pour vos besoins de plomberie : dépannage, réparation, remplacement et installation."], ["Intervenez-vous en urgence, la nuit ou le week-end ?", "Oui, 24h/24 et 7j/7, dans les mêmes zones que le débouchage : Bruxelles et toute la Belgique."], ["Comment est calculé le prix ?", "Toujours sur devis gratuit, annoncé avant l'intervention. Décrivez la situation par téléphone ou WhatsApp : on vous répond avec un prix, et c'est ce prix qui figure sur la facture."],
+           ["Que faire en cas de fuite d'eau en attendant le plombier ?", "Fermez l'arrivée d'eau au robinet d'arrêt ou au compteur, coupez le courant si l'eau approche d'une prise ou du tableau électrique, puis épongez. Prenez quelques photos des dégâts : elles serviront pour votre assurance."],
+           ["Je suis locataire : qui paie le plombier ?", "En règle générale, les petites réparations d'usage (joint, flexible, mécanisme de chasse) sont à charge du locataire, et les grosses réparations ou le remplacement d'une installation vétuste à charge du propriétaire. Vérifiez votre bail et prévenez votre propriétaire avant les travaux, sauf urgence."],
+           ["Mon assurance couvre-t-elle une fuite d'eau ?", "Le plus souvent, l'assurance habitation couvre les dégâts causés par l'eau (sol, murs, plafond), pas la réparation de la pièce défectueuse. Certains contrats prennent aussi en charge la recherche de fuite. Vous recevez une facture avec numéro de TVA à joindre à votre déclaration."],
+           ["Vaut-il mieux réparer ou remplacer ?", "On répare quand la réparation tient dans le temps : un joint, une cartouche ou un mécanisme suffisent souvent. Quand la pièce est trop usée ou que la réparation coûterait presque autant, on vous le dit et on vous propose le remplacement. Dans les deux cas, vous connaissez le prix avant qu'on commence."],
+           ["Intervenez-vous dans toutes les communes de Bruxelles ?", "Oui : Anderlecht, Bruxelles-Ville, Ixelles, Molenbeek-Saint-Jean, Schaerbeek, Uccle et les autres communes de la Région, ainsi qu'en Wallonie et en Flandre."]],
+   "details": [
+    ["fuites", "Fuites d'eau", "Une fuite ne s'arrête jamais toute seule : même un simple goutte-à-goutte finit par abîmer un mur, un plafond ou un meuble. Nous cherchons d'où vient l'eau (joint, raccord, flexible, tuyau percé), nous coupons l'arrivée si nécessaire, puis nous réparons ou remplaçons la pièce en cause.",
+     ["Fuite sous un évier, un lavabo ou une baignoire", "Raccord qui suinte ou tuyau percé", "Tache d'humidité sur un mur ou un plafond", "Compteur d'eau qui tourne, robinets fermés"]],
+    ["robinetterie", "Robinetterie", "Un robinet qui goutte gaspille de l'eau jour et nuit, et un mitigeur qui force finit par casser. Selon l'état, nous changeons le joint ou la cartouche, ou nous remplaçons le robinet complet, avec votre accord et après devis.",
+     ["Robinet qui goutte ou qui fuit à la base", "Mitigeur dur, bloqué ou qui ne mélange plus", "Robinet d'arrêt grippé ou qui ne ferme plus", "Flexible ou pommeau de douche à remplacer"]],
+    ["sanitaires", "Sanitaires & WC", "Une chasse d'eau qui coule en continu ou un WC qui fuit au pied se réparent le plus souvent sans tout changer. Nous remplaçons le mécanisme, le flotteur ou le joint, et nous posons de nouveaux sanitaires quand la réparation ne suffit plus.",
+     ["Chasse d'eau qui coule ou qui ne se remplit plus", "WC qui fuit au sol ou au raccord", "Lavabo, évier ou bidet à reposer ou à remplacer", "Siphon ou bonde qui fuit"]],
+    ["chauffe-eau", "Chauffe-eau & pression", "Plus d'eau chaude, une eau seulement tiède ou une pression qui s'effondre : nous contrôlons le chauffe-eau, le groupe de sécurité et le réducteur de pression pour trouver la panne, puis nous vous disons s'il vaut mieux réparer ou remplacer.",
+     ["Plus d'eau chaude, ou eau seulement tiède", "Groupe de sécurité qui goutte en permanence", "Pression trop faible à tous les robinets", "Coups ou sifflements dans les tuyaux"]],
+    ["canalisations", "Canalisations", "Les tuyaux d'arrivée d'eau et d'évacuation vieillissent : corrosion, raccords fatigués, tronçons abîmés lors de travaux. Nous réparons la partie touchée ou nous la remplaçons, et nous vérifions l'étanchéité avant de refermer.",
+     ["Tuyau corrodé, fissuré ou percé", "Raccord ou soudure qui fuit", "Remplacement d'un tronçon d'alimentation ou d'évacuation", "Évacuation mal raccordée ou en contre-pente"]],
+    ["installation", "Installation & remplacement", "Nouvelle cuisine, salle de bain à rafraîchir ou appareil à raccorder : nous posons et raccordons vos équipements, puis nous testons l'installation avec vous avant de partir.",
+     ["Pose d'un robinet, d'un lavabo, d'un évier ou d'un WC", "Raccordement d'un lave-linge ou d'un lave-vaisselle", "Remplacement d'un chauffe-eau", "Remise en état lors d'une rénovation"]]]
   },
   "nl": {
    "name": "Loodgieterij",
    "card": "Lek, kranen, sanitair, boiler: een loodgieter in Brussel, 24/7, op offerte.",
-   "title": "Loodgieter Brussel 24/7 | Loodgieterswerk & noodhulp | ABS Débouchage",
+   "title": "Loodgieter Brussel 24/7 – Lek & herstelling | ABS Débouchage",
    "desc": "Loodgieter in Brussel en heel België, 24/7 beschikbaar: waterlek, kranen, sanitair, boiler, leidingen. Gratis offerte vóór de werken.",
    "h1": "Loodgieter in Brussel, noodhulp 24/7",
    "intro": "Noodhulp, herstelling, vervanging en installatie, 24/7 in Brussel en heel België. Gratis offerte vóór de werken.",
@@ -363,7 +381,25 @@ SERVICES = [
    "causes": ["Voegen, flexibels of koppelingen die versleten zijn", "Kalk die kranen en toestellen blokkeert", "Oude of slecht geplaatste installatie", "Vorst of drukschommelingen die een leiding verzwakken"],
    "method": [["Diagnose", "We zoeken de oorzaak en sluiten indien nodig het water af om schade te beperken."], ["Gratis offerte", "U kent de prijs vóór de werken: geen verrassingen op de factuur."], ["Herstelling", "Herstelling, vervanging of installatie, met professioneel materiaal."], ["Controle", "We testen de installatie voor we vertrekken en leggen uit wat er gedaan is."]],
    "tip": "In afwachting van de technieker: sluit de watertoevoer af (afsluitkraan of meter), schakel de stroom uit als er water bij een stopcontact of de elektrische kast komt, en dweil om de schade te beperken.",
-   "faq": [["Doen jullie ook loodgieterswerk?", "Ja. Naast ontstopping doen we ook loodgieterswerk: noodhulp, herstelling, vervanging en installatie."], ["Komen jullie ook 's nachts of in het weekend?", "Ja, 24/7, in dezelfde regio als de ontstopping: Brussel en heel België."], ["Hoe wordt de prijs berekend?", "Altijd op gratis offerte, vooraf meegedeeld. Beschrijf de situatie telefonisch of via WhatsApp: je krijgt een prijs, en die prijs staat op de factuur."]]
+   "faq": [["Doen jullie ook loodgieterswerk?", "Ja. Naast ontstopping doen we ook loodgieterswerk: noodhulp, herstelling, vervanging en installatie."], ["Komen jullie ook 's nachts of in het weekend?", "Ja, 24/7, in dezelfde regio als de ontstopping: Brussel en heel België."], ["Hoe wordt de prijs berekend?", "Altijd op gratis offerte, vooraf meegedeeld. Beschrijf de situatie telefonisch of via WhatsApp: je krijgt een prijs, en die prijs staat op de factuur."],
+           ["Wat doe ik bij een waterlek in afwachting van de loodgieter?", "Sluit de watertoevoer af aan de afsluitkraan of de meter, schakel de stroom uit als er water bij een stopcontact of de elektrische kast komt, en dweil het water op. Neem enkele foto's van de schade: die zijn nuttig voor je verzekering."],
+           ["Ik ben huurder: wie betaalt de loodgieter?", "In de regel zijn kleine herstellingen door gebruik (dichting, flexibel, spoelmechanisme) voor de huurder, en grote herstellingen of de vervanging van een verouderde installatie voor de eigenaar. Kijk je huurcontract na en verwittig je eigenaar vóór de werken, behalve bij nood."],
+           ["Dekt mijn verzekering een waterlek?", "Meestal dekt de woonverzekering de schade door het water (vloer, muren, plafond), niet de herstelling van het defecte onderdeel. Sommige contracten vergoeden ook de lekopsporing. Je krijgt een factuur met btw-nummer voor je aangifte."],
+           ["Herstellen of vervangen: wat is het beste?", "We herstellen wanneer de herstelling duurzaam is: een dichting, een cartouche of een mechanisme volstaat vaak. Is het onderdeel te versleten of kost herstellen bijna evenveel, dan zeggen we dat en stellen we vervanging voor. In beide gevallen ken je de prijs voor we beginnen."],
+           ["Komen jullie in alle Brusselse gemeenten?", "Ja: Anderlecht, Brussel-Stad, Elsene, Sint-Jans-Molenbeek, Schaarbeek, Ukkel en de andere gemeenten van het Gewest, en ook in Wallonië en Vlaanderen."]],
+   "details": [
+    ["lekken", "Waterlekken", "Een lek stopt nooit vanzelf: zelfs wat gedruppel beschadigt op termijn een muur, een plafond of een meubel. We zoeken waar het water vandaan komt (dichting, koppeling, flexibel, doorboorde leiding), sluiten indien nodig de toevoer af en herstellen of vervangen het defecte onderdeel.",
+     ["Lek onder een gootsteen, lavabo of bad", "Koppeling die zweet of doorboorde leiding", "Vochtplek op een muur of plafond", "Watermeter die draait terwijl alle kranen dicht zijn"]],
+    ["kranen", "Kranen", "Een druppelende kraan verspilt dag en nacht water, en een mengkraan die klemt, gaat uiteindelijk stuk. Naargelang de staat vervangen we de dichting of de cartouche, of de volledige kraan, met jouw akkoord en na offerte.",
+     ["Kraan die druppelt of lekt aan de voet", "Mengkraan die klemt, vastzit of niet meer mengt", "Afsluitkraan die vastzit of niet meer sluit", "Doucheslang of douchekop vervangen"]],
+    ["sanitair", "Sanitair & wc", "Een spoelbak die blijft lopen of een wc die lekt aan de voet is meestal te herstellen zonder alles te vervangen. We vervangen het mechanisme, de vlotter of de dichting, en plaatsen nieuw sanitair als herstellen niet meer volstaat.",
+     ["Spoelbak die blijft lopen of niet meer vult", "Wc die lekt op de vloer of aan de aansluiting", "Lavabo, gootsteen of bidet herplaatsen of vervangen", "Sifon of afvoerplug die lekt"]],
+    ["boiler", "Boiler & waterdruk", "Geen warm water meer, alleen lauw water of een druk die wegvalt: we controleren de boiler, de veiligheidsgroep en de drukregelaar om de oorzaak te vinden, en zeggen je daarna of herstellen of vervangen het beste is.",
+     ["Geen warm water, of alleen lauw water", "Veiligheidsgroep die voortdurend druppelt", "Te lage druk aan alle kranen", "Slagen of gefluit in de leidingen"]],
+    ["leidingen", "Leidingen", "Aanvoer- en afvoerleidingen verouderen: corrosie, vermoeide koppelingen, stukken die bij werken beschadigd raakten. We herstellen het getroffen deel of vervangen het, en controleren de dichtheid voor we alles weer sluiten.",
+     ["Leiding die verroest, gebarsten of doorboord is", "Koppeling of las die lekt", "Vervanging van een stuk aanvoer- of afvoerleiding", "Afvoer die slecht is aangesloten of geen afschot heeft"]],
+    ["installatie", "Installatie & vervanging", "Nieuwe keuken, badkamer opfrissen of een toestel aansluiten: we plaatsen en sluiten je toestellen aan, en testen de installatie samen met jou voor we vertrekken.",
+     ["Plaatsing van een kraan, lavabo, gootsteen of wc", "Aansluiting van een wasmachine of vaatwasser", "Vervanging van een boiler", "Herstelling bij een renovatie"]]]
   }
  },
 ]
