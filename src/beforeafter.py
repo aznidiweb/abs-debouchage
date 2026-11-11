@@ -17,7 +17,7 @@ def sink(state):
     """Vue du dessus d'un évier inox, bonde au centre."""
     rnd = random.Random(7)
     base = ('<defs><radialGradient id="ba-steel" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#e9eef3"/><stop offset=".55" stop-color="#b9c3cd"/><stop offset="1" stop-color="#7d8995"/></radialGradient>'
-            '<radialGradient id="ba-hole" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#0b1b2e"/><stop offset=".75" stop-color="#1b2633"/><stop offset="1" stop-color="#55606b"/></radialGradient>'
+            '<radialGradient id="ba-hole" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#0c2b38"/><stop offset=".75" stop-color="#20353e"/><stop offset="1" stop-color="#55606b"/></radialGradient>'
             '<radialGradient id="ba-grease" cx="50%" cy="50%" r="50%"><stop offset=".25" stop-color="#8a6a2b" stop-opacity=".75"/><stop offset=".7" stop-color="#a0813f" stop-opacity=".45"/><stop offset="1" stop-color="#a0813f" stop-opacity="0"/></radialGradient></defs>'
             '<rect width="480" height="360" fill="#5f6b77"/><rect width="480" height="360" fill="url(#ba-steel)" opacity=".55"/>'
             '<ellipse cx="240" cy="180" rx="196" ry="166" fill="url(#ba-steel)" stroke="#8f9aa6" stroke-width="6"/>'
@@ -52,7 +52,7 @@ def pipe(state):
         return base + rust + hole
     clean = "".join(f'<ellipse cx="240" cy="182" rx="{230*(1-i*.105):.0f}" ry="{190*(1-i*.105):.0f}" fill="none" stroke="#b9c3cd" stroke-width="1.5" opacity=".5"/>' for i in range(9))
     shine = '<path d="M60 150 Q90 40 240 22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".3"/>'
-    hole = '<ellipse cx="240" cy="182" rx="88" ry="72" fill="#1a232d"/><ellipse cx="240" cy="182" rx="60" ry="49" fill="#0b1b2e"/>'
+    hole = '<ellipse cx="240" cy="182" rx="88" ry="72" fill="#1f3037"/><ellipse cx="240" cy="182" rx="60" ry="49" fill="#0c2b38"/>'
     water = ('<path d="M40 250 Q240 395 440 250 Q440 300 240 372 Q40 300 40 250Z" fill="#38bdf8" opacity=".45"/>'
              '<path d="M90 272 Q240 360 390 272" fill="none" stroke="#bae6fd" stroke-width="3" opacity=".7"/>')
     return base + clean + shine + hole + water
