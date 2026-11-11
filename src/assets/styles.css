@@ -2319,3 +2319,25 @@ main>section.band5,.band5{background:#0b1b2e!important;background-image:none!imp
 .fq-n{color:#64748b!important}
 .fq-i[open] .fq-n,.fq.is-split .fq-i.is-on .fq-n{color:#c2410c!important}
 .nav-wrap.on-light .brand-name b{color:#c2410c}
+
+.dd-h{grid-column:1/-1;padding:10px 14px 4px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.dd-h:not(:first-child){margin-top:6px;border-top:1px solid #e2e8f0;padding-top:12px}
+.pl-strip{display:flex;align-items:center;gap:16px;margin-top:20px;padding:18px 22px;background:#fff;border:1px solid #e2e8f0;border-radius:var(--r-lg);box-shadow:var(--sh-1,0 1px 3px rgba(15,23,42,.08));color:inherit;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.pl-strip:hover{transform:translateY(-2px);box-shadow:var(--sh-3,0 10px 30px rgba(15,23,42,.12))}
+.pl-ic{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#fff1e8;color:#ea580c}
+.pl-ic .ico{width:26px;height:26px}
+.pl-tx{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.pl-tx b{font-size:1.05rem}
+.pl-tx span{color:#475569;font-size:.95rem}
+.pl-go{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--brand);background:var(--brand-50)}
+.pl-go .ico{width:16px;height:16px}
+.pl-strip:hover .pl-go{background:var(--brand);color:#fff}
+@media(min-width:561px){.diag-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.diag-grid .d-opt:last-child{grid-column:auto;flex-direction:column;min-height:84px}.pl-strip{padding:14px 16px}.pl-tx span{font-size:.88rem}}
+.pl-side{width:100%;max-width:440px;margin-left:auto;padding:26px;border-radius:22px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff}
+.pl-side-t{margin:0 0 14px;font-weight:800;font-size:1.1rem}
+.pl-side ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pl-side li{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.08);font-weight:600;font-size:.92rem;line-height:1.2}
+.pl-side li .ico{flex:none;width:22px;height:22px;color:#fb923c}
+.pl-side-s{margin:16px 0 0;font-size:.9rem;color:#cbd5e1}
+@media(max-width:900px){.pl-side{margin:20px 0 0;max-width:none}}

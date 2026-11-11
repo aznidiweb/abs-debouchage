@@ -32,6 +32,7 @@ P = {
  "basin": '<path d="M9 4h3v5"/><path d="M3 9h18v1a7 7 0 0 1-7 7h-4a7 7 0 0 1-7-7z"/><path d="M12 17v4"/>',
  "shower": '<path d="m4 4 2.5 2.5"/><path d="M13.5 6.5a4.95 4.95 0 0 0-7 7"/><path d="M15 5 5 15"/><path d="M14 17v.01M10 16v.01M13 13v.01M16 10v.01M11 20v.01M17 14v.01M20 11v.01"/>',
  "bath": '<path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.68 3 4 3.68 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M10 5 8 7M2 12h20M7 19v2M17 19v2"/>',
+ "wrench": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
  "pipes": '<path d="M2 6h8a4 4 0 0 1 4 4v11"/><path d="M2 10h6a2 2 0 0 1 2 2v9"/><path d="M18 3v6M22 3v6M16 9h8"/>',
  "manhole": '<circle cx="12" cy="12" r="9"/><path d="M7 9h10M6 12h12M7 15h10"/>',
  "drain": '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 8v8M12 8v8M15.5 8v8"/>',
@@ -312,7 +313,7 @@ PHOTOS = {
  "tools":    ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
 }
 SVC_PHOTO = {"wc": "wc", "sanibroyeur": "wallwork", "evier": "sink", "lavabo": "siphon", "douche": "bathroom",
-             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam"}
+             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
 
 def photo_url(key, w=1200, h=None):
     return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}{f'&h={h}' if h else ''}&q=72"
@@ -379,9 +380,10 @@ def sh(c, title, lead=None, center=False):
 
 def header(L, alt_url, current=""):
     u = UI[L]
-    items = "".join(
-        f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
-        for s in SERVICES)
+    def _it(s):
+        return f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
+    items = (f'<span class="dd-h">{"Débouchage" if L == "fr" else "Ontstopping"}</span>' + "".join(_it(s) for s in SERVICES if s["id"] != "plomberie") +
+             f'<span class="dd-h">{"Plomberie" if L == "fr" else "Loodgieterij"}</span>' + "".join(_it(s) for s in SERVICES if s["id"] == "plomberie"))
     lang_sw = (f'<span>FR</span><a href="{alt_url}" hreflang="nl" lang="nl">NL</a>' if L == "fr"
                else f'<a href="{alt_url}" hreflang="fr" lang="fr">FR</a><span>NL</span>')
     def cur(k): return ' aria-current="page"' if current == k else ""
@@ -596,8 +598,8 @@ def diagnostic(L, pre=None, photo="pipecam"):
     ui = {k: U[k] for k in ("step", "sev", "price", "price_q", "wait", "wait_generic", "wa")}
     ui.update({"from": u["from"], "chev": ico("chevr"), "icons": {"urgent": ico("alert"), "today": ico("clock"), "plan": ico("check")}})
     data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
-    order = ["wc", "evier", "douche", "egout", "autre"]
-    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder")}
+    order = ["wc", "evier", "douche", "egout", "plomberie", "autre"]
+    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder"), "plomberie": ("Plomberie, fuite", "Loodgieter, lek")}
     opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
     uid = f"dg-{L}-{pre or 'x'}"
     pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
@@ -1003,7 +1005,7 @@ PHOTOS = {
  "tools":    ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
 }
 SVC_PHOTO = {"wc": "wc", "sanibroyeur": "wallwork", "evier": "sink", "lavabo": "siphon", "douche": "bathroom",
-             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam"}
+             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
 
 def photo_url(key, w=1200, h=None):
     return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}{f'&h={h}' if h else ''}&q=72"
@@ -1070,9 +1072,10 @@ def sh(c, title, lead=None, center=False):
 
 def header(L, alt_url, current=""):
     u = UI[L]
-    items = "".join(
-        f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
-        for s in SERVICES)
+    def _it(s):
+        return f'<a href="{url(L, s["slug"][L])}">{ico(s["icon"])}<span>{e(s[L]["name"])}<small>{u["on_quote"]}</small></span></a>'
+    items = (f'<span class="dd-h">{"Débouchage" if L == "fr" else "Ontstopping"}</span>' + "".join(_it(s) for s in SERVICES if s["id"] != "plomberie") +
+             f'<span class="dd-h">{"Plomberie" if L == "fr" else "Loodgieterij"}</span>' + "".join(_it(s) for s in SERVICES if s["id"] == "plomberie"))
     lang_sw = (f'<span>FR</span><a href="{alt_url}" hreflang="nl" lang="nl">NL</a>' if L == "fr"
                else f'<a href="{alt_url}" hreflang="fr" lang="fr">FR</a><span>NL</span>')
     def cur(k): return ' aria-current="page"' if current == k else ""
@@ -1291,8 +1294,8 @@ def diagnostic(L, pre=None, photo="pipecam"):
     ui = {k: U[k] for k in ("step", "sev", "price", "price_q", "wait", "wait_generic", "wa")}
     ui.update({"from": u["from"], "chev": ico("chevr"), "icons": {"urgent": ico("alert"), "today": ico("clock"), "plan": ico("check")}})
     data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
-    order = ["wc", "evier", "douche", "egout", "autre"]
-    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder")}
+    order = ["wc", "evier", "douche", "egout", "plomberie", "autre"]
+    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder"), "plomberie": ("Plomberie, fuite", "Loodgieter, lek")}
     opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
     uid = f"dg-{L}-{pre or 'x'}"
     pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
@@ -1432,6 +1435,7 @@ HOME_FAQ = {
  "fr": [
   ("Prix et délai", [
    ("Combien coûte un débouchage ?", "Ça dépend de ce qui bouche et où : un siphon d'évier ne demande pas le même travail qu'une colonne d'immeuble. Décrivez-nous la situation au téléphone ou via le diagnostic : on vous annonce le prix avant de se déplacer, et c'est ce prix-là qui figure sur la facture."),
+   ("Faites-vous aussi de la plomberie ?", "Oui. En plus du débouchage, nous faisons de la plomberie (fuites, robinetterie, sanitaires, chauffe-eau…), 24h/24 et dans les mêmes zones. Toujours sur devis gratuit, annoncé avant les travaux."),
    ("En combien de temps arrivez-vous ?", "Ça dépend de votre commune et de l'heure. Au téléphone, on vous donne une heure d'arrivée estimée, pas une promesse vague."),
   ]),
   ("Qui paie ?", [
@@ -1449,6 +1453,7 @@ HOME_FAQ = {
  ],
  "nl": [
   ("Prijs en tijd", [
+   ("Doen jullie ook loodgieterswerk?", "Ja. Naast ontstopping doen we ook loodgieterswerk (lekken, kranen, sanitair, boilers…), 24/7 en in dezelfde regio. Altijd op gratis offerte, vooraf meegedeeld."),
    ("Hoeveel kost een ontstopping?", "Dat hangt af van wat verstopt is en waar: een gootsteensifon is ander werk dan een afvoerkolom in een gebouw. Beschrijf de situatie aan de telefoon of via de diagnose: we geven je de prijs voor we vertrekken, en die prijs staat op de factuur."),
    ("Hoe snel zijn jullie ter plaatse?", "Dat hangt af van je gemeente en het uur. Aan de telefoon krijg je een geschat aankomstuur, geen vage belofte."),
   ]),
@@ -1526,16 +1531,32 @@ def band(L):
 </div></section>'''
 
 # ---------------------------------------------------------------- pages
+def plomberie_strip(L):
+    s = svc_by_id("plomberie"); c = s[L]; fr = L == "fr"
+    return f'''<a class="pl-strip reveal" href="{url(L, s["slug"][L])}">
+ <span class="pl-ic" aria-hidden="true">{ico("wrench")}</span>
+ <span class="pl-tx"><b>{"Et aussi : plomberie" if fr else "Ook: loodgieterswerk"}</b><span>{e(c["card"])}</span></span>
+ <span class="pl-go" aria-hidden="true">{ico("arrow")}</span>
+</a>'''
+
 def page_home(L):
     u = UI[L]; t = TX[L]
     body = hero_home(L) + f'''
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
+ {plomberie_strip(L)}
 </div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
     schemas = [business_schema(L), faq_schema([qa for _, qs in HOME_FAQ[L] for qa in qs]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
+
+def plomberie_side(L):
+    fr = L == "fr"
+    items = ([("drain", "Fuites d'eau"), ("sink", "Robinetterie"), ("toilet", "Sanitaires & WC"), ("gauge", "Chauffe-eau & pression"), ("pipes", "Canalisations"), ("wrench", "Installation & remplacement")] if fr else
+             [("drain", "Waterlekken"), ("sink", "Kranen"), ("toilet", "Sanitair & wc"), ("gauge", "Boiler & waterdruk"), ("pipes", "Leidingen"), ("wrench", "Installatie & vervanging")])
+    li = "".join(f'<li>{ico(i)}<span>{e(t)}</span></li>' for i, t in items)
+    return f'''<div class="pl-side"><p class="pl-side-t">{"Ce qu'on fait" if fr else "Wat we doen"}</p><ul>{li}</ul><p class="pl-side-s">{"Devis gratuit · 24h/24 · 7j/7" if fr else "Gratis offerte · 24/7"}</p></div>'''
 
 def page_service(L, s):
     u = UI[L]; c = s[L]; other = u["other"]
@@ -1550,7 +1571,7 @@ def page_service(L, s):
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
     slide = [(SVC_PHOTO[s["id"]], ("Intervention 24h/24" if L == "fr" else "Interventie 24/7"), e(c["h1"]), c["intro"], c["name"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles et toute la Belgique" if L == "fr" else "Interventie 24/7 · Brussel en heel België"), cls="sv-hero", big_h1=True, side=scene(L, s["id"], ico("pause"), ico("play"))) + f'''
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles et toute la Belgique" if L == "fr" else "Interventie 24/7 · Brussel en heel België"), cls="sv-hero", big_h1=True, side=(plomberie_side(L) if s["id"] == "plomberie" else scene(L, s["id"], ico("pause"), ico("play")))) + f'''
 <section class="section"><div class="wrap">
  <div class="cols2">
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
