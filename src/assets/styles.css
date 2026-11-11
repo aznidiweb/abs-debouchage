@@ -2449,3 +2449,6 @@ main>section.band5,.band5{background:#0a111a!important;background-image:none!imp
 @media(max-width:560px){.om-city em{font-size:10px}.om-rings i{left:-65px;top:-65px;width:130px;height:130px}}
 @media(prefers-reduced-motion:reduce){.om-rt,.om-rings i{animation:none}.om-rings i:first-child{opacity:.5;transform:scale(1)}}
 @media(max-width:560px){.om-cx em{display:none}}
+
+/* Pied de page : le numéro est un lien, il doit se reconnaître autrement que par sa couleur (accessibilité) */
+.footer.fc .fc-c2 a{text-decoration:underline;text-underline-offset:3px}

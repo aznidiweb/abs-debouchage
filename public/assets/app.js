@@ -41,11 +41,16 @@
     navTick=false; if(!navWrap) return;
     var bar=navWrap.querySelector(".navbar"); if(!bar) return;
     var r=bar.getBoundingClientRect(), y=46;
-    navWrap.style.pointerEvents="none";
     var br=bar.querySelector(".brand"), bx=br?br.getBoundingClientRect():r;
-    var under=d.elementFromPoint(Math.round(Math.max(2,bx.left-6)),Math.round(y))||d.elementFromPoint(Math.round(w.innerWidth/2),Math.round(y));
-    navWrap.style.pointerEvents="";
-    if(under&&!navWrap.contains(under)) navWrap.classList.toggle("on-light",bgLum(under)>.6);
+    /* lecture seule (aucun style modifié avant de mesurer) : pas de recalcul forcé de la mise en page */
+    function pick(x){
+      if(!d.elementsFromPoint) return null;
+      var a=d.elementsFromPoint(x,Math.round(y));
+      for(var i=0;i<a.length;i++){ if(!navWrap.contains(a[i])) return a[i]; }
+      return null;
+    }
+    var under=pick(Math.round(Math.max(2,bx.left-6)))||pick(Math.round(w.innerWidth/2));
+    if(under) navWrap.classList.toggle("on-light",bgLum(under)>.6);
   }
   var lastY=w.scrollY;
   function onScroll(){
@@ -372,7 +377,6 @@
     d.querySelectorAll(".hero-video .hp-lead,.hero-video .cta-row,.hero-video .urg-btn,.hero-video .hp-checks").forEach(function(el,i){ el.style.setProperty("--rd",(250+i*110)+"ms"); });
     d.querySelectorAll(".hero-video .hlabel").forEach(function(el){ el.style.setProperty("--rd","100ms"); });
     /* on laisse le navigateur afficher l'état de départ avant de lancer les apparitions */
-    void d.body.offsetHeight;
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ els.forEach(function(el){ rio.observe(el); }); }); });
   })();
 
