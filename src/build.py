@@ -770,8 +770,7 @@ def osm_map(L):
     for tx in range(int(x0 // 256), int(x1 // 256) + 1):
         for ty in range(int(y0 // 256), int(y1 // 256) + 1):
             l = (tx * 256 - x0) / W * 100; t = (ty * 256 - y0) / H * 100
-            tiles += (f'<img src="https://tile.openstreetmap.org/{z}/{tx}/{ty}.png" alt="" loading="lazy" decoding="async" width="256" height="256" '
-                      f'style="left:{l:.3f}%;top:{t:.3f}%;width:{25600 / W:.3f}%;height:{25600 / H:.3f}%">')
+            pass   # carte vectorielle dessinée dans la page : plus aucune image chargée depuis OpenStreetMap
     def pos(lat, lon):
         x, y = _merc(lat, lon, z); return (x - x0) / W * 100, (y - y0) / H * 100
     fr = L == "fr"
@@ -784,10 +783,19 @@ def osm_map(L):
            f'<rect class="om-out" width="{S["w"]}" height="{S["h"]}" mask="url(#om-m-{L})"/>'
            f'<g class="om-provs">{prov}</g></svg>')
     bx, by = pos(50.8466, 4.3528)
+    # grandes villes reliées à la base par des « tuyaux » où l'eau circule
+    CITIES = [("Anvers", "Antwerpen", 51.2194, 4.4025, "r"), ("Gand", "Gent", 51.0543, 3.7174, "l"), ("Bruges", "Brugge", 51.2093, 3.2247, "r"),
+              ("Liège", "Luik", 50.6326, 5.5797, "r"), ("Namur", "Namen", 50.4674, 4.8720, "r"), ("Charleroi", "Charleroi", 50.4108, 4.4446, "l"),
+              ("Mons", "Bergen", 50.4542, 3.9523, "l"), ("Hasselt", "Hasselt", 50.9307, 5.3325, "r"), ("Arlon", "Aarlen", 49.6833, 5.8167, "l")]
+    sx, sy = S["w"] / 100, S["h"] / 100
+    routes = "".join(f'<path class="om-rt" d="M{bx * sx:.1f} {by * sy:.1f}L{pos(la, lo)[0] * sx:.1f} {pos(la, lo)[1] * sy:.1f}" style="animation-delay:-{i * .23:.2f}s"/>' for i, (a_, b_, la, lo, sd) in enumerate(CITIES))
+    svg = svg.replace('</svg>', f'<g class="om-routes">{routes}</g></svg>')
+    cities = "".join(f'<span class="om-city om-c{sd}{" om-cx" if a_ in ("Hasselt", "Mons") else ""}" style="left:{pos(la, lo)[0]:.2f}%;top:{pos(la, lo)[1]:.2f}%" aria-hidden="true"><i></i><em>{e(a_ if fr else b_)}</em></span>' for a_, b_, la, lo, sd in CITIES)
+    rings = f'<span class="om-rings" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i></i><i></i><i></i></span>'
     aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
     base = "ABS Débouchage"
     hint = "Cliquez sur votre province" if fr else "Klik op je provincie"
-    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}"><div class="om-tiles" aria-hidden="true">{tiles}</div>{svg}'
+    return (f'<div class="om" role="img" aria-label="{e(aria)}" style="aspect-ratio:{W:.1f}/{H:.1f}">{svg}{rings}{cities}'
             f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i class="om-logo">{LOGO}</i><b>{base}<small>{"Notre base" if fr else "Onze basis"}</small></b></span>'
             f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg><b data-ompl></b></span>'
             f'<span class="om-hint" aria-hidden="true">{hint}</span>'
