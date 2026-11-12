@@ -1622,10 +1622,6 @@ def page_service(L, s):
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
   <div class="box reveal" data-d="1"><h2><span class="ic b">{ico("help")}</span>{u["sv_causes"]}</h2><ul class="list b">{causes}</ul></div>
  </div>
-</div></section>
-<section class="section soft"><div class="wrap">
- {sh("Méthode" if L=="fr" else "Werkwijze", u["sv_method"], center=True)}
- {steps_html(method)}
  <div class="tip reveal"><span class="ic">{ico("alert")}</span><div><h3>{u["sv_tip"]}</h3><p>{e(tip)}</p></div></div>
 </div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + f'''
 <section class="section soft"><div class="wrap">
@@ -1644,8 +1640,6 @@ def page_service(L, s):
         rows = "".join(row(did, t, f'<p>{e(tx)}</p><ul class="list ok">{"".join(f"<li>{ico(chr(99)+chr(104)+chr(101)+chr(99)+chr(107))}<span>{e(x)}</span></li>" for x in items)}</ul>') for did, t, tx, items in c["details"])
         rows += row("signes" if fr else "signalen", "Signes d'alerte et causes fréquentes" if fr else "Signalen en vaakste oorzaken",
                     f'<h4>{u["sv_signs"]}</h4><ul class="list">{signs}</ul><h4>{u["sv_causes"]}</h4><ul class="list b">{causes}</ul>')
-        rows += row("methode" if fr else "werkwijze", "Notre méthode en 4 étapes" if fr else "Onze werkwijze in 4 stappen",
-                    "<ol>" + "".join(f"<li><b>{e(a_)}.</b> {e(b_)}</li>" for a_, b_ in c["method"]) + "</ol>")
         others = ", ".join(f'<a href="{url(L, x["slug"][L])}">{e(x[L]["name"])}</a>' for x in SERVICES if x["id"] != "plomberie")
         cut = body.index('<section class="section"><div class="wrap">\n <div class="cols2">')
         body = body[:cut] + f'''<section class="section"><div class="wrap">
