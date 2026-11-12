@@ -2527,3 +2527,16 @@ a.btn.btn-call>span{flex:1 1 auto;text-align:center}
 .diag .field input:focus{border-color:var(--brand);outline:2px solid rgba(17,86,199,.25);outline-offset:1px}
 .diag .res-actions .btn{--h:54px}
 @media(max-width:560px){.diag .res-actions{grid-template-columns:1fr}.dv-rows>div{flex-direction:column;gap:2px}.dv-rows dd{text-align:left}}
+
+/* Barre d'onglets mobile : verre sombre translucide, flottante, icônes en couleur */
+@media(max-width:959px){
+ .tbar{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));height:66px;padding:0 6px;border-radius:24px;background:rgba(10,17,26,.7);-webkit-backdrop-filter:blur(18px) saturate(1.7);backdrop-filter:blur(18px) saturate(1.7);border:1px solid rgba(255,255,255,.2);border-top-color:rgba(255,255,255,.34);box-shadow:0 14px 34px rgba(0,0,0,.38)}
+ .tb-i{color:#fff;font-weight:700}
+ .tb-i .ico{color:#8fb3ff}
+ .tb-i:nth-child(4) .ico{color:#4ade80}
+ .tb-i:active{background:rgba(255,255,255,.12)}
+ .tb-i:focus-visible,.tb-call:focus-visible{outline:2px solid #fff;outline-offset:2px}
+ .tb-call{width:68px;height:68px;margin-top:-30px;border:4px solid rgba(255,255,255,.92);background:linear-gradient(180deg,#2a6fe6,#1156c7);box-shadow:0 10px 24px rgba(0,0,0,.4)}
+ .ck-bar{bottom:calc(118px + env(safe-area-inset-bottom))!important}
+ .footer.fc{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+}
