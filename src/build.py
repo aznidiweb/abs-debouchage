@@ -170,7 +170,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -871,7 +871,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "url": SITE_URL + "/", "telephone": PHONE_TEL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -1568,7 +1568,7 @@ def page_home(L):
  {plomberie_strip(L)}
 </div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
     schemas = [business_schema(L), faq_schema([qa for _, qs in HOME_FAQ[L] for qa in qs]),
-               {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
+               {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
 
 PT_ART = {

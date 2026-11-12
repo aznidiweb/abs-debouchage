@@ -429,7 +429,7 @@ UI = {
   "wa": {"hello": "Bonjour ABS Débouchage, je souhaite un devis.", "prob": "Problème", "urg": "Urgence", "where": "Commune", "name": "Nom", "det": "Détails",
          "urgv": {"now": "URGENT – maintenant", "today": "Aujourd'hui", "plan": "À planifier"}},
   # Accueil
-  "home_title": "Débouchage 24h/24 Bruxelles et toute la Belgique | ABS",
+  "home_title": "ABS Débouchage | Débouchage 24h/24 Bruxelles et Belgique",
   "home_desc": "Débouchage WC, évier, douche, égout et inspection caméra à Bruxelles et dans toute la Belgique. Urgence 24h/24, prix annoncé avant. ☎ 0484 72 47 24",
   "hero_pill": "Urgence débouchage à Bruxelles",
   "hero_h1": "Débouchage à Bruxelles, <em>rapidement sur place</em>, jour et nuit.",
@@ -487,7 +487,7 @@ UI = {
   "send": "Mijn aanvraag via WhatsApp versturen", "note": "Gratis en vrijblijvend",
   "wa": {"hello": "Hallo ABS Débouchage, ik wil graag een offerte.", "prob": "Probleem", "urg": "Dringend", "where": "Gemeente", "name": "Naam", "det": "Details",
          "urgv": {"now": "DRINGEND – nu", "today": "Vandaag", "plan": "In te plannen"}},
-  "home_title": "Ontstopping 24/7 Brussel en heel België | ABS Débouchage",
+  "home_title": "ABS Débouchage | Ontstopping 24/7 Brussel en heel België",
   "home_desc": "Ontstopping wc, gootsteen, douche, riool en camera-inspectie in Brussel en heel België. Spoed 24/7, snelle interventie, prijs vooraf gekend. ☎ 0484 72 47 24",
   "hero_pill": "Spoedontstopping in Brussel",
   "hero_h1": "Ontstopping in Brussel, <em>snel</em> ter plaatse, dag en nacht.",
