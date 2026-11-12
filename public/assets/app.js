@@ -476,15 +476,21 @@
     function pickSvc(id,focus){
       state.svc=id; state.sit=null;
       box.querySelectorAll("[data-svc]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-svc")===id);});
-      sitList.innerHTML=D.svc[id].sits.map(function(s,i){return '<button type="button" class="d-opt" data-sit="'+i+'"><span>'+esc(s[1])+'</span>'+U.chev+'</button>';}).join("");
+      sitList.innerHTML=D.svc[id].sits.map(function(s,i){return '<button type="button" class="d-opt" data-sit="'+i+'"><i class="dn" aria-hidden="true">'+(i+1)+'</i><span>'+esc(s[1])+'</span>'+U.chev+'</button>';}).join("");
       go(2,focus);
     }
     function pickSit(i){
       state.sit=i;
       var S=D.svc[state.svc], sev=S.sits[i][0], V=U.sev[sev];
-      res.innerHTML='<div class="verdict '+sev+'">'+U.icons[sev]+'<div><strong>'+esc(V[0])+'</strong><p>'+esc(V[1])+'</p></div></div>'+
-        '<div class="res-grid"><div class="res-box"><small>'+esc(U.price)+'</small>'+(S.price?'<b>'+esc(U.from)+' '+S.price+' €</b>':'<p>'+esc(U.price_q)+'</p>')+'</div>'+
-        '<div class="res-box"><small>'+esc(U.wait)+'</small><p>'+esc(S.tip||U.wait_generic)+'</p></div></div>';
+      /* résultat présenté comme un devis : niveau d'urgence, récapitulatif, prix, conseil */
+      var lv={plan:1,today:2,urgent:3}[sev]||1, meter="";
+      for(var k=1;k<=3;k++) meter+='<i'+(k<=lv?' class="on"':'')+'></i>';
+      res.innerHTML='<div class="dv '+sev+'">'+
+        '<div class="dv-top"><span class="dv-ic">'+U.icons[sev]+'</span><div><strong>'+esc(V[0])+'</strong><p>'+esc(V[1])+'</p><span class="dv-meter" aria-hidden="true">'+meter+'</span></div></div>'+
+        '<dl class="dv-rows"><div><dt>'+esc(U.wa.prob)+'</dt><dd>'+esc(S.name)+'</dd></div>'+
+        '<div><dt>'+esc(U.wa.sit)+'</dt><dd>'+esc(S.sits[i][1])+'</dd></div>'+
+        '<div class="dv-price'+(S.price?' num':'')+'"><dt>'+esc(U.price)+'</dt><dd>'+(S.price?esc(U.from)+' '+S.price+' €':esc(U.price_q))+'</dd></div></dl>'+
+        '<div class="dv-tip"><small>'+esc(U.wait)+'</small><p>'+esc(S.tip||U.wait_generic)+'</p></div></div>';
       sent.classList.remove("show");
       go(3,true);
     }

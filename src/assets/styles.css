@@ -2482,3 +2482,48 @@ a.btn.btn-call>span{flex:1 1 auto;text-align:center}
  .tb-call:active{transform:scale(.95)}
  .ck-bar{bottom:calc(104px + env(safe-area-inset-bottom))!important}
 }
+
+/* =====================================================================
+   Diagnostic / devis express : tuiles nettes, étapes lisibles, résultat en « devis »
+   ===================================================================== */
+.diag{border-radius:20px}
+.diag[data-step]::after,.diag::after{height:14px!important}
+.diag-bar i{width:34px;height:6px;border-radius:3px}
+.diag-bar i.on{background:var(--brand)!important;animation:none!important}
+.diag-q{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.diag-grid .d-opt{background:#fff;border:1.5px solid var(--line);border-radius:14px;min-height:96px;gap:8px;font-weight:700;color:var(--ink)}
+.diag-grid .d-opt .ico{box-sizing:content-box;width:22px!important;height:22px!important;padding:9px;border-radius:12px;background:#eaf1ff;color:var(--brand)}
+.diag-grid .d-opt:hover{border-color:var(--brand);background:#f7faff;box-shadow:none;transform:none}
+.diag-grid .d-opt[aria-pressed=true]{border-color:var(--brand);background:#eef4ff;box-shadow:inset 0 0 0 1px var(--brand)}
+.diag-grid .d-opt:active,.d-list .d-opt:active{transform:scale(.98)}
+.d-list .d-opt{background:#fff;border:1.5px solid var(--line);border-radius:14px;min-height:58px;padding:10px 14px;gap:12px;font-weight:700;color:var(--ink);text-align:left}
+.d-list .d-opt>span{flex:1}
+.d-list .d-opt .ico{flex:none;color:var(--brand)}
+.d-list .d-opt:hover{border-color:var(--brand);background:#f7faff}
+.dn{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#eaf1ff;color:var(--brand);font-style:normal;font-size:13px;font-weight:800}
+.dv{margin-bottom:14px;border:1.5px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+.dv.urgent{--dvb:#fff1ee;--dvc:#9a1c0e;--dva:#d92d20}
+.dv.today{--dvb:#fff6e5;--dvc:#8a4a06;--dva:#c2680c}
+.dv.plan{--dvb:#ecfbf1;--dvc:#14532d;--dva:#15803d}
+.dv-top{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--dvb)}
+.dv-ic{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--dva);color:#fff}
+.dv-ic .ico{width:22px;height:22px}
+.dv-top strong{display:block;font-size:17px;line-height:1.25;color:var(--dvc)}
+.dv-top p{margin:3px 0 0;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.dv-meter{display:flex;gap:4px;margin-top:10px}
+.dv-meter i{width:36px;height:6px;border-radius:3px;background:rgba(16,24,32,.14)}
+.dv-meter i.on{background:var(--dva)}
+.dv-rows{margin:0;padding:2px 16px}
+.dv-rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:11px 0;border-bottom:1px dashed var(--line-2);font-size:14.5px;line-height:1.35}
+.dv-rows>div:last-child{border-bottom:0}
+.dv-rows dt{flex:none;color:var(--muted)}
+.dv-rows dd{margin:0;font-weight:700;color:var(--ink);text-align:right}
+.dv-rows .dv-price.num dd{font-size:19px;font-weight:800;color:var(--brand)}
+.dv-tip{margin:2px 16px 16px;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:14px;line-height:1.5;color:var(--text)}
+.dv-tip small{display:block;margin-bottom:4px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.dv-tip p{margin:0}
+.diag .field label{font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
+.diag .field input{min-height:50px;background:#fff;border:1.5px solid var(--line-2);border-radius:12px}
+.diag .field input:focus{border-color:var(--brand);outline:2px solid rgba(17,86,199,.25);outline-offset:1px}
+.diag .res-actions .btn{--h:54px}
+@media(max-width:560px){.diag .res-actions{grid-template-columns:1fr}.dv-rows>div{flex-direction:column;gap:2px}.dv-rows dd{text-align:left}}
