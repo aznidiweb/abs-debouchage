@@ -950,6 +950,10 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
     if 'id="diagnostic"' not in body:
         body = body.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
     foot = footer(L)
+    # barre d'onglets mobile : ancre dans la page si la section existe, sinon vers l'accueil
+    for anc in ("services", "zones", "diagnostic", "faq"):
+        if f'id="{anc}"' not in body:
+            foot = foot.replace(f'class="tb-i" href="#{anc}"', f'class="tb-i" href="{url(L)}#{anc}"')
     if 'id="diagnostic"' not in body:
         foot = foot.replace('href="#diagnostic"', f'href="{url(L, "")}#diagnostic"')
     return f'''<!doctype html>
@@ -1119,7 +1123,13 @@ def footer(L):
   <ul class="fc-links"><li><a href="{url(L, u["about_slug"])}">{u["nav_about"]}</a></li><li><a href="{url(L, u["contact_slug"])}">{u["nav_contact"]}</a></li><li><a href="{url(L, u["privacy_slug"])}">{u["privacy"]}</a></li></ul>
  </div>
 </div></footer>
-<div class="mbar">{btn_call(L, "", u["call"])}<a class="btn btn-wa" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if fr else "Diagnose"}</span></a></div>'''
+<nav class="tbar" aria-label="{"Accès rapide" if fr else "Snelle toegang"}">
+ <a class="tb-i" href="#services">{ico("wrench")}<span>{"Services" if fr else "Diensten"}</span></a>
+ <a class="tb-i" href="#zones">{ico("pin")}<span>Zones</span></a>
+ <a class="tb-call" href="tel:{PHONE_TEL}" aria-label="{u["call"]} {PHONE_DISPLAY}">{ico("phone")}</a>
+ <a class="tb-i" href="#diagnostic">{ico("wa")}<span>{"Diagnostic" if fr else "Diagnose"}</span></a>
+ <a class="tb-i" href="#faq">{ico("help")}<span>{"Questions" if fr else "Vragen"}</span></a>
+</nav>'''
 
 # ---------------------------------------------------------------- héros diaporama
 def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side=""):

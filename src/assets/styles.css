@@ -2455,3 +2455,30 @@ main>section.band5,.band5{background:#0a111a!important;background-image:none!imp
 /* Pied de page : numéro blanc, gras et souligné sur texte gris (contraste lien/texte 3,4 ; texte/fond 5,6) */
 .footer.fc .fc-c2{color:#7f8da2}
 .footer.fc .fc-c2 a{color:#fff;font-weight:700;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+
+/* =====================================================================
+   Boutons « pilule » (icône dans une pastille blanche) et barre d'onglets mobile
+   ===================================================================== */
+.btn,.btn-lg,.hero-video .cta-row .btn,.hero-video .cta-row .btn-glass{border-radius:999px!important}
+a.btn.btn-call,.hero-video .cta-row .btn-call{border-radius:999px!important;padding:0 22px 0 7px!important;gap:10px!important;box-shadow:none!important}
+a.btn.btn-call>.ico,.hero-video .cta-row .btn-call>.ico{display:inline-block!important;box-sizing:border-box!important;flex:none!important;width:min(40px,calc(var(--h,52px) - 12px))!important;height:min(40px,calc(var(--h,52px) - 12px))!important;padding:10px!important;margin:0!important;border-radius:50%!important;background:#fff!important;color:var(--brand)!important;box-shadow:none!important;animation:none!important}
+a.btn.btn-call>span{flex:1 1 auto;text-align:center}
+.btn.b5-call{padding:0 18px 0 6px!important;gap:9px!important;box-shadow:none!important;filter:none!important}
+.btn.b5-call>.ico{box-sizing:border-box!important;flex:none;width:34px!important;height:34px!important;padding:8px!important;margin:0!important;border-radius:50%;background:#fff!important;color:var(--brand)!important;animation:none!important}
+.btn-wa,.btn-white{box-shadow:none}
+@media(max-width:959px){
+ a.btn.btn-call.head-call{padding:0!important}
+ a.btn.btn-call.head-call>.ico{width:20px!important;height:20px!important;padding:0!important;background:none!important;color:#fff!important}
+}
+.tbar{display:none}
+@media(max-width:959px){
+ .tbar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;height:calc(64px + env(safe-area-inset-bottom));padding:0 6px env(safe-area-inset-bottom);background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(16,24,32,.08)}
+ .tb-i{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;border-radius:12px;font-size:11.5px;font-weight:700;line-height:1.1;color:#272c33;text-decoration:none;-webkit-tap-highlight-color:transparent}
+ .tb-i .ico{width:22px;height:22px}
+ .tb-i:active{background:var(--soft)}
+ .tb-i:focus-visible,.tb-call:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+ .tb-call{justify-self:center;display:flex;align-items:center;justify-content:center;width:66px;height:66px;margin-top:-28px;border-radius:50%;background:var(--brand);color:#fff;border:5px solid #fff;box-shadow:0 8px 18px rgba(16,24,32,.22);transition:transform .15s}
+ .tb-call .ico{width:25px;height:25px}
+ .tb-call:active{transform:scale(.95)}
+ .ck-bar{bottom:calc(104px + env(safe-area-inset-bottom))!important}
+}
