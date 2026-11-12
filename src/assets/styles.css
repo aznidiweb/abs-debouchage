@@ -2540,3 +2540,31 @@ a.btn.btn-call>span{flex:1 1 auto;text-align:center}
  .ck-bar{bottom:calc(118px + env(safe-area-inset-bottom))!important}
  .footer.fc{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
 }
+
+/* =====================================================================
+   Devis express, version courte : presque rien à lire, une action évidente
+   ===================================================================== */
+.diag-aside .sh p,.diag-hint,.diag-note,.diag [data-steplabel]{display:none!important}
+.diag .fields{grid-template-columns:1fr!important}
+.diag .fields .field:nth-child(2){display:none}
+.diag-q{font-size:20px;margin-bottom:14px}
+.diag-head{align-items:center}
+.dv-top{align-items:center;padding:14px 16px}
+.dv-top strong{font-size:17px}
+.dv-meter{margin-top:8px}
+.dv-sum{padding:14px 16px 4px}
+.dv-what{margin:0 0 10px;font-size:14px;line-height:1.4;color:var(--muted)}
+.dv-price{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:0;padding:12px 0;border-top:1px dashed var(--line-2);font-size:14.5px}
+.dv-price span{color:var(--muted)}
+.dv-price b{font-size:16.5px;font-weight:800;color:var(--ink);text-align:right}
+.dv-price.num b{font-size:24px;letter-spacing:-.02em;color:var(--brand)}
+details.dv-tip{margin:0 16px 14px;padding:0;border-radius:12px;background:var(--soft);font-size:14px;line-height:1.5;color:var(--text)}
+details.dv-tip summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;padding:0 14px;font-size:13.5px;font-weight:700;color:var(--ink)}
+details.dv-tip summary::-webkit-details-marker{display:none}
+details.dv-tip summary .ico{width:16px;height:16px;transform:rotate(90deg);transition:transform .2s;color:var(--muted)}
+details.dv-tip[open] summary .ico{transform:rotate(-90deg)}
+details.dv-tip p{margin:0;padding:0 14px 13px}
+.diag .res-actions{grid-template-columns:1fr 1fr;gap:10px}
+.diag[data-sev=urgent] .res-actions .btn-call{order:-1}
+@media(max-width:560px){.diag .res-actions{grid-template-columns:1fr}}
+@media(max-width:959px){.diag-aside .dg-get,.diag-aside .dg-start,.diag .dg-badge{display:none!important}.diag-aside .sh{margin-bottom:6px}.diag-aside .sh h2{font-size:26px}}

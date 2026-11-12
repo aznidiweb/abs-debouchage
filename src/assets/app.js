@@ -482,15 +482,15 @@
     function pickSit(i){
       state.sit=i;
       var S=D.svc[state.svc], sev=S.sits[i][0], V=U.sev[sev];
-      /* résultat présenté comme un devis : niveau d'urgence, récapitulatif, prix, conseil */
+      /* résultat court : niveau d'urgence, prix, conseil replié. Le client lit trois lignes puis agit. */
       var lv={plan:1,today:2,urgent:3}[sev]||1, meter="";
       for(var k=1;k<=3;k++) meter+='<i'+(k<=lv?' class="on"':'')+'></i>';
+      box.setAttribute("data-sev",sev);
       res.innerHTML='<div class="dv '+sev+'">'+
-        '<div class="dv-top"><span class="dv-ic">'+U.icons[sev]+'</span><div><strong>'+esc(V[0])+'</strong><p>'+esc(V[1])+'</p><span class="dv-meter" aria-hidden="true">'+meter+'</span></div></div>'+
-        '<dl class="dv-rows"><div><dt>'+esc(U.wa.prob)+'</dt><dd>'+esc(S.name)+'</dd></div>'+
-        '<div><dt>'+esc(U.wa.sit)+'</dt><dd>'+esc(S.sits[i][1])+'</dd></div>'+
-        '<div class="dv-price'+(S.price?' num':'')+'"><dt>'+esc(U.price)+'</dt><dd>'+(S.price?esc(U.from)+' '+S.price+' €':esc(U.price_q))+'</dd></div></dl>'+
-        '<div class="dv-tip"><small>'+esc(U.wait)+'</small><p>'+esc(S.tip||U.wait_generic)+'</p></div></div>';
+        '<div class="dv-top"><span class="dv-ic">'+U.icons[sev]+'</span><div><strong>'+esc(V[0])+'</strong><span class="dv-meter" aria-hidden="true">'+meter+'</span></div></div>'+
+        '<div class="dv-sum"><p class="dv-what">'+esc(S.name)+' · '+esc(S.sits[i][1])+'</p>'+
+        '<p class="dv-price'+(S.price?' num':'')+'"><span>'+esc(U.price)+'</span><b>'+(S.price?esc(U.from)+' '+S.price+' €':esc(U.price_q))+'</b></p></div>'+
+        '<details class="dv-tip"><summary>'+esc(U.wait)+U.chev+'</summary><p>'+esc(S.tip||U.wait_generic)+'</p></details></div>';
       sent.classList.remove("show");
       go(3,true);
     }
