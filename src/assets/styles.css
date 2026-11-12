@@ -2583,3 +2583,30 @@ details.dv-tip p{margin:0;padding:0 14px 13px}
 .fx .diag-sec .bgimg{transform:translate3d(0,calc((var(--p,.5) - .5)*-110px),0) scale(1.16);will-change:transform}
 .fx .diag-sec .diag-wrap{transform:translate3d(0,calc((.5 - var(--p,.5))*36px),0)}
 @media print{.sp{display:none}.fx .fxe{opacity:1!important;transform:none!important}}
+
+/* ---------- Pages locales (communes) et guides pratiques ---------- */
+.lc-p{font-size:15.5px;line-height:1.65;margin-bottom:16px}
+.lc-q{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0}
+.lc-q li{padding:7px 13px;border-radius:999px;background:var(--soft,#f6f4ef);border:1px solid rgba(10,17,26,.08);font-size:13.5px;font-weight:600;color:var(--ink)}
+.lc-cp{font-size:14px;color:var(--muted,#64748b)}
+.lc-cp b{color:var(--ink)}
+.sv-communes a{text-decoration:underline;text-decoration-color:rgba(10,17,26,.22);text-underline-offset:3px}
+.sv-communes a:hover{color:#1156c7;text-decoration-color:currentColor}
+.gd{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:start}
+.gd-body{max-width:720px}
+.gd-body h2{font-size:clamp(22px,2.4vw,28px);margin:34px 0 14px}
+.gd-body h2:first-child{margin-top:0}
+.gd-body p{font-size:16.5px;line-height:1.7;margin-bottom:14px}
+.gd-body ol,.gd-body ul{display:grid;gap:10px;margin:0 0 8px;padding:0;list-style:none;counter-reset:gd}
+.gd-body li{position:relative;padding:14px 16px 14px 52px;border-radius:14px;background:#fff;border:1px solid rgba(10,17,26,.08);font-size:15.5px;line-height:1.55;color:var(--ink)}
+.gd-body ol li{counter-increment:gd}
+.gd-body ol li::before{content:counter(gd);position:absolute;left:14px;top:13px;width:26px;height:26px;border-radius:50%;background:#1156c7;color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.gd-body ul li::before{content:"";position:absolute;left:23px;top:23px;width:8px;height:8px;border-radius:50%;background:#1156c7}
+.gd-note{font-size:14px!important;color:var(--muted,#64748b);border-left:3px solid rgba(10,17,26,.14);padding-left:14px;margin-top:22px}
+.gd-side{position:sticky;top:96px}
+.gd-side .box h2{font-size:22px;margin-bottom:10px}
+.gd-side .box p{font-size:15px;line-height:1.6;margin-bottom:18px}
+.gd-side .btn{width:100%;justify-content:center}
+.gd-side .more{display:inline-flex;margin-top:16px}
+.footer.fc .fc-guides{margin-bottom:10px}
+@media(max-width:960px){.gd{grid-template-columns:1fr;gap:28px}.gd-side{position:static}}
