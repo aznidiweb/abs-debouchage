@@ -1680,8 +1680,8 @@ def page_about(L):
 def page_contact(L):
     u = UI[L]; other = u["other"]
     title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
-    desc = (f"Contactez ABS Débouchage 24h/24 : téléphone {PHONE_DISPLAY} ou WhatsApp. Bruxelles et toute la Belgique." if L == "fr"
-            else f"Contacteer ABS Débouchage 24/7: telefoon {PHONE_DISPLAY} of WhatsApp. In heel België.")
+    desc = (f"Contactez ABS Débouchage 24h/24 et 7j/7 : appelez le {PHONE_DISPLAY} ou écrivez sur WhatsApp. Prix annoncé avant l'intervention, Bruxelles et Belgique." if L == "fr"
+            else f"Contacteer ABS Débouchage 24/7: bel {PHONE_DISPLAY} of stuur een WhatsApp. Prijs vooraf gekend, in Brussel en heel België.")
     h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part ensuite chez vous." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Daarna vertrekt een technieker naar je toe.")
@@ -1957,7 +1957,7 @@ def build():
   ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 """)
-    write("_redirects", "/fr/* /:splat 301\n")
+    write("_redirects", "/fr/* /:splat 301\n/debouchage-toilette /debouchage-sanibroyeur 301\n/debouchage-toilette.html /debouchage-sanibroyeur 301\n")
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",
           "background_color": "#0b131f", "theme_color": "#0b131f",
           "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}))

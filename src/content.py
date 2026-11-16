@@ -77,7 +77,7 @@ SERVICES = [
   }
  },
  {
-  "id": "sanibroyeur", "icon": "sanibroyeur", "price": None, "slug": {"fr": "debouchage-toilette", "nl": "ontstopping-sanibroyeur"},
+  "id": "sanibroyeur", "icon": "sanibroyeur", "price": None, "slug": {"fr": "debouchage-sanibroyeur", "nl": "ontstopping-sanibroyeur"},
   "fr": {
    "name": "Sanibroyeur & WC suspendu",
    "card": "Broyeur bloqué ou WC suspendu Geberit : intervention délicate, sans casse.",
