@@ -573,3 +573,37 @@
   w.addEventListener("load",function(){docH=root.scrollHeight;ask();});
   ask();
 })();
+
+/* ---------- FAQ en fiches mémo : retourner, glisser, compteur ---------- */
+(function(d,w){
+  d.querySelectorAll("[data-fcards]").forEach(function(deck){
+    var track=deck.querySelector(".fc-track"), cards=[].slice.call(track.querySelectorAll(".fcard")), sec=deck.closest("section");
+    var num=sec&&sec.querySelector("[data-fcn]"), prev=sec&&sec.querySelector("[data-fcprev]"), next=sec&&sec.querySelector("[data-fcnext]");
+    var dots=[].slice.call(deck.querySelectorAll(".fc-dots i"));
+    cards.forEach(function(c){
+      var b=c.querySelector(".fc-flip"); if(!b) return;
+      var f=c.querySelector(".fc-front"), k=c.querySelector(".fc-back");
+      k.setAttribute("aria-hidden","true");
+      b.addEventListener("click",function(){
+        var o=b.getAttribute("aria-expanded")!=="true";
+        b.setAttribute("aria-expanded",o); f.setAttribute("aria-hidden",o); k.setAttribute("aria-hidden",!o);
+        var a=k.querySelector(".fc-a"); if(a) a.scrollTop=0;
+      });
+    });
+    function step(){ var c=cards[0]; return c ? c.getBoundingClientRect().width+parseFloat(getComputedStyle(track).columnGap||16) : 300; }
+    function idx(){ return Math.max(0,Math.min(cards.length-1,Math.round(track.scrollLeft/step()))); }
+    function upd(){
+      var i=idx(); if(num) num.textContent=i+1;
+      dots.forEach(function(x,j){ x.classList.toggle("on",j===i); });
+      if(prev) prev.disabled=track.scrollLeft<4;
+      if(next) next.disabled=track.scrollLeft>track.scrollWidth-track.clientWidth-4;
+    }
+    var t=null; track.addEventListener("scroll",function(){ if(t) cancelAnimationFrame(t); t=requestAnimationFrame(upd); },{passive:true});
+    var smooth=!(w.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+    function go(dir){ track.scrollBy({left:dir*step(),behavior:smooth?"smooth":"auto"}); }
+    if(prev) prev.addEventListener("click",function(){ go(-1); });
+    if(next) next.addEventListener("click",function(){ go(1); });
+    track.addEventListener("keydown",function(e){ if(e.target!==track) return; if(e.key==="ArrowRight"){ e.preventDefault(); go(1); } if(e.key==="ArrowLeft"){ e.preventDefault(); go(-1); } });
+    upd(); w.addEventListener("resize",upd);
+  });
+})(document,window);

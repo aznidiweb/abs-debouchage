@@ -2767,3 +2767,85 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 .zn-card .om-p.on{fill:#c4d8ff;stroke:#1156c7}
 .zn-card .om-city i{width:9px;height:9px;left:-4.5px;top:-4.5px;background:#1156c7;box-shadow:0 0 0 2.5px #fff,0 1px 4px rgba(10,17,26,.3)}
 .zn-card .om-city em{color:#0f2747;font-weight:800}
+
+/* =====================================================================
+   FAQ en fiches mémo : on glisse, on retourne la carte
+   ===================================================================== */
+.fc-sec{overflow:hidden}
+.fc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px}
+.fc-head h2{margin:0 0 8px}
+.fc-head p{margin:0;max-width:560px;color:var(--muted)}
+.fc-ctrl{display:flex;align-items:center;gap:8px;flex:none}
+.fc-count{font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+.fc-count b{color:var(--text)}
+.fc-nav{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.fc-nav .ico{width:20px;height:20px}
+.fc-nav:hover{background:#1156c7;border-color:#1156c7;color:#fff}
+.fc-nav:active{transform:scale(.94)}
+.fc-nav:disabled{opacity:.35;pointer-events:none}
+.fc-nav:focus-visible{outline:3px solid #7aa2ff;outline-offset:3px}
+
+.fc-deck{position:relative}
+.fc-track{--pad:max(18px,calc((100vw - 1240px)/2 + 28px));display:flex;gap:16px;margin:0;padding:10px var(--pad) 26px;list-style:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.fc-track::-webkit-scrollbar{display:none}
+.fc-track:focus-visible{outline:none}
+.fcard{flex:none;width:clamp(260px,78vw,340px);height:360px;scroll-snap-align:start;perspective:1400px}
+.fc-flip{all:unset;box-sizing:border-box;display:block;width:100%;height:100%;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:22px}
+.fc-flip:focus-visible{outline:3px solid #7aa2ff;outline-offset:4px}
+.fc-in{position:relative;display:grid;width:100%;height:100%}
+.fc-face{grid-area:1/1;box-sizing:border-box;display:flex;flex-direction:column;height:100%;padding:24px 24px 20px;border-radius:22px;overflow:hidden}
+.fc-front{background:#fff;border:1px solid var(--line);box-shadow:0 1px 0 rgba(10,17,26,.04),0 18px 36px -26px rgba(10,17,26,.45);
+ background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(17,86,199,.06) 33px 34px);background-position:0 70px}
+.fc-n{font-size:15px;font-weight:800;color:#1156c7;font-variant-numeric:tabular-nums;letter-spacing:.02em;margin-bottom:14px}
+.fc-q{font-size:22px;line-height:1.25;font-weight:800;letter-spacing:-.015em;color:var(--text);text-wrap:balance}
+.fc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px}
+.fc-tag{font-size:12.5px;font-weight:700;color:var(--muted);background:#f1f4f8;border-radius:999px;padding:5px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-hint{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#1156c7;white-space:nowrap;margin-left:auto}
+.fc-hint .ico{width:16px;height:16px}
+.fc-back{background:radial-gradient(120% 90% at 85% 0%,#123468 0%,#0a1a33 55%,#060d19 100%);color:#e8eef7;box-shadow:0 22px 40px -24px rgba(6,13,25,.7)}
+.fc-qs{font-size:13.5px;font-weight:700;color:#9db8ff;line-height:1.35;margin-bottom:12px}
+.fc-a{font-size:16px;line-height:1.6;color:#eef3fb;overflow:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+.fc-hint-b{color:#cdd9f2;margin-left:0}
+.fc-end{background:#1156c7;color:#fff;justify-content:center;gap:12px;box-shadow:0 22px 40px -24px rgba(17,86,199,.8)}
+.fc-end .fc-q{color:#fff}
+.fc-end .fc-a{color:#dbe6ff;overflow:visible}
+.fc-acts{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.fc-acts .btn-call{background:#fff!important;color:#1156c7!important;justify-content:center}
+.fc-wa{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);color:#fff;font-weight:700;text-decoration:none}
+.fc-wa .ico{width:18px;height:18px}
+.fc-dots{display:none;justify-content:center;gap:6px;margin-top:-8px}
+.fc-dots i{width:6px;height:6px;border-radius:999px;background:#cfd8e5;transition:width .3s,background .3s}
+.fc-dots i.on{width:20px;background:#1156c7}
+
+/* sans JS : question et réponse visibles l'une sous l'autre */
+html:not(.js) .fcard{height:auto}
+html:not(.js) .fc-in{display:block}
+html:not(.js) .fc-back{margin-top:10px}
+html:not(.js) .fc-hint,html:not(.js) .fc-qs,html:not(.js) .fc-ctrl{display:none}
+
+/* avec JS : la carte se retourne */
+.js .fc-in{transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.75,.15,1)}
+.js .fc-face{-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.js .fc-back{transform:rotateY(180deg)}
+.js .fc-flip[aria-expanded="true"] .fc-in{transform:rotateY(180deg)}
+.js .fc-flip:hover .fc-in{transform:rotateY(-6deg)}
+.js .fc-flip[aria-expanded="true"]:hover .fc-in{transform:rotateY(186deg)}
+
+/* en glissant : les fiches au bord rétrécissent un peu, celle du centre est pleine */
+@supports (animation-timeline:view()){
+ .fcard{animation:fcView linear both;animation-timeline:view(inline);animation-range:cover}
+ @keyframes fcView{0%{opacity:.4;transform:scale(.9) rotate(-1.2deg)}22%,78%{opacity:1;transform:none}100%{opacity:.4;transform:scale(.9) rotate(1.2deg)}}
+}
+@media (max-width:760px){
+ .fc-head{flex-direction:column;align-items:flex-start;margin-bottom:14px}
+ .fc-ctrl{display:none}
+ .fc-dots{display:flex}
+ .fcard{height:350px}
+ .fc-q{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){
+ .js .fc-in{transition:none}
+ .fcard{animation:none!important}
+ .js .fc-flip:hover .fc-in{transform:none}
+ .js .fc-flip[aria-expanded="true"]:hover .fc-in{transform:rotateY(180deg)}
+}
