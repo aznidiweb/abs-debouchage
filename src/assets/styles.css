@@ -2759,3 +2759,11 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 
 /* ---------- Logo : « & Plomberie » sous le nom, visible aussi sur mobile ---------- */
 @media (max-width:440px){.nav-wrap .brand-sub{display:block!important;font-size:11.5px}}
+
+/* ---------- Carte : présents partout, pas de « base » mise en avant ---------- */
+.zn-card .om-base{display:none!important}
+.zn-card .om-p,.zn-card .om-bxl{fill:#eaf1ff;stroke:#8fa6c8;stroke-dasharray:none}
+.zn-card .om-p:hover,.zn-card .om-bxl:hover{fill:#d3e2ff;stroke:#1156c7}
+.zn-card .om-p.on{fill:#c4d8ff;stroke:#1156c7}
+.zn-card .om-city i{width:9px;height:9px;left:-4.5px;top:-4.5px;background:#1156c7;box-shadow:0 0 0 2.5px #fff,0 1px 4px rgba(10,17,26,.3)}
+.zn-card .om-city em{color:#0f2747;font-weight:800}

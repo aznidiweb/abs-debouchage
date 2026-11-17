@@ -180,7 +180,7 @@ def business_schema(L):
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
         "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
-        "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
+        "slogan": "Débouchage d'urgence 24h/24 à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Spoedontstopping 24/7 in Brussel, Vlaanderen en Wallonië",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
@@ -330,7 +330,7 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage à Bruxelles et dans toute la Belgique, 24h/24", "tag": "Un coup de fil, et l'eau file.",
+  "h1": "Débouchage 24h/24 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
@@ -353,7 +353,7 @@ TX = {
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping in Brussel en heel België, 24/7", "tag": "Eén telefoontje, en het loopt weer.",
+  "h1": "Ontstopping 24/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
@@ -724,7 +724,7 @@ def zone_map(L):
     from map_be import RIVERS, BXL
     hx, hy = BXL
     RLAB = {"Meuse": (372, 300), "Escaut": (226, 112)}
-    lbl = "Carte de la zone d'intervention : toute la Belgique, au départ de Bruxelles" if fr else "Kaart van het werkgebied: heel België, vanuit Brussel"
+    lbl = "Carte de la zone d'intervention : toute la Belgique, Bruxelles, Wallonie et Flandre" if fr else "Kaart van het werkgebied: heel België, Brussel, Vlaanderen en Wallonië"
     return f'''<div class="zm-stage flat be"><svg class="zm-svg" viewBox="0 0 {MAP_BE["w"]} {MAP_BE["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid meet">
 <defs><clipPath id="be-clip">{"".join(f'<path d="{d}"/>' for pid, a, b2, cp, d, c in MAP_BE["prov"])}</clipPath></defs>
 <g class="zm-shapes" aria-hidden="true">{paths}</g>
@@ -795,14 +795,14 @@ def osm_map(L):
     sx, sy = S["w"] / 100, S["h"] / 100
     routes = "".join(f'<path class="om-rt" d="M{bx * sx:.1f} {by * sy:.1f}L{pos(la, lo)[0] * sx:.1f} {pos(la, lo)[1] * sy:.1f}" style="animation-delay:-{i * .23:.2f}s"/>' for i, (a_, b_, la, lo, sd) in enumerate(CITIES))
     svg = svg.replace('</svg>', f'<g class="om-routes">{routes}</g></svg>')
+    CITIES = CITIES + [("Bruxelles", "Brussel", 50.8466, 4.3528, "r")]
     cities = "".join(f'<span class="om-city om-c{sd}{" om-cx" if a_ in ("Hasselt", "Mons") else ""}" style="left:{pos(la, lo)[0]:.2f}%;top:{pos(la, lo)[1]:.2f}%" aria-hidden="true"><i></i><em>{e(a_ if fr else b_)}</em></span>' for a_, b_, la, lo, sd in CITIES)
     rings = f'<span class="om-rings" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i></i><i></i><i></i></span>'
-    aria = "Carte de la Belgique : base à Bruxelles, interventions dans tout le pays" if fr else "Kaart van België: basis in Brussel, interventies in heel het land"
+    aria = "Carte de la Belgique : interventions partout, à Bruxelles, en Wallonie et en Flandre" if fr else "Kaart van België: interventies overal, in Brussel, Vlaanderen en Wallonië"
     base = "ABS Débouchage"
     hint = "Cliquez sur votre province" if fr else "Klik op je provincie"
     svg = svg.replace("__OMARIA__", e(aria))   # le rôle « image » est porté par le dessin seul : le lien © reste accessible à côté
     return (f'<div class="om" style="aspect-ratio:{W:.1f}/{H:.1f}">{svg}{rings}{cities}'
-            f'<span class="om-base" style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><i class="om-logo">{LOGO}</i><b>{base}<small>{"Notre base" if fr else "Onze basis"}</small></b></span>'
             f'<span class="om-pin" data-ompin style="left:{bx:.2f}%;top:{by:.2f}%" aria-hidden="true"><svg viewBox="0 0 24 32"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="4"/></svg><b data-ompl></b></span>'
             f'<span class="om-hint" aria-hidden="true">{hint}</span>'
             f'<a class="om-attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></div>'), pos
@@ -889,7 +889,7 @@ def business_schema(L):
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
         "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
-        "slogan": "Débouchage d'urgence 24h/24, à Bruxelles et dans toute la Belgique" if L == "fr" else "Spoedontstopping 24/7, in Brussel en heel België",
+        "slogan": "Débouchage d'urgence 24h/24 à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Spoedontstopping 24/7 in Brussel, Vlaanderen en Wallonië",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
@@ -1028,7 +1028,7 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage à Bruxelles et dans toute la Belgique, 24h/24", "tag": "Un coup de fil, et l'eau file.",
+  "h1": "Débouchage 24h/24 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
@@ -1051,7 +1051,7 @@ TX = {
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping in Brussel en heel België, 24/7", "tag": "Eén telefoontje, en het loopt weer.",
+  "h1": "Ontstopping 24/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
@@ -1473,7 +1473,7 @@ def zone_map(L):
     from map_be import RIVERS, BXL
     hx, hy = BXL
     RLAB = {"Meuse": (372, 300), "Escaut": (226, 112)}
-    lbl = "Carte de la zone d'intervention : toute la Belgique, au départ de Bruxelles" if fr else "Kaart van het werkgebied: heel België, vanuit Brussel"
+    lbl = "Carte de la zone d'intervention : toute la Belgique, Bruxelles, Wallonie et Flandre" if fr else "Kaart van het werkgebied: heel België, Brussel, Vlaanderen en Wallonië"
     return f'''<div class="zm-stage flat be"><svg class="zm-svg" viewBox="0 0 {MAP_BE["w"]} {MAP_BE["h"]}" role="img" aria-label="{e(lbl)}" preserveAspectRatio="xMidYMid meet">
 <defs><clipPath id="be-clip">{"".join(f'<path d="{d}"/>' for pid, a, b2, cp, d, c in MAP_BE["prov"])}</clipPath></defs>
 <g class="zm-shapes" aria-hidden="true">{paths}</g>
@@ -1882,9 +1882,9 @@ def page_ville(L, v):
     slide = [("sewer" if v[2] == "wal" else "pipes", name, h1, lead, name)]
     faq = ville_faq(L, v)
     zone_t = (f"À {e(name)} et autour" if fr else f"In {e(name)} en omgeving")
-    zone_p = (f"Nous intervenons à {name} ({cps}) et dans les communes proches : {', '.join(near)}. Notre base est à Bruxelles : au téléphone, vous connaissez l'heure d'arrivée estimée et le prix complet, déplacement compris, avant que le technicien parte. Vous décidez ensuite."
+    zone_p = (f"Nous intervenons à {name} ({cps}) et dans les communes proches : {', '.join(near)}. Au téléphone, vous connaissez l'heure d'arrivée estimée et le prix complet, déplacement compris, avant que le technicien parte. Vous décidez ensuite."
               if fr else
-              f"We komen in {name} ({cps}) en de gemeenten in de buurt: {', '.join(near)}. Onze basis is in Brussel: aan de telefoon ken je het geschatte aankomstuur en de volledige prijs, verplaatsing inbegrepen, voor de technieker vertrekt. Daarna beslis jij.")
+              f"We komen in {name} ({cps}) en de gemeenten in de buurt: {', '.join(near)}. Aan de telefoon ken je het geschatte aankomstuur en de volledige prijs, verplaatsing inbegrepen, voor de technieker vertrekt. Daarna beslis jij.")
     how = TX[L]["steps"]
     how_li = "".join(f'<li>{ico(ic)}<span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in how)
     body = hero(L, slide, crumbs=[(u["home"], url(L)), (name, None)], h1=label, cls="sv-hero", big_h1=True, extra=checks) + f"""
