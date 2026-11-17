@@ -12,6 +12,13 @@ EMAIL = "contact@absdebouchage.be"
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
 BRAND = "ABS Débouchage"
+
+# ---- Google Ads : mesure des appels et des clics WhatsApp ----
+# Laisser vide tant que le compte n'existe pas : aucun script Google n'est chargé et aucun bandeau n'apparaît.
+# Exemple une fois le compte créé : GADS_ID = "AW-123456789", GADS_CALL = "AbCdEf123", GADS_WA = "XyZ987"
+GADS_ID = ""      # identifiant du compte (Outils > Conversions > balise Google)
+GADS_CALL = ""    # libellé de la conversion « Clic sur le numéro »
+GADS_WA = ""      # libellé de la conversion « Clic WhatsApp »
 LEGAL_NAME = "C.R.N.M. & Cie SRL"
 STREET = "Rue de la Carpe 2"
 POSTCODE = "1080"
@@ -414,7 +421,7 @@ UI = {
   "top": "Techniciens disponibles maintenant · 24h/24 – 7j/7",
   "nav_services": "Services", "nav_prices": "Tarifs", "nav_zones": "Zones", "nav_about": "À propos", "nav_contact": "Contact", "nav_all": "Tous nos services",
   "call": "Appeler", "call_now": "Appeler maintenant", "wa_quote": "Devis gratuit WhatsApp", "menu": "Menu",
-  "chk": ["Devis gratuit", "Agréé assurances", "Facture avec n° TVA"],
+  "chk": ["Devis gratuit", "Prix annoncé avant", "Facture pour l'assurance"],
   "from": "dès", "on_quote": "Devis gratuit", "learn": "En savoir plus",
   "home": "Accueil",
   # Devis
@@ -440,7 +447,7 @@ UI = {
   "s_kick": "Nos interventions", "s_title": "Tous les bouchons, toutes les canalisations",
   "s_lead": "Du simple lavabo à l'égout principal, nous avons le bon matériel pour déboucher sans casser.",
   "w_kick": "Pourquoi ABS", "w_title": "Rapide, honnête, efficace",
-  "why": [["clock", "Arrivée express", "Nos techniciens circulent dans Bruxelles : le plus proche part dès votre appel."], ["euro", "Prix annoncé avant", "Le prix est fixé au téléphone. Aucun travail ne commence sans votre accord."], ["gauge", "Matériel pro", "Furet électrique, hydrocureur 400 bars et caméra HD : on débouche sans abîmer vos tuyaux."], ["file", "Dossier assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement."]],
+  "why": [["clock", "Départ dès votre appel", "Au téléphone, on vous donne l'heure d'arrivée estimée avant de partir."], ["euro", "Prix annoncé avant", "Le prix est fixé au téléphone. Aucun travail ne commence sans votre accord."], ["gauge", "Matériel pro", "Furet électrique, hydrocureur 400 bars et caméra HD : on débouche sans abîmer vos tuyaux."], ["file", "Dossier assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement."]],
   "h_kick": "Simple et rapide", "h_title": "Comment ça se passe ?",
   "how": [["Vous nous contactez", "Par téléphone ou WhatsApp, 24h/24. Décrivez le problème, on vous donne un prix."], ["Le technicien arrive", "Rapidement, avec tout le matériel nécessaire."], ["C'est débouché", "Test d'écoulement, nettoyage de la zone, facture remise sur place."]],
   "p_kick": "Tarifs transparents", "p_title": "Des prix clairs, sans surprise",
@@ -463,7 +470,7 @@ UI = {
   # Footer
   "foot_about": "Débouchage d'urgence, hydrocurage et inspection caméra pour particuliers, syndics et entreprises, à Bruxelles et dans toute la Belgique.",
   "foot_hours": "Ouvert 24h/24 – 7j/7", "foot_info": "Informations", "foot_services": "Services",
-  "vat": "TVA", "insured": "Agréé assurances", "rights": "Tous droits réservés", "privacy": "Confidentialité",
+  "vat": "TVA", "insured": "Facture et rapport pour votre assurance", "rights": "Tous droits réservés", "privacy": "Confidentialité",
   # Pages
   "about_slug": "a-propos", "contact_slug": "contact", "privacy_slug": "politique-de-confidentialite",
   "notfound": "Page introuvable", "notfound_lead": "Cette page n'existe pas ou a été déplacée. Besoin d'un débouchage ? On est là 24h/24.",
@@ -474,7 +481,7 @@ UI = {
   "top": "Techniekers nu beschikbaar · 24/7",
   "nav_services": "Diensten", "nav_prices": "Prijzen", "nav_zones": "Regio", "nav_about": "Over ons", "nav_contact": "Contact", "nav_all": "Al onze diensten",
   "call": "Bellen", "call_now": "Nu bellen", "wa_quote": "Gratis offerte via WhatsApp", "menu": "Menu",
-  "chk": ["Gratis offerte", "Erkend door verzekeraars", "Factuur met btw-nummer"],
+  "chk": ["Gratis offerte", "Prijs vooraf", "Factuur voor je verzekering"],
   "from": "vanaf", "on_quote": "Gratis offerte", "learn": "Meer info",
   "home": "Home",
   "q_kick": "Snelle offerte", "q_title": "Je offerte via WhatsApp in 1 minuut",
@@ -498,7 +505,7 @@ UI = {
   "s_kick": "Onze interventies", "s_title": "Alle verstoppingen, alle leidingen",
   "s_lead": "Van een eenvoudige lavabo tot de hoofdriolering: wij hebben het juiste materiaal om te ontstoppen zonder breekwerk.",
   "w_kick": "Waarom ABS", "w_title": "Snel, eerlijk, efficiënt",
-  "why": [["clock", "Snel ter plaatse", "Onze techniekers rijden rond in Brussel: de dichtstbijzijnde vertrekt meteen na je oproep."], ["euro", "Prijs vooraf", "De prijs wordt telefonisch vastgelegd. Er gebeurt niets zonder je akkoord."], ["gauge", "Professioneel materiaal", "Elektrische veer, hogedrukwagen 400 bar en HD-camera: ontstoppen zonder je leidingen te beschadigen."], ["file", "Verzekeringsdossier", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling."]],
+  "why": [["clock", "Vertrek na je oproep", "Aan de telefoon krijg je het geschatte aankomstuur voor we vertrekken."], ["euro", "Prijs vooraf", "De prijs wordt telefonisch vastgelegd. Er gebeurt niets zonder je akkoord."], ["gauge", "Professioneel materiaal", "Elektrische veer, hogedrukwagen 400 bar en HD-camera: ontstoppen zonder je leidingen te beschadigen."], ["file", "Verzekeringsdossier", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling."]],
   "h_kick": "Eenvoudig en snel", "h_title": "Hoe gaat het in zijn werk?",
   "how": [["Je neemt contact op", "Telefonisch of via WhatsApp, 24/7. Beschrijf het probleem, wij geven je een prijs."], ["De technieker komt", "Snel, met al het nodige materiaal."], ["Het is ontstopt", "Doorlooptest, opkuis van de werkzone en factuur ter plaatse."]],
   "p_kick": "Transparante prijzen", "p_title": "Duidelijke prijzen, geen verrassingen",
@@ -519,7 +526,7 @@ UI = {
   "sv_zone": "Interventie in Brussel en in heel België",
   "foot_about": "Spoedontstopping, hogedrukreiniging en camera-inspectie voor particulieren, syndici en bedrijven, in Brussel en in heel België.",
   "foot_hours": "24/7 open", "foot_info": "Informatie", "foot_services": "Diensten",
-  "vat": "Btw", "insured": "Erkend door verzekeraars", "rights": "Alle rechten voorbehouden", "privacy": "Privacy",
+  "vat": "Btw", "insured": "Factuur en verslag voor je verzekering", "rights": "Alle rechten voorbehouden", "privacy": "Privacy",
   "about_slug": "over-ons", "contact_slug": "contact", "privacy_slug": "privacybeleid",
   "notfound": "Pagina niet gevonden", "notfound_lead": "Deze pagina bestaat niet of werd verplaatst. Nood aan een ontstopping? We zijn er 24/7.",
  }
@@ -551,13 +558,13 @@ PRIVACY = {
   "ABS Débouchage est une marque de C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Bruxelles, TVA BE 0719.885.401. Responsable du traitement, elle respecte votre vie privée conformément au Règlement général sur la protection des données (RGPD).",
   "Données collectées : ce site ne collecte aucune donnée via des formulaires stockés sur nos serveurs. Lorsque vous utilisez le bouton de devis, un message est préparé dans WhatsApp et c'est vous qui choisissez de l'envoyer. Les informations que vous nous transmettez par téléphone ou WhatsApp (prénom, commune, description du problème, photos) servent uniquement à établir un devis et à réaliser l'intervention.",
   "Conservation : vos données sont conservées le temps nécessaire au suivi de l'intervention et aux obligations comptables légales.",
-  "Cookies : ce site n'utilise pas de cookies de suivi ou publicitaires. Votre choix de langue peut être mémorisé localement dans votre navigateur.",
+  ("Cookies : ce site n'utilise pas de cookies de suivi ou publicitaires. Votre choix de langue peut être mémorisé localement dans votre navigateur." if not GADS_ID else "Cookies : uniquement si vous cliquez sur « Accepter », le site charge la balise Google Ads, qui enregistre un cookie pour savoir si un appel ou un message WhatsApp vient d'une de nos annonces. Aucune publicité personnalisée n'est activée. Si vous refusez, rien n'est chargé chez Google. Pour changer d'avis, videz les données du site dans votre navigateur."),
   "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous appelant au 0484 72 47 24 ou en écrivant à notre adresse (Rue de la Carpe 2, 1080 Bruxelles). Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
  "nl": ("Privacybeleid", [
   "ABS Débouchage is een merk van C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Brussel, btw BE 0719.885.401. Als verwerkingsverantwoordelijke respecteert zij je privacy overeenkomstig de Algemene Verordening Gegevensbescherming (AVG/GDPR).",
   "Verzamelde gegevens: deze site verzamelt geen gegevens via formulieren die op onze servers worden opgeslagen. Wanneer je de offerteknop gebruikt, wordt een bericht in WhatsApp voorbereid en kies jij of je het verstuurt. De informatie die je ons telefonisch of via WhatsApp bezorgt (voornaam, gemeente, beschrijving, foto's) dient enkel om een offerte op te maken en de interventie uit te voeren.",
   "Bewaring: je gegevens worden bewaard zolang nodig voor de opvolging van de interventie en de wettelijke boekhoudkundige verplichtingen.",
-  "Cookies: deze site gebruikt geen tracking- of advertentiecookies. Je taalkeuze kan lokaal in je browser worden onthouden.",
+  ("Cookies: deze site gebruikt geen tracking- of advertentiecookies. Je taalkeuze kan lokaal in je browser worden onthouden." if not GADS_ID else "Cookies: alleen als je op « Akkoord » klikt, laadt de site de Google Ads-tag, die een cookie plaatst om te weten of een oproep of WhatsApp-bericht via een van onze advertenties komt. Er wordt geen gepersonaliseerde reclame geactiveerd. Weiger je, dan wordt niets bij Google geladen. Van gedacht veranderen? Wis de sitegegevens in je browser."),
   "Je rechten: je kunt inzage, verbetering of verwijdering van je gegevens vragen door ons te bellen op 0484 72 47 24 of te schrijven naar ons adres (Rue de la Carpe 2, 1080 Brussel). Je kunt ook klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]),
 }
 

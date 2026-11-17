@@ -333,20 +333,38 @@
     io2.observe(box);
   });
 
-  /* ---------- Bandeau cookies (information : aucun cookie de suivi) ---------- */
+  /* ---------- Google Ads : consentement + mesure des clics d'appel et WhatsApp ----------
+     Rien n'est chargé chez Google tant que le visiteur n'a pas cliqué « Accepter ». */
   (function(){
-    var bar=d.querySelector(".ck-bar"); if(!bar) return;
-    var seen=false; try{seen=localStorage.getItem("abs-ck")==="1";}catch(e){}
-    if(seen) return;
-    /* discret : n'apparaît qu'après un vrai défilement, pour ne jamais cacher le titre ni le bouton d'appel */
+    var cfg=w.ABS_ADS, bar=d.querySelector(".ck-bar"); if(!cfg||!cfg.id||!bar) return;
+    var KEY="abs-consent", st=null; try{st=localStorage.getItem(KEY);}catch(e){}
+    var loaded=false;
+    function load(){
+      if(loaded) return; loaded=true;
+      w.dataLayer=w.dataLayer||[]; w.gtag=function(){w.dataLayer.push(arguments);};
+      w.gtag("consent","default",{ad_storage:"granted",ad_user_data:"granted",ad_personalization:"denied",analytics_storage:"denied"});
+      w.gtag("js",new Date()); w.gtag("config",cfg.id);
+      var s=d.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(cfg.id); d.head.appendChild(s);
+    }
+    function conv(label){ if(loaded&&label&&w.gtag) w.gtag("event","conversion",{send_to:cfg.id+"/"+label}); }
+    d.addEventListener("click",function(ev){
+      var a=ev.target.closest&&ev.target.closest("a[href]"); if(!a) return;
+      var h=a.getAttribute("href")||"";
+      if(h.indexOf("tel:")===0) conv(cfg.call);
+      else if(h.indexOf("wa.me/")>-1||h.indexOf("whatsapp")>-1) conv(cfg.wa);
+    },true);
+    function hide(){ bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350); }
+    if(st==="1"){ load(); return; }
+    if(st==="0") return;
+    /* le bandeau arrive après un petit défilement : il ne cache jamais le titre ni le bouton d'appel */
     var shown=false;
     function show(){ if(shown) return; shown=true; w.removeEventListener("scroll",onS); bar.hidden=false; requestAnimationFrame(function(){requestAnimationFrame(function(){bar.classList.add("show");});}); }
-    function onS(){ if(w.scrollY>w.innerHeight*.9) show(); }
-    w.addEventListener("scroll",onS,{passive:true});
-    bar.querySelector("[data-ck-ok]").addEventListener("click",function(){
-      try{localStorage.setItem("abs-ck","1");}catch(e){}
-      bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350);
-    });
+    function onS(){ if(w.scrollY>w.innerHeight*.6) show(); }
+    w.addEventListener("scroll",onS,{passive:true}); setTimeout(show,6000);
+    bar.querySelectorAll("[data-ck]").forEach(function(btn){ btn.addEventListener("click",function(){
+      var v=btn.getAttribute("data-ck"); try{localStorage.setItem(KEY,v);}catch(e){}
+      if(v==="1") load(); hide();
+    }); });
   })();
 
   /* ---------- Mobile : listes repliables (services, communes) ---------- */
@@ -441,8 +459,8 @@
       }); }
     function show(it){
       items.forEach(function(x){ x.classList.toggle("is-on",x===it); });
-      var n=it.querySelector(".fq-n").textContent, q=it.querySelector(".fq-q").textContent, a=it.querySelector(".fq-a").innerHTML;
-      panel.innerHTML='<div class="fq-in"><span class="fq-pn">'+n+'</span><h3>'+q.replace(/</g,"&lt;")+'</h3>'+a+'</div>';
+      var q=it.querySelector(".fq-q").textContent, a=it.querySelector(".fq-a").innerHTML;
+      panel.innerHTML='<div class="fq-in"><h3>'+q.replace(/</g,"&lt;")+'</h3>'+a+'</div>';
     }
     function mode(){
       var split=mq.matches; fq.classList.toggle("is-split",split); panel.hidden=!split;

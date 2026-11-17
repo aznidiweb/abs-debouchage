@@ -225,16 +225,20 @@ def urg_dialog(L):
 </dialog>'''
 
 def cookie_bar(L):
+    """Bandeau de consentement : présent seulement quand la mesure Google Ads est active (GADS_ID)."""
+    if not GADS_ID:
+        return ""
     fr = L == "fr"
-    txt = ("Aucun cookie publicitaire ni de suivi sur ce site."
-           if fr else "Geen advertentie- of trackingcookies op deze site.")
+    txt = ("Nous mesurons, avec votre accord, les appels venus de nos annonces Google. Rien d'autre."
+           if fr else "Met je akkoord meten we welke oproepen via onze Google-advertenties komen. Niets meer.")
     more = "En savoir plus" if fr else "Meer info"
-    ok = "J'ai compris" if fr else "Begrepen"
-    return (f'<div class="ck-bar" role="region" aria-label="Cookies" hidden><span class="ck-ic" aria-hidden="true">'
-            f'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3-3 3 3 0 0 1-3-3 3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
-            f'<circle cx="8.5" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1" fill="currentColor"/></svg></span>'
+    yes, no = ("Accepter", "Refuser") if fr else ("Akkoord", "Weigeren")
+    cfg = json.dumps({"id": GADS_ID, "call": GADS_CALL, "wa": GADS_WA})
+    return (f'<script>window.ABS_ADS={cfg}</script>'
+            f'<div class="ck-bar" role="region" aria-label="Cookies" hidden>'
             f'<p>{e(txt)} <a href="{url(L, UI[L]["privacy_slug"])}">{more}</a></p>'
-            f'<button type="button" class="btn ck-ok" data-ck-ok>{ok}</button></div>')
+            f'<div class="ck-btns"><button type="button" class="btn ck-no" data-ck="0">{no}</button>'
+            f'<button type="button" class="btn ck-ok" data-ck="1">{yes}</button></div></div>')
 
 def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex=False):
     other = UI[L]["other"]
@@ -475,7 +479,7 @@ def hero_home(L):
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
-   <p class="hp-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.4 4 5.7 7.2 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-3.1 2.3-6.3 5.7-10.3z" fill="currentColor" stroke="none"/></svg><span>{t["tag"]}</span></p>
+   
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -805,7 +809,7 @@ def osm_map(L):
 def zones_section(L, cls="soft"):
     u = UI[L]; fr = L == "fr"
     mp, pos = osm_map(L)
-    T = {"find": "Votre commune ou code postal" if fr else "Je gemeente of postcode",
+    T = {"find": "Commune ou code postal" if fr else "Gemeente of postcode",
          "ask": "Où êtes-vous ?" if fr else "Waar ben je?",
          "ask_s": "Vérifiez en 2 secondes qu'on vient chez vous." if fr else "Controleer in 2 seconden of we bij je komen.",
          "go": "Vérifier" if fr else "Controleren",
@@ -830,6 +834,10 @@ def zones_section(L, cls="soft"):
     bxl_c = ", ".join((c[0] if fr else c[1]) for c in COMMUNES)
     towns = f'<dt>{"Bruxelles (19 communes)" if fr else "Brussel (19 gemeenten)"}</dt><dd>{commune_links(L)}</dd>' + "".join(
         f'<dt>{e(nfr if fr else nnl)}</dt><dd>{e(PROV_CITIES[pid][0 if fr else 1])}</dd>' for pid, nfr, nnl, la, lo in PROV_GEO if pid != "bxl")
+    import re as _re
+    for v in VILLES:   # les grandes villes qui ont leur page deviennent des liens
+        n = e(v[0] if fr else v[1])
+        towns = _re.sub(r'(<dd>[^<]*?)(?<![\w-])' + _re.escape(n) + r'(?![\w-])', lambda m: m.group(1) + f'<a href="{url(L, ville_slug(L, v))}">{n}</a>', towns, count=1)
     T["more"] = "Communes et villes desservies" if fr else "Gemeenten en steden die we bedienen"
     chips = "".join(f'<li><button type="button" data-zp="{pid}" aria-pressed="false">{e(nfr if fr else nnl)}</button></li>'
                     for pid, nfr, nnl, lat, lon in PROV_GEO)
@@ -924,18 +932,6 @@ def urg_dialog(L):
  <ol class="urg-steps">{steps}</ol>
  <div class="urg-cta">{btn_call(L, "btn-lg btn-block", T["call"] + " · " + PHONE_DISPLAY)}</div>
 </dialog>'''
-
-def cookie_bar(L):
-    fr = L == "fr"
-    txt = ("Aucun cookie publicitaire ni de suivi sur ce site."
-           if fr else "Geen advertentie- of trackingcookies op deze site.")
-    more = "En savoir plus" if fr else "Meer info"
-    ok = "J'ai compris" if fr else "Begrepen"
-    return (f'<div class="ck-bar" role="region" aria-label="Cookies" hidden><span class="ck-ic" aria-hidden="true">'
-            f'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3-3 3 3 0 0 1-3-3 3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
-            f'<circle cx="8.5" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1" fill="currentColor"/></svg></span>'
-            f'<p>{e(txt)} <a href="{url(L, UI[L]["privacy_slug"])}">{more}</a></p>'
-            f'<button type="button" class="btn ck-ok" data-ck-ok>{ok}</button></div>')
 
 def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex=False):
     other = UI[L]["other"]
@@ -1187,7 +1183,7 @@ def hero_home(L):
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
-   <p class="hp-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.4 4 5.7 7.2 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-3.1 2.3-6.3 5.7-10.3z" fill="currentColor" stroke="none"/></svg><span>{t["tag"]}</span></p>
+   
    <p class="hp-title">{title}</p>
    <p class="hp-lead">{lead}</p>
    <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -1501,7 +1497,7 @@ def faq_section(L, items, title=None, cls="", groups=None):
         if g: lst += f'<p class="fq-g">{e(g)}</p>'
         for q, a in qs:
             n += 1
-            lst += (f'<details class="fq-i" id="faq-{n}"><summary><span class="fq-n">{n:02d}</span><span class="fq-q">{e(q)}</span>{ico("chev")}</summary>'
+            lst += (f'<details class="fq-i" id="faq-{n}"><summary><span class="fq-q">{e(q)}</span>{ico("chev")}</summary>'
                     f'<div class="fq-a"><p>{e(a)}</p></div></details>')
     lead = ("Les questions qu'on nous pose le plus souvent au téléphone, avec des réponses franches." if fr
             else "De vragen die we het vaakst aan de telefoon krijgen, met eerlijke antwoorden.")
@@ -1798,6 +1794,85 @@ def page_commune(L, c):
            "availableChannel": {"@type": "ServiceChannel", "servicePhone": PHONE_TEL}}
     return layout(L, slug, title, desc, body, commune_slug(other, c), [business_schema(L), svc, faq_schema(faq), crumbs_schema(crumbs)])
 
+
+# ---------------------------------------------------------------- pages villes (Wallonie, Flandre) : atterrissage des annonces
+from villes import VILLES
+
+def ville_slug(L, v):
+    return ("debouchage-" + slugify(v[0])) if L == "fr" else ("ontstopping-" + slugify(v[1]))
+
+def ville_links(L, region=None, exclude=None):
+    fr = L == "fr"
+    return ", ".join(f'<a href="{url(L, ville_slug(L, v))}">{e(v[0] if fr else v[1])}</a>'
+                     for v in VILLES if (region is None or v[2] == region) and v is not exclude)
+
+def ville_faq(L, v):
+    fr = L == "fr"; name = v[0] if fr else v[1]; near = ", ".join(v[6] if fr else v[7])
+    if fr:
+        return [(f"Venez-vous vraiment à {name} ?", f"Oui. Nous intervenons à {name} et dans les communes voisines ({near}). Au téléphone, on vous donne l'heure d'arrivée estimée avant de partir."),
+                (f"Combien coûte un débouchage à {name} ?", "Le prix dépend de l'endroit du bouchon et du matériel nécessaire. Il vous est annoncé au téléphone, déplacement compris, avant que le technicien parte. C'est ce prix qui figure sur la facture."),
+                ("Venez-vous la nuit, le week-end et les jours fériés ?", "Oui, 24h/24 et 7j/7, toute l'année."),
+                ("Mon assurance peut-elle rembourser ?", "Souvent, en cas de dégât des eaux. Vous recevez une facture officielle avec numéro de TVA et, si besoin, un rapport technique pour votre dossier."),
+                ("Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les déboucheurs chimiques, qui abîment les joints.")]
+    return [(f"Komen jullie echt naar {name}?", f"Ja. We komen in {name} en de buurgemeenten ({near}). Aan de telefoon krijg je het geschatte aankomstuur voor we vertrekken."),
+            (f"Hoeveel kost een ontstopping in {name}?", "De prijs hangt af van de plaats van de verstopping en het nodige materiaal. Je krijgt hem aan de telefoon, verplaatsing inbegrepen, voor de technieker vertrekt. Die prijs staat op de factuur."),
+            ("Komen jullie ook 's nachts, in het weekend en op feestdagen?", "Ja, 24/7, het hele jaar door."),
+            ("Betaalt mijn verzekering terug?", "Vaak wel, bij waterschade. Je krijgt een officiële factuur met btw-nummer en, indien nodig, een technisch verslag voor je dossier."),
+            ("Wat doe ik in afwachting van de technieker?", "Gebruik geen water meer (spoelbak, wasmachine, vaatwasser), sluit de watertoevoer af als het overloopt en gebruik geen chemische ontstoppers: die beschadigen de dichtingen.")]
+
+def page_ville(L, v):
+    u = UI[L]; fr = L == "fr"; other = u["other"]
+    name = v[0] if fr else v[1]; prov = v[3] if fr else v[4]; cps = ", ".join(v[5]); near = v[6] if fr else v[7]
+    slug = ville_slug(L, v)
+    if fr:
+        title = f"Débouchage {name} 24h/24 – Déboucheur {v[5][0]} | ABS Débouchage"
+        if len(title) > 62: title = f"Débouchage {name} 24h/24 | ABS Débouchage"
+        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur 24h/24, 7j/7. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
+        h1 = f"Débouchage à {e(name)}, <em>24h/24.</em>"
+        lead = f"WC, évier, douche ou égout bouché à {name} ? Appelez : on vous donne le prix et l'heure d'arrivée avant de partir."
+        label = f"Déboucheur {e(name)} · {v[5][0]}"
+    else:
+        title = f"Ontstopping {name} 24/7 – Ontstopper {v[5][0]} | ABS Débouchage"
+        if len(title) > 62: title = f"Ontstopping {name} 24/7 | ABS Débouchage"
+        desc = f"Wc, gootsteen of riool verstopt in {name}? Ontstopper 24/7. Prijs aan de telefoon voor we vertrekken, gratis offerte. Bel {PHONE_DISPLAY}."
+        h1 = f"Ontstopping in {e(name)}, <em>24/7.</em>"
+        lead = f"Wc, gootsteen, douche of riool verstopt in {name}? Bel ons: je krijgt de prijs en het aankomstuur voor we vertrekken."
+        label = f"Ontstopper {e(name)} · {v[5][0]}"
+    checks = '<ul class="lp-checks">' + "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"]) + '</ul>'
+    slide = [("sewer" if v[2] == "wal" else "pipes", name, h1, lead, name)]
+    faq = ville_faq(L, v)
+    zone_t = (f"À {e(name)} et autour" if fr else f"In {e(name)} en omgeving")
+    zone_p = (f"Nous intervenons à {name} ({cps}) et dans les communes proches : {', '.join(near)}. Notre base est à Bruxelles : au téléphone, vous connaissez l'heure d'arrivée estimée et le prix complet, déplacement compris, avant que le technicien parte. Vous décidez ensuite."
+              if fr else
+              f"We komen in {name} ({cps}) en de gemeenten in de buurt: {', '.join(near)}. Onze basis is in Brussel: aan de telefoon ken je het geschatte aankomstuur en de volledige prijs, verplaatsing inbegrepen, voor de technieker vertrekt. Daarna beslis jij.")
+    how = TX[L]["steps"]
+    how_li = "".join(f'<li>{ico(ic)}<span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in how)
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (name, None)], h1=label, cls="sv-hero", big_h1=True, extra=checks) + f"""
+<section class="section soft" id="services"><div class="wrap">
+ {sh(name, ("Quel est votre problème ?" if fr else "Wat is je probleem?"), ("Choisissez, ou appelez-nous directement." if fr else "Kies, of bel ons meteen."), center=True)}
+ {cards(L)}
+</div></section>
+<section class="section" id="zones"><div class="wrap">
+ <div class="cols2">
+  <div class="box reveal"><h2><span class="ic b">{ico("pin")}</span>{zone_t}</h2>
+   <p class="lc-p">{e(zone_p)}</p>
+   <p class="lc-cp"><b>{"Codes postaux" if fr else "Postcodes"} :</b> {e(cps)} · {e(prov)}</p>
+   <a class="btn btn-call btn-lg lp-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{u["call"]} · {PHONE_DISPLAY}</span></a></div>
+  <div class="box reveal" data-d="1"><h2><span class="ic">{ico("euro")}</span>{("Comment ça se passe" if fr else "Hoe het werkt")}</h2><ul class="list lp-how">{how_li}</ul></div>
+ </div>
+</div></section>""" + diagnostic(L) + faq_section(L, faq, title=(f"Débouchage à {e(name)} : vos questions" if fr else f"Ontstopping in {e(name)}: je vragen")) + f"""
+<section class="section-sm"><div class="wrap">
+ <p class="sv-communes"><b>{("Wallonie" if fr else "Wallonië") if v[2] == "wal" else ("Flandre" if fr else "Vlaanderen")} :</b> {ville_links(L, v[2], v)}.</p>
+ <p class="sv-communes"><b>{"Bruxelles" if fr else "Brussel"} :</b> {commune_links(L)}.</p>
+</div></section>""" + band(L)
+    crumbs = [(u["home"], abs_url(L)), (name, abs_url(L, slug))]
+    svc = {"@context": "https://schema.org", "@type": "Service", "name": ("Débouchage à " if fr else "Ontstopping in ") + name,
+           "serviceType": "Débouchage de canalisations" if fr else "Ontstopping van leidingen", "description": desc, "url": abs_url(L, slug),
+           "provider": {"@id": SITE_URL + "/#business"},
+           "areaServed": [{"@type": "City", "name": name, "address": {"@type": "PostalAddress", "postalCode": v[5][0], "addressRegion": prov, "addressCountry": "BE"}}] + [{"@type": "City", "name": n} for n in near],
+           "availableChannel": {"@type": "ServiceChannel", "servicePhone": PHONE_TEL}}
+    return layout(L, slug, title, desc, body, ville_slug(other, v), [business_schema(L), svc, faq_schema(faq), crumbs_schema(crumbs)])
+
 def page_guide(L, g):
     u = UI[L]; fr = L == "fr"; other = u["other"]; c = g[L]
     out = []
@@ -1918,12 +1993,14 @@ def build():
             write(pre + commune_slug(L, c) + ".html", page_commune(L, c))
         for g in GUIDES:
             write(pre + g["slug"][L] + ".html", page_guide(L, g))
+        for v in VILLES:
+            write(pre + ville_slug(L, v) + ".html", page_ville(L, v))
     write("404.html", page_404())
 
     pairs = [("", "", "1.0")] + [(s["slug"]["fr"], s["slug"]["nl"], "0.9") for s in SERVICES] + \
             [(UI["fr"]["contact_slug"], UI["nl"]["contact_slug"], "0.7"), (UI["fr"]["about_slug"], UI["nl"]["about_slug"], "0.6"),
              (UI["fr"]["privacy_slug"], UI["nl"]["privacy_slug"], "0.2")]
-    pairs += [(commune_slug("fr", c), commune_slug("nl", c), "0.8") for c in COMMUNES] + [(g["slug"]["fr"], g["slug"]["nl"], "0.6") for g in GUIDES]
+    pairs += [(commune_slug("fr", c), commune_slug("nl", c), "0.8") for c in COMMUNES] + [(ville_slug("fr", v), ville_slug("nl", v), "0.8") for v in VILLES] + [(g["slug"]["fr"], g["slug"]["nl"], "0.6") for g in GUIDES]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for fr, nl, pr in pairs:
         for L, pg in (("fr", fr), ("nl", nl)):
@@ -1941,6 +2018,7 @@ def build():
             "## Services (FR)"] + [f"- [{s['fr']['name']}]({abs_url('fr', s['slug']['fr'])}): {s['fr']['card']}" for s in SERVICES] + ["",
             "## Diensten (NL)"] + [f"- [{s['nl']['name']}]({abs_url('nl', s['slug']['nl'])}): {s['nl']['card']}" for s in SERVICES] + ["",
 "## Communes de Bruxelles"] + [f"- [Débouchage {c[0]}]({abs_url('fr', commune_slug('fr', c))})" for c in COMMUNES] + ["",
+            "## Wallonie et Flandre"] + [f"- [Débouchage {v[0]}]({abs_url('fr', ville_slug('fr', v))}) · [Ontstopping {v[1]}]({abs_url('nl', ville_slug('nl', v))})" for v in VILLES] + ["",
             "## Guides"] + [f"- [{g['fr']['nav']}]({abs_url('fr', g['slug']['fr'])}): {g['fr']['desc']}" for g in GUIDES] + ["",
             "## Pages", f"- [Accueil]({abs_url('fr')})", f"- [Contact]({abs_url('fr', UI['fr']['contact_slug'])})", f"- [À propos]({abs_url('fr', UI['fr']['about_slug'])})", f"- [Nederlands]({abs_url('nl')})"]
     write("llms.txt", "\n".join(llms) + "\n")

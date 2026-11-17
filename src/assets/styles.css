@@ -2610,3 +2610,20 @@ details.dv-tip p{margin:0;padding:0 14px 13px}
 .gd-side .more{display:inline-flex;margin-top:16px}
 .footer.fc .fc-guides{margin-bottom:10px}
 @media(max-width:960px){.gd{grid-template-columns:1fr;gap:28px}.gd-side{position:static}}
+
+/* FAQ sans numéros (17/11) */
+.fq-i summary{grid-template-columns:1fr 20px!important}
+.fq-a{padding-left:4px!important}
+@media(max-width:600px){.fq-a{padding:0 2px 16px 2px!important}}
+.ck-btns{display:flex;gap:8px;flex:none}
+.ck-no{--h:44px;padding:0 16px;font-size:14px;background:transparent;color:var(--text);border:1px solid var(--line)}
+@media(max-width:600px){.ck-bar{left:10px;right:10px;bottom:calc(92px + env(safe-area-inset-bottom));flex-wrap:wrap;gap:10px}.ck-btns{width:100%}.ck-btns .btn{flex:1}}
+
+/* Pages villes (annonces Google) */
+.lp-checks{display:flex;flex-wrap:wrap;gap:8px 18px;margin:4px 0 22px;padding:0;list-style:none;color:#dbe7f5;font-weight:600;font-size:15px}
+.lp-checks li{display:flex;align-items:center;gap:7px}
+.lp-checks .ico{width:18px;height:18px;color:#4ade80;flex:none}
+.lp-call{margin-top:18px;width:100%;justify-content:center}
+.lp-how li{align-items:flex-start}
+.lp-how li .ico{color:var(--brand);margin-top:2px}
+.lp-how b{color:var(--ink)}
