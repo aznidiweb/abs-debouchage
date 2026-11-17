@@ -1380,7 +1380,17 @@ def diagnostic(L, pre=None, photo="pipecam"):
     data = {"lang": L, "probs": probs, "ui": ui, "num": WHATSAPP, "tel": PHONE_DISPLAY, "api": "/api/demande",
             "pre": REQ_PRE.get(pre) if pre else None, "cp": req_cp_map(L)}
     uid = f"rq-{L}-{pre or 'x'}"
-    cards = "".join(f'<label class="rq-card"><input type="radio" name="problem" value="{pid}"><span class="rq-ic">{ico(icon)}</span><span class="rq-l">{e(lfr if fr else lnl)}</span></label>'
+    RQ_PH = {"wc": ("photo-1749532125405-70950966b0e5", "62% 40%"), "evier": ("photo-1676210134188-4c05dd172f89", "40% 55%"),
+             "douche": ("photo-1656646523907-97b094c7e63a", "50% 60%"), "canalisation": ("photo-1607472586893-edb57bdc0e39", "50% 50%"),
+             "egout": ("photo-1779518083245-bb0397ac17f9", "38% 45%"), "odeurs": ("photo-1745265796934-c34e78554872", "50% 50%"),
+             "camera": ("photo-1608094920051-d3a31d5db8db", "50% 45%"), "plomberie": ("photo-1676210134050-6f12c6898395", "55% 45%")}
+    def rq_img(pid, icon):
+        if pid not in RQ_PH:
+            return f'<span class="rq-img rq-img-ic">{ico(icon)}</span>'
+        ph, pos = RQ_PH[pid]; u = lambda w: f"https://images.unsplash.com/{ph}?auto=format&fit=crop&w={w}&h={round(w*.62)}&q=65"
+        return (f'<span class="rq-img"><img src="{u(260)}" srcset="{u(180)} 180w, {u(260)} 260w, {u(400)} 400w" sizes="(max-width:560px) 30vw, 150px" '
+                f'alt="" width="260" height="161" loading="lazy" decoding="async" style="object-position:{pos}"></span>')
+    cards = "".join(f'<label class="rq-card"><input type="radio" name="problem" value="{pid}">{rq_img(pid, icon)}<span class="rq-l">{e(lfr if fr else lnl)}</span></label>'
                     for pid, icon, lfr, lnl, _ in REQ_PROBLEMS)
     urg = "".join(f'<label class="rq-urg rq-u-{k}"><input type="radio" name="urgency" value="{k}"><span class="rq-ui">{ico(ic)}</span><span class="rq-ut"><b>{e(a)}</b><small>{e(b)}</small></span></label>'
                   for k, ic in (("urgent", "alert"), ("soon", "clock"), ("quote", "file")) for a, b in [R["urg"][k]])

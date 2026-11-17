@@ -3002,8 +3002,35 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 
  .rq-ref{grid-template-columns:1fr}
 }
-@media (max-width:380px){.rq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 @media (prefers-reduced-motion:reduce){.rq-in,.rq-in-b,.rq-thumbs li{animation:none}.rq-prog i::after{transition:none}}
 .rq [data-steplabel]{display:inline!important}
 .rq-alert-call{white-space:nowrap;font-size:15.5px;padding:0 14px}
 @media (max-width:380px){.rq-alert-call{font-size:14.5px}}
+
+/* ---------- Étape 1 : vraies photos, cartes compactes ---------- */
+.rq-grid{gap:8px}
+.rq-card{min-height:0!important;padding:5px 5px 8px!important;gap:6px!important;justify-content:flex-start!important;border-radius:12px}
+.rq-img{display:block;width:100%;aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:#e7ecf3}
+.rq-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.rq-card:hover .rq-img img{transform:scale(1.05)}
+.rq-img-ic{display:flex;align-items:center;justify-content:center;background:#eef3fb;color:#1156c7}
+.rq-img-ic .ico{width:24px;height:24px}
+.rq-card .rq-l{font-size:13px!important;line-height:1.2;padding:0 2px}
+.rq-card:has(input:checked) .rq-img{box-shadow:inset 0 0 0 2px #1156c7}
+.rq-card:has(input:checked)::after{top:9px!important;right:9px!important;box-shadow:0 0 0 2px #fff}
+/* étape 2 plus compacte */
+.rq-urgs{gap:7px}
+.rq-urg{padding:10px 12px;gap:11px}
+.rq-ui{width:34px;height:34px;border-radius:10px}
+.rq-ut b{font-size:15px}
+.rq-ut small{font-size:13px}
+.rq-chip{padding:7px 12px;font-size:13.5px}
+.rq-q{margin-top:12px}
+.rq-hint{margin-bottom:12px}
+@media (max-width:560px){
+ .rq-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px}
+ .rq-card{padding:4px 4px 7px!important;border-radius:11px}
+ .rq-card .rq-l{font-size:12px!important}
+ .rq-ut small{display:none}
+}
