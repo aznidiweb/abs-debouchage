@@ -1408,7 +1408,7 @@ def diagnostic(L, pre=None, photo="pipecam"):
  <div class="bgimg" aria-hidden="true">{img(photo, L, sizes="100vw", widths=(800, 1600))}</div>
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
-   {sh(t["diag_chip"], t["diag_title"], R["aside_t"])}
+   {sh(t["diag_chip"], R["aside_t"], "")}
    <ul class="dg-get">{"".join(f'<li><span class="dg-i">{ico(ic)}</span><span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in R["aside"])}</ul>
    <p class="rq-aside-call">{call("", R["call_now"] + " · " + PHONE_DISPLAY)}</p>
   </div>
