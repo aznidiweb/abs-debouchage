@@ -2756,3 +2756,6 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 }
 
 @media (max-width:600px){.tl-grid.tl-5{grid-template-columns:1fr!important}}
+
+/* ---------- Logo : « & Plomberie » sous le nom, visible aussi sur mobile ---------- */
+@media (max-width:440px){.nav-wrap .brand-sub{display:block!important;font-size:11.5px}}

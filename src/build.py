@@ -96,7 +96,7 @@ def header(L, alt_url, current=""):
  <nav class="lang" aria-label="Langue / Taal">{lang_sw}</nav>
 </div></div>
 <header class="header"><div class="wrap">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -395,7 +395,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -1093,7 +1093,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"Ouvert 24h/24 · 7j/7" if L=="fr" else "24/7 open, ook op zondag"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>

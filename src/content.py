@@ -417,7 +417,7 @@ SERVICES = [
 UI = {
  "fr": {
   "lang_name": "Français", "other": "nl", "other_label": "NL",
-  "brand_sub": "Débouchage d'urgence · Belgique",
+  "brand_sub": "Débouchage & plomberie · Belgique",
   "top": "Techniciens disponibles maintenant · 24h/24 – 7j/7",
   "nav_services": "Services", "nav_prices": "Tarifs", "nav_zones": "Zones", "nav_about": "À propos", "nav_contact": "Contact", "nav_all": "Tous nos services",
   "call": "Appeler", "call_now": "Appeler maintenant", "wa_quote": "Devis gratuit WhatsApp", "menu": "Menu",
@@ -477,7 +477,7 @@ UI = {
  },
  "nl": {
   "lang_name": "Nederlands", "other": "fr", "other_label": "FR",
-  "brand_sub": "Spoedontstopping · België",
+  "brand_sub": "Ontstopping & loodgieterij · België",
   "top": "Techniekers nu beschikbaar · 24/7",
   "nav_services": "Diensten", "nav_prices": "Prijzen", "nav_zones": "Regio", "nav_about": "Over ons", "nav_contact": "Contact", "nav_all": "Al onze diensten",
   "call": "Bellen", "call_now": "Nu bellen", "wa_quote": "Gratis offerte via WhatsApp", "menu": "Menu",
