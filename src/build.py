@@ -272,7 +272,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=2">
+<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=3">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
@@ -970,7 +970,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=2">
+<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=3">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
