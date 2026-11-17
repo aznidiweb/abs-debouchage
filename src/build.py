@@ -1559,7 +1559,6 @@ def band(L):
             '</svg>')
     return f'''<section class="band band5"><div class="wrap b5">
  <div class="b5-txt"><p class="b5-k">{k}</p><h2>{h}</h2><p class="b5-s">{sub}</p></div>
- <div class="b5-pipe" aria-hidden="true">{pipe}<span class="b5-drop"></span></div>
  <a class="btn b5-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
 </div></section>'''
 

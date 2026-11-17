@@ -2692,3 +2692,14 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
  .hero.hv-v3 .hv-photo::after{background:linear-gradient(180deg,rgba(6,13,25,.72) 0,rgba(6,13,25,.15) 16%,rgba(6,13,25,0) 34%,rgba(6,13,25,.55) 50%,rgba(6,13,25,.94) 66%,#060d19 78%)!important}
  .hero.hv-v3 .hv-media::after{display:none!important}
 }
+
+/* ---------- Bande de fin : sans le tuyau, texte complet et appel bien visible ---------- */
+.band5 .b5{display:grid!important;grid-template-columns:1fr auto!important;align-items:center;gap:28px}
+.band5 .b5-k,.band5 .b5-s{display:block!important}
+.band5 h2{margin:2px 0 0}
+@media (max-width:760px){
+ .band5 .b5{grid-template-columns:1fr!important;gap:16px;padding-top:28px!important;padding-bottom:28px!important}
+ .band5 h2{font-size:22px!important;line-height:1.2}
+ .band5 .b5-s{font-size:15px!important}
+ .band5 .btn.b5-call{width:100%;justify-content:center;--h:54px;font-size:17px}
+}
