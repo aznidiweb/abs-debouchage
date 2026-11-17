@@ -2687,10 +2687,9 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 }
 @media (max-width:960px){
  .hero.hv-v3{background:#060d19!important}
- .hero.hv-v3 .hv-photo{top:0!important}
- .hero.hv-v3 .hv-photo img{object-position:62% 50%}
- .hero.hv-v3 .hv-photo::after{background:linear-gradient(180deg,rgba(6,13,25,.72) 0,rgba(6,13,25,.15) 16%,rgba(6,13,25,0) 34%,rgba(6,13,25,.55) 50%,rgba(6,13,25,.94) 66%,#060d19 78%)!important}
- .hero.hv-v3 .hv-media::after{display:none!important}
+ .hero.hv-v3 .hv-photo{top:0!important;bottom:auto!important;left:0!important;right:0!important;height:66%!important;max-height:none!important}
+ .hero.hv-v3 .hv-photo img{object-position:58% 40%}
+ .hero.hv-v3 .hv-photo::after{display:block!important;content:""!important;background:linear-gradient(180deg,rgba(6,13,25,.78) 0,rgba(6,13,25,.2) 15%,rgba(6,13,25,0) 30%,rgba(6,13,25,.35) 55%,rgba(6,13,25,.85) 80%,#060d19 100%)!important}
 }
 
 /* ---------- Bande de fin : sans le tuyau, texte complet et appel bien visible ---------- */
