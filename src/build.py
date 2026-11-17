@@ -19,6 +19,7 @@ e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
 P = {
+ "smell": '<path d="M8 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/><path d="M12.5 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/><path d="M17 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>',
  "phone": '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
  "check": '<path d="M20 6 9 17l-5-5"/>',
  "clock": '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
@@ -1339,49 +1340,124 @@ def steps_section(L, cls="soft"):
     st = "".join(f'<li class="reveal" data-d="{i}"><span class="num">{ico(ic)}</span><h3>{e(a)}</h3><p>{e(b)}</p></li>' for i, (ic, a, b) in enumerate(t["steps"]))
     return f'<section class="section {cls}"><div class="wrap">{sh(t["steps_chip"], t["steps_title"], center=True)}{steps_html(st)}</div></section>'
 
+def req_cp_map(L):
+    """Code postal → commune (pour préremplir la ville). Communes bruxelloises + grandes villes connues du site."""
+    m = {}
+    for fr_n, nl_n, cp in COMMUNES:
+        m.setdefault(cp, fr_n if L == "fr" else nl_n)
+    for v in VILLES:
+        for cp in v[5]:
+            m.setdefault(cp, v[0] if L == "fr" else v[1])
+    for c, d in LOCAL.items():
+        for cp in d["cp"]:
+            m.setdefault(cp, c if L == "fr" else next((n for f, n, _ in COMMUNES if f == c), c))
+    return m
+
 def diagnostic(L, pre=None, photo="pipecam"):
-    U = DIAG_UI[L]; u = UI[L]; t = TX[L]
-    svc = {}
-    for s in SERVICES:
-        tip = s[L]["tip"]
+    """Demande d'intervention en 6 étapes (remplace l'ancien diagnostic express, même place, même identité).
+    L'envoi direct passe par /api/demande (Cloudflare Pages Function) ; tant qu'il n'est pas configuré,
+    la demande part par WhatsApp, déjà rédigée, comme avant. Aucun envoi n'est jamais simulé."""
+    R = REQ_UI[L]; U = DIAG_UI[L]; t = TX[L]; fr = L == "fr"
+    tips = {}
+    for s_ in SERVICES:
+        tip = s_[L]["tip"]
         for pfx in ("En attendant le technicien : ", "In afwachting van de technieker: ", "En attendant : ", "In afwachting: "):
             if tip.startswith(pfx): tip = tip[len(pfx):]
-        svc[s["id"]] = {"name": s[L]["name"], "price": s["price"], "tip": tip[0].upper() + tip[1:],
-                        "sits": [[a, (b if L == "fr" else c)] for a, b, c in DIAG[s["id"]]]}
-    svc["autre"] = {"name": U["other"], "price": None, "tip": None, "sits": [[a, (b if L == "fr" else c)] for a, b, c in DIAG["autre"]]}
-    ui = {k: U[k] for k in ("step", "sev", "price", "price_q", "wait", "wait_generic", "wa")}
-    ui.update({"from": u["from"], "chev": ico("chevr"), "icons": {"urgent": ico("alert"), "today": ico("clock"), "plan": ico("check")}})
-    data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
-    order = ["wc", "evier", "douche", "egout", "plomberie", "autre"]
-    short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder"), "plomberie": ("Plomberie, fuite", "Loodgieter, lek")}
-    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{diag_thumb(i)}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
-    uid = f"dg-{L}-{pre or 'x'}"
-    pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
+        tips[s_["id"]] = tip[0].upper() + tip[1:]
+    probs = []
+    for pid, icon, lfr, lnl, svc_id in REQ_PROBLEMS:
+        if pid == "odeurs":
+            sits = [[a, (b if fr else c)] for a, b, c in REQ_ODEURS_SITS]
+        elif svc_id:
+            sits = [[a, (b if fr else c)] for a, b, c in DIAG[svc_id]]
+        else:
+            sits = []
+        probs.append({"id": pid, "label": lfr if fr else lnl, "sits": sits, "tip": tips.get(svc_id) if svc_id else None})
+    ui = {k: R[k] for k in ("steps", "step", "urg", "err", "region", "wa", "send", "send_wa", "sending", "edit", "none", "nodesc",
+                            "r_prob", "r_urg", "r_loc", "r_desc", "r_photos", "r_contact", "next", "back_recap", "rm", "photo_n", "wa_note",
+                            "ok_p", "wait_generic")}
+    ui["sent"] = U["sent"]; ui["price_q"] = U["price_q"]
+    data = {"lang": L, "probs": probs, "ui": ui, "num": WHATSAPP, "tel": PHONE_DISPLAY, "api": "/api/demande",
+            "pre": REQ_PRE.get(pre) if pre else None, "cp": req_cp_map(L)}
+    uid = f"rq-{L}-{pre or 'x'}"
+    cards = "".join(f'<label class="rq-card"><input type="radio" name="problem" value="{pid}"><span class="rq-ic">{ico(icon)}</span><span class="rq-l">{e(lfr if fr else lnl)}</span></label>'
+                    for pid, icon, lfr, lnl, _ in REQ_PROBLEMS)
+    urg = "".join(f'<label class="rq-urg rq-u-{k}"><input type="radio" name="urgency" value="{k}"><span class="rq-ui">{ico(ic)}</span><span class="rq-ut"><b>{e(a)}</b><small>{e(b)}</small></span></label>'
+                  for k, ic in (("urgent", "alert"), ("soon", "clock"), ("quote", "file")) for a, b in [R["urg"][k]])
+    steps_bar = "".join("<i></i>" for _ in R["steps"])
+    call = lambda cls, label: f'<a class="btn btn-call {cls}" href="tel:{PHONE_TEL}">{ico("phone")}<span>{label}</span></a>'
+    nav = lambda n, last=False: (f'<div class="rq-nav">' + (f'<button type="button" class="rq-back" data-back>{ico("chevl")}{R["back"]}</button>' if n > 1 else '<span></span>')
+                                + f'<button type="button" class="btn rq-next" data-next><span data-nextlbl>{R["next"]}</span>{ico("arrow")}</button></div>')
+    def field(name, label, typ="text", ph="", ac="", extra="", opt=False, hint=""):
+        hid = f"{uid}-{name}-h"; eid = f"{uid}-{name}-e"
+        return (f'<div class="rq-f"><label for="{uid}-{name}">{e(label)}{f" <small>({R["opt"]})</small>" if opt else ""}</label>'
+                f'<input id="{uid}-{name}" name="{name}" type="{typ}" placeholder="{e(ph)}"{f" autocomplete={chr(34)}{ac}{chr(34)}" if ac else ""} {extra} aria-describedby="{eid}{f" {hid}" if hint else ""}">'
+                + (f'<p class="rq-fh" id="{hid}">{e(hint)}</p>' if hint else "") + f'<p class="rq-err" id="{eid}" data-err="{name}"></p></div>')
+    priv = url(L, UI[L]["privacy_slug"])
     return f'''<section class="section dark diag-sec on-dark" id="diagnostic">
  <div class="bgimg" aria-hidden="true">{img(photo, L, sizes="100vw", widths=(800, 1600))}</div>
- <div class="diag-rain" aria-hidden="true"><i style="left:4%;--h:18px;--d:2.6s;--l:0s"></i><i style="left:11%;--h:26px;--d:3.4s;--l:1.2s"></i><i style="left:19%;--h:14px;--d:2.2s;--l:0.4s"></i><i style="left:27%;--h:22px;--d:3.0s;--l:2.0s"></i><i style="left:36%;--h:16px;--d:2.5s;--l:0.9s"></i><i style="left:44%;--h:28px;--d:3.6s;--l:2.6s"></i><i style="left:52%;--h:18px;--d:2.8s;--l:0.2s"></i><i style="left:61%;--h:24px;--d:3.2s;--l:1.6s"></i><i style="left:69%;--h:14px;--d:2.3s;--l:2.9s"></i><i style="left:77%;--h:20px;--d:2.9s;--l:0.7s"></i><i style="left:85%;--h:26px;--d:3.5s;--l:2.2s"></i><i style="left:93%;--h:16px;--d:2.4s;--l:1.1s"></i><i style="left:48%;--h:12px;--d:2.0s;--l:3.1s"></i><i style="left:15%;--h:12px;--d:2.1s;--l:3.4s"></i></div>
  <div class="wrap diag-wrap">
   <div class="diag-aside reveal">
-   {sh(t["diag_chip"], t["diag_title"], ("Gratuit, sans engagement, en moins d'une minute. Vous recevez :" if L == "fr" else "Gratis, vrijblijvend, in minder dan een minuut. Je krijgt:"))}
-   <ul class="dg-get">{"".join(f'<li><span class="dg-i">{ico(ic)}</span><span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in ((("gauge", "Le niveau d'urgence", "de votre situation"), ("euro", "Le prix de départ", "avant tout déplacement"), ("shield", "Les bons gestes", "à faire en attendant")) if L == "fr" else (("gauge", "Het dringendheidsniveau", "van je situatie"), ("euro", "De startprijs", "voor we vertrekken"), ("shield", "De juiste reflexen", "in afwachting"))))}</ul>
-   <p class="dg-start" aria-hidden="true"><span>{"Commencez ici" if L == "fr" else "Begin hier"}</span><svg class="dg-arrow" viewBox="0 0 60 24"><path d="M2 12h50M42 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+   {sh(t["diag_chip"], t["diag_title"], R["aside_t"])}
+   <ul class="dg-get">{"".join(f'<li><span class="dg-i">{ico(ic)}</span><span><b>{e(a)}</b> {e(b)}</span></li>' for ic, a, b in R["aside"])}</ul>
+   <p class="rq-aside-call">{call("", R["call_now"] + " · " + PHONE_DISPLAY)}</p>
   </div>
-  <div class="diag reveal" data-d="2" data-diag='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
-   <div class="diag-head"><div><h3>{U["box"]}</h3><span class="dg-badge">{"Gratuit · 1 min" if L == "fr" else "Gratis · 1 min"}</span></div><div class="diag-steps" aria-live="polite"><span data-steplabel>{U["step"].replace("{n}", "1")}</span><span class="diag-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div></div>
-   <div class="diag-body">
-    <div class="diag-panel" data-p="1"><p class="diag-q" tabindex="-1">{U["q1"]}</p><p class="diag-hint">{U["h1"]}</p><div class="diag-grid">{opts}</div></div>
-    <div class="diag-panel" data-p="2" hidden><p class="diag-q" tabindex="-1">{U["q2"]}</p><p class="diag-hint">{U["h2"]}</p><div class="d-list" data-sits></div>
-     <div class="diag-nav"><button type="button" class="d-back" data-back="1">{ico("chevl")}{U["back"]}</button></div></div>
-    <div class="diag-panel" data-p="3" hidden><p class="diag-q" tabindex="-1" style="margin-bottom:14px">{U["q3"]}</p><div data-result></div>
-     <div class="fields">
-      <div class="field"><label for="{uid}-w">{U["where"]}</label><input id="{uid}-w" name="where" type="text" autocomplete="address-level2" placeholder="{e(U["where_ph"])}" aria-describedby="{uid}-err"><p class="err" id="{uid}-err" role="alert">{U["err"]}</p></div>
-      <div class="field"><label for="{uid}-n">{U["name"]} <small>{U["opt"]}</small></label><input id="{uid}-n" name="name" type="text" autocomplete="given-name"></div>
-     </div>
-     <div class="res-actions"><button type="button" class="btn btn-wa btn-lg" data-send>{ico("wa")}<span>{U["send"]}</span></button><a class="btn btn-call btn-lg" href="tel:{PHONE_TEL}">{ico("phone")}<span>{U["call"]}</span></a></div>
-     <p class="diag-note">{U["note"]}</p><p class="diag-sent" role="status">{U["sent"]}</p>
-     <div class="diag-nav"><button type="button" class="d-back" data-back="2">{ico("chevl")}{U["back"]}</button></div></div>
-   </div>
-   <div class="diag-noscript"><p style="margin-bottom:12px">{U["noscript"]}</p>{btn_call(L, "btn-lg", PHONE_DISPLAY)}</div>
+  <div class="diag rq reveal" data-d="2" data-req='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
+   <div class="rq-head"><div class="rq-title"><h3>{R["box"]}</h3><span class="dg-badge">{R["badge"]}</span></div>
+    <a class="rq-urgent" href="tel:{PHONE_TEL}">{ico("phone")}<span>{"Urgence ?" if fr else "Spoed?"} <b>{PHONE_DISPLAY}</b></span></a></div>
+   <div class="rq-prog" aria-hidden="true">{steps_bar}</div>
+   <p class="rq-steplbl" aria-live="polite"><span data-steplabel>{R["step"].replace("{n}", "1").replace("{t}", str(len(R["steps"])))}</span> · <b data-stepname>{R["steps"][0]}</b></p>
+   <form class="rq-form" novalidate data-form>
+    <div class="rq-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <fieldset class="rq-p" data-p="1"><legend class="rq-q" tabindex="-1">{R["q1"]}</legend><p class="rq-hint">{R["h1"]}</p>
+     <div class="rq-grid">{cards}</div><p class="rq-err" data-err="problem" role="alert"></p>{nav(1)}</fieldset>
+
+    <fieldset class="rq-p" data-p="2" hidden><legend class="rq-q" tabindex="-1">{R["q2"]}</legend><p class="rq-hint">{R["h2"]}</p>
+     <div class="rq-sits" data-sitsbox hidden><p class="rq-sl">{R["sits"]}</p><div class="rq-chips" data-sits></div></div>
+     <div class="rq-urgs">{urg}</div><p class="rq-err" data-err="urgency" role="alert"></p>
+     <div class="rq-alert" data-urgbox hidden><p>{R["urg_call"]}</p>{call("rq-alert-call", R["call_now"] + " · " + PHONE_DISPLAY)}
+      <details class="rq-tip"><summary>{R["wait"]}{ico("chev")}</summary><p data-tip></p></details></div>
+     <div class="rq-f"><label for="{uid}-desc">{R["desc"]} <small>({R["opt"]})</small></label><textarea id="{uid}-desc" name="desc" rows="3" maxlength="1500" placeholder="{e(R["desc_ph"])}" aria-describedby="{uid}-desc-h"></textarea><p class="rq-fh" id="{uid}-desc-h">{R["desc_hint"]}</p></div>
+     {nav(2)}</fieldset>
+
+    <fieldset class="rq-p" data-p="3" hidden><legend class="rq-q" tabindex="-1">{R["q3"]}</legend><p class="rq-hint">{R["h3"]}</p>
+     <div class="rq-row">{field("cp", R["cp"], "text", R["cp_ph"], "postal-code", 'inputmode="numeric" maxlength="4" pattern="[0-9]{4}" required')}{field("city", R["city"], "text", R["city_ph"], "address-level2", 'maxlength="80" required')}</div>
+     {field("addr", R["addr"], "text", R["addr_ph"], "street-address", 'maxlength="160"', opt=True, hint=R["addr_hint"])}
+     {nav(3)}</fieldset>
+
+    <fieldset class="rq-p" data-p="4" hidden><legend class="rq-q" tabindex="-1">{R["q4"]}</legend><p class="rq-hint">{R["h4"]}</p>
+     <ul class="rq-thumbs" data-thumbs></ul>
+     <label class="rq-add" data-addbtn><input class="rq-file" type="file" accept="image/*" multiple data-file><span>{ico("camera")}<b data-addlbl>{R["add"]}</b><small data-addcount>0 / 4</small></span></label>
+     <p class="rq-err" data-err="photos" role="alert"></p>
+     {nav(4)}</fieldset>
+
+    <fieldset class="rq-p" data-p="5" hidden><legend class="rq-q" tabindex="-1">{R["q5"]}</legend><p class="rq-hint">{R["h5"]}</p>
+     {field("name", R["name"], "text", R["name_ph"], "name", 'maxlength="80" required')}
+     <div class="rq-row">{field("tel", R["tel"], "tel", R["tel_ph"], "tel", 'inputmode="tel" maxlength="25" required')}{field("mail", R["mail"], "email", R["mail_ph"], "email", 'maxlength="120"', opt=True)}</div>
+     <div class="rq-f rq-consent"><label class="rq-check"><input type="checkbox" name="consent" value="1" aria-describedby="{uid}-consent-e"><span>{R["consent"]} <a href="{priv}" target="_blank" rel="noopener">{R["privacy"]}</a>.</span></label><p class="rq-err" id="{uid}-consent-e" data-err="consent"></p></div>
+     {nav(5)}</fieldset>
+
+    <fieldset class="rq-p" data-p="6" hidden><legend class="rq-q" tabindex="-1">{R["q6"]}</legend><p class="rq-hint">{R["h6"]}</p>
+     <div class="rq-recap" data-recap></div>
+     <p class="rq-price">{ico("euro")}<span>{U["price_q"]}</span></p>
+     <div class="rq-nav rq-nav-end"><button type="button" class="rq-back" data-back>{ico("chevl")}{R["back"]}</button>
+      <button type="submit" class="btn rq-send" data-submit><span data-sendlbl>{R["send"]}</span>{ico("arrow")}</button></div>
+     <p class="rq-note" data-wanote hidden>{R["wa_note"]}</p><p class="rq-note rq-sent" data-wasent role="status" hidden></p></fieldset>
+
+    <div class="rq-p rq-done" data-p="ok" hidden tabindex="-1">
+     <span class="rq-done-ic">{ico("check")}</span><h4 class="rq-q" tabindex="-1">{R["ok_t"]}</h4><p data-okp></p>
+     <dl class="rq-ref"><div><dt>{R["ok_id"]}</dt><dd data-okid></dd></div><div><dt>{R["ok_at"]}</dt><dd data-okat></dd></div></dl>
+     <div class="rq-alert" data-okurg hidden><p>{R["ok_urgent"]}</p>{call("rq-alert-call", R["call_now"] + " · " + PHONE_DISPLAY)}</div>
+     <details class="rq-tip" data-oktipbox><summary>{R["wait"]}{ico("chev")}</summary><p data-oktip></p></details>
+     <button type="button" class="rq-back rq-new" data-new>{R["new"]}</button></div>
+
+    <div class="rq-p rq-done rq-ko" data-p="ko" hidden tabindex="-1">
+     <span class="rq-done-ic">{ico("alert")}</span><h4 class="rq-q" tabindex="-1">{R["ko_t"]}</h4><p>{R["ko_p"]}</p>
+     <div class="rq-ko-a"><button type="button" class="btn btn-wa" data-kowa>{ico("wa")}<span>{R["send_wa"]}</span></button>{call("", R["call"] + " · " + PHONE_DISPLAY)}</div>
+     <button type="button" class="rq-back" data-retry>{ico("chevl")}{R["ko_retry"]}</button></div>
+   </form>
+   <noscript><div class="diag-noscript"><p style="margin-bottom:12px">{R["noscript"]}</p>{btn_call(L, "btn-lg", PHONE_DISPLAY)}</div></noscript>
   </div>
  </div>
 </section>'''
@@ -2087,6 +2163,11 @@ def build():
 /assets/*
   ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
+
+/api/*
+  ! Cache-Control
+  Cache-Control: no-store
+  X-Robots-Tag: noindex
 """)
     write("_redirects", "/fr/* /:splat 301\n/debouchage-toilette /debouchage-sanibroyeur 301\n/debouchage-toilette.html /debouchage-sanibroyeur 301\n")
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",

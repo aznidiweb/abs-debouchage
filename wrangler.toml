@@ -2,3 +2,27 @@
 name = "abs-debouchage"
 compatibility_date = "2026-10-01"
 pages_build_output_dir = "public"
+
+# ---------------------------------------------------------------------------
+# Demandes d'intervention (/api/demande) — voir CONFIGURATION-DEMANDES.md
+# Ce fichier sert de configuration à Cloudflare Pages : les liaisons (base, photos)
+# se déclarent ICI. Décommentez et remplacez l'identifiant une fois la base créée.
+# ---------------------------------------------------------------------------
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "abs-demandes"
+# database_id = "REMPLACER-PAR-L-ID-DE-LA-BASE"
+#
+# [[r2_buckets]]
+# binding = "PHOTOS"
+# bucket_name = "abs-demandes-photos"
+#
+# [vars]
+# LEAD_EMAIL_TO = "votre-adresse@exemple.be"
+# LEAD_EMAIL_FROM = "ABS Débouchage <demandes@absdebouchage.be>"
+# WA_PHONE_ID = ""
+# WA_TO = "32484724724"
+# WA_TEMPLATE = "nouvelle_demande"
+# WA_LANG = "fr"
+# Secrets (jamais dans ce fichier) : RESEND_API_KEY, WA_TOKEN
+#   → npx wrangler pages secret put RESEND_API_KEY --project-name abs-debouchage

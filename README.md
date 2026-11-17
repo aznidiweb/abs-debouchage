@@ -20,3 +20,5 @@ git add -A && git commit -m "..." && git push
 
 Cloudflare Pages publie automatiquement le dossier `public/`.
 Le domaine final est défini dans `SITE_URL` (src/content.py).
+
+**Demandes d'intervention** : le formulaire envoie à `functions/api/demande.js`. Mise en service (base, photos, e-mail, WhatsApp) : voir [CONFIGURATION-DEMANDES.md](CONFIGURATION-DEMANDES.md).
