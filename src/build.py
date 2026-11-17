@@ -1258,9 +1258,10 @@ def diag_thumb(key):
     """Petite vraie photo dans les choix du diagnostic ; « Autre problème » garde une icône."""
     if key not in DIAG_PHOTO:
         return ico("help")
-    u = lambda w: f"https://images.unsplash.com/{DIAG_PHOTO[key]}?auto=format&fit=crop&w={w}&h={w}&q=65"
-    return (f'<span class="d-thumb" aria-hidden="true"><img src="{u(96)}" srcset="{u(96)} 1x, {u(160)} 2x" alt="" '
-            f'width="48" height="48" loading="lazy" decoding="async" style="object-position:{TILE_POS.get(key, "50% 50%")}"></span>')
+    u = lambda w: f"https://images.unsplash.com/{DIAG_PHOTO[key]}?auto=format&fit=crop&w={w}&h={round(w*.7)}&q=68"
+    return (f'<span class="d-thumb" aria-hidden="true"><img src="{u(320)}" srcset="{u(220)} 220w, {u(320)} 320w, {u(480)} 480w" '
+            f'sizes="(max-width:560px) 45vw, 180px" alt="" width="320" height="224" loading="lazy" decoding="async" '
+            f'style="object-position:{TILE_POS.get(key, "50% 50%")}"></span>')
 
 def cards(L, exclude=None):
     """4 tuiles : animation, titre court, le problème dit avec les mots du client."""
