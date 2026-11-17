@@ -1241,6 +1241,27 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
   {"fr": "Refoulement en cave, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, hogedruk, HD-camera."}),
 ]
 
+TILE_PHOTO = {"wc": "photo-1749532125405-70950966b0e5", "evier": "photo-1676210134188-4c05dd172f89",
+              "douche": "photo-1656646523907-97b094c7e63a", "egout": "photo-1779518083245-bb0397ac17f9"}
+TILE_POS = {"wc": "62% 40%", "evier": "40% 55%", "douche": "50% 60%", "egout": "38% 45%"}
+
+def tile_photo(key):
+    """Vraie photo (Unsplash, licence libre) à la place de l'illustration : plus humain, plus rassurant."""
+    u = lambda w: f"https://images.unsplash.com/{TILE_PHOTO[key]}?auto=format&fit=crop&w={w}&h={round(w*.75)}&q=70"
+    return (f'<img src="{u(600)}" srcset="{u(400)} 400w, {u(600)} 600w, {u(900)} 900w" '
+            f'sizes="(max-width:760px) 50vw, (max-width:1200px) 25vw, 300px" alt="" width="600" height="450" '
+            f'loading="lazy" decoding="async" style="object-position:{TILE_POS[key]}">')
+
+DIAG_PHOTO = dict(TILE_PHOTO, plomberie="photo-1676210134050-6f12c6898395")
+
+def diag_thumb(key):
+    """Petite vraie photo dans les choix du diagnostic ; « Autre problème » garde une icône."""
+    if key not in DIAG_PHOTO:
+        return ico("help")
+    u = lambda w: f"https://images.unsplash.com/{DIAG_PHOTO[key]}?auto=format&fit=crop&w={w}&h={w}&q=65"
+    return (f'<span class="d-thumb" aria-hidden="true"><img src="{u(96)}" srcset="{u(96)} 1x, {u(160)} 2x" alt="" '
+            f'width="48" height="48" loading="lazy" decoding="async" style="object-position:{TILE_POS.get(key, "50% 50%")}"></span>')
+
 def cards(L, exclude=None):
     """4 tuiles : animation, titre court, le problème dit avec les mots du client."""
     TILE = {"wc": (("WC & sanibroyeur", "Wc & sanibroyeur"), ("La cuvette déborde", "De pot loopt over")),
@@ -1252,7 +1273,7 @@ def cards(L, exclude=None):
     for i, (main, others, title, desc) in enumerate(GROUPS):
         s = svc_by_id(main); t, sym = TILE[main]
         items.append(f'''<li class="reveal" data-d="{i}"><a class="tl" href="{url(L, s["slug"][L])}" title="{e(title[L])}">
- <span class="tl-art sc-mini" data-mini aria-hidden="true">{scene_mini(L, main, f"g{i}")}</span>
+ <span class="tl-art tl-photo" aria-hidden="true">{tile_photo(main)}</span>
  <span class="tl-body"><span class="tl-t">{e(t[k])}</span><span class="tl-s">{e(sym[k])}</span></span>
  <span class="tl-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''')
@@ -1329,7 +1350,7 @@ def diagnostic(L, pre=None, photo="pipecam"):
     data = {"svc": svc, "ui": ui, "num": WHATSAPP, "pre": pre}
     order = ["wc", "evier", "douche", "egout", "plomberie", "autre"]
     short = {"wc": ("WC", "Wc"), "evier": ("Évier, lavabo, cuisine", "Gootsteen, lavabo, keuken"), "douche": ("Douche, bain", "Douche, bad"), "egout": ("Égout, cave", "Riool, kelder"), "plomberie": ("Plomberie, fuite", "Loodgieter, lek")}
-    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{ico(svc_by_id(i)["icon"] if i != "autre" else "help")}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
+    opts = "".join(f'<button type="button" class="d-opt" data-svc="{i}" aria-pressed="false">{diag_thumb(i)}<span>{e(short[i][0 if L == "fr" else 1] if i in short else svc[i]["name"])}</span></button>' for i in order)
     uid = f"dg-{L}-{pre or 'x'}"
     pros = "".join(f'<li>{ico("check")}{e(p)}</li>' for p in U["pros"])
     return f'''<section class="section dark diag-sec on-dark" id="diagnostic">
