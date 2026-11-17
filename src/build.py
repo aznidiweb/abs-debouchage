@@ -1191,7 +1191,22 @@ def hero_home(L):
    <ul class="hp-checks">{checks}</ul>
   </div>
  </div>
+ {hero_quick(L)}
 </section>'''
+
+def hero_quick(L):
+    """Bas du héros (ordinateur/tablette) : accès direct au bon service, sans chercher."""
+    fr = L == "fr"
+    items = (("wc", "toilet", "WC", "Wc"), ("evier", "sink", "Évier & lavabo", "Gootsteen & lavabo"),
+             ("douche", "shower", "Douche & bain", "Douche & bad"), ("egout", "manhole", "Égout", "Riool"))
+    links = "".join(f'<li><a href="{url(L, svc_by_id(i)["slug"][L])}">{ico(ic)}<span>{e(a if fr else b)}</span></a></li>' for i, ic, a, b in items)
+    other_txt = "Autre chose\u00a0? <b>Diagnostic express</b>" if fr else "Iets anders? <b>Snelle diagnose</b>"
+    q = "Qu'est-ce qui bouche\u00a0?" if fr else "Wat zit er verstopt?"
+    lab = "Accès direct par problème" if fr else "Direct naar je probleem"
+    return f'''<nav class="hp-quick" aria-label="{lab}"><div class="wrap hq-row">
+  <p class="hq-q">{q}</p>
+  <ul>{links}<li class="hq-other"><a href="#diagnostic"><span>{other_txt}</span>{ico("arrow")}</a></li></ul>
+ </div></nav>'''
 
 # ---------------------------------------------------------------- blocs
 def intro_section(L, photo="valves"):
