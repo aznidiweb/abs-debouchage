@@ -958,6 +958,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://images.unsplash.com">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 {robots}
@@ -1176,9 +1177,9 @@ def hero_home(L):
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
     a1, a2 = t["avail"]
-    return f'''<section class="hero hero-pipe hero-video">
+    return f'''<section class="hero hero-pipe hero-video hv-v3">
  <div class="hv-media hv-photo" aria-hidden="true">
-  <picture><source type="image/avif" srcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><source type="image/webp" srcset="/assets/video/hero-v2-480.webp 480w, /assets/video/hero-v2-800.webp 800w, /assets/video/hero-v2-941.webp 941w, /assets/video/hero-v2-1400.webp 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><img class="hp-photo" src="/assets/video/hero-v2.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
+  <picture><img class="hp-photo" src="https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1920&q=70" srcset="https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=640&q=70 640w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1280&q=70 1280w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1920&q=70 1920w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=2560&q=70 2560w" sizes="100vw" alt="" width="2400" height="1800" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
  <div class="wrap hero-inner hv-inner">
