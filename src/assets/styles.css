@@ -2739,3 +2739,20 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 .diag-grid .d-opt>span:last-child{padding:0 4px;line-height:1.25}
 .diag-grid .d-opt>.ico{align-self:stretch;box-sizing:border-box!important;width:auto!important;height:auto!important;aspect-ratio:10/7;padding:22%!important;border-radius:10px!important;background:#eef3fb!important}
 @media (max-width:560px){.diag-grid .d-opt .d-thumb{width:100%;height:auto;border-radius:9px}}
+
+/* ---------- Tuiles : 5 catégories alignées ; sur mobile, des lignes compactes ---------- */
+.tl-grid.tl-5{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:14px}
+.tl-5 .tl-body{min-height:64px}
+@media (min-width:961px) and (max-width:1100px){.tl-grid.tl-5{gap:10px}.tl-5 .tl-t{font-size:15px}.tl-5 .tl-s{font-size:12.5px}}
+@media (max-width:960px){
+ .tl-grid.tl-5{grid-template-columns:1fr 1fr!important;gap:8px}
+ .tl-5 .tl{display:grid!important;grid-template-columns:84px 1fr auto;align-items:center;gap:14px;padding:8px 14px 8px 8px}
+ .tl-5 .tl-art{aspect-ratio:1/1!important;width:84px;height:84px;border-radius:12px}
+ .tl-5 .tl-art::after{display:none}
+ .tl-5 .tl-body{min-height:0;padding:0!important}
+ .tl-5 .tl-t{font-size:16px}
+ .tl-5 .tl-s{font-size:13.5px}
+ .tl-5 .tl-go{position:static!important;margin:0}
+}
+
+@media (max-width:600px){.tl-grid.tl-5{grid-template-columns:1fr!important}}

@@ -1242,8 +1242,9 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
 ]
 
 TILE_PHOTO = {"wc": "photo-1749532125405-70950966b0e5", "evier": "photo-1676210134188-4c05dd172f89",
-              "douche": "photo-1656646523907-97b094c7e63a", "egout": "photo-1779518083245-bb0397ac17f9"}
-TILE_POS = {"wc": "62% 40%", "evier": "40% 55%", "douche": "50% 60%", "egout": "38% 45%"}
+              "douche": "photo-1656646523907-97b094c7e63a", "egout": "photo-1779518083245-bb0397ac17f9",
+              "plomberie": "photo-1676210134050-6f12c6898395"}
+TILE_POS = {"wc": "62% 40%", "evier": "40% 55%", "douche": "50% 60%", "egout": "38% 45%", "plomberie": "55% 45%"}
 
 def tile_photo(key):
     """Vraie photo (Unsplash, licence libre) à la place de l'illustration : plus humain, plus rassurant."""
@@ -1264,21 +1265,23 @@ def diag_thumb(key):
             f'style="object-position:{TILE_POS.get(key, "50% 50%")}"></span>')
 
 def cards(L, exclude=None):
-    """4 tuiles : animation, titre court, le problème dit avec les mots du client."""
+    """5 tuiles photo (dont la plomberie) : titre court, le problème dit avec les mots du client."""
     TILE = {"wc": (("WC & sanibroyeur", "Wc & sanibroyeur"), ("La cuvette déborde", "De pot loopt over")),
             "evier": (("Évier & lavabo", "Gootsteen & lavabo"), ("L'eau s'écoule mal", "Het water loopt slecht weg")),
             "douche": (("Douche & bain", "Douche & bad"), ("L'eau stagne au fond", "Het water blijft staan")),
-            "egout": (("Égout & caméra", "Riool & camera"), ("Refoulement, odeurs", "Terugslag, geurtjes"))}
+            "egout": (("Égout & caméra", "Riool & camera"), ("Refoulement, odeurs", "Terugslag, geurtjes")),
+            "plomberie": (("Plomberie", "Loodgieterij"), ("Fuite, robinet, chauffe-eau", "Lek, kraan, boiler"))}
     k = 0 if L == "fr" else 1
+    keys = [g[0] for g in GROUPS] + ["plomberie"]
     items = []
-    for i, (main, others, title, desc) in enumerate(GROUPS):
+    for i, main in enumerate(keys):
         s = svc_by_id(main); t, sym = TILE[main]
-        items.append(f'''<li class="reveal" data-d="{i}"><a class="tl" href="{url(L, s["slug"][L])}" title="{e(title[L])}">
+        items.append(f'''<li class="reveal" data-d="{i}"><a class="tl" href="{url(L, s["slug"][L])}">
  <span class="tl-art tl-photo" aria-hidden="true">{tile_photo(main)}</span>
  <span class="tl-body"><span class="tl-t">{e(t[k])}</span><span class="tl-s">{e(sym[k])}</span></span>
  <span class="tl-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''')
-    return f'<ul class="svc-grid tl-grid">{"".join(items)}</ul>'
+    return f'<ul class="svc-grid tl-grid tl-5">{"".join(items)}</ul>'
 
 PIPE_FX = ('<div class="spw" aria-hidden="true">'
            '<div class="spw-run"><i class="spw-water"></i></div>'
@@ -1599,7 +1602,6 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
- {plomberie_strip(L)}
 </div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
     schemas = [business_schema(L), faq_schema([qa for _, qs in HOME_FAQ[L] for qa in qs]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
