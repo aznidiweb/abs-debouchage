@@ -1531,41 +1531,30 @@ HOME_FAQ = {
 }
 
 def faq_section(L, items, title=None, cls="", groups=None):
-    """FAQ en fiches mémo : on fait glisser les cartes, on touche une carte pour la retourner et lire la réponse.
-    Sans JS : les cartes montrent question et réponse l'une sous l'autre."""
+    """FAQ : liste des questions + réponse à côté (ordinateur), accordéon (mobile). Sans JS : accordéon."""
     u = UI[L]; fr = L == "fr"
     groups = groups or [(None, items)]
-    cards = ""; n = 0
-    flip_q = "Voir la réponse" if fr else "Bekijk het antwoord"
-    flip_a = "Retour à la question" if fr else "Terug naar de vraag"
+    n = 0; lst = ""
     for g, qs in groups:
+        if g: lst += f'<p class="fq-g">{e(g)}</p>'
         for q, a in qs:
             n += 1
-            tag = f'<span class="fc-tag">{e(g)}</span>' if g else ""
-            cards += (f'<li class="fcard" id="faq-{n}"><button type="button" class="fc-flip" aria-expanded="false">'
-                      f'<span class="fc-in">'
-                      f'<span class="fc-face fc-front"><span class="fc-n" aria-hidden="true">{n:02d}</span><span class="fc-q">{e(q)}</span>'
-                      f'<span class="fc-foot">{tag}<span class="fc-hint">{flip_q}{ico("arrow")}</span></span></span>'
-                      f'<span class="fc-face fc-back"><span class="fc-qs">{e(q)}</span><span class="fc-a">{e(a)}</span>'
-                      f'<span class="fc-foot"><span class="fc-hint fc-hint-b">{ico("chevl")}{flip_a}</span></span></span>'
-                      f'</span></button></li>')
-    lead = ("Les questions qu'on nous pose le plus souvent au téléphone. Faites glisser, touchez une fiche pour voir la réponse." if fr
-            else "De vragen die we het vaakst aan de telefoon krijgen. Veeg, tik op een kaart voor het antwoord.")
+            lst += (f'<details class="fq-i" id="faq-{n}"{f' data-g="{e(g)}"' if g else ""}><summary><span class="fq-q">{e(q)}</span>{ico("chev")}</summary>'
+                    f'<div class="fq-a"><p>{e(a)}</p></div></details>')
+    lead = ("Les questions qu'on nous pose le plus souvent au téléphone, avec des réponses franches." if fr
+            else "De vragen die we het vaakst aan de telefoon krijgen, met eerlijke antwoorden.")
     more_t = "Pas trouvé votre réponse ?" if fr else "Je antwoord niet gevonden?"
-    more_p = "Posez-la directement à un technicien, 24h/24." if fr else "Vraag het rechtstreeks aan een technieker, 24/7."
-    cards += (f'<li class="fcard fc-last"><div class="fc-face fc-end"><span class="fc-q">{more_t}</span><span class="fc-a">{more_p}</span>'
-              f'<span class="fc-acts"><a class="btn btn-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>'
-              f'<a class="fc-wa" href="https://wa.me/{WHATSAPP}" target="_blank" rel="noopener">{ico("wa")}WhatsApp</a></span></div></li>')
-    total = n + 1
-    prev_l, next_l = ("Fiche précédente", "Fiche suivante") if fr else ("Vorige kaart", "Volgende kaart")
-    return f'''<section class="section fq-sec fc-sec {cls}" id="faq"><div class="wrap">
- <div class="fc-head reveal"><div><h2>{title or u["f_title"]}</h2><p>{lead}</p></div>
-  <div class="fc-ctrl" aria-hidden="false"><span class="fc-count" aria-live="polite"><b data-fcn>1</b> / {total}</span>
-   <button type="button" class="fc-nav" data-fcprev aria-label="{prev_l}">{ico("chevl")}</button><button type="button" class="fc-nav" data-fcnext aria-label="{next_l}">{ico("chevr")}</button></div></div>
-</div>
-<div class="fc-deck" data-fcards><ul class="fc-track" tabindex="0" aria-label="{"Questions fréquentes" if fr else "Veelgestelde vragen"}">{cards}</ul>
- <div class="fc-dots" aria-hidden="true">{"".join("<i></i>" for _ in range(total))}</div></div>
-</section>'''
+    more_p = "Posez-la directement à un technicien." if fr else "Vraag het rechtstreeks aan een technieker."
+    more = (f'<div class="fq-more"><p><b>{more_t}</b> {more_p}</p><div class="fq-more-a">'
+            f'<a class="fq-link" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>'
+            f'<a class="fq-link" href="https://wa.me/{WHATSAPP}" target="_blank" rel="noopener">{ico("wa")}WhatsApp</a></div></div>')
+    return f'''<section class="section fq-sec {cls}" id="faq"><div class="wrap">
+ <div class="fq-head reveal"><h2>{title or u["f_title"]}</h2><p>{lead}</p></div>
+ <div class="fq" data-fq>
+  <div class="fq-list">{lst}{f'<button type="button" class="fq-all" data-fqall>{"Voir les" if fr else "Bekijk de"} {n - 4} {"autres questions" if fr else "andere vragen"}{ico("chev")}</button>' if n > 5 else ""}</div>
+  <div class="fq-side"><div class="fq-panel" aria-live="polite" hidden></div>{more}</div>
+ </div>
+</div></section>'''
 
 def band(L):
     t = TX[L]; fr = L == "fr"
