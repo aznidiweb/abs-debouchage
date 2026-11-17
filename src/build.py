@@ -3,6 +3,7 @@
 Générateur du site ABS Débouchage.
 Usage :  python3 src/build.py      → régénère tout le dossier public/
 """
+import re
 import json, os, shutil, html, datetime
 from content import *
 
@@ -444,7 +445,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
   {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
-  <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
+  {"" if big_h1 else f'<h1 class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</h1>'}
   <div class="slide-txt">{txts}</div>
   {extra}
   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -1148,7 +1149,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
   {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
-  <{"p" if big_h1 else "h1"} class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</{"p" if big_h1 else "h1"}>
+  {"" if big_h1 else f'<h1 class="hlabel"><span class="pulse"></span>{h1 or t["h1"]}</h1>'}
   <div class="slide-txt">{txts}</div>
   {extra}
   <div class="cta-row">{btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}<a class="btn btn-glass btn-lg" href="#diagnostic">{DIAG_UI[L]["label"]}{ico("arrow")}</a></div>{urg_btn(L)}
@@ -1950,8 +1951,21 @@ def write(rel, content):
         content = re.sub(r'((?:href|src|action|content)=")/(?!/)', r"\1" + BASE + "/", content)
         content = re.sub(r'(srcset="[^"]*)', lambda m: re.sub(r'(^|, )/(?!/)', r"\1" + BASE + "/", m.group(1)), content)
         content = content.replace('"start_url": "/"', '"start_url": "' + BASE + '/"')
+    if rel.endswith(".html") and not rel.startswith("nl/"):
+        content = fr_typo(content)
     with open(p, "w", encoding="utf-8") as f:
         f.write(content)
+
+_TYPO_SPLIT = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)', re.S)
+_TYPO_BEFORE = re.compile(r'(?<!\s) ([?!:;»])')
+def fr_typo(html):
+    """Typographie française : espace insécable avant ? ! : ; » et après «, pour qu'une ponctuation
+    ne tombe jamais seule en début de ligne. Ne touche ni aux balises, ni aux scripts, ni aux styles."""
+    parts = _TYPO_SPLIT.split(html)
+    for i in range(0, len(parts), 2):
+        t = _TYPO_BEFORE.sub("\u00a0\\1", parts[i])
+        parts[i] = t.replace("\u00ab ", "\u00ab\u00a0")
+    return "".join(parts)
 
 def build():
     # on garde les images générées (og, favicon) si elles existent

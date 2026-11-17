@@ -2627,3 +2627,18 @@ details.dv-tip p{margin:0;padding:0 14px 13px}
 .lp-how li{align-items:flex-start}
 .lp-how li .ico{color:var(--brand);margin-top:2px}
 .lp-how b{color:var(--ink)}
+
+/* =====================================================================
+   Passage « site impeccable » (nov. 2026)
+   ===================================================================== */
+/* Détails du navigateur aux couleurs du site */
+::selection{background:#1156c7;color:#fff}
+input,textarea{caret-color:#1156c7}
+:root{accent-color:#1156c7;scrollbar-color:#9fb3cf transparent}
+/* Titres équilibrés, paragraphes sans mot orphelin */
+h1,h2,h3,.hp-title{text-wrap:balance}
+p,li,.sv-d,.tl-s{text-wrap:pretty}
+/* Accueil mobile : le logo reste lisible sur la photo */
+@media (max-width:760px){
+ .hero-video .hv-media::after{background:linear-gradient(180deg,rgba(7,12,19,.86) 0,rgba(7,12,19,.55) 12%,rgba(7,12,19,0) 26%,rgba(7,12,19,0) 55%,rgba(10,17,26,.85) 85%,#0a111a 100%)!important}
+}
