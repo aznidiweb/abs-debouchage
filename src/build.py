@@ -2181,6 +2181,8 @@ def build():
 """)
     # Fichier de vérification Google Search Console (compte absdebouchage@gmail.com) : ne pas supprimer
     write("google2196b988844a437f.html", "google-site-verification: google2196b988844a437f.html")
+    # Fichier de vérification Bing Webmaster Tools (compte absdebouchage@gmail.com) : ne pas supprimer
+    write("BingSiteAuth.xml", '<?xml version="1.0"?>\n<users>\n\t<user>8420E670895D3757EB23A544A1AE15D4</user>\n</users>\n')
     write("_redirects", "/fr/* /:splat 301\n/debouchage-toilette /debouchage-sanibroyeur 301\n/debouchage-toilette.html /debouchage-sanibroyeur 301\n")
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",
           "background_color": "#0b131f", "theme_color": "#0b131f",
