@@ -14,7 +14,7 @@ EMAIL = "contact@absdebouchage.be"
 SOCIAL = [
     ("instagram", "Instagram", "https://www.instagram.com/absdebouchage/"),
     ("facebook", "Facebook", "https://www.facebook.com/absdebouchage"),
-    ("tiktok", "TikTok", ""),
+    ("tiktok", "TikTok", "https://www.tiktok.com/@abs.debouchage"),
 ]
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
