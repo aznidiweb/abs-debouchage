@@ -2179,6 +2179,8 @@ def build():
   Cache-Control: no-store
   X-Robots-Tag: noindex
 """)
+    # Fichier de vérification Google Search Console (compte absdebouchage@gmail.com) : ne pas supprimer
+    write("google2196b988844a437f.html", "google-site-verification: google2196b988844a437f.html")
     write("_redirects", "/fr/* /:splat 301\n/debouchage-toilette /debouchage-sanibroyeur 301\n/debouchage-toilette.html /debouchage-sanibroyeur 301\n")
     write("site.webmanifest", json.dumps({"name": BRAND, "short_name": "ABS", "start_url": "/", "display": "standalone",
           "background_color": "#0b131f", "theme_color": "#0b131f",
