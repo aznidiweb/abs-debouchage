@@ -319,7 +319,7 @@ PHOTOS = {
  "tools":    ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
 }
 SVC_PHOTO = {"wc": "wc", "sanibroyeur": "wallwork", "evier": "sink", "lavabo": "siphon", "douche": "bathroom",
-             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
+             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "fosse": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
 
 def photo_url(key, w=1200, h=None):
     return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}{f'&h={h}' if h else ''}&q=72"
@@ -518,8 +518,8 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
   {"fr": "Graisse, cheveux, siphon et conduites de cuisine.", "nl": "Vet, haren, sifon en keukenleidingen."}),
  ("douche", ["baignoire", "siphon"], {"fr": "Douche, bain & siphon de sol", "nl": "Douche, bad & afvoerputje"},
   {"fr": "Eau qui stagne, sans casser le carrelage.", "nl": "Stilstaand water, zonder tegels te breken."}),
- ("egout", ["camera"], {"fr": "Égout & inspection caméra", "nl": "Riool & camera-inspectie"},
-  {"fr": "Refoulement en cave, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, hogedruk, HD-camera."}),
+ ("egout", ["fosse", "camera"], {"fr": "Égout, fosse septique & caméra", "nl": "Riool, septische put & camera"},
+  {"fr": "Refoulement en cave, vidange de fosse, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, put ledigen, hogedruk, HD-camera."}),
 ]
 
 def cards(L, exclude=None):
@@ -1017,7 +1017,7 @@ PHOTOS = {
  "tools":    ("photo-1771122453274-d3270e73cf94", {"fr": "Sac à outils de plombier", "nl": "Gereedschapstas van een loodgieter"}),
 }
 SVC_PHOTO = {"wc": "wc", "sanibroyeur": "wallwork", "evier": "sink", "lavabo": "siphon", "douche": "bathroom",
-             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
+             "baignoire": "bath", "cuisine": "pipes", "egout": "sewer", "fosse": "sewer", "siphon": "floordrain", "camera": "pipecam", "plomberie": "pipes"}
 
 def photo_url(key, w=1200, h=None):
     return f"https://images.unsplash.com/{PHOTOS[key][0]}?auto=format&fit=crop&w={w}{f'&h={h}' if h else ''}&q=72"
@@ -1238,8 +1238,8 @@ GROUPS = [  # (service principal = lien + animation, autres services de la famil
   {"fr": "Graisse, cheveux, siphon et conduites de cuisine.", "nl": "Vet, haren, sifon en keukenleidingen."}),
  ("douche", ["baignoire", "siphon"], {"fr": "Douche, bain & siphon de sol", "nl": "Douche, bad & afvoerputje"},
   {"fr": "Eau qui stagne, sans casser le carrelage.", "nl": "Stilstaand water, zonder tegels te breken."}),
- ("egout", ["camera"], {"fr": "Égout & inspection caméra", "nl": "Riool & camera-inspectie"},
-  {"fr": "Refoulement en cave, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, hogedruk, HD-camera."}),
+ ("egout", ["fosse", "camera"], {"fr": "Égout, fosse septique & caméra", "nl": "Riool, septische put & camera"},
+  {"fr": "Refoulement en cave, vidange de fosse, hydrocurage, caméra HD.", "nl": "Terugslag in de kelder, put ledigen, hogedruk, HD-camera."}),
 ]
 
 TILE_PHOTO = {"wc": "photo-1749532125405-70950966b0e5", "evier": "photo-1676210134188-4c05dd172f89",
@@ -1270,7 +1270,7 @@ def cards(L, exclude=None):
     TILE = {"wc": (("WC & sanibroyeur", "Wc & sanibroyeur"), ("La cuvette déborde", "De pot loopt over")),
             "evier": (("Évier & lavabo", "Gootsteen & lavabo"), ("L'eau s'écoule mal", "Het water loopt slecht weg")),
             "douche": (("Douche & bain", "Douche & bad"), ("L'eau stagne au fond", "Het water blijft staan")),
-            "egout": (("Égout & caméra", "Riool & camera"), ("Refoulement, odeurs", "Terugslag, geurtjes")),
+            "egout": (("Égout & fosse septique", "Riool & septische put"), ("Refoulement, fosse pleine", "Terugslag, volle put")),
             "plomberie": (("Plomberie", "Loodgieterij"), ("Fuite, robinet, chauffe-eau", "Lek, kraan, boiler"))}
     k = 0 if L == "fr" else 1
     keys = [g[0] for g in GROUPS] + ["plomberie"]

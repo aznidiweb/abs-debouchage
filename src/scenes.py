@@ -11,7 +11,7 @@ import html
 T = 12  # durée d'une boucle, en secondes
 
 KIND = {"wc": "A", "sanibroyeur": "A", "evier": "B", "lavabo": "B", "cuisine": "B",
-        "douche": "C", "baignoire": "C", "siphon": "C", "egout": "D", "camera": "E"}
+        "douche": "C", "baignoire": "C", "siphon": "C", "egout": "D", "fosse": "D", "camera": "E"}
 
 FIRST = {  # première légende, propre à chaque service
     "wc": ("WC bouché : l'eau ne descend plus", "Wc verstopt: het water zakt niet meer"),
@@ -23,6 +23,7 @@ FIRST = {  # première légende, propre à chaque service
     "baignoire": ("Baignoire bouchée : l'eau stagne", "Bad verstopt: het water blijft staan"),
     "siphon": ("Siphon de sol bouché", "Afvoerputje verstopt"),
     "egout": ("Égout bouché : racines et graisses", "Riool verstopt: wortels en vet"),
+    "fosse": ("Fosse septique pleine : vidange par camion", "Volle septische put: ledigen met de wagen"),
     "camera": ("Caméra HD dans la canalisation", "HD-camera in de leiding"),
 }
 STEPS = {

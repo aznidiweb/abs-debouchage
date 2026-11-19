@@ -287,6 +287,35 @@ SERVICES = [
   }
  },
  {
+  "id": "fosse", "icon": "manhole", "price": None, "slug": {"fr": "vidange-fosse-septique", "nl": "septische-put-ledigen"},
+  "fr": {
+   "name": "Vidange fosse septique",
+   "card": "Fosse septique pleine, odeurs, débordement : vidange par camion.",
+   "title": "Vidange fosse septique 24h/24 – Belgique | ABS Débouchage",
+   "desc": "Fosse septique pleine ou qui déborde ? Vidange et curage par camion, 24h/24 en Wallonie, Flandre et Bruxelles. Prix annoncé avant. ☎ 0484 72 47 24",
+   "h1": "Vidange et curage de fosse septique",
+   "intro": "Une fosse septique pleine fait remonter les eaux usées, sent mauvais et peut abîmer le système d'épuration. Nous venons avec un camion de vidange : aspiration des boues, curage des canalisations d'arrivée et contrôle de l'écoulement. Le prix est annoncé au téléphone avant le départ.",
+   "signs": ["Odeurs d'égout autour de la maison ou dans le jardin", "WC et éviers qui s'écoulent lentement partout", "Eau ou boues qui remontent par le regard de la fosse", "Pas de vidange depuis plusieurs années"],
+   "causes": ["Fosse pleine : boues et graisses accumulées", "Canalisation d'arrivée bouchée", "Lingettes et graisses envoyées dans les WC", "Préfiltre ou dégraisseur colmaté"],
+   "method": [["Ouverture", "Repérage et ouverture du regard de la fosse."], ["Vidange", "Aspiration des boues et des eaux par camion."], ["Curage", "Débouchage des canalisations d'arrivée et de sortie si besoin."], ["Contrôle", "Test d'écoulement et conseils d'entretien, facture remise sur place."]],
+   "tip": "En attendant : limitez l'eau (pas de lave-linge ni de bain) et ne jetez rien d'autre que du papier toilette dans les WC.",
+   "faq": [["Combien coûte une vidange de fosse septique ?", "Le prix dépend du volume de la fosse, de l'accès pour le camion et de la distance. Il vous est annoncé au téléphone avant le départ, et c'est ce prix qui figure sur la facture."], ["Tous les combien faut-il vider une fosse septique ?", "En général tous les 3 à 4 ans pour une famille, plus souvent si la fosse est petite ou très utilisée. Des odeurs ou un écoulement lent sont le signe qu'elle est pleine."], ["Le camion doit-il pouvoir accéder au jardin ?", "Le camion reste dans la rue ou l'allée, et le tuyau d'aspiration va jusqu'à la fosse. Dites-nous au téléphone à quelle distance elle se trouve."]]
+  },
+  "nl": {
+   "name": "Septische put ledigen",
+   "card": "Volle septische put, geurtjes, overlopen: ledigen met de wagen.",
+   "title": "Septische put ledigen 24/7 – België | ABS Débouchage",
+   "desc": "Septische put vol of loopt hij over? Ledigen en ruimen met de wagen, 24/7 in Vlaanderen, Wallonië en Brussel. Prijs vooraf. ☎ 0484 72 47 24",
+   "h1": "Septische put ledigen en ruimen",
+   "intro": "Een volle septische put laat afvalwater terugkomen, ruikt slecht en kan je zuiveringssysteem beschadigen. We komen met een ledigingswagen: slib afzuigen, aanvoerleidingen ruimen en de afvoer controleren. Je krijgt de prijs aan de telefoon voor we vertrekken.",
+   "signs": ["Rioolgeur rond het huis of in de tuin", "Wc's en gootstenen lopen overal traag af", "Water of slib komt omhoog langs het putdeksel", "Al jaren niet meer geledigd"],
+   "causes": ["Volle put: slib en vet opgehoopt", "Verstopte aanvoerleiding", "Doekjes en vet in de wc", "Verstopte voorfilter of vetvanger"],
+   "method": [["Openen", "Put opzoeken en deksel openen."], ["Ledigen", "Slib en water wegzuigen met de wagen."], ["Ruimen", "Aanvoer- en afvoerleidingen ontstoppen indien nodig."], ["Controle", "Afvoertest en onderhoudstips, factuur ter plaatse."]],
+   "tip": "In afwachting: gebruik zo weinig mogelijk water (geen wasmachine of bad) en spoel enkel wc-papier door.",
+   "faq": [["Hoeveel kost het ledigen van een septische put?", "De prijs hangt af van het volume, de toegang voor de wagen en de afstand. Je krijgt hem aan de telefoon voor we vertrekken, en die prijs staat op de factuur."], ["Hoe vaak moet een septische put geledigd worden?", "Meestal om de 3 tot 4 jaar voor een gezin, vaker bij een kleine of intensief gebruikte put. Geurtjes of trage afvoer betekenen dat hij vol is."], ["Moet de wagen tot in de tuin kunnen?", "De wagen blijft op straat of de oprit, de zuigslang gaat tot aan de put. Zeg ons aan de telefoon hoe ver de put ligt."]]
+  }
+ },
+ {
   "id": "siphon", "icon": "drain", "price": None, "slug": {"fr": "debouchage-siphon", "nl": "ontstopping-afvoerputje"},
   "fr": {
    "name": "Siphon de sol",
@@ -453,7 +482,7 @@ UI = {
   "p_kick": "Tarifs transparents", "p_title": "Des prix clairs, sans surprise",
   "p_lead": "Le prix exact est confirmé avant l'intervention. Ce qui est annoncé est ce que vous payez.",
   "badge": "Le plus demandé", "from_long": "à partir de", "price_lbl": "prix",
-  "plans": [["Débouchage sanitaire", None, ["WC, évier, lavabo, douche, siphon", "Furet électrique professionnel", "Test d'écoulement après travaux"]], ["Égout & haute pression", None, ["Égout, colonne, chambre de visite", "Camion hydrocureur 400 bars", "Racines, graisse et calcaire éliminés"]], ["Inspection caméra", None, ["Caméra HD rotative 360°", "Localisation au centimètre", "Rapport vidéo pour assurance ou syndic"]]],
+  "plans": [["Débouchage sanitaire", None, ["WC, évier, lavabo, douche, siphon", "Furet électrique professionnel", "Test d'écoulement après travaux"]], ["Égout, fosse & haute pression", None, ["Égout, colonne, chambre de visite", "Vidange de fosse septique par camion", "Camion hydrocureur 400 bars"]], ["Inspection caméra", None, ["Caméra HD rotative 360°", "Localisation au centimètre", "Rapport vidéo pour assurance ou syndic"]]],
   "ask_price": "Demander le prix", "p_note": "Devis gratuit et sans engagement : le prix exact vous est annoncé avant toute intervention.",
   "z_kick": "Zone d'intervention", "z_title": "Partout en Belgique",
   "z_lead": "Nous intervenons partout en Belgique, 24h/24 : à Bruxelles, en Wallonie et en Flandre.",
@@ -539,7 +568,7 @@ ABOUT = {
   "h1": "À propos d'ABS Débouchage",
   "lead": "Une entreprise belge spécialisée dans le débouchage d'urgence, l'hydrocurage et l'inspection caméra, pour les particuliers, les syndics, les commerces et les restaurants, à Bruxelles et dans toute la Belgique.",
   "blocks": [["Nos engagements", ["Intervention rapide, 24h/24 et 7j/7.", "Prix annoncé avant le départ du technicien : c'est ce prix qui figure sur la facture.", "Aucun travail ne commence sans votre accord.", "Intervention propre : la zone est nettoyée avant notre départ."]],
-             ["Notre matériel", ["Furets électriques rotatifs professionnels.", "Camions hydrocureurs haute pression jusqu'à 400 bars.", "Caméra d'inspection HD rotative 360° avec sonde de localisation.", "Aucun produit chimique corrosif."]],
+             ["Notre matériel", ["Furets électriques rotatifs professionnels.", "Camions hydrocureurs haute pression jusqu'à 400 bars.", "Camion de vidange pour fosses septiques.", "Caméra d'inspection HD rotative 360° avec sonde de localisation.", "Aucun produit chimique corrosif."]],
              ["Assurance & facturation", ["Facture officielle avec n° TVA BE 0719.885.401.", "Rapport technique et vidéo pour votre dossier d'assurance.", "Documents acceptés par les syndics et notaires."]]]
  },
  "nl": {
@@ -599,6 +628,9 @@ DIAG = {
  "egout": [("urgent", "Les eaux usées remontent dans la cave", "Afvalwater komt omhoog in de kelder"),
            ("urgent", "Le regard (chambre de visite) déborde", "De inspectieput loopt over"),
            ("today", "Tout s'écoule mal, surtout quand il pleut", "Alles loopt slecht af, vooral bij regen")],
+ "fosse": [("urgent", "La fosse déborde ou les eaux usées remontent", "De put loopt over of het afvalwater komt terug"),
+           ("today", "Odeurs autour de la maison, tout s'écoule lentement", "Geurtjes rond het huis, alles loopt traag af"),
+           ("plan", "Vidange d'entretien (pas faite depuis des années)", "Onderhoudslediging (al jaren niet gedaan)")],
  "siphon": [("urgent", "L'eau déborde du siphon", "Het water loopt over uit het putje"),
             ("today", "Une flaque reste autour du siphon", "Er blijft een plas rond het putje staan"),
             ("plan", "Une odeur d'égout remonte", "Er komt een rioolgeur omhoog")],
@@ -678,7 +710,7 @@ REQ_PROBLEMS = [
 ]
 # Service d'une page → carte présélectionnée à l'étape 1
 REQ_PRE = {"wc": "wc", "sanibroyeur": "wc", "evier": "evier", "lavabo": "evier", "douche": "douche", "baignoire": "douche",
-           "cuisine": "canalisation", "siphon": "canalisation", "egout": "egout", "camera": "camera", "plomberie": "plomberie"}
+           "cuisine": "canalisation", "siphon": "canalisation", "egout": "egout", "fosse": "egout", "camera": "camera", "plomberie": "plomberie"}
 REQ_ODEURS_SITS = [("today", "Odeur d'égout dans la maison", "Rioolgeur in huis"),
                    ("plan", "Odeur qui revient de temps en temps", "Geur die af en toe terugkomt"),
                    ("today", "Odeur avec gargouillements ou écoulement lent", "Geur met geborrel of trage afvoer")]
