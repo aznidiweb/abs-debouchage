@@ -1,0 +1,12 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+<rect width="1080" height="1080" fill="#fff"/>
+<circle cx="540" cy="540" r="520" fill="#0f2238"/>
+<circle cx="540" cy="540" r="338" fill="#fff"/>
+<defs><path id="top" d="M 125 540 A 415 415 0 0 1 955 540"/><path id="bot" d="M 158 540 A 382 382 0 0 0 922 540"/></defs>
+<text font-size="112" font-weight="800" fill="#fff" letter-spacing="14"><textPath href="#top" startOffset="50%" text-anchor="middle">DÉBOUCHAGE</textPath></text>
+<text font-size="74" font-weight="800" fill="#fff" letter-spacing="10" dominant-baseline="hanging"><textPath href="#bot" startOffset="50%" text-anchor="middle">24H/24 · BELGIQUE</textPath></text>
+<circle cx="112" cy="540" r="15" fill="#e2571c"/><circle cx="968" cy="540" r="15" fill="#e2571c"/>
+<path d="M418 318 V418 Q418 498 498 498 H548 Q608 498 608 438 V330 H690" stroke="#e2571c" stroke-width="62" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(652 372) scale(3.6)"><path d="M24 9.5c5.6 6.6 9.4 11.8 9.4 17a9.4 9.4 0 0 1-18.8 0c0-5.2 3.8-10.4 9.4-17z" fill="#0a76b8"/><path d="M19.4 27.2c-.3-2.6.6-5 2.2-7" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+<text x="540" y="742" font-size="168" font-weight="800" fill="#0f2238" text-anchor="middle" letter-spacing="-4">ABS</text>
+</svg>
