@@ -19,6 +19,9 @@ e = html.escape
 
 # ---------------------------------------------------------------- icônes SVG
 P = {
+ "instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
+ "facebook": '<path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/>',
+ "tiktok": '<path d="M14 3v11.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/>',
  "smell": '<path d="M8 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/><path d="M12.5 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/><path d="M17 20c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>',
  "phone": '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
  "check": '<path d="M20 6 9 17l-5-5"/>',
@@ -172,7 +175,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_],
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -417,6 +420,7 @@ def footer(L):
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p class="fc-social">{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -881,7 +885,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_],
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -1115,6 +1119,7 @@ def footer(L):
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p class="fc-social">{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">

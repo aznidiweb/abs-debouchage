@@ -9,6 +9,13 @@ PHONE_DISPLAY = "0484 72 47 24"
 PHONE_TEL = "+32484724724"
 WHATSAPP = "32484724724"
 EMAIL = "contact@absdebouchage.be"
+
+# Réseaux sociaux officiels (pied de page + données Google « sameAs »). Laisser vide ce qui n'existe pas encore.
+SOCIAL = [
+    ("instagram", "Instagram", "https://www.instagram.com/absdebouchage/"),
+    ("facebook", "Facebook", "https://www.facebook.com/absdebouchage"),
+    ("tiktok", "TikTok", ""),
+]
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
 BRAND = "ABS Débouchage"

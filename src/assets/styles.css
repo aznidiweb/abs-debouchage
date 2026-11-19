@@ -3040,3 +3040,9 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 @media(max-width:1100px){.contact-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.contact-grid{grid-template-columns:1fr}}
 .c-card b{overflow-wrap:anywhere}
+
+/* Réseaux sociaux (pied de page) */
+.fc-social{display:flex;gap:10px;margin-top:14px}
+.fc-social a{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.18);color:#dbe7f5;transition:background .2s,color .2s,border-color .2s}
+.fc-social a:hover,.fc-social a:focus-visible{background:#fff;color:#0f2238;border-color:#fff}
+.fc-social .ico{width:20px;height:20px}
