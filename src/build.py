@@ -172,7 +172,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -416,7 +416,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -881,7 +881,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL,
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -1114,7 +1114,7 @@ def footer(L):
     return f'''<footer class="footer fc"><div class="wrap">
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
-  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+  <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -1808,6 +1808,7 @@ def page_contact(L):
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part ensuite chez vous." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Daarna vertrekt een technieker naar je toe.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
+              ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"),
               ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
                  f'<span class="ic">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if hh else '</div>') for ic, l, v, hh in cards_)

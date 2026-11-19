@@ -3034,3 +3034,9 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
  .rq-card .rq-l{font-size:12px!important}
  .rq-ut small{display:none}
 }
+
+/* Contact : 4 cartes (appel, WhatsApp, e-mail, horaires) */
+.contact-grid{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1100px){.contact-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.contact-grid{grid-template-columns:1fr}}
+.c-card b{overflow-wrap:anywhere}
