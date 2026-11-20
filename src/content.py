@@ -24,8 +24,8 @@ BRAND = "ABS Débouchage"
 # Laisser vide tant que le compte n'existe pas : aucun script Google n'est chargé et aucun bandeau n'apparaît.
 # Exemple une fois le compte créé : GADS_ID = "AW-123456789", GADS_CALL = "AbCdEf123", GADS_WA = "XyZ987"
 GADS_ID = "AW-18584749791"      # identifiant du compte (Outils > Conversions > balise Google)
-GADS_CALL = ""    # libellé de la conversion « Clic sur le numéro »
-GADS_WA = ""      # libellé de la conversion « Clic WhatsApp »
+GADS_CALL = "9gY3CNTsmrwdEN-N851F"    # libellé de la conversion « Clic sur le numéro »
+GADS_WA = "KNNmCNfsmrwdEN-N851F"      # libellé de la conversion « Clic WhatsApp »
 LEGAL_NAME = "C.R.N.M. & Cie SRL"
 STREET = "Rue de la Carpe 2"
 POSTCODE = "1080"
