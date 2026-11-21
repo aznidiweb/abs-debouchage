@@ -96,11 +96,11 @@ def header(L, alt_url, current=""):
     def cur(k): return ' aria-current="page"' if current == k else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="topbar"><div class="wrap">
- <div class="live"><span class="pulse" aria-hidden="true"></span><span class="hide-sm">{e(u["top"])}</span><span class="show-sm">{"Disponible 24h/24 – 7j/7" if L=="fr" else "Beschikbaar 24/7"}</span><b class="hide-sm">· {PHONE_DISPLAY}</b></div>
+ <div class="live"><span class="pulse" aria-hidden="true"></span><span class="hide-sm">{e(u["top"])}</span><span class="show-sm">{"7j/7 · 6h–21h" if L=="fr" else "7/7 · 6–21 uur"}</span><b class="hide-sm">· {PHONE_DISPLAY}</b></div>
  <nav class="lang" aria-label="Langue / Taal">{lang_sw}</nav>
 </div></div>
 <header class="header"><div class="wrap">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS Débouchage</span><span class="brand-sub">{"&amp; Plomberie · 7j/7" if L=="fr" else "&amp; Loodgieterij · 7/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -181,10 +181,10 @@ def business_schema(L):
         "legalName": LEGAL_NAME,
         "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "06:00", "closes": "21:00"}],
         "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
-        "slogan": "Débouchage d'urgence 24h/24 à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Spoedontstopping 24/7 in Brussel, Vlaanderen en Wallonië",
+        "slogan": "Débouchage 7j/7 de 6h à 21h à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Ontstopping 7/7 van 6 tot 21 uur in Brussel, Vlaanderen en Wallonië",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
@@ -334,46 +334,46 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage 24h/24 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
-  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
+  "h1": "Débouchage 7j/7 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
+  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, tous les jours de 6h à 21h. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
-  "avail": ("Technicien disponible", "Jour et nuit"),
+  "avail": ("Technicien disponible", "7j/7, 6h–21h"),
   "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
   "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
   "feat": [("shield", "Techniciens expérimentés", "Des déboucheurs équipés de furets électriques, de pompes haute pression et d'une caméra HD."),
            ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
            ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
-  "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
-  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
+  "hq": ("Zone d'intervention", "Toute la Belgique", "7j/7, 6h–21h"),
+  "stats": [("6h–21h", "7 jours sur 7"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Choisissez votre problème : on a le bon matériel pour chacun.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
   "steps_chip": "Comment ça se passe", "steps_title": "Comment se passe <em>une intervention.</em>",
-  "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
+  "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 7j/7."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
             ("truck", "Intervention", "Le technicien arrive rapidement, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
   "diag_chip": "Diagnostic express", "diag_title": "Trois questions, et vous savez <em>quoi faire.</em>",
   "band_title": "Un appel suffit. On se déplace.", "band_lead": "On écoute votre problème, on vous donne le prix au téléphone, et un technicien part chez vous.",
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping 24/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
-  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
+  "h1": "Ontstopping 7/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
+  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, elke dag van 6 tot 21 uur. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
-  "avail": ("Technieker beschikbaar", "Dag en nacht"),
+  "avail": ("Technieker beschikbaar", "7/7, 6–21 uur"),
   "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
   "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
   "feat": [("shield", "Ervaren techniekers", "Ontstoppers met elektrische veren, hogedrukpompen en een HD-camera."),
            ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
            ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
-  "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
-  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
+  "hq": ("Werkgebied", "Heel België", "7/7, 6–21 uur"),
+  "stats": [("6–21 uur", "7 dagen op 7"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Kies je probleem: we hebben voor elk het juiste materiaal.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
   "steps_chip": "Hoe het werkt", "steps_title": "Zo verloopt <em>een interventie.</em>",
-  "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
+  "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 7/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
             ("truck", "Interventie", "De technieker is er snel, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
   "diag_chip": "Snelle diagnose", "diag_title": "Drie vragen, en je weet <em>wat te doen.</em>",
   "band_title": "Eén telefoontje volstaat. Wij komen.", "band_lead": "We luisteren naar je probleem, geven je de prijs aan de telefoon, en een technieker vertrekt naar je toe.",
@@ -399,7 +399,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 7j/7" if L=="fr" else "&amp; Loodgieterij · 7/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -465,13 +465,13 @@ def hero_home(L):
     u = UI[L]; t = TX[L]
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
-        lead = "Un technicien chez vous, <b>24h/24</b>.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
+        lead = "Un technicien chez vous, <b>7j/7</b>, de 6h à 21h.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
         pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
-        lead = "Een technieker bij je, <b>24/7</b>.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
+        lead = "Een technieker bij je, <b>7/7</b>, van 6 tot 21 uur.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
         pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
@@ -534,7 +534,7 @@ def cards(L, exclude=None):
         links = " · ".join(f'<span>{e(svc_by_id(o)[L]["name"])}</span>' for o in others)
         items.append(f'''<li class="reveal" data-d="{i%2}"><a class="sv sv-land" href="{url(L, s["slug"][L])}">
  <span class="sv-anim sc-mini" data-mini>{scene_mini(L, main, f"g{i}")}<span class="sv-ic" aria-hidden="true">{ico(s["icon"])}</span></span>
- <span class="sv-body"><span class="sv-t">{e(title[L])}</span><span class="sv-d">{e(desc[L])}</span><span class="sv-m">{"Devis gratuit · 24/7" if L == "fr" else "Gratis offerte · 24/7"}</span></span>
+ <span class="sv-body"><span class="sv-t">{e(title[L])}</span><span class="sv-d">{e(desc[L])}</span><span class="sv-m">{"Devis gratuit · 7/7" if L == "fr" else "Gratis offerte · 7/7"}</span></span>
  <span class="sv-go" aria-hidden="true">{ico("arrow")}</span>
 </a></li>''')
     return f'<ul class="svc-grid land g-4">{"".join(items)}</ul>'
@@ -649,7 +649,7 @@ PRICE_TX = {
         "factors": [("pipes", "Le type de bouchon", "Un siphon de lavabo ou une colonne d'égout, ce n'est pas le même travail."),
                     ("pin", "L'accès", "Étage, regard extérieur, cave ou faux plafond."),
                     ("gauge", "Le matériel nécessaire", "Furet, haute pression ou caméra d'inspection."),
-                    ("clock", "Le moment de l'intervention", "En journée, la nuit ou le week-end.")],
+                    ("clock", "Le moment de l'intervention", "En semaine, en soirée ou le week-end.")],
         "e_title": "Nos engagements", "e_lead": "Ce qui ne change jamais, quelle que soit l'intervention :",
         "eng": ["Le prix est annoncé avant de commencer", "Aucun travail sans votre accord", "Pas de frais cachés sur la facture",
                 "Facture officielle avec n° TVA pour votre assurance"],
@@ -660,7 +660,7 @@ PRICE_TX = {
         "factors": [("pipes", "Het soort verstopping", "Een lavabosifon of een rioolkolom is niet hetzelfde werk."),
                     ("pin", "De toegang", "Verdieping, buitenput, kelder of vals plafond."),
                     ("gauge", "Het nodige materiaal", "Veer, hogedruk of inspectiecamera."),
-                    ("clock", "Het moment van de interventie", "Overdag, 's nachts of in het weekend.")],
+                    ("clock", "Het moment van de interventie", "Doordeweeks, 's avonds of in het weekend.")],
         "e_title": "Onze beloftes", "e_lead": "Wat nooit verandert, welke interventie ook:",
         "eng": ["De prijs wordt vooraf meegedeeld", "Geen werk zonder je akkoord", "Geen verborgen kosten op de factuur",
                 "Officiële factuur met btw-nummer voor je verzekering"],
@@ -891,10 +891,10 @@ def business_schema(L):
         "legalName": LEGAL_NAME,
         "address": {"@type": "PostalAddress", "streetAddress": STREET, "postalCode": POSTCODE, "addressLocality": CITY[L], "addressRegion": "Bruxelles-Capitale" if L=="fr" else "Brussels Hoofdstedelijk Gewest", "addressCountry": "BE"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}],
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "06:00", "closes": "21:00"}],
         "areaServed": [{"@type": "Country", "name": "Belgique" if L=="fr" else "België"}] + [{"@type": "City", "name": c[0] if L == "fr" else c[1]} for c in COMMUNES] + [{"@type": "AdministrativeArea", "name": n[0] if L == "fr" else n[1]} for n in (("Bruxelles-Capitale", "Brussels Hoofdstedelijk Gewest"), ("Wallonie", "Wallonië"), ("Flandre", "Vlaanderen"))],
         "knowsLanguage": ["fr", "nl"],
-        "slogan": "Débouchage d'urgence 24h/24 à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Spoedontstopping 24/7 in Brussel, Vlaanderen en Wallonië",
+        "slogan": "Débouchage 7j/7 de 6h à 21h à Bruxelles, en Wallonie et en Flandre" if L == "fr" else "Ontstopping 7/7 van 6 tot 21 uur in Brussel, Vlaanderen en Wallonië",
         "knowsAbout": [s[L]["name"] for s in SERVICES],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services" if L == "fr" else "Diensten",
             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s[L]["name"], "url": abs_url(L, s["slug"][L])}} for s in SERVICES]},
@@ -1033,46 +1033,46 @@ def img(key, L, eager=False, sizes="(max-width: 960px) 100vw, 600px", widths=(48
 
 TX = {
  "fr": {
-  "h1": "Débouchage 24h/24 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
-  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, de jour comme de nuit. Prix annoncé avant de commencer.", "Évier & cuisine"),
+  "h1": "Débouchage 7j/7 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
+  "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, tous les jours de 6h à 21h. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
              ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
-  "avail": ("Technicien disponible", "Jour et nuit"),
+  "avail": ("Technicien disponible", "7j/7, 6h–21h"),
   "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
   "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
   "feat": [("shield", "Techniciens expérimentés", "Des déboucheurs équipés de furets électriques, de pompes haute pression et d'une caméra HD."),
            ("euro", "Prix annoncé avant de commencer", "Le prix est fixé au téléphone. Aucun travail ne démarre sans votre accord."),
            ("file", "Facture pour l'assurance", "Facture officielle avec n° TVA et rapport technique pour votre remboursement.")],
-  "hq": ("Zone d'intervention", "Toute la Belgique", "Disponible 24/7"),
-  "stats": [("24/7", "365 jours"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
+  "hq": ("Zone d'intervention", "Toute la Belgique", "7j/7, 6h–21h"),
+  "stats": [("6h–21h", "7 jours sur 7"), ("Gratuit", "Devis sur demande"), ("10 + 1", "Provinces + Bruxelles")],
   "cards_chip": "Nos interventions", "cards_title": "Tous les bouchons, <em>toutes les canalisations.</em>",
   "cards_lead": "Choisissez votre problème : on a le bon matériel pour chacun.",
   "card_eta": "Intervention rapide", "all": "Voir tous les services",
   "steps_chip": "Comment ça se passe", "steps_title": "Comment se passe <em>une intervention.</em>",
-  "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 24h/24."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
+  "steps": [("phone", "Vous nous contactez", "Par téléphone ou via le diagnostic express, 7j/7."), ("euro", "Prix annoncé", "On vous donne le prix avant de partir. Vous décidez."),
             ("truck", "Intervention", "Le technicien arrive rapidement, avec tout le matériel."), ("check", "Contrôle & facture", "Test d'écoulement, nettoyage, facture remise sur place.")],
   "diag_chip": "Diagnostic express", "diag_title": "Trois questions, et vous savez <em>quoi faire.</em>",
   "band_title": "Un appel suffit. On se déplace.", "band_lead": "On écoute votre problème, on vous donne le prix au téléphone, et un technicien part chez vous.",
   "photo_credit": "Photos : Unsplash", "menu_home": "Accueil",
  },
  "nl": {
-  "h1": "Ontstopping 24/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
-  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, dag en nacht. Prijs vooraf gekend.", "Gootsteen & keuken"),
+  "h1": "Ontstopping 7/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
+  "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, elke dag van 6 tot 21 uur. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
              ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
-  "avail": ("Technieker beschikbaar", "Dag en nacht"),
+  "avail": ("Technieker beschikbaar", "7/7, 6–21 uur"),
   "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
   "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
   "feat": [("shield", "Ervaren techniekers", "Ontstoppers met elektrische veren, hogedrukpompen en een HD-camera."),
            ("euro", "Prijs vooraf gekend", "De prijs wordt telefonisch vastgelegd. Er start niets zonder je akkoord."),
            ("file", "Factuur voor de verzekering", "Officiële factuur met btw-nummer en technisch verslag voor je terugbetaling.")],
-  "hq": ("Werkgebied", "Heel België", "24/7 beschikbaar"),
-  "stats": [("24/7", "365 dagen"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
+  "hq": ("Werkgebied", "Heel België", "7/7, 6–21 uur"),
+  "stats": [("6–21 uur", "7 dagen op 7"), ("Gratis", "Offerte op aanvraag"), ("10 + 1", "Provincies + Brussel")],
   "cards_chip": "Onze interventies", "cards_title": "Alle verstoppingen, <em>alle leidingen.</em>",
   "cards_lead": "Kies je probleem: we hebben voor elk het juiste materiaal.",
   "card_eta": "Snelle interventie", "all": "Alle diensten",
   "steps_chip": "Hoe het werkt", "steps_title": "Zo verloopt <em>een interventie.</em>",
-  "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 24/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
+  "steps": [("phone", "Je neemt contact op", "Telefonisch of via de snelle diagnose, 7/7."), ("euro", "Prijs vooraf", "Je krijgt de prijs voor we vertrekken. Jij beslist."),
             ("truck", "Interventie", "De technieker is er snel, met al het materiaal."), ("check", "Controle & factuur", "Doorlooptest, opkuis, factuur ter plaatse.")],
   "diag_chip": "Snelle diagnose", "diag_title": "Drie vragen, en je weet <em>wat te doen.</em>",
   "band_title": "Eén telefoontje volstaat. Wij komen.", "band_lead": "We luisteren naar je probleem, geven je de prijs aan de telefoon, en een technieker vertrekt naar je toe.",
@@ -1098,7 +1098,7 @@ def header(L, alt_url, current=""):
     solid = " nav-solid" if current == "solid" else ""
     return f'''<a class="skip" href="#main">{"Aller au contenu" if L=="fr" else "Naar de inhoud"}</a>
 <div class="nav-wrap{solid}"><div class="wrap"><div class="navbar">
- <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 24h/24" if L=="fr" else "&amp; Loodgieterij · 24/7"}</span></span></a>
+ <a class="brand" href="{url(L)}" aria-label="{BRAND} – {u["home"]}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{"&amp; Plomberie · 7j/7" if L=="fr" else "&amp; Loodgieterij · 7/7"}</span></span></a>
  <nav class="nav" id="nav" aria-label="Navigation">
   <div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">{u["nav_services"]} {ico("chev")}</button><div class="dd-menu">{items}</div></div>
   <a class="hide-md" href="{url(L)}#zones">{u["nav_zones"]}</a>
@@ -1171,13 +1171,13 @@ def hero_home(L):
     u = UI[L]; t = TX[L]
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
-        lead = "Un technicien chez vous, <b>24h/24</b>.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
+        lead = "Un technicien chez vous, <b>7j/7</b>, de 6h à 21h.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
         pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
-        lead = "Een technieker bij je, <b>24/7</b>.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
+        lead = "Een technieker bij je, <b>7/7</b>, van 6 tot 21 uur.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
         pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
@@ -1484,7 +1484,7 @@ PRICE_TX = {
         "factors": [("pipes", "Le type de bouchon", "Un siphon de lavabo ou une colonne d'égout, ce n'est pas le même travail."),
                     ("pin", "L'accès", "Étage, regard extérieur, cave ou faux plafond."),
                     ("gauge", "Le matériel nécessaire", "Furet, haute pression ou caméra d'inspection."),
-                    ("clock", "Le moment de l'intervention", "En journée, la nuit ou le week-end.")],
+                    ("clock", "Le moment de l'intervention", "En semaine, en soirée ou le week-end.")],
         "e_title": "Nos engagements", "e_lead": "Ce qui ne change jamais, quelle que soit l'intervention :",
         "eng": ["Le prix est annoncé avant de commencer", "Aucun travail sans votre accord", "Pas de frais cachés sur la facture",
                 "Facture officielle avec n° TVA pour votre assurance"],
@@ -1495,7 +1495,7 @@ PRICE_TX = {
         "factors": [("pipes", "Het soort verstopping", "Een lavabosifon of een rioolkolom is niet hetzelfde werk."),
                     ("pin", "De toegang", "Verdieping, buitenput, kelder of vals plafond."),
                     ("gauge", "Het nodige materiaal", "Veer, hogedruk of inspectiecamera."),
-                    ("clock", "Het moment van de interventie", "Overdag, 's nachts of in het weekend.")],
+                    ("clock", "Het moment van de interventie", "Doordeweeks, 's avonds of in het weekend.")],
         "e_title": "Onze beloftes", "e_lead": "Wat nooit verandert, welke interventie ook:",
         "eng": ["De prijs wordt vooraf meegedeeld", "Geen werk zonder je akkoord", "Geen verborgen kosten op de factuur",
                 "Officiële factuur met btw-nummer voor je verzekering"],
@@ -1584,7 +1584,7 @@ HOME_FAQ = {
  "fr": [
   ("Prix et délai", [
    ("Combien coûte un débouchage ?", "Ça dépend de ce qui bouche et où : un siphon d'évier ne demande pas le même travail qu'une colonne d'immeuble. Décrivez-nous la situation au téléphone ou via le diagnostic : on vous annonce le prix avant de se déplacer, et c'est ce prix-là qui figure sur la facture."),
-   ("Faites-vous aussi de la plomberie ?", "Oui. En plus du débouchage, nous faisons de la plomberie (fuites, robinetterie, sanitaires, chauffe-eau…), 24h/24 et dans les mêmes zones. Toujours sur devis gratuit, annoncé avant les travaux."),
+   ("Faites-vous aussi de la plomberie ?", "Oui. En plus du débouchage, nous faisons de la plomberie (fuites, robinetterie, sanitaires, chauffe-eau…), 7j/7 et dans les mêmes zones. Toujours sur devis gratuit, annoncé avant les travaux."),
    ("En combien de temps arrivez-vous ?", "Ça dépend de votre commune et de l'heure. Au téléphone, on vous donne une heure d'arrivée estimée, pas une promesse vague."),
   ]),
   ("Qui paie ?", [
@@ -1602,7 +1602,7 @@ HOME_FAQ = {
  ],
  "nl": [
   ("Prijs en tijd", [
-   ("Doen jullie ook loodgieterswerk?", "Ja. Naast ontstopping doen we ook loodgieterswerk (lekken, kranen, sanitair, boilers…), 24/7 en in dezelfde regio. Altijd op gratis offerte, vooraf meegedeeld."),
+   ("Doen jullie ook loodgieterswerk?", "Ja. Naast ontstopping doen we ook loodgieterswerk (lekken, kranen, sanitair, boilers…), 7/7 en in dezelfde regio. Altijd op gratis offerte, vooraf meegedeeld."),
    ("Hoeveel kost een ontstopping?", "Dat hangt af van wat verstopt is en waar: een gootsteensifon is ander werk dan een afvoerkolom in een gebouw. Beschrijf de situatie aan de telefoon of via de diagnose: we geven je de prijs voor we vertrekken, en die prijs staat op de factuur."),
    ("Hoe snel zijn jullie ter plaatse?", "Dat hangt af van je gemeente en het uur. Aan de telefoon krijg je een geschat aankomstuur, geen vage belofte."),
   ]),
@@ -1654,13 +1654,13 @@ def band(L):
     facts = (("Prix annoncé avant", "Facture avec n° TVA", "Toute la Belgique") if fr else
              ("Prijs vooraf gekend", "Factuur met btw-nr.", "Heel België"))
     li = "".join(f'<li>{ico("check")}{e(x)}</li>' for x in facts)
-    kick = "Ligne d'urgence 24h/24" if fr else "Spoedlijn 24/7"
+    kick = "Ligne d'urgence 7j/7" if fr else "Spoedlijn 7/7"
     plate_k = "Appelez directement" if fr else "Bel ons rechtstreeks"
-    plate_s = "Jour et nuit, week-ends et jours fériés compris." if fr else "Dag en nacht, ook in het weekend en op feestdagen."
+    plate_s = "Tous les jours de 6h à 21h, week-end compris." if fr else "Elke dag van 6 tot 21 uur, ook in het weekend."
     call = "Appeler maintenant" if fr else "Nu bellen"
     diag = "ou faites le diagnostic express (1 min)" if fr else "of doe de snelle diagnose (1 min)"
     k = "Toujours bouché ?" if fr else "Nog steeds verstopt?"
-    h = "On se déplace partout en Belgique, 24h/24." if fr else "We komen in heel België, 24/7."
+    h = "On se déplace partout en Belgique, 7j/7 de 6h à 21h." if fr else "We komen in heel België, elke dag van 6 tot 21 uur."
     sub = "Le prix vous est donné au téléphone, avant de partir." if fr else "Je krijgt de prijs aan de telefoon, voor we vertrekken."
     pipe = ('<svg class="b5-svg" viewBox="0 0 320 44" preserveAspectRatio="none" aria-hidden="true">'
             '<defs><linearGradient id="b5g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset=".45" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/></linearGradient>'
@@ -1728,7 +1728,7 @@ def plomberie_side(L):
     items = ([("drain", "Fuites d'eau"), ("sink", "Robinetterie"), ("toilet", "Sanitaires & WC"), ("gauge", "Chauffe-eau & pression"), ("pipes", "Canalisations"), ("wrench", "Installation & remplacement")] if fr else
              [("drain", "Waterlekken"), ("sink", "Kranen"), ("toilet", "Sanitair & wc"), ("gauge", "Boiler & waterdruk"), ("pipes", "Leidingen"), ("wrench", "Installatie & vervanging")])
     li = "".join(f'<li>{ico(i)}<span>{e(t)}</span></li>' for i, t in items)
-    return f'''<div class="pl-side"><p class="pl-side-t">{"Ce qu'on fait" if fr else "Wat we doen"}</p><ul>{li}</ul><p class="pl-side-s">{"Devis gratuit · 24h/24 · 7j/7" if fr else "Gratis offerte · 24/7"}</p></div>'''
+    return f'''<div class="pl-side"><p class="pl-side-t">{"Ce qu'on fait" if fr else "Wat we doen"}</p><ul>{li}</ul><p class="pl-side-s">{"Devis gratuit · 7j/7 · 6h–21h" if fr else "Gratis offerte · 7/7"}</p></div>'''
 
 def page_service(L, s):
     u = UI[L]; c = s[L]; other = u["other"]
@@ -1742,8 +1742,8 @@ def page_service(L, s):
     tip = tip[0].upper() + tip[1:]
     crumbs = [(u["home"], abs_url(L)), (c["name"], abs_url(L, s["slug"][L]))]
     communes = ", ".join(x[0] if L == "fr" else x[1] for x in COMMUNES)
-    slide = [(SVC_PHOTO[s["id"]], ("Intervention 24h/24" if L == "fr" else "Interventie 24/7"), e(c["h1"]), c["intro"], c["name"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 24h/24 · Bruxelles et toute la Belgique" if L == "fr" else "Interventie 24/7 · Brussel en heel België"), cls="sv-hero", big_h1=True, side=(plomberie_side(L) if s["id"] == "plomberie" else scene(L, s["id"], ico("pause"), ico("play")))) + f'''
+    slide = [(SVC_PHOTO[s["id"]], ("Intervention 7j/7" if L == "fr" else "Interventie 7/7"), e(c["h1"]), c["intro"], c["name"])]
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (c["name"], None)], extra=price, h1=("Intervention 7j/7 · Bruxelles et toute la Belgique" if L == "fr" else "Interventie 7/7 · Brussel en heel België"), cls="sv-hero", big_h1=True, side=(plomberie_side(L) if s["id"] == "plomberie" else scene(L, s["id"], ico("pause"), ico("play")))) + f'''
 <section class="section"><div class="wrap">
  <div class="cols2">
   <div class="box reveal"><h2><span class="ic">{ico("alert")}</span>{u["sv_signs"]}</h2><ul class="list">{signs}</ul></div>
@@ -1770,7 +1770,7 @@ def page_service(L, s):
         others = ", ".join(f'<a href="{url(L, x["slug"][L])}">{e(x[L]["name"])}</a>' for x in SERVICES if x["id"] != "plomberie")
         cut = body.index('<section class="section"><div class="wrap">\n <div class="cols2">')
         body = body[:cut] + f'''<section class="section"><div class="wrap">
- {sh("Plomberie" if fr else "Loodgieterij", "On s'occupe de tout" if fr else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 24h/24." if fr else "Klik op uw probleem of bel ons: gratis offerte, 24/7.", center=True)}
+ {sh("Plomberie" if fr else "Loodgieterij", "On s'occupe de tout" if fr else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 7j/7." if fr else "Klik op uw probleem of bel ons: gratis offerte, 7/7.", center=True)}
  {plomberie_tiles(L)}
 </div></section>''' + diagnostic(L, pre=s["id"]) + f'''<section class="section soft"><div class="wrap">
  {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: le détail, si vous en avez besoin" if fr else "Loodgieter in Brussel: de details, als je ze nodig hebt", "Ouvrez la ligne qui vous concerne." if fr else "Open de lijn die bij jouw probleem past.")}
@@ -1806,19 +1806,19 @@ def page_about(L):
 
 def page_contact(L):
     u = UI[L]; other = u["other"]
-    title = ("Contact – Débouchage Bruxelles 24h/24 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 24/7 | ABS Débouchage")
-    desc = (f"Contactez ABS Débouchage 24h/24 et 7j/7 : appelez le {PHONE_DISPLAY} ou écrivez sur WhatsApp. Prix annoncé avant l'intervention, Bruxelles et Belgique." if L == "fr"
-            else f"Contacteer ABS Débouchage 24/7: bel {PHONE_DISPLAY} of stuur een WhatsApp. Prijs vooraf gekend, in Brussel en heel België.")
-    h = "Contactez-nous, <em>24h/24.</em>" if L == "fr" else "Contacteer ons, <em>24/7.</em>"
+    title = ("Contact – Débouchage Bruxelles 7j/7 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 7/7 | ABS Débouchage")
+    desc = (f"Contactez ABS Débouchage 7j/7, de 6h à 21h : appelez le {PHONE_DISPLAY} ou écrivez sur WhatsApp. Prix annoncé avant l'intervention, Bruxelles et Belgique." if L == "fr"
+            else f"Contacteer ABS Débouchage 7/7, van 6 tot 21 uur: bel {PHONE_DISPLAY} of stuur een WhatsApp. Prijs vooraf gekend, in Brussel en heel België.")
+    h = "Contactez-nous, <em>7j/7.</em>" if L == "fr" else "Contacteer ons, <em>7/7.</em>"
     lead = ("Le plus rapide : appelez-nous ou faites le diagnostic express. Un technicien part ensuite chez vous." if L == "fr"
             else "Het snelst: bel ons of doe de snelle diagnose. Daarna vertrekt een technieker naar je toe.")
     cards_ = [("phone", u["call"], PHONE_DISPLAY, f"tel:{PHONE_TEL}"), ("wa", "WhatsApp", PHONE_DISPLAY, f"https://wa.me/{WHATSAPP}"),
               ("mail", "E-mail", EMAIL, f"mailto:{EMAIL}"),
-              ("clock", "Horaires" if L == "fr" else "Openingsuren", "24h/24 · 7j/7" if L == "fr" else "24/7, ook op zon- en feestdagen", None)]
+              ("clock", "Horaires" if L == "fr" else "Openingsuren", "Tous les jours, 6h–21h" if L == "fr" else "Elke dag, 6–21 uur", None)]
     ch = "".join((f'<a class="c-card" href="{hh}"' + (' target="_blank" rel="noopener"' if hh.startswith("http") else "") + '>' if hh else '<div class="c-card">') +
                  f'<span class="ic">{ico(ic)}</span><small>{e(l)}</small><b>{e(v)}</b>' + ('</a>' if hh else '</div>') for ic, l, v, hh in cards_)
     slide = [("sink", u["nav_contact"], h, lead, u["nav_contact"])]
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_contact"], None)], h1="24h/24 · 7j/7" if L=="fr" else "24/7", cls="sv-hero", big_h1=True) + \
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (u["nav_contact"], None)], h1="7j/7 · 6h–21h" if L=="fr" else "7/7 · 6–21 uur", cls="sv-hero", big_h1=True) + \
         f'<section class="section-sm soft"><div class="wrap"><div class="contact-grid reveal">{ch}</div></div></section>' + \
         diagnostic(L) + zones_section(L, "") + band(L)
     crumbs = [(u["home"], abs_url(L)), (u["nav_contact"], abs_url(L, u["contact_slug"]))]
@@ -1865,24 +1865,24 @@ def commune_faq(L, name, d):
         return [(f"Intervenez-vous partout à {name} ?", f"Oui, dans tous les quartiers de {name} ({cp}) : {q}."),
                 (f"Combien coûte un débouchage à {name} ?", "Le devis est gratuit et le prix vous est annoncé avant l'intervention. Il dépend de l'endroit du bouchon et du matériel nécessaire. Appelez-nous ou faites le diagnostic express pour une première estimation."),
                 (spec[0] % name, spec[1]),
-                (f"Venez-vous la nuit et le week-end à {name} ?", "Oui. Nous intervenons 24h/24 et 7j/7, y compris les dimanches et jours fériés.")]
+                (f"Venez-vous le week-end à {name} ?", "Nous intervenons tous les jours de 6h à 21h, dimanche compris. Pas d'intervention la nuit.")]
     return [(f"Komen jullie overal in {name}?", f"Ja, in alle wijken van {name} ({cp}): {q}."),
             (f"Hoeveel kost een ontstopping in {name}?", "De offerte is gratis en de prijs wordt je vooraf meegedeeld. Hij hangt af van de plaats van de verstopping en het nodige materiaal. Bel ons of doe de snelle diagnose voor een eerste schatting."),
             (spec[0] % name, spec[1]),
-            (f"Komen jullie 's nachts en in het weekend naar {name}?", "Ja. We komen 24/7, ook op zon- en feestdagen.")]
+            (f"Komen jullie in het weekend naar {name}?", "We komen elke dag van 6 tot 21 uur, ook op zondag. Niet 's nachts.")]
 
 def commune_meta(L, c):
     fr = L == "fr"; name = c[0] if fr else c[1]; d = LOCAL[c[0]]; cp = d["cp"][0]
     if fr:
-        title = f"Débouchage {name} 24h/24 – Déboucheur {cp} | ABS Débouchage"
-        if len(title) > 62: title = f"Débouchage {name} ({cp}) 24h/24 | ABS Débouchage"
-        if len(title) > 62: title = f"Débouchage {name} 24h/24 | ABS"
-        desc = f"Déboucheur à {name} ({', '.join(d['cp'])}) 24h/24 : WC, évier, égout, canalisation. Devis gratuit, prix annoncé avant l'intervention. {PHONE_DISPLAY}."
+        title = f"Débouchage {name} 7j/7 – Déboucheur {cp} | ABS Débouchage"
+        if len(title) > 62: title = f"Débouchage {name} ({cp}) 7j/7 | ABS Débouchage"
+        if len(title) > 62: title = f"Débouchage {name} 7j/7 | ABS"
+        desc = f"Déboucheur à {name} ({', '.join(d['cp'])}) 7j/7 : WC, évier, égout, canalisation. Devis gratuit, prix annoncé avant l'intervention. {PHONE_DISPLAY}."
     else:
-        title = f"Ontstopping {name} 24/7 – Ontstopper {cp} | ABS Débouchage"
-        if len(title) > 62: title = f"Ontstopping {name} ({cp}) 24/7 | ABS Débouchage"
-        if len(title) > 62: title = f"Ontstopping {name} 24/7 | ABS"
-        desc = f"Ontstopper in {name} ({', '.join(d['cp'])}) 24/7: wc, gootsteen, riool, leiding. Gratis offerte, prijs vooraf meegedeeld. {PHONE_DISPLAY}."
+        title = f"Ontstopping {name} 7/7 – Ontstopper {cp} | ABS Débouchage"
+        if len(title) > 62: title = f"Ontstopping {name} ({cp}) 7/7 | ABS Débouchage"
+        if len(title) > 62: title = f"Ontstopping {name} 7/7 | ABS"
+        desc = f"Ontstopper in {name} ({', '.join(d['cp'])}) 7/7: wc, gootsteen, riool, leiding. Gratis offerte, prijs vooraf meegedeeld. {PHONE_DISPLAY}."
     return title, desc
 
 def page_commune(L, c):
@@ -1893,14 +1893,14 @@ def page_commune(L, c):
     quart = d["q"][0 if fr else 1]; cps = ", ".join(d["cp"])
     hab = HABITAT[d["t"]][0 if fr else 1]
     faq = commune_faq(L, name, d)
-    h1 = (f"Débouchage à {name}, <em>24h/24.</em>" if fr else f"Ontstopping in {name}, <em>24/7.</em>")
-    lead = (f"WC, évier, égout ou canalisation bouchés à {name} ? Un technicien part chez vous, de jour comme de nuit. Devis gratuit." if fr
-            else f"Wc, gootsteen, riool of leiding verstopt in {name}? Een technieker vertrekt naar je toe, dag en nacht. Gratis offerte.")
+    h1 = (f"Débouchage à {name}, <em>7j/7.</em>" if fr else f"Ontstopping in {name}, <em>7/7.</em>")
+    lead = (f"WC, évier, égout ou canalisation bouchés à {name} ? Un technicien part chez vous, tous les jours de 6h à 21h. Devis gratuit." if fr
+            else f"Wc, gootsteen, riool of leiding verstopt in {name}? Een technieker vertrekt naar je toe, elke dag van 6 tot 21 uur. Gratis offerte.")
     slide = [("sewer" if d["t"] == "C" else "pipes" if d["t"] == "B" else "sink", name, h1, lead, name)]
     near = ", ".join(f'<a href="{url(L, commune_slug(L, n))}">{e(n[0] if fr else n[1])}</a>' for n in map(commune_by_fr, d["v"]))
     chips = "".join(f"<li>{e(x)}</li>" for x in quart)
     habl = "".join(f'<li>{ico("alert")}<span>{e(x)}</span></li>' for x in hab)
-    body = hero(L, slide, crumbs=[(u["home"], url(L)), (name, None)], h1=(f"Déboucheur {cps.split(', ')[0]} · Intervention 24h/24" if fr else f"Ontstopper {cps.split(', ')[0]} · Interventie 24/7"), cls="sv-hero", big_h1=True) + f"""
+    body = hero(L, slide, crumbs=[(u["home"], url(L)), (name, None)], h1=(f"Déboucheur {cps.split(', ')[0]} · Intervention 7j/7" if fr else f"Ontstopper {cps.split(', ')[0]} · Interventie 7/7"), cls="sv-hero", big_h1=True) + f"""
 <section class="section soft" id="services"><div class="wrap">
  {sh(name, ("Quel est votre problème ?" if fr else "Wat is je probleem?"), ("Choisissez, ou appelez-nous directement." if fr else "Kies, of bel ons meteen."), center=True)}
  {cards(L)}
@@ -1943,12 +1943,12 @@ def ville_faq(L, v):
     if fr:
         return [(f"Venez-vous vraiment à {name} ?", f"Oui. Nous intervenons à {name} et dans les communes voisines ({near}). Au téléphone, on vous donne l'heure d'arrivée estimée avant de partir."),
                 (f"Combien coûte un débouchage à {name} ?", "Le prix dépend de l'endroit du bouchon et du matériel nécessaire. Il vous est annoncé au téléphone, déplacement compris, avant que le technicien parte. C'est ce prix qui figure sur la facture."),
-                ("Venez-vous la nuit, le week-end et les jours fériés ?", "Oui, 24h/24 et 7j/7, toute l'année."),
+                ("Quels sont vos horaires ?", "Tous les jours, de 6h à 21h, week-end compris."),
                 ("Mon assurance peut-elle rembourser ?", "Souvent, en cas de dégât des eaux. Vous recevez une facture officielle avec numéro de TVA et, si besoin, un rapport technique pour votre dossier."),
                 ("Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les déboucheurs chimiques, qui abîment les joints.")]
     return [(f"Komen jullie echt naar {name}?", f"Ja. We komen in {name} en de buurgemeenten ({near}). Aan de telefoon krijg je het geschatte aankomstuur voor we vertrekken."),
             (f"Hoeveel kost een ontstopping in {name}?", "De prijs hangt af van de plaats van de verstopping en het nodige materiaal. Je krijgt hem aan de telefoon, verplaatsing inbegrepen, voor de technieker vertrekt. Die prijs staat op de factuur."),
-            ("Komen jullie ook 's nachts, in het weekend en op feestdagen?", "Ja, 24/7, het hele jaar door."),
+            ("Wat zijn jullie uren?", "Elke dag van 6 tot 21 uur, ook in het weekend."),
             ("Betaalt mijn verzekering terug?", "Vaak wel, bij waterschade. Je krijgt een officiële factuur met btw-nummer en, indien nodig, een technisch verslag voor je dossier."),
             ("Wat doe ik in afwachting van de technieker?", "Gebruik geen water meer (spoelbak, wasmachine, vaatwasser), sluit de watertoevoer af als het overloopt en gebruik geen chemische ontstoppers: die beschadigen de dichtingen.")]
 
@@ -1957,17 +1957,17 @@ def page_ville(L, v):
     name = v[0] if fr else v[1]; prov = v[3] if fr else v[4]; cps = ", ".join(v[5]); near = v[6] if fr else v[7]
     slug = ville_slug(L, v)
     if fr:
-        title = f"Débouchage {name} 24h/24 – Déboucheur {v[5][0]} | ABS Débouchage"
-        if len(title) > 62: title = f"Débouchage {name} 24h/24 | ABS Débouchage"
-        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur 24h/24, 7j/7. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
-        h1 = f"Débouchage à {e(name)}, <em>24h/24.</em>"
+        title = f"Débouchage {name} 7j/7 – Déboucheur {v[5][0]} | ABS Débouchage"
+        if len(title) > 62: title = f"Débouchage {name} 7j/7 | ABS Débouchage"
+        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur 7j/7, 7j/7. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
+        h1 = f"Débouchage à {e(name)}, <em>7j/7.</em>"
         lead = f"WC, évier, douche ou égout bouché à {name} ? Appelez : on vous donne le prix et l'heure d'arrivée avant de partir."
         label = f"Déboucheur {e(name)} · {v[5][0]}"
     else:
-        title = f"Ontstopping {name} 24/7 – Ontstopper {v[5][0]} | ABS Débouchage"
-        if len(title) > 62: title = f"Ontstopping {name} 24/7 | ABS Débouchage"
-        desc = f"Wc, gootsteen of riool verstopt in {name}? Ontstopper 24/7. Prijs aan de telefoon voor we vertrekken, gratis offerte. Bel {PHONE_DISPLAY}."
-        h1 = f"Ontstopping in {e(name)}, <em>24/7.</em>"
+        title = f"Ontstopping {name} 7/7 – Ontstopper {v[5][0]} | ABS Débouchage"
+        if len(title) > 62: title = f"Ontstopping {name} 7/7 | ABS Débouchage"
+        desc = f"Wc, gootsteen of riool verstopt in {name}? Ontstopper 7/7. Prijs aan de telefoon voor we vertrekken, gratis offerte. Bel {PHONE_DISPLAY}."
+        h1 = f"Ontstopping in {e(name)}, <em>7/7.</em>"
         lead = f"Wc, gootsteen, douche of riool verstopt in {name}? Bel ons: je krijgt de prijs en het aankomstuur voor we vertrekken."
         label = f"Ontstopper {e(name)} · {v[5][0]}"
     checks = '<ul class="lp-checks">' + "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"]) + '</ul>'
@@ -2026,7 +2026,7 @@ def page_guide(L, g):
  <article class="gd-body">{"".join(out)}</article>
  <aside class="gd-side"><div class="box">
   <h2>{"Ça ne passe pas ?" if fr else "Lukt het niet?"}</h2>
-  <p>{"Un technicien part chez vous, 24h/24. Devis gratuit, prix annoncé avant l'intervention." if fr else "Een technieker vertrekt naar je toe, 24/7. Gratis offerte, prijs vooraf meegedeeld."}</p>
+  <p>{"Un technicien part chez vous, 7j/7. Devis gratuit, prix annoncé avant l'intervention." if fr else "Een technieker vertrekt naar je toe, 7/7. Gratis offerte, prijs vooraf meegedeeld."}</p>
   {btn_call(L, "btn-lg", u["call"] + " · " + PHONE_DISPLAY)}
   {svc_link}
  </div></aside>
@@ -2156,7 +2156,7 @@ def build():
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm))
     llms = ["# ABS Débouchage", "",
-            "> Entreprise de débouchage d'urgence basée à Bruxelles, active dans toute la Belgique, 24h/24 et 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
+            "> Entreprise de débouchage d'urgence basée à Bruxelles, active dans toute la Belgique, 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
             f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)",
             "- Zone : toute la Belgique (Bruxelles, Wallonie, Flandre), base à Bruxelles",
             "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",

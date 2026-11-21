@@ -35,8 +35,8 @@ def shot(htmlstr, path, w, h, transparent=False):
     pg = b.new_page(viewport={"width": w, "height": h})
     pg.set_content(htmlstr); pg.screenshot(path=os.path.join(OUT, path), omit_background=transparent); pg.close()
 os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
-shot(og("24h/24 · Bruxelles et toute la Belgique", PHONE_DISPLAY), "assets/og.png", 1200, 630)
-shot(og("24/7 · Brussel en heel België", PHONE_DISPLAY), "assets/og-nl.png", 1200, 630)
+shot(og("7j/7 · 6h–21h · Bruxelles et toute la Belgique", PHONE_DISPLAY), "assets/og.png", 1200, 630)
+shot(og("7/7 · 6–21 uur · Brussel en heel België", PHONE_DISPLAY), "assets/og-nl.png", 1200, 630)
 icon = lambda s: f'<html><body style="margin:0;width:{s}px;height:{s}px">{LOGO.replace("<svg ", f"<svg width={s} height={s} ")}</body></html>'
 for name, s in (("apple-touch-icon.png", 180), ("icon-192.png", 192), ("icon-512.png", 512), ("assets/logo.png", 512), ("favicon-32.png", 32)):
     shot(icon(s), name, s, s, transparent=True)
