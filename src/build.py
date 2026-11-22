@@ -337,7 +337,7 @@ TX = {
   "h1": "Débouchage 7j/7 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, tous les jours de 6h à 21h. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
-             ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
+             ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>Haute pression.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
   "avail": ("Technicien disponible", "7j/7, 6h–21h"),
   "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
   "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
@@ -360,7 +360,7 @@ TX = {
   "h1": "Ontstopping 7/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, elke dag van 6 tot 21 uur. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
-             ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
+             ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>Hogedruk.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
   "avail": ("Technieker beschikbaar", "7/7, 6–21 uur"),
   "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
   "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
@@ -466,13 +466,13 @@ def hero_home(L):
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
         lead = "Un technicien chez vous, <b>7j/7</b>, de 6h à 21h.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
-        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
         lead = "Een technieker bij je, <b>7/7</b>, van 6 tot 21 uur.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
-        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
@@ -558,12 +558,12 @@ TOOLS = {
  "fr": {"kick": "Notre matériel", "title": "Le bon outil <em>pour chaque bouchon.</em>",
         "lead": "Pas de produit chimique, pas de casse : du matériel professionnel, adapté à votre canalisation.",
         "items": [("furet", "Furet électrique", "WC, évier, lavabo, douche", "Un câble rotatif qui perce et ramène le bouchon, sans abîmer la faïence."),
-                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau jusqu'à 400 bars qui décolle graisses, calcaire et racines."),
+                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau à haute pression qui décolle graisses, calcaire et racines."),
                   ("cam", "Caméra d'inspection HD", "Bouchons à répétition", "On voit l'intérieur du tuyau en direct et on localise le problème.")]},
  "nl": {"kick": "Ons materiaal", "title": "Het juiste gereedschap <em>voor elke verstopping.</em>",
         "lead": "Geen chemische producten, geen breekwerk: professioneel materiaal, aangepast aan je leiding.",
         "items": [("furet", "Elektrische veer", "Wc, gootsteen, lavabo, douche", "Een draaiende kabel die de prop doorboort en verwijdert, zonder het porselein te beschadigen."),
-                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een waterstraal tot 400 bar die vet, kalk en wortels losmaakt."),
+                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een krachtige waterstraal die vet, kalk en wortels losmaakt."),
                   ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
 }
 TOOL_ART = {
@@ -1036,7 +1036,7 @@ TX = {
   "h1": "Débouchage 7j/7 à Bruxelles, en Wallonie et en Flandre", "tag": "Un coup de fil, et l'eau file.",
   "slides": [("sink", "01 · Évier & cuisine", "Bouché&nbsp;? <em>On arrive vite.</em>", "Un technicien équipé part dès votre appel, tous les jours de 6h à 21h. Prix annoncé avant de commencer.", "Évier & cuisine"),
              ("bathroom", "02 · WC, douche & salle de bain", "Débouché <em>sans casse.</em>", "Furet électrique et haute pression : on débouche sans abîmer la faïence, le carrelage ni vos tuyaux.", "Salle de bain"),
-             ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>400 bars.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
+             ("sewer", "03 · Égout & canalisations", "Égout bouché&nbsp;? <em>Haute pression.</em>", "Camion hydrocureur, inspection caméra et rapport pour votre assurance.", "Égout")],
   "avail": ("Technicien disponible", "7j/7, 6h–21h"),
   "intro_chip": "Rapide · Propre · Honnête", "intro_title": "On ne fait pas que déboucher : <em>on règle le problème.</em>",
   "intro_lead": "Chaque intervention commence par comprendre pourquoi ça bloque. On débouche, on vérifie l'écoulement et on vous dit comment éviter que ça recommence.",
@@ -1059,7 +1059,7 @@ TX = {
   "h1": "Ontstopping 7/7 in Brussel, Vlaanderen en Wallonië", "tag": "Eén telefoontje, en het loopt weer.",
   "slides": [("sink", "01 · Gootsteen & keuken", "Verstopt? <em>Snel bij je.</em>", "Een uitgeruste technieker vertrekt meteen na je oproep, elke dag van 6 tot 21 uur. Prijs vooraf gekend.", "Gootsteen & keuken"),
              ("bathroom", "02 · Wc, douche & badkamer", "Ontstopt <em>zonder breekwerk.</em>", "Elektrische veer en hogedruk: we ontstoppen zonder tegels, porselein of leidingen te beschadigen.", "Badkamer"),
-             ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>400 bar.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
+             ("sewer", "03 · Riool & leidingen", "Riool verstopt? <em>Hogedruk.</em>", "Hogedrukwagen, camera-inspectie en verslag voor je verzekering.", "Riool")],
   "avail": ("Technieker beschikbaar", "7/7, 6–21 uur"),
   "intro_chip": "Snel · Proper · Eerlijk", "intro_title": "We ontstoppen niet alleen: <em>we lossen het probleem op.</em>",
   "intro_lead": "Elke interventie begint met begrijpen waarom het vastzit. We ontstoppen, controleren de afvoer en zeggen je hoe je herhaling voorkomt.",
@@ -1172,13 +1172,13 @@ def hero_home(L):
     if L == "fr":
         title = "Ça bloque&nbsp;? <em>On fait sauter le bouchon.</em>"
         lead = "Un technicien chez vous, <b>7j/7</b>, de 6h à 21h.<br>Vous connaissez <b>le prix avant</b> qu'on commence."
-        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression · 400 bars", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
+        pipe = {"states": ["Bouchon détecté", "Furet électrique en action", "Haute pression", "Débouché · ça s’écoule"], "watch": "Voir le débouchage", "pause": "Mettre l’animation en pause", "play": "Relancer l’animation", "sewer": "Égout →"}
         aria = "Animation : une canalisation bouchée est débouchée par un furet électrique et la haute pression, puis l’eau s’écoule vers l’égout."
         lab, rep = "Vue en coupe", "Rejouer"
     else:
         title = "Zit het vast? <em>Wij krijgen het weer vrij.</em>"
         lead = "Een technieker bij je, <b>7/7</b>, van 6 tot 21 uur.<br>Je kent <b>de prijs vooraf</b>, voor we beginnen."
-        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk · 400 bar", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
+        pipe = {"states": ["Verstopping gevonden", "Elektrische veer aan het werk", "Hogedruk", "Ontstopt · het loopt weer"], "watch": "Bekijk de ontstopping", "pause": "Animatie pauzeren", "play": "Animatie afspelen", "sewer": "Riool →"}
         aria = "Animatie: een verstopte leiding wordt ontstopt met een elektrische veer en hogedruk, daarna loopt het water weg."
         lab, rep = "Doorsnede", "Opnieuw"
     checks = "".join(f'<li>{ico("check")}{e(c)}</li>' for c in u["chk"])
@@ -1308,12 +1308,12 @@ TOOLS = {
  "fr": {"kick": "Notre matériel", "title": "Le bon outil <em>pour chaque bouchon.</em>",
         "lead": "Pas de produit chimique, pas de casse : du matériel professionnel, adapté à votre canalisation.",
         "items": [("furet", "Furet électrique", "WC, évier, lavabo, douche", "Un câble rotatif qui perce et ramène le bouchon, sans abîmer la faïence."),
-                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau jusqu'à 400 bars qui décolle graisses, calcaire et racines."),
+                  ("hydro", "Hydrocureuse haute pression", "Égouts, colonnes, cuisines", "Un jet d'eau à haute pression qui décolle graisses, calcaire et racines."),
                   ("cam", "Caméra d'inspection HD", "Bouchons à répétition", "On voit l'intérieur du tuyau en direct et on localise le problème.")]},
  "nl": {"kick": "Ons materiaal", "title": "Het juiste gereedschap <em>voor elke verstopping.</em>",
         "lead": "Geen chemische producten, geen breekwerk: professioneel materiaal, aangepast aan je leiding.",
         "items": [("furet", "Elektrische veer", "Wc, gootsteen, lavabo, douche", "Een draaiende kabel die de prop doorboort en verwijdert, zonder het porselein te beschadigen."),
-                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een waterstraal tot 400 bar die vet, kalk en wortels losmaakt."),
+                  ("hydro", "Hogedrukreiniger", "Riolen, kolommen, keukens", "Een krachtige waterstraal die vet, kalk en wortels losmaakt."),
                   ("cam", "HD-inspectiecamera", "Terugkerende verstoppingen", "We zien live in de leiding en lokaliseren het probleem.")]},
 }
 TOOL_ART = {
@@ -2159,7 +2159,7 @@ def build():
             "> Entreprise de débouchage d'urgence basée à Bruxelles, active dans toute la Belgique, 7j/7. Devis gratuit, prix annoncé avant l'intervention. Site en français et en néerlandais.", "",
             f"- Téléphone : {PHONE_DISPLAY} (aussi sur WhatsApp)",
             "- Zone : toute la Belgique (Bruxelles, Wallonie, Flandre), base à Bruxelles",
-            "- Méthodes : furet électrique, hydrocurage haute pression jusqu'à 400 bars, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
+            "- Méthodes : furet électrique, hydrocurage haute pression, inspection caméra HD avec rapport vidéo ; pas de produits chimiques corrosifs.", "",
             "## Services (FR)"] + [f"- [{s['fr']['name']}]({abs_url('fr', s['slug']['fr'])}): {s['fr']['card']}" for s in SERVICES] + ["",
             "## Diensten (NL)"] + [f"- [{s['nl']['name']}]({abs_url('nl', s['slug']['nl'])}): {s['nl']['card']}" for s in SERVICES] + ["",
 "## Communes de Bruxelles"] + [f"- [Débouchage {c[0]}]({abs_url('fr', commune_slug('fr', c))})" for c in COMMUNES] + ["",
