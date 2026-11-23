@@ -367,6 +367,17 @@
     }); });
   })();
 
+  /* ---------- Fiche Google : la carte ne se charge que sur clic (aucun cookie Google avant) ---------- */
+  d.querySelectorAll("[data-gmap]").forEach(function(box){
+    var b=box.querySelector(".gm-load"); if(!b) return;
+    b.addEventListener("click",function(){
+      if(box.classList.contains("is-on")) return;
+      var f=d.createElement("iframe"); f.src=box.getAttribute("data-gmap"); f.title=box.getAttribute("data-gtitle")||"Google Maps";
+      f.loading="lazy"; f.referrerPolicy="no-referrer-when-downgrade"; f.setAttribute("allowfullscreen","");
+      box.appendChild(f); box.classList.add("is-on");
+    });
+  });
+
   /* ---------- Mobile : listes repliables (services, communes) ---------- */
   function toggler(sel, cls){
     d.querySelectorAll(sel).forEach(function(b){

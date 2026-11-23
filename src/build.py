@@ -175,7 +175,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_],
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_] + [GBP_MAPS_URL], "hasMap": GBP_MAPS_URL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -420,7 +420,7 @@ def footer(L):
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
-  <p class="fc-social">{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
+  <p class="fc-social"><a class="fc-gbp" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · {"Avis Google" if fr else "Google-reviews"}</span></a>{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -885,7 +885,7 @@ def faq_schema(items):
 def business_schema(L):
     return {
         "@context": "https://schema.org", "@type": ["Plumber", "EmergencyService"], "@id": SITE_URL + "/#business",
-        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_],
+        "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "telephone": PHONE_TEL, "email": EMAIL, "sameAs": [u_ for k_, n_, u_ in SOCIAL if u_] + [GBP_MAPS_URL], "hasMap": GBP_MAPS_URL,
         "vatID": VAT_RAW, "image": SITE_URL + "/assets/og.png", "logo": SITE_URL + "/assets/logo.png",
         "priceRange": "€€", "currenciesAccepted": "EUR",
         "legalName": LEGAL_NAME,
@@ -1119,7 +1119,7 @@ def footer(L):
  <div class="fc-top">
   <a class="brand" href="{url(L)}">{LOGO}<span><span class="brand-name">ABS <b>Débouchage</b></span><span class="brand-sub">{e(u["brand_sub"])}</span></span></a>
   <p class="fc-contact fc-c2">{u["foot_hours"]} · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
-  <p class="fc-social">{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
+  <p class="fc-social"><a class="fc-gbp" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · {"Avis Google" if fr else "Google-reviews"}</span></a>{"".join(f'<a href="{u_}" target="_blank" rel="noopener" aria-label="{n_} ABS Débouchage">{ico(k_)}</a>' for k_, n_, u_ in SOCIAL if u_)}</p>
  </div>
  <nav class="fc-svc" aria-label="{u["foot_services"]}"><details class="fc-dt" open><summary><h2 class="fh">{u["foot_services"]}</h2>{ico("chev")}</summary><ul>{svc}</ul></details></nav>
  <div class="fc-bottom">
@@ -1678,6 +1678,47 @@ def band(L):
  <a class="btn b5-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{PHONE_DISPLAY}</span></a>
 </div></section>'''
 
+# ---------------------------------------------------------------- fiche Google : avis + carte
+STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg>'
+
+def gmb_section(L):
+    fr = L == "fr"
+    n = GBP_COUNT
+    k = "Avis Google" if fr else "Google-reviews"
+    h = "Nos clients nous notent sur Google" if fr else "Onze klanten beoordelen ons op Google"
+    lead = ("Chaque avis vient d'un client après son intervention. Lisez-les sur notre fiche, ou laissez le vôtre en 30 secondes."
+            if fr else "Elke review komt van een klant na de interventie. Lees ze op onze fiche, of laat de jouwe achter in 30 seconden.")
+    cnt = (f"{n} avis sur Google" if fr else f"{n} reviews op Google")
+    see = "Voir nos avis" if fr else "Bekijk onze reviews"
+    leave = "Laisser un avis" if fr else "Laat een review achter"
+    map_t = "Notre fiche Google Maps" if fr else "Onze fiche op Google Maps"
+    map_s = ("Intervention partout en Belgique, 7j/7 de 6h à 21h." if fr else "Interventies in heel België, elke dag van 6 tot 21 uur.")
+    map_b = "Afficher la carte" if fr else "Kaart tonen"
+    map_n = ("La carte est chargée depuis Google uniquement si vous cliquez." if fr else "De kaart wordt pas van Google geladen als je klikt.")
+    hl = "fr" if fr else "nl"
+    src = f"https://maps.google.com/maps?cid={GBP_CID}&output=embed&hl={hl}"
+    stars = "".join(STAR for _ in range(5))
+    return f'''<section class="section gm-sec" id="avis"><div class="wrap gm reveal">
+ <div class="gm-rev">
+  <p class="gm-k">{k}</p>
+  <h2>{h}</h2>
+  <div class="gm-score" aria-label="{GBP_RATING} / 5, {cnt}"><b>{GBP_RATING}</b><span class="gm-stars">{stars}</span><span class="gm-cnt">{cnt}</span></div>
+  <p class="gm-lead">{lead}</p>
+  <div class="gm-btns">
+   <a class="btn btn-dark" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{ico("pin")}<span>{see}</span></a>
+   <a class="btn btn-line" href="{GBP_REVIEW_URL}" target="_blank" rel="noopener"><span class="gm-st1">{STAR}</span><span>{leave}</span></a>
+  </div>
+ </div>
+ <div class="gm-map" data-gmap="{e(src)}" data-gtitle="{e(map_t)}">
+  <div class="gm-ph">
+   <span class="gm-pin" aria-hidden="true">{ico("pin")}</span>
+   <b>{map_t}</b><span>{map_s}</span>
+   <button type="button" class="btn btn-line gm-load">{map_b}</button>
+   <small>{map_n}</small>
+  </div>
+ </div>
+</div></section>'''
+
 # ---------------------------------------------------------------- pages
 def plomberie_strip(L):
     s = svc_by_id("plomberie"); c = s[L]; fr = L == "fr"
@@ -1693,7 +1734,7 @@ def page_home(L):
 <section class="section soft" id="services"><div class="wrap">
  {sh(t["cards_chip"], t["cards_title"], t["cards_lead"])}
  {cards(L)}
-</div></section>''' + diagnostic(L) + zones_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
+</div></section>''' + diagnostic(L) + zones_section(L) + gmb_section(L) + faq_section(L, None, groups=HOME_FAQ[L]) + band(L)
     schemas = [business_schema(L), faq_schema([qa for _, qs in HOME_FAQ[L] for qa in qs]),
                {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "alternateName": ["AbsDebouchage", "ABS Debouchage", "absdebouchage.be"], "url": SITE_URL + "/", "inLanguage": f"{L}-BE"}]
     return layout(L, "", u["home_title"], u["home_desc"], body, "", schemas)
@@ -1750,7 +1791,7 @@ def page_service(L, s):
   <div class="box reveal" data-d="1"><h2><span class="ic b">{ico("help")}</span>{u["sv_causes"]}</h2><ul class="list b">{causes}</ul></div>
  </div>
  <div class="tip reveal"><span class="ic">{ico("alert")}</span><div><h3>{u["sv_tip"]}</h3><p>{e(tip)}</p></div></div>
-</div></section>''' + diagnostic(L, pre=s["id"]) + faq_section(L, c["faq"]) + f'''
+</div></section>''' + diagnostic(L, pre=s["id"]) + gmb_section(L) + faq_section(L, c["faq"]) + f'''
 <section class="section soft"><div class="wrap">
  {sh(u["s_kick"], u["sv_other"], u["sv_zone"] + ".")}
  {cards(L, exclude=s["id"])}
@@ -1775,7 +1816,7 @@ def page_service(L, s):
 </div></section>''' + diagnostic(L, pre=s["id"]) + f'''<section class="section soft"><div class="wrap">
  {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: le détail, si vous en avez besoin" if fr else "Loodgieter in Brussel: de details, als je ze nodig hebt", "Ouvrez la ligne qui vous concerne." if fr else "Open de lijn die bij jouw probleem past.")}
  <div class="pa-grid">{rows}</div>
-</div></section>''' + faq_section(L, c["faq"]) + f'''<section class="section-sm"><div class="wrap">
+</div></section>''' + gmb_section(L) + faq_section(L, c["faq"]) + f'''<section class="section-sm"><div class="wrap">
  <p class="sv-communes"><b>{u["sv_other"]} :</b> {others}.</p>
  <p class="sv-communes"><b>{"Bruxelles" if fr else "Brussel"} :</b> {commune_links(L)}.</p>
  <p class="sv-communes"><b>{"Guides pratiques" if fr else "Praktische gidsen"} :</b> {guide_links(L)}.</p>
@@ -1913,7 +1954,7 @@ def page_commune(L, c):
    <p class="lc-cp"><b>{"Codes postaux" if fr else "Postcodes"} :</b> {e(cps)}</p></div>
   <div class="box reveal" data-d="1"><h2><span class="ic">{ico("alert")}</span>{("Ce qu'on y rencontre souvent" if fr else "Wat we er vaak tegenkomen")}</h2><ul class="list">{habl}</ul></div>
  </div>
-</div></section>""" + diagnostic(L) + faq_section(L, faq, title=(f"Débouchage à {e(name)} : vos questions" if fr else f"Ontstopping in {e(name)}: je vragen")) + f"""
+</div></section>""" + diagnostic(L) + gmb_section(L) + faq_section(L, faq, title=(f"Débouchage à {e(name)} : vos questions" if fr else f"Ontstopping in {e(name)}: je vragen")) + f"""
 <section class="section-sm"><div class="wrap">
  <p class="sv-communes"><b>{"Communes voisines" if fr else "Buurgemeenten"} :</b> {near}.</p>
  <p class="sv-communes"><b>{"Guides pratiques" if fr else "Praktische gidsen"} :</b> {guide_links(L)}.</p>
@@ -1992,7 +2033,7 @@ def page_ville(L, v):
    <a class="btn btn-call btn-lg lp-call" href="tel:{PHONE_TEL}">{ico("phone")}<span>{u["call"]} · {PHONE_DISPLAY}</span></a></div>
   <div class="box reveal" data-d="1"><h2><span class="ic">{ico("euro")}</span>{("Comment ça se passe" if fr else "Hoe het werkt")}</h2><ul class="list lp-how">{how_li}</ul></div>
  </div>
-</div></section>""" + diagnostic(L) + faq_section(L, faq, title=(f"Débouchage à {e(name)} : vos questions" if fr else f"Ontstopping in {e(name)}: je vragen")) + f"""
+</div></section>""" + diagnostic(L) + gmb_section(L) + faq_section(L, faq, title=(f"Débouchage à {e(name)} : vos questions" if fr else f"Ontstopping in {e(name)}: je vragen")) + f"""
 <section class="section-sm"><div class="wrap">
  <p class="sv-communes"><b>{("Wallonie" if fr else "Wallonië") if v[2] == "wal" else ("Flandre" if fr else "Vlaanderen")} :</b> {ville_links(L, v[2], v)}.</p>
  <p class="sv-communes"><b>{"Bruxelles" if fr else "Brussel"} :</b> {commune_links(L)}.</p>

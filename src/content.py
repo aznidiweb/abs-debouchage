@@ -16,6 +16,14 @@ SOCIAL = [
     ("facebook", "Facebook", "https://www.facebook.com/absdebouchage"),
     ("tiktok", "TikTok", "https://www.tiktok.com/@abs.debouchage"),
 ]
+# ---- Fiche Google (Google Business Profile) ----
+# Identifiant Maps de la fiche (vérifié le 23/11/2026 : « ABS Débouchage »). Liens publics, aucun script chargé sans clic.
+GBP_CID = "7929071025865156455"
+GBP_MAPS_URL = "https://www.google.com/maps?cid=" + GBP_CID
+GBP_REVIEW_URL = "https://g.page/r/CWfniIcWuAluEBM/review"
+# Note et nombre d'avis affichés sur le site : à mettre à jour quand les avis augmentent (relevé du 23/11/2026).
+GBP_RATING = "5,0"
+GBP_COUNT = 8
 VAT = "BE 0719.885.401"
 VAT_RAW = "BE0719885401"
 BRAND = "ABS Débouchage"
