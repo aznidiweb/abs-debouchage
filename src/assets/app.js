@@ -642,7 +642,7 @@
       if(photos.length) L.push("",W.photos);
       return L.join("\n");
     }
-    function openWa(){ w.open("https://wa.me/"+D.num+"?text="+encodeURIComponent(waText()),"_blank","noopener"); }
+    function openWa(){ var A=w.ABS_ADS; if(A&&A.id&&A.wa&&w.gtag) w.gtag("event","conversion",{send_to:A.id+"/"+A.wa}); w.open("https://wa.me/"+D.num+"?text="+encodeURIComponent(waText()),"_blank","noopener"); }
     function allValid(){ for(var n=1;n<=5;n++) if(!checks[n]()){ editing=false; go(n,true); firstInvalid(n); return false; } return true; }
     function fmtDate(iso){ try{ return new Date(iso).toLocaleString(D.lang==="nl"?"nl-BE":"fr-BE",{dateStyle:"long",timeStyle:"short",timeZone:"Europe/Brussels"}); }catch(e){ return iso; } }
     function done(res){
