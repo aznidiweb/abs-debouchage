@@ -8,7 +8,7 @@ SITE_URL = "https://www.absdebouchage.be"   # domaine final (utilisé pour Googl
 PHONE_DISPLAY = "0484 72 47 24"
 PHONE_TEL = "+32484724724"
 WHATSAPP = "32484724724"
-EMAIL = "contact@absdebouchage.be"
+EMAIL = "absdebouchage@gmail.com"
 
 # Réseaux sociaux officiels (pied de page + données Google « sameAs »). Laisser vide ce qui n'existe pas encore.
 SOCIAL = [
