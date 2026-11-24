@@ -1,10 +1,10 @@
 # Site ABS Débouchage
 
-## 👉 [Voir le site en ligne : abs-debouchage.pages.dev](https://abs-debouchage.pages.dev/)
+## 👉 [Voir le site en ligne : www.absdebouchage.be](https://www.absdebouchage.be/)
 
-Version néerlandaise : [abs-debouchage.pages.dev/nl/](https://abs-debouchage.pages.dev/nl/)
+Version néerlandaise : [www.absdebouchage.be/nl/](https://www.absdebouchage.be/nl/)
 
-Site statique bilingue (FR/NL) pour ABS Débouchage, Bruxelles.
+Site statique bilingue (FR/NL) pour ABS Débouchage, débouchage et plomberie dans toute la Belgique (base à Bruxelles).
 
 - `src/content.py` : **tous les textes** (services, prix, FAQ, communes, coordonnées).
 - `src/build.py` : génère le site dans `public/`.

@@ -8,21 +8,25 @@ pages_build_output_dir = "public"
 # Ce fichier sert de configuration à Cloudflare Pages : les liaisons (base, photos)
 # se déclarent ICI. Décommentez et remplacez l'identifiant une fois la base créée.
 # ---------------------------------------------------------------------------
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "abs-demandes"
-# database_id = "REMPLACER-PAR-L-ID-DE-LA-BASE"
-#
+[[d1_databases]]
+binding = "DB"
+database_name = "abs-demandes"
+database_id = "2e789c3c-3f0a-45f4-939e-1b792c15812c"   # créée le 24/11/2026 (Europe de l'Ouest), table « demandes » en place
+
+# Photos : à décommenter une fois R2 activé dans le tableau de bord Cloudflare et le bucket créé
 # [[r2_buckets]]
 # binding = "PHOTOS"
 # bucket_name = "abs-demandes-photos"
-#
-# [vars]
-# LEAD_EMAIL_TO = "votre-adresse@exemple.be"
-# LEAD_EMAIL_FROM = "ABS Débouchage <demandes@absdebouchage.be>"
+
+[vars]
+LEAD_EMAIL_TO = "absdebouchage@gmail.com"
+LEAD_EMAIL_FROM = "ABS Débouchage <demandes@absdebouchage.be>"
+# WhatsApp (facultatif) : à décommenter une fois l'API WhatsApp Cloud de Meta configurée
 # WA_PHONE_ID = ""
 # WA_TO = "32484724724"
 # WA_TEMPLATE = "nouvelle_demande"
 # WA_LANG = "fr"
+
 # Secrets (jamais dans ce fichier) : RESEND_API_KEY, WA_TOKEN
 #   → npx wrangler pages secret put RESEND_API_KEY --project-name abs-debouchage
+# Tant que RESEND_API_KEY n'existe pas, le formulaire continue de passer par WhatsApp.

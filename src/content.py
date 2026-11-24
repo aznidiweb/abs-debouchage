@@ -9,6 +9,8 @@ PHONE_DISPLAY = "0484 72 47 24"
 PHONE_TEL = "+32484724724"
 WHATSAPP = "32484724724"
 EMAIL = "absdebouchage@gmail.com"
+# Date de dernière modification de la politique de confidentialité (à changer seulement quand son texte change)
+PRIVACY_UPDATED = "2026-11-24"
 
 # Réseaux sociaux officiels (pied de page + données Google « sameAs »). Laisser vide ce qui n'existe pas encore.
 SOCIAL = [
@@ -34,6 +36,7 @@ BRAND = "ABS Débouchage"
 GADS_ID = "AW-18584749791"      # identifiant du compte (Outils > Conversions > balise Google)
 GADS_CALL = "9gY3CNTsmrwdEN-N851F"    # libellé de la conversion « Clic sur le numéro »
 GADS_WA = "KNNmCNfsmrwdEN-N851F"      # libellé de la conversion « Clic WhatsApp »
+GADS_FORM = ""   # libellé de la conversion « Demande envoyée (formulaire) » : à créer dans Google Ads puis coller ici
 LEGAL_NAME = "C.R.N.M. & Cie SRL"
 STREET = "Rue de la Carpe 2"
 POSTCODE = "1080"
@@ -74,9 +77,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage WC",
    "card": "Cuvette qui déborde ou se vide mal : on débouche sans abîmer la faïence.",
-   "title": "Débouchage WC Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "WC bouché à Bruxelles ? Technicien disponible 7j/7. Débouchage propre au furet électrique, prix annoncé avant travaux, devis gratuit.",
-   "h1": "Débouchage WC à Bruxelles, en urgence 7j/7",
+   "title": "Débouchage WC 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "WC bouché à Bruxelles ou ailleurs en Belgique ? Technicien disponible 7j/7. Débouchage propre au furet électrique, prix annoncé avant travaux, devis gratuit.",
+   "h1": "Débouchage WC à Bruxelles et partout en Belgique, 7j/7",
    "intro": "Des toilettes bouchées, c'est l'urgence la plus fréquente… et la plus stressante. Nos techniciens interviennent à Bruxelles et dans toute la Belgique, avec un furet électrique professionnel qui débouche la cuvette et le tuyau d'évacuation sans rayer la porcelaine.",
    "signs": ["L'eau monte jusqu'au bord de la cuvette après la chasse", "La cuvette se vide très lentement ou fait des bruits de glouglou", "Une odeur d'égout remonte dans la salle de bain", "La ventouse ne donne plus aucun résultat"],
    "causes": ["Trop de papier toilette en une fois", "Lingettes, cotons-tiges ou serviettes hygiéniques jetés dans le WC", "Objet tombé dans la cuvette (jouet, brosse, déodorant)", "Dépôts de calcaire qui réduisent le passage du tuyau"],
@@ -87,9 +90,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping wc",
    "card": "Pot die overloopt of traag leegloopt: we ontstoppen zonder de porselein te beschadigen.",
-   "title": "Ontstopping wc Brussel 7/7 | ABS Débouchage",
-   "desc": "Wc verstopt in Brussel? Technieker beschikbaar 7/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, gratis offerte.",
-   "h1": "Wc ontstoppen in Brussel, dringend en 7/7",
+   "title": "Ontstopping wc 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Wc verstopt in Brussel of elders in België? Technieker beschikbaar 7/7. Propere ontstopping met elektrische veer, prijs vooraf gekend, gratis offerte.",
+   "h1": "Wc ontstoppen in Brussel en heel België, 7/7",
    "intro": "Een verstopt toilet is de meest voorkomende noodsituatie… en de meest stresserende. Onze techniekers komen in Brussel en in heel België, met een professionele elektrische veer die de pot en de afvoer ontstopt zonder het porselein te krassen.",
    "signs": ["Het water komt na het doorspoelen tot aan de rand van de pot", "De pot loopt heel traag leeg of maakt borrelende geluiden", "Er komt een rioolgeur in de badkamer", "De ontstopper (zuignap) helpt niet meer"],
    "causes": ["Te veel toiletpapier in één keer", "Doekjes, wattenstaafjes of maandverband in het toilet", "Voorwerp in de pot gevallen (speelgoed, borstel, deodorant)", "Kalkaanslag die de afvoer vernauwt"],
@@ -103,9 +106,9 @@ SERVICES = [
   "fr": {
    "name": "Sanibroyeur & WC suspendu",
    "card": "Broyeur bloqué ou WC suspendu Geberit : intervention délicate, sans casse.",
-   "title": "Débouchage sanibroyeur Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Sanibroyeur bloqué ou WC suspendu bouché à Bruxelles ? Intervention 7j/7, sans abîmer le moteur ni le bâti. Devis gratuit : 0484 72 47 24",
-   "h1": "Débouchage de sanibroyeur et WC suspendu à Bruxelles",
+   "title": "Débouchage sanibroyeur – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Sanibroyeur bloqué ou WC suspendu bouché à Bruxelles ou ailleurs en Belgique ? Intervention 7j/7, sans abîmer le moteur ni le bâti. Devis gratuit : 0484 72 47 24",
+   "h1": "Débouchage de sanibroyeur et WC suspendu à Bruxelles et partout en Belgique",
    "intro": "Un sanibroyeur ou un WC suspendu ne se débouche pas comme des toilettes classiques. Le moteur, les lames et les membranes sont fragiles, et le bâti est caché dans le mur. Nos techniciens connaissent ces installations et les remettent en marche sans dégât.",
    "signs": ["Le moteur du broyeur tourne dans le vide ou ne s'arrête plus", "Le broyeur fait un bruit anormal ou ne démarre pas", "De l'eau sale remonte dans la douche ou le lavabo raccordés", "Le WC suspendu se vide mal malgré la ventouse"],
    "causes": ["Lingettes ou papier absorbant coincés dans les lames", "Calcaire accumulé dans la cuve du broyeur", "Membrane ou clapet anti-retour encrassé", "Bouchon dans la petite conduite d'évacuation"],
@@ -116,9 +119,9 @@ SERVICES = [
   "nl": {
    "name": "Sanibroyeur & hangtoilet",
    "card": "Geblokkeerde sanibroyeur of Geberit-hangtoilet: delicate interventie, zonder schade.",
-   "title": "Ontstopping sanibroyeur Brussel 7/7 | ABS Débouchage",
-   "desc": "Sanibroyeur geblokkeerd of hangtoilet verstopt in Brussel? Interventie 7/7, zonder schade aan motor of reservoir. Gratis offerte.",
-   "h1": "Sanibroyeur en hangtoilet ontstoppen in Brussel",
+   "title": "Ontstopping sanibroyeur 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Sanibroyeur geblokkeerd of hangtoilet verstopt in Brussel of elders in België? Interventie 7/7, zonder schade aan motor of reservoir. Gratis offerte.",
+   "h1": "Sanibroyeur en hangtoilet ontstoppen in Brussel en heel België",
    "intro": "Een sanibroyeur of hangtoilet ontstop je niet zoals een gewoon toilet. De motor, messen en membranen zijn kwetsbaar en het reservoir zit in de muur. Onze techniekers kennen deze installaties en zetten ze weer in werking zonder schade.",
    "signs": ["De motor van de broyeur draait leeg of stopt niet meer", "De broyeur maakt een abnormaal geluid of start niet", "Vuil water komt omhoog in de aangesloten douche of lavabo", "Het hangtoilet loopt slecht weg, ook met een zuignap"],
    "causes": ["Doekjes of keukenpapier vast in de messen", "Kalk in het reservoir van de broyeur", "Vuile membraan of terugslagklep", "Verstopping in de dunne afvoerleiding"],
@@ -132,9 +135,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage évier",
    "card": "Graisse et restes de repas : dégraissage complet du siphon et du tuyau.",
-   "title": "Débouchage évier Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Évier de cuisine bouché à Bruxelles ? Débouchage et dégraissage haute pression, 7j/7. Prix annoncé avant travaux, devis gratuit. ☎ 0484 72 47 24",
-   "h1": "Débouchage d'évier de cuisine à Bruxelles",
+   "title": "Débouchage évier 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Évier de cuisine bouché à Bruxelles ou ailleurs en Belgique ? Débouchage et dégraissage haute pression, 7j/7. Prix annoncé avant travaux, devis gratuit.",
+   "h1": "Débouchage d'évier de cuisine à Bruxelles et partout en Belgique",
    "intro": "L'évier de cuisine reçoit chaque jour de la graisse chaude, qui fige dans les tuyaux et retient les restes alimentaires. Résultat : l'eau stagne et les odeurs s'installent. Nous débouchons et dégraissons le siphon et la canalisation pour retrouver un écoulement comme neuf.",
    "signs": ["L'eau stagne dans les bacs de l'évier", "Odeur de graisse rance ou d'égout", "Gargouillements quand le lave-vaisselle se vide", "L'eau remonte dans le second bac"],
    "causes": ["Graisse de cuisson versée dans l'évier", "Marc de café, riz, pâtes et restes alimentaires", "Siphon encrassé jamais nettoyé", "Lave-vaisselle raccordé sur une évacuation trop étroite"],
@@ -145,9 +148,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping gootsteen",
    "card": "Vet en etensresten: volledige reiniging van sifon en afvoer.",
-   "title": "Ontstopping gootsteen Brussel 7/7 | ABS Débouchage",
-   "desc": "Gootsteen verstopt in Brussel? Ontstopping en hogedrukreiniging, 7/7. Prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
-   "h1": "Gootsteen ontstoppen in Brussel",
+   "title": "Ontstopping gootsteen 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Gootsteen verstopt in Brussel of elders in België? Ontstopping en hogedrukreiniging, 7/7. Prijs vooraf gekend, gratis offerte. ☎ 0484 72 47 24",
+   "h1": "Gootsteen ontstoppen in Brussel en heel België",
    "intro": "De keukengootsteen krijgt elke dag heet vet te verwerken. Dat stolt in de leidingen en houdt etensresten vast. Gevolg: het water blijft staan en het begint te stinken. Wij ontstoppen en ontvetten de sifon en de afvoer zodat alles weer vlot wegloopt.",
    "signs": ["Het water blijft in de gootsteen staan", "Geur van ranzig vet of riool", "Borrelende geluiden als de vaatwasser leegloopt", "Water komt omhoog in de tweede kuip"],
    "causes": ["Bakvet in de gootsteen gegoten", "Koffiedik, rijst, pasta en etensresten", "Vuile sifon die nooit gereinigd werd", "Vaatwasser aangesloten op een te smalle afvoer"],
@@ -161,9 +164,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage lavabo",
    "card": "Cheveux, savon, dentifrice : siphon et vidage nettoyés proprement.",
-   "title": "Débouchage lavabo Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Lavabo ou vasque bouché à Bruxelles ? Intervention rapide 7j/7, siphon et évacuation nettoyés sans abîmer vos meubles. Devis gratuit. ☎ 0484 72 47 24",
-   "h1": "Débouchage de lavabo et vasque à Bruxelles",
+   "title": "Débouchage lavabo 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Lavabo ou vasque bouché à Bruxelles ou ailleurs en Belgique ? Intervention rapide 7j/7, siphon et évacuation nettoyés sans abîmer vos meubles.",
+   "h1": "Débouchage de lavabo et vasque à Bruxelles et partout en Belgique",
    "intro": "Cheveux, savon et dentifrice forment petit à petit un bouchon dans le siphon du lavabo. Nos techniciens démontent et nettoient le siphon, la bonde et la canalisation, avec soin pour vos meubles de salle de bain.",
    "signs": ["L'eau stagne après le brossage de dents", "Bonde clic-clac bloquée", "Odeurs dans la salle de bain", "Écoulement lent qui s'aggrave"],
    "causes": ["Cheveux accumulés dans la bonde", "Savon et dentifrice qui collent aux parois", "Calcaire dans le siphon", "Petit objet tombé (bouchon, bijou)"],
@@ -174,9 +177,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping lavabo",
    "card": "Haren, zeep, tandpasta: sifon en afvoer netjes gereinigd.",
-   "title": "Ontstopping lavabo Brussel 7/7 | ABS Débouchage",
-   "desc": "Lavabo of wastafel verstopt in Brussel? Snelle interventie 7/7, sifon en afvoer gereinigd zonder schade aan je meubels. Gratis offerte. ☎ 0484 72 47 24",
-   "h1": "Lavabo en wastafel ontstoppen in Brussel",
+   "title": "Ontstopping lavabo 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Lavabo of wastafel verstopt in Brussel of elders in België? Snelle interventie 7/7, sifon en afvoer gereinigd zonder schade aan je meubels. Gratis offerte.",
+   "h1": "Lavabo en wastafel ontstoppen in Brussel en heel België",
    "intro": "Haren, zeep en tandpasta vormen beetje bij beetje een prop in de sifon van de lavabo. Onze techniekers demonteren en reinigen sifon, afvoerplug en leiding, met respect voor je badkamermeubel.",
    "signs": ["Het water blijft staan na het tandenpoetsen", "Klik-klakplug geblokkeerd", "Geur in de badkamer", "Trage afvoer die erger wordt"],
    "causes": ["Haren in de afvoerplug", "Zeep en tandpasta op de wanden", "Kalk in de sifon", "Klein voorwerp gevallen (dop, juweel)"],
@@ -190,9 +193,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage douche",
    "card": "Bac ou douche à l'italienne qui déborde : débouché sans casser le carrelage.",
-   "title": "Débouchage douche Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Douche bouchée à Bruxelles ? Bac, douche à l'italienne ou caniveau : débouchage sans casser le carrelage, 7j/7. Devis gratuit. ☎ 0484 72 47 24",
-   "h1": "Débouchage de douche et douche à l'italienne à Bruxelles",
+   "title": "Débouchage douche 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Douche bouchée à Bruxelles ou ailleurs en Belgique ? Bac, douche à l'italienne ou caniveau : débouchage sans casser le carrelage, 7j/7.",
+   "h1": "Débouchage de douche et douche à l'italienne à Bruxelles et partout en Belgique",
    "intro": "Une douche qui ne s'évacue plus inonde vite la salle de bain. Bondes extra-plates, caniveaux de douche à l'italienne, siphons de sol : nous connaissons tous les systèmes et débouchons sans casser le carrelage ni les joints.",
    "signs": ["L'eau monte au-dessus du receveur pendant la douche", "Écoulement très lent", "Odeur d'égout qui remonte par la bonde", "L'eau d'un autre appareil ressort dans la douche"],
    "causes": ["Cheveux et poils mêlés au savon", "Bonde extra-plate trop étroite", "Calcaire dans le siphon", "Pente insuffisante d'une douche à l'italienne"],
@@ -203,9 +206,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping douche",
    "card": "Overlopende douchebak of inloopdouche: ontstopt zonder tegels te breken.",
-   "title": "Ontstopping douche Brussel 7/7 | ABS Débouchage",
-   "desc": "Douche verstopt in Brussel? Douchebak, inloopdouche of douchegoot: ontstopping zonder tegels te breken, 7/7. Gratis offerte. ☎ 0484 72 47 24",
-   "h1": "Douche en inloopdouche ontstoppen in Brussel",
+   "title": "Ontstopping douche 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Douche verstopt in Brussel of elders in België? Douchebak, inloopdouche of douchegoot: ontstopping zonder tegels te breken, 7/7. Gratis offerte. ☎ 0484 72 47 24",
+   "h1": "Douche en inloopdouche ontstoppen in Brussel en heel België",
    "intro": "Een douche die niet meer afloopt, zet de badkamer snel onder water. Extra platte afvoerputjes, douchegoten, vloerputjes: we kennen alle systemen en ontstoppen zonder tegels of voegen te beschadigen.",
    "signs": ["Het water komt boven de douchebak tijdens het douchen", "Zeer trage afvoer", "Rioolgeur uit het afvoerputje", "Water van een ander toestel komt omhoog in de douche"],
    "causes": ["Haren vermengd met zeep", "Te smal extra plat putje", "Kalk in de sifon", "Onvoldoende helling bij een inloopdouche"],
@@ -219,9 +222,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage baignoire",
    "card": "Eau stagnante vidée, évacuation dégagée, sans démonter le tablier.",
-   "title": "Débouchage baignoire Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Baignoire bouchée à Bruxelles ? Évacuation dégagée, sans démonter le tablier carrelé, 7j/7. Devis gratuit : 0484 72 47 24",
-   "h1": "Débouchage de baignoire à Bruxelles",
+   "title": "Débouchage baignoire 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Baignoire bouchée à Bruxelles ou ailleurs en Belgique ? Évacuation dégagée, sans démonter le tablier carrelé, 7j/7. Devis gratuit : 0484 72 47 24",
+   "h1": "Débouchage de baignoire à Bruxelles et partout en Belgique",
    "intro": "Une baignoire pleine d'eau qui ne se vide pas, ce sont des dizaines de litres bloqués dans la salle de bain. Nous dégageons l'évacuation par la bonde et le trop-plein, sans démonter le tablier carrelé.",
    "signs": ["La baignoire met des heures à se vider", "L'eau du lave-linge remonte dans la baignoire", "Bruits de glouglou dans la bonde", "Mauvaises odeurs"],
    "causes": ["Cheveux et savon dans le siphon", "Bonde automatique encrassée", "Dépôts de calcaire", "Bouchon dans la canalisation commune avec le lavabo"],
@@ -232,9 +235,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping bad",
    "card": "Stilstaand water weg en afvoer vrij, zonder het badpaneel te demonteren.",
-   "title": "Ontstopping bad Brussel 7/7 | ABS Débouchage",
-   "desc": "Bad verstopt in Brussel? Afvoer vrij, zonder het betegelde badpaneel te demonteren, 7/7. Gratis offerte: 0484 72 47 24",
-   "h1": "Bad ontstoppen in Brussel",
+   "title": "Ontstopping bad 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Bad verstopt in Brussel of elders in België? Afvoer vrij, zonder het betegelde badpaneel te demonteren, 7/7. Gratis offerte: 0484 72 47 24",
+   "h1": "Bad ontstoppen in Brussel en heel België",
    "intro": "Een vol bad dat niet leegloopt, betekent tientallen liters water die vastzitten in de badkamer. Wij maken de afvoer vrij via de afvoerplug en de overloop, zonder het betegelde badpaneel te demonteren.",
    "signs": ["Het bad loopt urenlang niet leeg", "Water van de wasmachine komt omhoog in het bad", "Borrelende geluiden in de afvoer", "Slechte geuren"],
    "causes": ["Haren en zeep in de sifon", "Vuile automatische afvoerplug", "Kalkafzetting", "Verstopping in de gemeenschappelijke leiding met de lavabo"],
@@ -248,9 +251,9 @@ SERVICES = [
   "fr": {
    "name": "Canalisations & colonnes",
    "card": "Évier et lave-vaisselle qui refoulent : curage complet des conduites.",
-   "title": "Débouchage canalisation Bruxelles 7j/7 | ABS Débouchage",
-   "desc": "Canalisation ou colonne bouchée à Bruxelles ? Curage haute pression des conduites de cuisine et colonnes d'immeuble, 7j/7. ☎ 0484 72 47 24",
-   "h1": "Débouchage de canalisations et colonnes à Bruxelles",
+   "title": "Débouchage canalisation – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Canalisation ou colonne bouchée à Bruxelles ou ailleurs en Belgique ? Curage haute pression des conduites de cuisine et colonnes d'immeuble, 7j/7. ☎ 0484 72 47 24",
+   "h1": "Débouchage de canalisations et colonnes à Bruxelles et partout en Belgique",
    "intro": "Quand plusieurs appareils refoulent en même temps, le bouchon n'est plus dans un siphon mais dans la canalisation principale ou la colonne de l'immeuble. Nous curons les conduites sur toute leur longueur avec du matériel haute pression, pour les particuliers comme pour les syndics.",
    "signs": ["L'évier et le lave-vaisselle refoulent en même temps", "L'eau remonte chez le voisin du dessous", "Odeur tenace de graisse dans tout le logement", "Plusieurs appareils s'écoulent mal"],
    "causes": ["Accumulation de graisse sur des années", "Colonne d'immeuble encrassée", "Pente insuffisante ou coude mal placé", "Tartre dans les anciennes canalisations en fonte"],
@@ -261,9 +264,9 @@ SERVICES = [
   "nl": {
    "name": "Leidingen & kolommen",
    "card": "Gootsteen en vaatwasser die terugslaan: volledige reiniging van de leidingen.",
-   "title": "Ontstopping leidingen Brussel 7/7 | ABS Débouchage",
-   "desc": "Leiding of afvoerkolom verstopt in Brussel? Hogedrukreiniging van keukenleidingen en gebouwkolommen, 7/7. ☎ 0484 72 47 24",
-   "h1": "Leidingen en afvoerkolommen ontstoppen in Brussel",
+   "title": "Ontstopping leidingen 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Leiding of afvoerkolom verstopt in Brussel of elders in België? Hogedrukreiniging van keukenleidingen en gebouwkolommen, 7/7. ☎ 0484 72 47 24",
+   "h1": "Leidingen en afvoerkolommen ontstoppen in Brussel en heel België",
    "intro": "Als meerdere toestellen tegelijk terugslaan, zit de verstopping niet meer in een sifon maar in de hoofdleiding of de kolom van het gebouw. We reinigen de leidingen over hun volledige lengte met hogedrukmateriaal, voor particulieren en syndici.",
    "signs": ["Gootsteen en vaatwasser slaan tegelijk terug", "Water komt omhoog bij de onderburen", "Hardnekkige vetgeur in de hele woning", "Meerdere toestellen lopen slecht af"],
    "causes": ["Jarenlange vetophoping", "Vervuilde gebouwkolom", "Onvoldoende helling of slecht geplaatste bocht", "Kalk in oude gietijzeren leidingen"],
@@ -277,9 +280,9 @@ SERVICES = [
   "fr": {
    "name": "Débouchage égout",
    "card": "Refoulement en cave, chambre de visite pleine : hydrocurage haute pression.",
-   "title": "Débouchage égout Bruxelles 7j/7 – Hydrocureur | ABS Débouchage",
-   "desc": "Égout bouché ou refoulement en cave à Bruxelles ? Camion hydrocureur, intervention 7j/7, facture pour l'assurance. ☎ 0484 72 47 24",
-   "h1": "Débouchage d'égout et de chambre de visite à Bruxelles",
+   "title": "Débouchage égout 7j/7 – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Égout bouché ou refoulement en cave à Bruxelles ou ailleurs en Belgique ? Camion hydrocureur, intervention 7j/7, facture pour l'assurance. ☎ 0484 72 47 24",
+   "h1": "Débouchage d'égout et de chambre de visite à Bruxelles et partout en Belgique",
    "intro": "Un égout principal bouché menace toute la maison : refoulement d'eaux usées dans la cave, odeurs, risques sanitaires. Nos camions hydrocureurs haute pression dégagent racines, calcaire et bouchons massifs, et nous fournissons un rapport pour votre assurance.",
    "signs": ["Eaux usées qui remontent dans la cave ou le sous-sol", "Chambre de visite (regard) pleine ou qui déborde", "Tous les appareils de la maison s'écoulent mal", "Refoulements lors de fortes pluies"],
    "causes": ["Racines d'arbres entrées dans les joints", "Affaissement ou casse de la conduite", "Accumulation de graisse et de lingettes", "Siphon disconnecteur bouché"],
@@ -290,9 +293,9 @@ SERVICES = [
   "nl": {
    "name": "Ontstopping riool",
    "card": "Terugslag in de kelder, volle inspectieput: hogedrukreiniging.",
-   "title": "Ontstopping riool Brussel 7/7 | ABS Débouchage",
-   "desc": "Riool verstopt of terugslag in de kelder in Brussel? Hogedrukwagen, interventie 7/7, factuur voor de verzekering. ☎ 0484 72 47 24",
-   "h1": "Riool en inspectieput ontstoppen in Brussel",
+   "title": "Ontstopping riool 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Riool verstopt of terugslag in de kelder in Brussel of elders in België? Hogedrukwagen, interventie 7/7, factuur voor de verzekering. ☎ 0484 72 47 24",
+   "h1": "Riool en inspectieput ontstoppen in Brussel en heel België",
    "intro": "Een verstopte hoofdriolering bedreigt het hele huis: afvalwater in de kelder, geuren, gezondheidsrisico's. Onze hogedrukwagens verwijderen wortels, kalk en zware verstoppingen, en we leveren een verslag voor je verzekering.",
    "signs": ["Afvalwater komt omhoog in de kelder", "Inspectieput vol of overlopend", "Alle toestellen in huis lopen slecht af", "Terugslag bij hevige regen"],
    "causes": ["Boomwortels in de voegen", "Verzakte of gebroken leiding", "Ophoping van vet en doekjes", "Verstopte reukafsnijder (sifonput)"],
@@ -335,9 +338,9 @@ SERVICES = [
   "fr": {
    "name": "Siphon de sol",
    "card": "Garage, buanderie, cour : curage et aspiration des boues.",
-   "title": "Débouchage siphon de sol Bruxelles | ABS Débouchage",
-   "desc": "Siphon de sol bouché à Bruxelles (garage, cave, buanderie, cour) ? Curage et aspiration des boues 7j/7, devis gratuit. ☎ 0484 72 47 24",
-   "h1": "Débouchage de siphon de sol à Bruxelles",
+   "title": "Débouchage siphon de sol – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Siphon de sol bouché à Bruxelles ou ailleurs en Belgique (garage, cave, buanderie, cour) ? Curage et aspiration des boues 7j/7, devis gratuit. ☎ 0484 72 47 24",
+   "h1": "Débouchage de siphon de sol à Bruxelles et partout en Belgique",
    "intro": "Les siphons de sol des garages, caves, buanderies et cours piègent sable, feuilles et résidus de lessive. Quand ils se bouchent, l'eau stagne ou remonte à chaque orage. Nous les curons, aspirons les boues et les désinfectons.",
    "signs": ["Flaque permanente autour du siphon", "Refoulement lors des fortes pluies", "Odeur d'égout dans le garage ou la cave", "L'eau du lave-linge déborde du siphon"],
    "causes": ["Sable, terre et feuilles", "Peluches et résidus de lessive", "Grille absente ou cassée", "Bouchon dans la conduite vers l'égout"],
@@ -348,9 +351,9 @@ SERVICES = [
   "nl": {
    "name": "Vloerputje",
    "card": "Garage, wasruimte, koer: reiniging en afzuigen van slib.",
-   "title": "Ontstopping afvoerputje Brussel 7/7 | ABS Débouchage",
-   "desc": "Vloerputje verstopt in Brussel (garage, kelder, wasruimte, koer)? Reiniging en afzuigen van slib 7/7, gratis offerte. ☎ 0484 72 47 24",
-   "h1": "Vloerputje en afvoerputje ontstoppen in Brussel",
+   "title": "Ontstopping afvoerputje 7/7 – Brussel & België | ABS Débouchage",
+   "desc": "Vloerputje verstopt in Brussel of elders in België (garage, kelder, wasruimte, koer)? Reiniging en afzuigen van slib 7/7, gratis offerte. ☎ 0484 72 47 24",
+   "h1": "Vloerputje en afvoerputje ontstoppen in Brussel en heel België",
    "intro": "Vloerputjes in garages, kelders, wasruimtes en koeren houden zand, bladeren en wasresten vast. Als ze verstopt raken, blijft het water staan of komt het bij elk onweer omhoog. Wij reinigen ze, zuigen het slib af en ontsmetten ze.",
    "signs": ["Permanente plas rond het putje", "Terugslag bij hevige regen", "Rioolgeur in garage of kelder", "Water van de wasmachine loopt over"],
    "causes": ["Zand, aarde en bladeren", "Pluisjes en wasresten", "Ontbrekend of kapot rooster", "Verstopping in de leiding naar de riool"],
@@ -364,9 +367,9 @@ SERVICES = [
   "fr": {
    "name": "Inspection caméra",
    "card": "Bouchons à répétition ? On trouve la cause, avec rapport vidéo.",
-   "title": "Inspection caméra canalisation Bruxelles | ABS Débouchage",
-   "desc": "Inspection caméra HD des canalisations à Bruxelles : racines, fissures et contre-pentes localisées au centimètre, rapport vidéo pour assurance ou syndic.",
-   "h1": "Inspection caméra des canalisations à Bruxelles",
+   "title": "Inspection caméra – Bruxelles & Belgique | ABS Débouchage",
+   "desc": "Inspection caméra HD des canalisations à Bruxelles et dans toute la Belgique : racines, fissures et contre-pentes localisées, rapport vidéo pour l'assurance.",
+   "h1": "Inspection caméra des canalisations à Bruxelles et partout en Belgique",
    "intro": "Bouchons à répétition, odeurs inexpliquées, humidité dans un mur ? Notre caméra rotative haute définition descend dans vos tuyaux, localise le problème au centimètre près et enregistre tout en vidéo. Vous recevez un rapport valable pour l'assurance, le syndic ou le notaire.",
    "signs": ["Bouchons à répétition au même endroit", "Humidité inexpliquée sur un mur ou un sol", "Odeurs persistantes malgré les débouchages", "Achat ou vente d'un bien immobilier"],
    "causes": ["Racines dans les joints de canalisation", "Tuyau fissuré, cassé ou affaissé", "Contre-pente qui retient l'eau", "Raccordement mal réalisé"],
@@ -377,9 +380,9 @@ SERVICES = [
   "nl": {
    "name": "Camera-inspectie",
    "card": "Steeds opnieuw verstopt? We vinden de oorzaak, met videorapport.",
-   "title": "Camera-inspectie riolering Brussel | ABS Débouchage",
-   "desc": "HD-camera-inspectie van je leidingen in Brussel: wortels, scheuren en tegenhellingen op de centimeter gelokaliseerd, videorapport voor verzekering of syndicus.",
-   "h1": "Camera-inspectie van leidingen in Brussel",
+   "title": "Camera-inspectie riolering – Brussel & België | ABS Débouchage",
+   "desc": "HD-camera-inspectie van je leidingen in Brussel en heel België: wortels, scheuren en tegenhellingen op de centimeter gelokaliseerd, videorapport voor de verzekering.",
+   "h1": "Camera-inspectie van leidingen in Brussel en heel België",
    "intro": "Steeds terugkerende verstoppingen, onverklaarbare geuren, vocht in een muur? Onze draaibare HD-camera gaat in je leidingen, lokaliseert het probleem tot op de centimeter en neemt alles op video op. Je krijgt een verslag dat geldig is voor verzekering, syndicus of notaris.",
    "signs": ["Steeds verstopt op dezelfde plaats", "Onverklaarbaar vocht in muur of vloer", "Aanhoudende geuren ondanks ontstoppingen", "Aankoop of verkoop van een woning"],
    "causes": ["Wortels in de voegen", "Gescheurde, gebroken of verzakte leiding", "Tegenhelling die water vasthoudt", "Slecht uitgevoerde aansluiting"],
@@ -393,9 +396,9 @@ SERVICES = [
   "fr": {
    "name": "Plomberie",
    "card": "Fuite, robinetterie, sanitaires, chauffe-eau : un plombier à Bruxelles, 7j/7, sur devis.",
-   "title": "Plombier Bruxelles 7j/7 – Fuite & dépannage | ABS Débouchage",
+   "title": "Plombier 7j/7 – Bruxelles & Belgique | ABS Débouchage",
    "desc": "Plombier à Bruxelles et en Belgique, disponible 7j/7 : fuite d'eau, robinetterie, sanitaires, chauffe-eau, canalisations. Devis gratuit avant les travaux.",
-   "h1": "Plombier à Bruxelles, dépannage 7j/7",
+   "h1": "Plombier à Bruxelles et partout en Belgique, 7j/7",
    "intro": "Dépannage, réparation, remplacement et installation, 7j/7 à Bruxelles et dans toute la Belgique. Devis gratuit avant les travaux.",
    "signs": ["Une fuite d'eau visible ou une tache d'humidité qui s'étend", "Un robinet ou une chasse d'eau qui coule en continu", "Plus d'eau chaude, ou une pression d'eau qui chute", "Des bruits ou des coups dans les canalisations"],
    "causes": ["Joints, flexibles ou raccords usés par le temps", "Calcaire qui bloque la robinetterie et les appareils", "Installation ancienne ou mal posée", "Gel ou variation de pression qui fragilise un tuyau"],
@@ -424,9 +427,9 @@ SERVICES = [
   "nl": {
    "name": "Loodgieterij",
    "card": "Lek, kranen, sanitair, boiler: een loodgieter in Brussel, 7/7, op offerte.",
-   "title": "Loodgieter Brussel 7/7 – Lek & herstelling | ABS Débouchage",
+   "title": "Loodgieter 7/7 – Brussel & België | ABS Débouchage",
    "desc": "Loodgieter in Brussel en heel België, 7/7 beschikbaar: waterlek, kranen, sanitair, boiler, leidingen. Gratis offerte vóór de werken.",
-   "h1": "Loodgieter in Brussel, noodhulp 7/7",
+   "h1": "Loodgieter in Brussel en heel België, 7/7",
    "intro": "Noodhulp, herstelling, vervanging en installatie, 7/7 in Brussel en heel België. Gratis offerte vóór de werken.",
    "signs": ["Een zichtbaar lek of een vochtplek die groter wordt", "Een kraan of spoelbak die blijft lopen", "Geen warm water meer, of een dalende waterdruk", "Geluiden of slagen in de leidingen"],
    "causes": ["Voegen, flexibels of koppelingen die versleten zijn", "Kalk die kranen en toestellen blokkeert", "Oude of slecht geplaatste installatie", "Vorst of drukschommelingen die een leiding verzwakken"],
@@ -578,7 +581,7 @@ UI = {
 
 ABOUT = {
  "fr": {
-  "title": "À propos & tarifs – ABS Débouchage Bruxelles",
+  "title": "À propos & tarifs | ABS Débouchage, Belgique",
   "desc": "ABS Débouchage, entreprise belge de débouchage d'urgence à Bruxelles : nos engagements, notre matériel et nos tarifs transparents. TVA BE 0719.885.401.",
   "h1": "À propos d'ABS Débouchage",
   "lead": "Une entreprise belge spécialisée dans le débouchage d'urgence, l'hydrocurage et l'inspection caméra, pour les particuliers, les syndics, les commerces et les restaurants, à Bruxelles et dans toute la Belgique.",
@@ -587,7 +590,7 @@ ABOUT = {
              ["Assurance & facturation", ["Facture officielle avec n° TVA BE 0719.885.401.", "Rapport technique et vidéo pour votre dossier d'assurance.", "Documents acceptés par les syndics et notaires."]]]
  },
  "nl": {
-  "title": "Over ons & prijzen – ABS Débouchage Brussel",
+  "title": "Over ons & prijzen | ABS Débouchage, België",
   "desc": "ABS, Belgisch bedrijf voor spoedontstopping in Brussel: onze engagementen, ons materiaal en onze transparante prijzen. Btw BE 0719.885.401.",
   "h1": "Over ABS",
   "lead": "Een Belgisch bedrijf gespecialiseerd in spoedontstopping, hogedrukreiniging en camera-inspectie, voor particulieren, syndici, winkels en restaurants, in Brussel en heel België.",
@@ -603,15 +606,17 @@ PRIVACY = {
   "Données collectées : lorsque vous remplissez le formulaire de demande d'intervention, nous recevons le type de problème, le niveau d'urgence, votre description, le code postal, la ville et, si vous l'indiquez, l'adresse, vos nom, téléphone et, si vous l'indiquez, e-mail, ainsi que les photos que vous ajoutez (4 au maximum, réduites avant l'envoi). Ces informations servent uniquement à traiter votre demande, à vous recontacter, à établir le devis et à réaliser l'intervention. Elles ne sont ni vendues ni utilisées à des fins publicitaires. Base légale : votre consentement, donné en cochant la case du formulaire, et les mesures précontractuelles prises à votre demande.",
   "Destinataires : votre demande est enregistrée sur l'infrastructure de notre hébergeur (Cloudflare) et peut nous être transmise par e-mail et par notification WhatsApp. Ces prestataires agissent uniquement pour notre compte. Pendant que vous remplissez le formulaire, vos réponses sont gardées temporairement dans votre navigateur (pas les photos) et effacées après l'envoi ou à la fermeture de l'onglet. Si vous choisissez l'envoi par WhatsApp, un message est préparé dans WhatsApp et c'est vous qui choisissez de l'envoyer. Les informations transmises par téléphone ou WhatsApp servent aux mêmes fins.",
   "Conservation : vos données sont conservées le temps nécessaire au suivi de l'intervention et aux obligations comptables légales.",
+  "Statistiques : notre hébergeur Cloudflare compte les visites du site de façon anonyme (Cloudflare Web Analytics), sans cookie et sans suivi d'un site à l'autre.",
   ("Cookies : ce site n'utilise pas de cookies de suivi ou publicitaires. Votre choix de langue peut être mémorisé localement dans votre navigateur." if not GADS_ID else "Cookies : uniquement si vous cliquez sur « Accepter », le site charge la balise Google Ads, qui enregistre un cookie pour savoir si un appel ou un message WhatsApp vient d'une de nos annonces. Aucune publicité personnalisée n'est activée. Si vous refusez, rien n'est chargé chez Google. Pour changer d'avis, videz les données du site dans votre navigateur."),
-  "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous appelant au 0484 72 47 24 ou en écrivant à notre adresse (Rue de la Carpe 2, 1080 Bruxelles). Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
+  "Vos droits : vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous appelant au 0484 72 47 24, par e-mail à absdebouchage@gmail.com ou en écrivant à notre adresse (Rue de la Carpe 2, 1080 Bruxelles). Vous pouvez aussi introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]),
  "nl": ("Privacybeleid", [
   "ABS Débouchage is een merk van C.R.N.M. & Cie SRL, Rue de la Carpe 2, 1080 Brussel, btw BE 0719.885.401. Als verwerkingsverantwoordelijke respecteert zij je privacy overeenkomstig de Algemene Verordening Gegevensbescherming (AVG/GDPR).",
   "Verzamelde gegevens: wanneer je het formulier voor een interventieaanvraag invult, ontvangen we het soort probleem, de dringendheid, je beschrijving, de postcode, de gemeente en, als je het opgeeft, het adres, je naam, telefoonnummer en, als je het opgeeft, e-mailadres, en de foto's die je toevoegt (maximaal 4, verkleind voor verzending). Deze gegevens dienen enkel om je aanvraag te behandelen, je te contacteren, de offerte op te stellen en de interventie uit te voeren. Ze worden niet verkocht en niet voor reclame gebruikt. Rechtsgrond: je toestemming, gegeven door het vakje in het formulier aan te vinken, en de precontractuele maatregelen op jouw verzoek.",
   "Ontvangers: je aanvraag wordt opgeslagen op de infrastructuur van onze hostingprovider (Cloudflare) en kan ons per e-mail en via een WhatsApp-melding bereiken. Deze dienstverleners handelen uitsluitend in onze opdracht. Terwijl je het formulier invult, worden je antwoorden tijdelijk in je browser bewaard (niet de foto's) en gewist na verzending of bij het sluiten van het tabblad. Kies je voor verzending via WhatsApp, dan wordt een bericht in WhatsApp voorbereid en kies jij of je het verstuurt. Gegevens die je per telefoon of WhatsApp doorgeeft, dienen hetzelfde doel.",
   "Bewaring: je gegevens worden bewaard zolang nodig voor de opvolging van de interventie en de wettelijke boekhoudkundige verplichtingen.",
+  "Statistieken: onze hostingprovider Cloudflare telt de bezoeken aan de site anoniem (Cloudflare Web Analytics), zonder cookies en zonder je te volgen van site tot site.",
   ("Cookies: deze site gebruikt geen tracking- of advertentiecookies. Je taalkeuze kan lokaal in je browser worden onthouden." if not GADS_ID else "Cookies: alleen als je op « Akkoord » klikt, laadt de site de Google Ads-tag, die een cookie plaatst om te weten of een oproep of WhatsApp-bericht via een van onze advertenties komt. Er wordt geen gepersonaliseerde reclame geactiveerd. Weiger je, dan wordt niets bij Google geladen. Van gedacht veranderen? Wis de sitegegevens in je browser."),
-  "Je rechten: je kunt inzage, verbetering of verwijdering van je gegevens vragen door ons te bellen op 0484 72 47 24 of te schrijven naar ons adres (Rue de la Carpe 2, 1080 Brussel). Je kunt ook klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]),
+  "Je rechten: je kunt inzage, verbetering of verwijdering van je gegevens vragen door ons te bellen op 0484 72 47 24, te mailen naar absdebouchage@gmail.com of te schrijven naar ons adres (Rue de la Carpe 2, 1080 Brussel). Je kunt ook klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]),
 }
 
 # --------------------------------------------------------------------------

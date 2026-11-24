@@ -355,6 +355,8 @@
       if(h.indexOf("tel:")===0) conv(cfg.call);
       else if(h.indexOf("wa.me/")>-1||h.indexOf("whatsapp")>-1) conv(cfg.wa);
     },true);
+    /* demande envoyée au serveur par le formulaire (une seule fois par demande) */
+    w.addEventListener("abs:lead",function(){ conv(cfg.form); });
     function hide(){ bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350); }
     if(st==="1"){ load(); return; }
     if(st==="0") return;

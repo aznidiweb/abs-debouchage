@@ -11,6 +11,7 @@
  * Réglages (Cloudflare → Pages → abs-debouchage → Settings), voir CONFIGURATION-DEMANDES.md :
  *   Bindings   DB      (D1)  base des demandes            — facultatif mais recommandé
  *              PHOTOS  (R2)  stockage des photos          — facultatif
+ *   L'e-mail est OBLIGATOIRE pour que le formulaire envoie directement (sinon : WhatsApp).
  *   Secrets    RESEND_API_KEY                             — e-mail via resend.com
  *   Variables  LEAD_EMAIL_TO    destinataire(s), séparés par des virgules
  *              LEAD_EMAIL_FROM  ex. "ABS Débouchage <demandes@absdebouchage.be>" (domaine vérifié chez Resend)
@@ -37,8 +38,10 @@ function channels(env) {
     whatsapp: !!(env.WA_TOKEN && env.WA_PHONE_ID && env.WA_TO && env.WA_TEMPLATE),
   };
 }
-// La demande n'est acceptée que si elle peut être conservée quelque part de façon fiable.
-const isReady = (c) => c.database || c.email;
+// Le formulaire n'envoie directement que si l'entreprise est réellement PRÉVENUE (e-mail).
+// La base seule ne suffit pas : la demande y dormirait sans que personne ne la voie.
+// Tant que l'e-mail n'est pas actif, le formulaire passe par WhatsApp.
+const isReady = (c) => c.email;
 
 export async function onRequestGet({ env }) {
   const c = channels(env);

@@ -7,8 +7,20 @@ Le formulaire « Diagnostic express » du site envoie chaque demande à `https:/
 (`GET /api/demande` → `"ready": false`) et propose « Envoyer via WhatsApp », avec la demande déjà rédigée.
 Aucun « Demande envoyée » n'est jamais affiché sans réponse positive du serveur.
 
-Le serveur devient « prêt » dès qu'**au moins un** de ces deux canaux fiables existe : la base de données (D1) ou l'e-mail.
-Recommandé : les deux, plus le stockage des photos (R2).
+Le serveur devient « prêt » **dès que l'e-mail est actif** (`RESEND_API_KEY` + `LEAD_EMAIL_TO` + `LEAD_EMAIL_FROM`) :
+sans e-mail, une demande pourrait dormir en base sans que personne ne la voie, donc le formulaire reste sur WhatsApp.
+La base (D1) garde une copie de chaque demande, les photos (R2) sont facultatives.
+
+## État au 24/11/2026
+
+| Canal | État |
+|---|---|
+| Base D1 `abs-demandes` | ✅ créée (Europe de l'Ouest), table en place, liée dans `wrangler.toml` |
+| Destinataire `LEAD_EMAIL_TO` | ✅ `absdebouchage@gmail.com` (dans `wrangler.toml`) |
+| Expéditeur `LEAD_EMAIL_FROM` | ✅ `ABS Débouchage <demandes@absdebouchage.be>` (dans `wrangler.toml`) |
+| Clé Resend `RESEND_API_KEY` | ❌ à créer (étape 3) : **c'est la seule chose qui manque pour activer l'envoi direct** |
+| Photos R2 | ❌ R2 n'est pas activé sur le compte Cloudflare (étape 2) |
+| WhatsApp API | ❌ facultatif (étape 4) |
 
 | Canal | Ce qu'il faut | Où |
 |---|---|---|
@@ -24,12 +36,14 @@ npx wrangler d1 create abs-demandes            # note l'identifiant affiché (da
 npx wrangler d1 execute abs-demandes --remote --file=migrations/0001_demandes.sql
 ```
 
-Dans `wrangler.toml`, décommenter le bloc `[[d1_databases]]` et coller l'identifiant.
+✅ Fait : base créée, identifiant `2e789c3c-3f0a-45f4-939e-1b792c15812c` déjà dans `wrangler.toml`.
 
 Voir les demandes : Cloudflare → Storage & Databases → D1 → abs-demandes → Console :
 `SELECT id, received_at, urgency, problem, postal_code, city, name, phone FROM demandes ORDER BY received_at DESC;`
 
 ## 2. Photos (R2)
+
+Activer d'abord R2 : Cloudflare → R2 Object Storage → « Activer » (demande un moyen de paiement, l'usage reste dans l'offre gratuite).
 
 ```bash
 npx wrangler r2 bucket create abs-demandes-photos
@@ -43,8 +57,7 @@ Le bucket reste **privé** (aucun accès public n'est nécessaire : les photos a
 1. Créer un compte sur resend.com, ajouter le domaine `absdebouchage.be` et copier les enregistrements DNS demandés
    (SPF, DKIM) chez le gestionnaire du domaine. Attendre « Verified ».
 2. Créer une clé API (« Sending access »).
-3. Variables : `LEAD_EMAIL_TO` = l'adresse qui reçoit les demandes (plusieurs possibles, séparées par des virgules),
-   `LEAD_EMAIL_FROM` = `ABS Débouchage <demandes@absdebouchage.be>`.
+3. Variables : ✅ déjà dans `wrangler.toml` (`LEAD_EMAIL_TO` = `absdebouchage@gmail.com`, `LEAD_EMAIL_FROM` = `ABS Débouchage <demandes@absdebouchage.be>`).
 4. Secret : `npx wrangler pages secret put RESEND_API_KEY --project-name abs-debouchage`.
 
 L'e-mail contient toutes les informations, un bouton « Appeler », les photos en pièce jointe, et « Répondre » écrit
@@ -60,7 +73,7 @@ Les liens `wa.me` ne permettent pas d'envoyer un message automatiquement : il fa
 3. Variables : `WA_PHONE_ID` (identifiant du numéro expéditeur), `WA_TO` (numéro qui reçoit, format 32484724724),
    `WA_TEMPLATE` = `nouvelle_demande`, `WA_LANG` = `fr`. Secret : `WA_TOKEN`.
 
-La notification WhatsApp complète l'e-mail ou la base : elle ne suffit pas seule à rendre le serveur « prêt ».
+La notification WhatsApp complète l'e-mail : elle ne suffit pas seule à rendre le serveur « prêt ».
 
 ## 5. Vérifier
 

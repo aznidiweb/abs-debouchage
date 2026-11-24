@@ -238,7 +238,7 @@ def cookie_bar(L):
            if fr else "Met je akkoord meten we welke oproepen via onze Google-advertenties komen. Niets meer.")
     more = "En savoir plus" if fr else "Meer info"
     yes, no = ("Accepter", "Refuser") if fr else ("Akkoord", "Weigeren")
-    cfg = json.dumps({"id": GADS_ID, "call": GADS_CALL, "wa": GADS_WA})
+    cfg = json.dumps({"id": GADS_ID, "call": GADS_CALL, "wa": GADS_WA, "form": GADS_FORM})
     return (f'<script>window.ABS_ADS={cfg}</script>'
             f'<div class="ck-bar" role="region" aria-label="Cookies" hidden>'
             f'<p>{e(txt)} <a href="{url(L, UI[L]["privacy_slug"])}">{more}</a></p>'
@@ -277,7 +277,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
 <meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=4">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{"ABS Débouchage, débouchage et plomberie 7j/7 de 6h à 21h, partout en Belgique · 0484 72 47 24" if L=="fr" else "ABS Débouchage, ontstopping en loodgieterij 7/7 van 6 tot 21 uur, in heel België · 0484 72 47 24"}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
 <meta name="format-detection" content="telephone=no">
@@ -976,7 +976,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
 <meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=4">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{"ABS Débouchage, débouchage et plomberie 7j/7 de 6h à 21h, partout en Belgique · 0484 72 47 24" if L=="fr" else "ABS Débouchage, ontstopping en loodgieterij 7/7 van 6 tot 21 uur, in heel België · 0484 72 47 24"}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
 <meta name="format-detection" content="telephone=no">
@@ -1814,7 +1814,7 @@ def page_service(L, s):
  {sh("Plomberie" if fr else "Loodgieterij", "On s'occupe de tout" if fr else "Wij doen alles", "Cliquez sur votre problème, ou appelez-nous : devis gratuit, 7j/7." if fr else "Klik op uw probleem of bel ons: gratis offerte, 7/7.", center=True)}
  {plomberie_tiles(L)}
 </div></section>''' + diagnostic(L, pre=s["id"]) + f'''<section class="section soft"><div class="wrap">
- {sh("Nos interventions" if fr else "Onze interventies", "Plombier à Bruxelles&nbsp;: le détail, si vous en avez besoin" if fr else "Loodgieter in Brussel: de details, als je ze nodig hebt", "Ouvrez la ligne qui vous concerne." if fr else "Open de lijn die bij jouw probleem past.")}
+ {sh("Nos interventions" if fr else "Onze interventies", "Plomberie&nbsp;: le détail, si vous en avez besoin" if fr else "Loodgieterij: de details, als je ze nodig hebt", "Ouvrez la ligne qui vous concerne." if fr else "Open de lijn die bij jouw probleem past.")}
  <div class="pa-grid">{rows}</div>
 </div></section>''' + gmb_section(L) + faq_section(L, c["faq"]) + f'''<section class="section-sm"><div class="wrap">
  <p class="sv-communes"><b>{u["sv_other"]} :</b> {others}.</p>
@@ -1847,7 +1847,7 @@ def page_about(L):
 
 def page_contact(L):
     u = UI[L]; other = u["other"]
-    title = ("Contact – Débouchage Bruxelles 7j/7 | ABS Débouchage" if L == "fr" else "Contact – Ontstopping Brussel 7/7 | ABS Débouchage")
+    title = ("Contact – Débouchage 7j/7 en Belgique | ABS Débouchage" if L == "fr" else "Contact – Ontstopping 7/7 in België | ABS Débouchage")
     desc = (f"Contactez ABS Débouchage 7j/7, de 6h à 21h : appelez le {PHONE_DISPLAY} ou écrivez sur WhatsApp. Prix annoncé avant l'intervention, Bruxelles et Belgique." if L == "fr"
             else f"Contacteer ABS Débouchage 7/7, van 6 tot 21 uur: bel {PHONE_DISPLAY} of stuur een WhatsApp. Prijs vooraf gekend, in Brussel en heel België.")
     h = "Contactez-nous, <em>7j/7.</em>" if L == "fr" else "Contacteer ons, <em>7/7.</em>"
@@ -1869,7 +1869,7 @@ def page_privacy(L):
     u = UI[L]; other = u["other"]; t, paras = PRIVACY[L]
     body = f'''<section class="section page-top"><div class="wrap">
  <h1 style="font-size:clamp(32px,4vw,46px);margin-bottom:28px">{e(t)}</h1>
- <div class="prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}<p><small>{"Mise à jour" if L=="fr" else "Bijgewerkt"} : {TODAY}</small></p></div></div></section>'''
+ <div class="prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}<p><small>{"Mise à jour" if L=="fr" else "Bijgewerkt"} : {PRIVACY_UPDATED}</small></p></div></div></section>'''
     pdesc = ("Politique de confidentialité d'ABS Débouchage : données collectées via téléphone et WhatsApp, durée de conservation, cookies et vos droits (RGPD)." if L == "fr"
              else "Privacybeleid van ABS Débouchage: gegevens via telefoon en WhatsApp, bewaartermijn, cookies en je rechten volgens de AVG (GDPR).")
     return layout(L, u["privacy_slug"], f"{t} | {BRAND}", pdesc, body, UI[other]["privacy_slug"], current="solid")
@@ -2000,7 +2000,7 @@ def page_ville(L, v):
     if fr:
         title = f"Débouchage {name} 7j/7 – Déboucheur {v[5][0]} | ABS Débouchage"
         if len(title) > 62: title = f"Débouchage {name} 7j/7 | ABS Débouchage"
-        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur disponible 7j/7, de 6h à 21h. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
+        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur disponible 7j/7, de 6h à 21h. Prix annoncé avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
         h1 = f"Débouchage à {e(name)}, <em>7j/7.</em>"
         lead = f"WC, évier, douche ou égout bouché à {name} ? Appelez : on vous donne le prix et l'heure d'arrivée avant de partir."
         label = f"Déboucheur {e(name)} · {v[5][0]}"

@@ -32,8 +32,9 @@ test("GET : pas configuré → ready=false", async () => {
   const r = await onRequestGet({ env: {} }); const j = await r.json();
   assert.equal(j.ready, false); assert.deepEqual(j.channels, { database: false, photos: false, email: false, whatsapp: false });
 });
-test("GET : D1 seule suffit → ready=true", async () => {
-  const j = await (await onRequestGet({ env: { DB: fakeDB() } })).json(); assert.equal(j.ready, true);
+test("GET : D1 seule ne suffit pas (personne ne serait prévenu) → ready=false ; avec l'e-mail → ready=true", async () => {
+  const j = await (await onRequestGet({ env: { DB: fakeDB() } })).json(); assert.equal(j.ready, false);
+  const k = await (await onRequestGet({ env: { DB: fakeDB(), ...EMAIL } })).json(); assert.equal(k.ready, true);
 });
 test("POST sans configuration → 503, jamais de faux succès", async () => {
   const r = await onRequestPost({ request: req(form()), env: {} }); const j = await r.json();
@@ -65,7 +66,7 @@ test("Base et e-mail en panne → 502, pas de succès", async () => {
 });
 test("Champs obligatoires et formats refusés (422)", async () => {
   const bad = form({ problem: "x", urgency: "", cp: "105", city: "", name: "", tel: "12", mail: "pas-un-mail", consent: "0" });
-  const r = await onRequestPost({ request: req(bad), env: { DB: fakeDB() } }); const j = await r.json();
+  const r = await onRequestPost({ request: req(bad), env: { DB: fakeDB(), ...EMAIL } }); const j = await r.json();
   assert.equal(r.status, 422); assert.deepEqual(j.fields.sort(), ["city", "consent", "cp", "mail", "name", "problem", "tel", "urgency"]);
 });
 test("Photos : 5 refusées, mauvais type refusé, trop lourde refusée", () => {
@@ -75,7 +76,7 @@ test("Photos : 5 refusées, mauvais type refusé, trop lourde refusée", () => {
   assert.deepEqual(validate(form({}, [jpeg()])).errors, []);
 });
 test("Champ piège rempli (robot) → refusé", async () => {
-  const r = await onRequestPost({ request: req(form({ website: "http://spam" })), env: { DB: fakeDB() } }); assert.equal(r.status, 400);
+  const r = await onRequestPost({ request: req(form({ website: "http://spam" })), env: { DB: fakeDB(), ...EMAIL } }); assert.equal(r.status, 400);
 });
 test("Téléphones belges et internationaux acceptés, e-mail facultatif", () => {
   for (const t of ["0470 12 34 56", "02/123.45.67", "+32 470 12 34 56", "0032470123456", "+33 6 12 34 56 78"]) assert.deepEqual(validate(form({ tel: t })).errors, [], t);
