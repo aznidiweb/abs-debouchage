@@ -298,7 +298,7 @@
   function typeIt(t, delay, step){
     if(t.dataset.typed) return; t.dataset.typed="1";
     var original=t.innerHTML;
-    if(!t.getAttribute("aria-label")) t.setAttribute("aria-label",t.textContent.replace(/\s+/g," ").trim());
+    var label=t.textContent.replace(/\s+/g," ").trim();
     var n=0;
     function wrap(node,host){
       node.textContent.split(/(\s+)/).forEach(function(part){
@@ -313,6 +313,8 @@
       if(node.nodeType===3){ var f=d.createDocumentFragment(); wrap(node,f); t.replaceChild(f,node); }
       else if(node.nodeType===1){ var txt=node.textContent; node.textContent=""; wrap({textContent:txt},node); }
     });
+    /* texte complet pour les lecteurs d'écran pendant l'animation (aria-label est interdit sur un <p>) */
+    var sr=d.createElement("span"); sr.textContent=label; sr.style.cssText="position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"; t.appendChild(sr);
     t.classList.add("tw-on");
     /* une fois écrit, le titre redevient du texte normal (pas de scintillement sur iPhone) */
     setTimeout(function(){ t.innerHTML=original; t.classList.add("tw-done"); }, delay+n*step+900);

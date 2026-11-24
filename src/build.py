@@ -276,7 +276,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=3">
+<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=4">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
@@ -975,7 +975,7 @@ def layout(L, page, title, desc, body, alt_page, schemas=(), current="", noindex
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=3">
+<meta property="og:image" content="{SITE_URL}/assets/og{"" if L=="fr" else "-nl"}.png?v=4">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1726">
@@ -1419,7 +1419,7 @@ def diagnostic(L, pre=None, photo="pipecam"):
   </div>
   <div class="diag rq reveal" data-d="2" data-req='{e(json.dumps(data, ensure_ascii=False), quote=True)}'>
    <div class="rq-head"><div class="rq-title"><h3>{R["box"]}</h3><span class="dg-badge">{R["badge"]}</span></div>
-    <a class="rq-urgent" href="tel:{PHONE_TEL}">{ico("phone")}<span>{"Urgence ?" if fr else "Spoed?"} <b>{PHONE_DISPLAY}</b></span></a></div>
+    <a class="rq-urgent" href="tel:{PHONE_TEL}" aria-label="{"Urgence ? Appeler le" if fr else "Spoed? Bel"} {PHONE_DISPLAY}">{ico("phone")}<span>{"Urgence ?" if fr else "Spoed?"} <b>{PHONE_DISPLAY}</b></span></a></div>
    <div class="rq-prog" aria-hidden="true">{steps_bar}</div>
    <p class="rq-steplbl" aria-live="polite"><span data-steplabel>{R["step"].replace("{n}", "1").replace("{t}", str(len(R["steps"])))}</span> · <b data-stepname>{R["steps"][0]}</b></p>
    <form class="rq-form" novalidate data-form>
@@ -2000,7 +2000,7 @@ def page_ville(L, v):
     if fr:
         title = f"Débouchage {name} 7j/7 – Déboucheur {v[5][0]} | ABS Débouchage"
         if len(title) > 62: title = f"Débouchage {name} 7j/7 | ABS Débouchage"
-        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur 7j/7, 7j/7. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
+        desc = f"WC, évier ou égout bouché à {name} ? Déboucheur disponible 7j/7, de 6h à 21h. Prix annoncé au téléphone avant de partir, devis gratuit. Appelez le {PHONE_DISPLAY}."
         h1 = f"Débouchage à {e(name)}, <em>7j/7.</em>"
         lead = f"WC, évier, douche ou égout bouché à {name} ? Appelez : on vous donne le prix et l'heure d'arrivée avant de partir."
         label = f"Déboucheur {e(name)} · {v[5][0]}"
