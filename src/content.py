@@ -85,7 +85,7 @@ SERVICES = [
    "causes": ["Trop de papier toilette en une fois", "Lingettes, cotons-tiges ou serviettes hygiéniques jetés dans le WC", "Objet tombé dans la cuvette (jouet, brosse, déodorant)", "Dépôts de calcaire qui réduisent le passage du tuyau"],
    "method": [["Diagnostic", "On identifie où se trouve le bouchon : cuvette, coude ou colonne d'évacuation."], ["Débouchage", "Furet électrique rotatif ou pompe haute pression selon le cas, sans démonter le WC."], ["Test", "Plusieurs chasses d'eau pour vérifier un écoulement parfait."], ["Nettoyage", "La zone est nettoyée et désinfectée avant notre départ."]],
    "tip": "En attendant le technicien : ne tirez plus la chasse, fermez le robinet d'arrivée d'eau derrière le WC et évitez les produits chimiques, qui abîment les joints et sont dangereux pour nos techniciens.",
-   "faq": [["Combien coûte un débouchage de WC à Bruxelles ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Faut-il démonter les toilettes ?", "Dans la grande majorité des cas, non. Le furet électrique passe directement par la cuvette jusqu'au bouchon."], ["Quels sont vos horaires pour un WC bouché ?", "Tous les jours, de 6h à 21h, week-end compris."]]
+   "faq": [["Combien coûte un débouchage de WC à Bruxelles ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Faut-il démonter les toilettes ?", "Dans la grande majorité des cas, non. Le furet électrique passe directement par la cuvette jusqu'au bouchon."], ["Quels sont vos horaires pour un WC bouché ?", "Tous les jours, de 6h à 21h, week-end compris."]]
   },
   "nl": {
    "name": "Ontstopping wc",
@@ -143,7 +143,7 @@ SERVICES = [
    "causes": ["Graisse de cuisson versée dans l'évier", "Marc de café, riz, pâtes et restes alimentaires", "Siphon encrassé jamais nettoyé", "Lave-vaisselle raccordé sur une évacuation trop étroite"],
    "method": [["Démontage du siphon", "Nettoyage complet du siphon et de la bonde."], ["Furet électrique", "Passage du furet dans la canalisation pour casser le bouchon de graisse."], ["Dégraissage", "Rinçage haute pression pour nettoyer les parois du tuyau."], ["Contrôle", "Test à plein débit, évier et lave-vaisselle."]],
    "tip": "En attendant : n'utilisez plus le lave-vaisselle et ne versez pas d'eau bouillante si le tuyau est en PVC, elle peut le déformer.",
-   "faq": [["Combien coûte un débouchage d'évier ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon évier se rebouche souvent, que faire ?", "C'est souvent un dépôt de graisse en profondeur. Un hydrocurage ou une inspection caméra permet de traiter la cause."], ["Intervenez-vous dans les restaurants ?", "Oui, nous intervenons aussi pour les cuisines professionnelles, 7j/7."]]
+   "faq": [["Combien coûte un débouchage d'évier ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon évier se rebouche souvent, que faire ?", "C'est souvent un dépôt de graisse en profondeur. Un hydrocurage ou une inspection caméra permet de traiter la cause."], ["Intervenez-vous dans les restaurants ?", "Oui, nous intervenons aussi pour les cuisines professionnelles, 7j/7."]]
   },
   "nl": {
    "name": "Ontstopping gootsteen",
@@ -172,7 +172,7 @@ SERVICES = [
    "causes": ["Cheveux accumulés dans la bonde", "Savon et dentifrice qui collent aux parois", "Calcaire dans le siphon", "Petit objet tombé (bouchon, bijou)"],
    "method": [["Bonde", "Démontage et nettoyage de la bonde et du mécanisme clic-clac."], ["Siphon", "Démontage du siphon, nettoyage, remontage étanche."], ["Canalisation", "Passage du furet si le bouchon est plus loin."], ["Test", "Vérification de l'écoulement et de l'étanchéité."]],
    "tip": "En attendant : retirez la bonde clic-clac si vous pouvez et enlevez les cheveux visibles. Évitez la soude caustique.",
-   "faq": [["Combien coûte un débouchage de lavabo ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Pouvez-vous récupérer un bijou tombé dans le lavabo ?", "Souvent oui : il reste généralement coincé dans le siphon. Arrêtez d'utiliser le lavabo et appelez-nous."], ["Vous démontez le meuble ?", "Rarement. Le siphon est accessible sous la vasque dans la plupart des cas."]]
+   "faq": [["Combien coûte un débouchage de lavabo ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Pouvez-vous récupérer un bijou tombé dans le lavabo ?", "Souvent oui : il reste généralement coincé dans le siphon. Arrêtez d'utiliser le lavabo et appelez-nous."], ["Vous démontez le meuble ?", "Rarement. Le siphon est accessible sous la vasque dans la plupart des cas."]]
   },
   "nl": {
    "name": "Ontstopping lavabo",
@@ -201,7 +201,7 @@ SERVICES = [
    "causes": ["Cheveux et poils mêlés au savon", "Bonde extra-plate trop étroite", "Calcaire dans le siphon", "Pente insuffisante d'une douche à l'italienne"],
    "method": [["Accès", "Ouverture de la bonde ou du caniveau, sans toucher au carrelage."], ["Extraction", "Retrait des cheveux et dépôts dans le siphon."], ["Furet", "Débouchage de la canalisation jusqu'à la colonne."], ["Test", "Douche à plein débit pendant plusieurs minutes."]],
    "tip": "En attendant : n'utilisez plus la douche, ni le lave-linge s'il est raccordé sur la même évacuation.",
-   "faq": [["Combien coûte un débouchage de douche ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Ma douche à l'italienne n'a pas de trappe, vous pouvez la déboucher ?", "Oui, nous passons par le caniveau ou la grille, sans casser le carrelage."], ["Pourquoi ma douche se rebouche-t-elle ?", "Souvent à cause de la pente ou d'un dépôt plus loin dans la canalisation. Une inspection caméra permet de le vérifier."]]
+   "faq": [["Combien coûte un débouchage de douche ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Ma douche à l'italienne n'a pas de trappe, vous pouvez la déboucher ?", "Oui, nous passons par le caniveau ou la grille, sans casser le carrelage."], ["Pourquoi ma douche se rebouche-t-elle ?", "Souvent à cause de la pente ou d'un dépôt plus loin dans la canalisation. Une inspection caméra permet de le vérifier."]]
   },
   "nl": {
    "name": "Ontstopping douche",
@@ -346,7 +346,7 @@ SERVICES = [
    "causes": ["Sable, terre et feuilles", "Peluches et résidus de lessive", "Grille absente ou cassée", "Bouchon dans la conduite vers l'égout"],
    "method": [["Ouverture", "Retrait de la grille et du panier."], ["Aspiration", "Pompage des boues et sédiments."], ["Curage", "Débouchage de la conduite jusqu'à l'égout."], ["Désinfection", "Nettoyage et remise en place de la grille."]],
    "tip": "En attendant : n'utilisez plus le lave-linge s'il se vide dans ce siphon.",
-   "faq": [["Combien coûte un débouchage de siphon de sol ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon siphon déborde à chaque orage, pourquoi ?", "La conduite vers l'égout est souvent partiellement bouchée. Un curage, voire une inspection caméra, règle le problème."], ["Intervenez-vous pour les commerces ?", "Oui, garages, ateliers et commerces, 7j/7."]]
+   "faq": [["Combien coûte un débouchage de siphon de sol ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Mon siphon déborde à chaque orage, pourquoi ?", "La conduite vers l'égout est souvent partiellement bouchée. Un curage, voire une inspection caméra, règle le problème."], ["Intervenez-vous pour les commerces ?", "Oui, garages, ateliers et commerces, 7j/7."]]
   },
   "nl": {
    "name": "Vloerputje",
@@ -468,7 +468,7 @@ UI = {
   "top": "Techniciens disponibles 7j/7 · 6h–21h",
   "nav_services": "Services", "nav_prices": "Tarifs", "nav_zones": "Zones", "nav_about": "À propos", "nav_contact": "Contact", "nav_all": "Tous nos services",
   "call": "Appeler", "call_now": "Appeler maintenant", "wa_quote": "Devis gratuit WhatsApp", "menu": "Menu",
-  "chk": ["Devis gratuit", "Prix annoncé avant", "Facture pour l'assurance"],
+  "chk": ["Devis gratuit", "Prix annoncé avant", "Garantie sur l'intervention", "Facture pour l'assurance", "5,0 sur Google · 8 avis"],
   "from": "dès", "on_quote": "Devis gratuit", "learn": "En savoir plus",
   "home": "Accueil",
   # Devis
@@ -506,7 +506,7 @@ UI = {
   "z_lead": "Nous intervenons partout en Belgique, 7j/7 : à Bruxelles, en Wallonie et en Flandre.",
   "z_peri": "Périphérie",
   "f_kick": "FAQ", "f_title": "Questions fréquentes",
-  "faq": [["En combien de temps arrivez-vous ?", "Le plus vite possible, tous les jours de 6h à 21h. Au téléphone, on vous donne une estimation de l'heure d'arrivée selon votre commune."], ["Combien coûte un débouchage à Bruxelles ?", "Le prix dépend de la situation. Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Quels sont vos horaires ?", "Tous les jours, de 6h à 21h, week-end compris."], ["Mon assurance peut-elle rembourser ?", "Souvent oui, surtout en cas de dégât des eaux. Nous fournissons une facture officielle avec n° TVA et un rapport technique."], ["Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les produits chimiques corrosifs."], ["Utilisez-vous des produits chimiques ?", "Non. Nous travaillons mécaniquement (furet, haute pression), sans produits corrosifs pour vos tuyaux ni pour l'environnement."]],
+  "faq": [["En combien de temps arrivez-vous ?", "Le plus vite possible, tous les jours de 6h à 21h. Au téléphone, on vous donne une estimation de l'heure d'arrivée selon votre commune."], ["Combien coûte un débouchage à Bruxelles ?", "Le prix dépend du type d'intervention, de l'heure et du jour (soirée, week-end). Il vous est annoncé gratuitement par téléphone ou WhatsApp avant l'intervention, et c'est ce prix qui figure sur la facture."], ["Quels sont vos horaires ?", "Tous les jours, de 6h à 21h, week-end compris."], ["Mon assurance peut-elle rembourser ?", "Souvent oui, surtout en cas de dégât des eaux. Nous fournissons une facture officielle avec n° TVA et un rapport technique."], ["Que faire en attendant le technicien ?", "Arrêtez d'utiliser l'eau (chasse, lave-linge, lave-vaisselle), coupez l'arrivée d'eau si ça déborde et évitez les produits chimiques corrosifs."], ["Utilisez-vous des produits chimiques ?", "Non. Nous travaillons mécaniquement (furet, haute pression), sans produits corrosifs pour vos tuyaux ni pour l'environnement."]],
   "fin_title": "Un bouchon ? N'attendez pas que ça déborde.",
   "fin_lead": "Un seul appel : on écoute votre problème, on vous donne le prix et un technicien part chez vous, tous les jours de 6h à 21h.",
   # Pages service
