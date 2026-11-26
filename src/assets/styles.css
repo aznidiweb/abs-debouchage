@@ -3075,3 +3075,19 @@ p,li,.sv-d,.tl-s{text-wrap:pretty}
 @media(max-width:560px){.gm-sec{padding:56px 0}.gm-btns .btn{flex:1 1 100%}}
 .fc-gbp{display:inline-flex!important;align-items:center;gap:6px;width:auto!important;padding:0 12px!important;font-weight:700;font-size:13.5px}
 .fc-gbp svg{width:16px;height:16px;fill:#f5a623;stroke:none}
+
+/* Accueil et pages de service : héros tenu dans l'écran, rangée de services visible d'emblée */
+@media (min-width:961px){
+ .hero-video{height:100vh!important;height:100svh!important;min-height:0!important;max-height:100svh!important}
+ .hero-video>.hv-inner{padding-top:120px!important;padding-bottom:0!important}
+ .hero-video .hp-title{font-size:clamp(44px,4.1vw,66px)!important;margin-bottom:16px!important}
+ .hero-video .hp-lead{font-size:clamp(16px,1.15vw,19px);margin-bottom:18px}
+ .hero-video .cta-row{margin-top:18px}
+ .hero-video .hp-checks{margin-top:14px}
+ .hp-quick{padding-bottom:20px}
+}
+/* Avis discret, posé sur la photo d'entrée */
+.hp-rev{position:absolute;z-index:4;top:112px;right:4vw;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(7,12,19,.45);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.01em}
+.hp-rev svg{width:14px;height:14px;fill:#f5b53c;flex:none}
+.hp-rev:hover{background:rgba(7,12,19,.62)}
+@media (max-width:560px){.hp-rev{top:96px;right:14px;font-size:12px;padding:6px 11px}}

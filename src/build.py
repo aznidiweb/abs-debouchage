@@ -447,6 +447,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
         cr = '<ol class="crumbs">' + "".join((f'<li><a href="{h}">{e(n)}</a></li>' if h else f'<li aria-current="page">{e(n)}</li>') for n, h in crumbs) + '</ol>'
     a1, a2 = t["avail"]
     return f'''<section class="hero {cls}"{" data-slider" if len(slides)>1 else ""}>
+ <a class="hp-rev" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · 8 avis Google</span></a>
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
   {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
@@ -482,6 +483,7 @@ def hero_home(L):
   <picture><source type="image/avif" srcset="/assets/video/hero-v2-480.avif 480w, /assets/video/hero-v2-800.avif 800w, /assets/video/hero-v2-941.avif 941w, /assets/video/hero-v2-1400.avif 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><source type="image/webp" srcset="/assets/video/hero-v2-480.webp 480w, /assets/video/hero-v2-800.webp 800w, /assets/video/hero-v2-941.webp 941w, /assets/video/hero-v2-1400.webp 1400w" sizes="(max-width:960px) 100vw, min(52vw, 760px)"><img class="hp-photo" src="/assets/video/hero-v2.jpg" alt="" width="941" height="1672" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
+ <a class="hp-rev" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · 8 avis Google</span></a>
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
@@ -1153,6 +1155,7 @@ def hero(L, slides, crumbs=None, extra="", h1=None, cls="", big_h1=False, side="
         cr = '<ol class="crumbs">' + "".join((f'<li><a href="{h}">{e(n)}</a></li>' if h else f'<li aria-current="page">{e(n)}</li>') for n, h in crumbs) + '</ol>'
     a1, a2 = t["avail"]
     return f'''<section class="hero {cls}"{" data-slider" if len(slides)>1 else ""}>
+ <a class="hp-rev" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · 8 avis Google</span></a>
  <div class="slides">{imgs}</div>
  <div class="wrap hero-inner">
   {'<div class="hero-split"><div class="hero-main">' if side else ""}{cr}
@@ -1188,6 +1191,7 @@ def hero_home(L):
   <picture><img class="hp-photo" src="https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1920&q=70" srcset="https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=640&q=70 640w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1280&q=70 1280w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=1920&q=70 1920w, https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d?auto=format&fit=crop&w=2560&q=70 2560w" sizes="100vw" alt="" width="2400" height="1800" fetchpriority="high" decoding="async"></picture>
  </div>
  <div class="hp-shade" aria-hidden="true"></div>
+ <a class="hp-rev" href="{GBP_MAPS_URL}" target="_blank" rel="noopener">{STAR}<span>{GBP_RATING} · 8 avis Google</span></a>
  <div class="wrap hero-inner hv-inner">
   <div class="hp-copy">
    <h1 class="sr">{t["h1"]}</h1>
