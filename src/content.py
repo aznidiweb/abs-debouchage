@@ -468,7 +468,7 @@ UI = {
   "top": "Techniciens disponibles 7j/7 · 6h–21h",
   "nav_services": "Services", "nav_prices": "Tarifs", "nav_zones": "Zones", "nav_about": "À propos", "nav_contact": "Contact", "nav_all": "Tous nos services",
   "call": "Appeler", "call_now": "Appeler maintenant", "wa_quote": "Devis gratuit WhatsApp", "menu": "Menu",
-  "chk": ["Devis gratuit", "Prix annoncé avant", "Garantie sur l'intervention", "Facture pour l'assurance", "5,0 sur Google · 8 avis"],
+  "chk": ["Devis gratuit", "Prix annoncé avant", "Garantie sur l'intervention", "Facture pour l'assurance"],
   "from": "dès", "on_quote": "Devis gratuit", "learn": "En savoir plus",
   "home": "Accueil",
   # Devis
