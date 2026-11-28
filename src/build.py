@@ -234,8 +234,8 @@ def cookie_bar(L):
     if not GADS_ID:
         return ""
     fr = L == "fr"
-    txt = ("Nous mesurons, avec votre accord, les appels venus de nos annonces Google. Rien d'autre."
-           if fr else "Met je akkoord meten we welke oproepen via onze Google-advertenties komen. Niets meer.")
+    txt = ("Nous comptons les appels venus de nos annonces Google. Avec votre accord, un cookie de mesure est utilisé. Rien d'autre."
+           if fr else "We tellen de oproepen via onze Google-advertenties. Met je akkoord gebruiken we daarvoor een meetcookie. Niets meer.")
     more = "En savoir plus" if fr else "Meer info"
     yes, no = ("Accepter", "Refuser") if fr else ("Akkoord", "Weigeren")
     cfg = json.dumps({"id": GADS_ID, "call": GADS_CALL, "wa": GADS_WA, "form": GADS_FORM})

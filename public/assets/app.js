@@ -336,19 +336,20 @@
   });
 
   /* ---------- Google Ads : consentement + mesure des clics d'appel et WhatsApp ----------
-     Rien n'est chargé chez Google tant que le visiteur n'a pas cliqué « Accepter ». */
+     Mode consentement avancé : la balise se charge dès l'arrivée, avec tout « refusé » par défaut.
+     Sans accord, aucun cookie publicitaire : Google ne reçoit que des signaux anonymes (sans cookie)
+     qui lui permettent d'estimer les appels venus des annonces. « Accepter » active le cookie de mesure. */
   (function(){
     var cfg=w.ABS_ADS, bar=d.querySelector(".ck-bar"); if(!cfg||!cfg.id||!bar) return;
     var KEY="abs-consent", st=null; try{st=localStorage.getItem(KEY);}catch(e){}
-    var loaded=false;
-    function load(){
-      if(loaded) return; loaded=true;
-      w.dataLayer=w.dataLayer||[]; w.gtag=function(){w.dataLayer.push(arguments);};
-      w.gtag("consent","default",{ad_storage:"granted",ad_user_data:"granted",ad_personalization:"denied",analytics_storage:"denied"});
-      w.gtag("js",new Date()); w.gtag("config",cfg.id);
-      var s=d.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(cfg.id); d.head.appendChild(s);
-    }
-    function conv(label){ if(loaded&&label&&w.gtag) w.gtag("event","conversion",{send_to:cfg.id+"/"+label}); }
+    var ok=st==="1"?"granted":"denied";
+    w.dataLayer=w.dataLayer||[]; w.gtag=function(){w.dataLayer.push(arguments);};
+    w.gtag("consent","default",{ad_storage:ok,ad_user_data:ok,ad_personalization:"denied",analytics_storage:"denied"});
+    w.gtag("set","ads_data_redaction",true);
+    w.gtag("js",new Date()); w.gtag("config",cfg.id);
+    var s=d.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(cfg.id); d.head.appendChild(s);
+    function grant(){ w.gtag("consent","update",{ad_storage:"granted",ad_user_data:"granted"}); w.gtag("set","ads_data_redaction",false); }
+    function conv(label){ if(label&&w.gtag) w.gtag("event","conversion",{send_to:cfg.id+"/"+label}); }
     d.addEventListener("click",function(ev){
       var a=ev.target.closest&&ev.target.closest("a[href]"); if(!a) return;
       var h=a.getAttribute("href")||"";
@@ -358,8 +359,7 @@
     /* demande envoyée au serveur par le formulaire (une seule fois par demande) */
     w.addEventListener("abs:lead",function(){ conv(cfg.form); });
     function hide(){ bar.classList.remove("show"); setTimeout(function(){bar.hidden=true;},350); }
-    if(st==="1"){ load(); return; }
-    if(st==="0") return;
+    if(st==="1"||st==="0") return;
     /* le bandeau arrive après un petit défilement : il ne cache jamais le titre ni le bouton d'appel */
     var shown=false;
     function show(){ if(shown) return; shown=true; w.removeEventListener("scroll",onS); bar.hidden=false; requestAnimationFrame(function(){requestAnimationFrame(function(){bar.classList.add("show");});}); }
@@ -367,7 +367,7 @@
     w.addEventListener("scroll",onS,{passive:true}); setTimeout(show,6000);
     bar.querySelectorAll("[data-ck]").forEach(function(btn){ btn.addEventListener("click",function(){
       var v=btn.getAttribute("data-ck"); try{localStorage.setItem(KEY,v);}catch(e){}
-      if(v==="1") load(); hide();
+      if(v==="1") grant(); hide();
     }); });
   })();
 
